@@ -1,0 +1,105 @@
+package org.carlosydiego.crmclientes.app.model;
+
+public class Cliente {
+    private Long ID_Cliente;
+    private String CIF;
+    private String Nombre_Empresa;
+    private String Nombre_Responsable;
+    private String Pais;
+    private String Ciudad;
+    private String Provincia;
+    private String Direccion;
+    private String Email;
+    private String Telefono;
+    private String Codigo_Postal;    
+    
+    public Cliente(){}
+    public Cliente(Long ID_Cliente, String CIF, String Nombre_Empresa, String Nombre_Responsable, String Pais, String Ciudad, String Provincia, String Direccion, String Email, String Telefono, String Codigo_Postal) {
+        this.ID_Cliente = ID_Cliente;
+        this.CIF = CIF;
+        this.Nombre_Empresa = Nombre_Empresa;
+        this.Nombre_Responsable = Nombre_Responsable;
+        this.Pais = Pais;
+        this.Ciudad = Ciudad;
+        this.Provincia = Provincia;
+        this.Direccion = Direccion;
+        this.Email = Email;
+        this.Telefono = Telefono;
+        this.Codigo_Postal = Codigo_Postal;
+    }
+    public Long getID_Cliente() {
+        return ID_Cliente;
+    }
+    public void setID_Cliente(Long iD_Cliente) {
+        ID_Cliente = iD_Cliente;
+    }
+    public String getCIF() {
+        return CIF;
+    }
+    public void setCIF(String cIF) {
+        CIF = cIF;
+    }
+    public String getNombre_Empresa() {
+        return Nombre_Empresa;
+    }
+    public void setNombre_Empresa(String nombre_Empresa) {
+        Nombre_Empresa = nombre_Empresa;
+    }
+    public String getNombre_Responsable() {
+        return Nombre_Responsable;
+    }
+    public void setNombre_Responsable(String nombre_Responsable) {
+        Nombre_Responsable = nombre_Responsable;
+    }
+    public String getPais() {
+        return Pais;
+    }
+    public void setPais(String pais) {
+        Pais = pais;
+    }
+    public String getCiudad() {
+        return Ciudad;
+    }
+    public void setCiudad(String ciudad) {
+        Ciudad = ciudad;
+    }
+    public String getProvincia() {
+        return Provincia;
+    }
+    public void setProvincia(String provincia) {
+        Provincia = provincia;
+    }
+    public String getDireccion() {
+        return Direccion;
+    }
+    public void setDireccion(String direccion) {
+        Direccion = direccion;
+    }
+    public String getEmail() {
+        return Email;
+    }
+    public void setEmail(String email) {
+        Email = email;
+    }
+    public String getTelefono() {
+        return Telefono;
+    }
+    public void setTelefono(String telefono) {
+        Telefono = telefono;
+    }
+    public String getCodigo_Postal() {
+        return Codigo_Postal;
+    }
+    public void setCodigo_Postal(String codigo_Postal) {
+        Codigo_Postal = codigo_Postal;
+    }
+    @Override
+    public String toString() {
+        return "Cliente [ID_Cliente=" + ID_Cliente + ", CIF=" + CIF + ", Nombre_Empresa=" + Nombre_Empresa
+                + ", Nombre_Responsable=" + Nombre_Responsable + ", Pais=" + Pais + ", Ciudad=" + Ciudad
+                + ", Provincia=" + Provincia + ", Direccion=" + Direccion + ", Email=" + Email + ", Telefono="
+                + Telefono + ", Codigo_Postal=" + Codigo_Postal + "]";
+    }
+    
+    
+}
