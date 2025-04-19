@@ -1,0 +1,242 @@
+package org.carlosydiego.crmclientes.app.menuproyecto;
+
+import java.util.Scanner;
+import org.carlosydiego.crmclientes.app.controller.*;
+import org.carlosydiego.crmclientes.app.model.*;
+
+public class MenuProyecto 
+{
+    private Scanner scanner;
+    
+    public MenuProyecto() {
+        this.scanner = new Scanner(System.in);
+    }
+    
+    public void mostrarMenuPrincipal() {
+        boolean salir = false;
+        
+        while (!salir) {
+            System.out.println("\n=== SISTEMA CRM CLIENTES ===");
+            System.out.println("1. Gestión de Clientes");
+            System.out.println("2. Gestión de Empleados");
+            System.out.println("3. Gestión de Productos");
+            System.out.println("4. Gestión de Proveedores");
+            System.out.println("5. Gestión de Facturas");
+            System.out.println("6. Gestión de Categorías");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            
+            int opcion = leerEntero();
+            
+            switch (opcion) {
+                case 1:
+                    mostrarMenuClientes();
+                    break;
+                case 2:
+                    mostrarMenuEmpleados();
+                    break;
+                case 3:
+                    mostrarMenuProductos();
+                    break;
+                case 4:
+                    mostrarMenuProveedores();
+                    break;
+                case 5:
+                    mostrarMenuFacturas();
+                    break;
+                case 6:
+                    mostrarMenuCategorias();
+                    break;
+                case 0:
+                    salir = true;
+                    System.out.println("¡Gracias por usar el sistema CRM!");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+            }
+        }
+    }
+    
+    private void mostrarMenuClientes() {
+        boolean volver = false;
+        
+        while (!volver) {
+            System.out.println("\n=== GESTIÓN DE CLIENTES ===");
+            System.out.println("1. Ver todos los clientes");
+            System.out.println("2. Buscar cliente por ID");
+            System.out.println("3. Añadir nuevo cliente");
+            System.out.println("4. Actualizar cliente");
+            System.out.println("5. Eliminar cliente");
+            System.out.println("0. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            
+            int opcion = leerEntero();
+            
+            switch (opcion) {
+                case 1:
+                    System.out.println("Lista de clientes...");
+                    break;
+                case 2:
+                    System.out.print("Ingrese el ID del cliente: ");
+                    int idCliente = leerEntero();
+                    System.out.println("Buscando cliente con ID " + idCliente + "...");
+                    break;
+                case 3:
+                    System.out.println("Añadiendo nuevo cliente...");
+                    
+                    break;
+                case 4:
+                    System.out.println("Actualizando cliente...");
+                    break;
+                case 5:
+                    System.out.println("Eliminando cliente...");
+                    break;
+                case 0:
+                    volver = true;
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+            }
+        }
+    }
+    
+    private void mostrarMenuEmpleados() {
+        boolean volver = false;
+        
+        while (!volver) {
+            System.out.println("\n=== GESTIÓN DE EMPLEADOS ===");
+            System.out.println("1. Ver todos los empleados");
+            System.out.println("2. Buscar empleado por ID");
+            System.out.println("3. Añadir nuevo empleado");
+            System.out.println("4. Actualizar empleado");
+            System.out.println("5. Eliminar empleado");
+            System.out.println("0. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            
+            int opcion = leerEntero();
+            
+            switch (opcion) {
+                case 0:
+                    volver = true;
+                    break;
+                default:
+                    System.out.println("Funcionalidad aún no implementada.");
+            }
+        }
+    }
+    
+    private void mostrarMenuProductos() {
+        boolean volver = false;
+        
+        while (!volver) {
+            System.out.println("\n=== GESTIÓN DE PRODUCTOS ===");
+            System.out.println("1. Ver todos los productos");
+            System.out.println("2. Buscar producto por ID");
+            System.out.println("3. Añadir nuevo producto");
+            System.out.println("4. Actualizar producto");
+            System.out.println("5. Eliminar producto");
+            System.out.println("0. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            
+            int opcion = leerEntero();
+            
+            switch (opcion) {
+                case 0:
+                    volver = true;
+                    break;
+                default:
+                    System.out.println("Funcionalidad aún no implementada.");
+            }
+        }
+    }
+    
+    private void mostrarMenuProveedores() {
+        boolean volver = false;
+        
+        while (!volver) {
+            System.out.println("\n=== GESTIÓN DE PROVEEDORES ===");
+            System.out.println("1. Ver todos los proveedores");
+            System.out.println("2. Buscar proveedor por ID");
+            System.out.println("3. Añadir nuevo proveedor");
+            System.out.println("4. Actualizar proveedor");
+            System.out.println("5. Eliminar proveedor");
+            System.out.println("0. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            
+            int opcion = leerEntero();
+            
+            switch (opcion) {
+                case 0:
+                    volver = true;
+                    break;
+                default:
+                    System.out.println("Funcionalidad aún no implementada.");
+            }
+        }
+    }
+    
+    private void mostrarMenuFacturas() {
+        boolean volver = false;
+        
+        while (!volver) {
+            System.out.println("\n=== GESTIÓN DE FACTURAS ===");
+            System.out.println("1. Ver todas las facturas");
+            System.out.println("2. Buscar factura por ID");
+            System.out.println("3. Crear nueva factura");
+            System.out.println("4. Actualizar factura");
+            System.out.println("5. Eliminar factura");
+            System.out.println("0. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            
+            int opcion = leerEntero();
+            
+            switch (opcion) {
+                case 0:
+                    volver = true;
+                    break;
+                default:
+                    System.out.println("Funcionalidad aún no implementada.");
+            }
+        }
+    }
+    
+    private void mostrarMenuCategorias() {
+        boolean volver = false;
+        
+        while (!volver) {
+            System.out.println("\n=== GESTIÓN DE CATEGORÍAS ===");
+            System.out.println("1. Ver todas las categorías");
+            System.out.println("2. Buscar categoría por ID");
+            System.out.println("3. Añadir nueva categoría");
+            System.out.println("4. Actualizar categoría");
+            System.out.println("5. Eliminar categoría");
+            System.out.println("0. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            
+            int opcion = leerEntero();
+            
+            switch (opcion) {
+                case 0:
+                    volver = true;
+                    break;
+                default:
+                    System.out.println("Funcionalidad aún no implementada.");
+            }
+        }
+    }
+    
+    private int leerEntero() {
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Por favor, ingrese un número válido.");
+            return -1;
+        }
+    }
+    
+    public void cerrarScanner() {
+        if (scanner != null) {
+            scanner.close();
+        }
+    }
+}
