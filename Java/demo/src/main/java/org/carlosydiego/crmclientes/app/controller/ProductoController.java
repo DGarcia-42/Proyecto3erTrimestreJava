@@ -42,7 +42,7 @@ public class ProductoController implements ProductoRepository <Producto>
     public List<Producto> findAll()
     {
         List <Producto> lista = new ArrayList<>();
-        String query = "SELECT p.*, c.nombre AS nombreCategoria FROM productos AS p INNER JOIN categorias AS c ON p.id_categoria = c.id";
+        String query = "SELECT p.*, c.nombre AS nombreCategoria FROM producto AS p INNER JOIN categoria AS c ON p.id_categoria = c.id";
         
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query))
@@ -51,6 +51,10 @@ public class ProductoController implements ProductoRepository <Producto>
             {
                 Producto p = createProduct(rs);
                 lista.add(p);
+            }
+            if (lista.isEmpty())
+            {
+                System.out.println("No hay productos en la base de datos");
             }
         }
         catch (SQLException sex) 
@@ -64,7 +68,7 @@ public class ProductoController implements ProductoRepository <Producto>
     public Producto findById(Long id_productos) 
     {
         Producto p = null;
-        String query = "SELECT p.*, c.nombre AS nombreCategoria FROM productos AS p INNER JOIN categorias AS c ON p.id_categoria = c.id WHERE p.id_productos = ?";
+        String query = "SELECT p.*, c.nombre AS nombreCategoria FROM producto AS p INNER JOIN categoria AS c ON p.id_categoria = c.id WHERE p.id_productos = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query))
         {
@@ -91,11 +95,11 @@ public class ProductoController implements ProductoRepository <Producto>
 
         if (p.getID_Producto() == null)
         {
-            query = "INSERT INTO productos (nombre, descripcion, stock, pvp, iva, id_categoria) VALUES (?, ?, ?, ?, ?, ?)";
+            query = "INSERT INTO producto (nombre, descripcion, stock, pvp, iva, id_categoria) VALUES (?, ?, ?, ?, ?, ?)";
         }
         else
         {
-            query = "UPDATE productos SET nombre = ?, descripcion = ?, stock = ?, pvp = ?, iva = ?, id_categoria = ? WHERE id_productos = ?";
+            query = "UPDATE producto SET nombre = ?, descripcion = ?, stock = ?, pvp = ?, iva = ?, id_categoria = ? WHERE id_productos = ?";
         }
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
@@ -121,7 +125,7 @@ public class ProductoController implements ProductoRepository <Producto>
     @Override
     public void delete(Long id_productos) 
     {
-        String query = "DELETE FROM productos WHERE id_productos = ?";
+        String query = "DELETE FROM producto WHERE id_productos = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
             pstmt.setLong(1, id_productos);

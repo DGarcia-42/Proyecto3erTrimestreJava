@@ -33,7 +33,7 @@ public class CategoriaController implements CategoriaRepository<Categoria>
     public List<Categoria> findAll()
     {
         List<Categoria> lista = new ArrayList<>();
-        String query = "SELECT * FROM categorias";
+        String query = "SELECT * FROM categoria";
         
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query))
@@ -42,6 +42,10 @@ public class CategoriaController implements CategoriaRepository<Categoria>
             {
                 Categoria c = createCategoria(rs);
                 lista.add(c);
+            }
+            if (lista.isEmpty())
+            {
+                System.out.println("No hay categorías en la base de datos");
             }
         }
         catch (SQLException sex) 
@@ -55,7 +59,7 @@ public class CategoriaController implements CategoriaRepository<Categoria>
     public Categoria findById(Long id)
     {
         Categoria c = null;
-        String query = "SELECT * FROM categorias WHERE id_categoria = ?";
+        String query = "SELECT * FROM categoria WHERE id_categoria = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query))
         {
@@ -82,11 +86,11 @@ public class CategoriaController implements CategoriaRepository<Categoria>
 
         if (c.getID_Categoria() == null)
         {
-            query = "INSERT INTO categorias (nombre) VALUES (?)";
+            query = "INSERT INTO categoria (nombre) VALUES (?)";
         }
         else
         {
-            query = "UPDATE categorias SET nombre = ? WHERE id_categoria = ?";
+            query = "UPDATE categoria SET nombre = ? WHERE id_categoria = ?";
         }
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
@@ -106,7 +110,7 @@ public class CategoriaController implements CategoriaRepository<Categoria>
     @Override
     public void delete(Long id)
     {
-        String query = "DELETE FROM categorias WHERE id_categoria = ?";
+        String query = "DELETE FROM categoria WHERE id_categoria = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
             pstmt.setLong(1, id);

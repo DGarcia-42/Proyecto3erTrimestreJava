@@ -6,7 +6,6 @@ public class Cliente {
     private String Nombre_Empresa;
     private String Nombre_Responsable;
     private String Pais;
-    private String Ciudad;
     private String Provincia;
     private String Direccion;
     private String Email;
@@ -14,13 +13,11 @@ public class Cliente {
     private String Codigo_Postal;    
     
     public Cliente(){}
-    public Cliente(Long ID_Cliente, String CIF, String Nombre_Empresa, String Nombre_Responsable, String Pais, String Ciudad, String Provincia, String Direccion, String Email, String Telefono, String Codigo_Postal) {
-        this.ID_Cliente = ID_Cliente;
+    public Cliente(String CIF, String Nombre_Empresa, String Nombre_Responsable, String Pais, String Provincia, String Direccion, String Email, String Telefono, String Codigo_Postal) {
         this.CIF = CIF;
         this.Nombre_Empresa = Nombre_Empresa;
         this.Nombre_Responsable = Nombre_Responsable;
         this.Pais = Pais;
-        this.Ciudad = Ciudad;
         this.Provincia = Provincia;
         this.Direccion = Direccion;
         this.Email = Email;
@@ -57,12 +54,6 @@ public class Cliente {
     public void setPais(String pais) {
         Pais = pais;
     }
-    public String getCiudad() {
-        return Ciudad;
-    }
-    public void setCiudad(String ciudad) {
-        Ciudad = ciudad;
-    }
     public String getProvincia() {
         return Provincia;
     }
@@ -96,8 +87,8 @@ public class Cliente {
     @Override
     public String toString() {
         return "Cliente [ID_Cliente=" + ID_Cliente + ", CIF=" + CIF + ", Nombre_Empresa=" + Nombre_Empresa
-                + ", Nombre_Responsable=" + Nombre_Responsable + ", Pais=" + Pais + ", Ciudad=" + Ciudad
-                + ", Provincia=" + Provincia + ", Direccion=" + Direccion + ", Email=" + Email + ", Telefono="
+                + ", Nombre_Responsable=" + Nombre_Responsable + ", Pais=" + Pais + ", Provincia=" + Provincia
+                + ", Direccion=" + Direccion + ", Email=" + Email + ", Telefono="
                 + Telefono + ", Codigo_Postal=" + Codigo_Postal + "]";
     }
     

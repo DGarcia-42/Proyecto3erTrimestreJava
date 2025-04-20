@@ -41,7 +41,7 @@ public class EmpleadoController implements EmpleadoRepository<Empleado>
     public List<Empleado> findAll()
     {
         List<Empleado> lista = new ArrayList<>();
-        String query = "SELECT * FROM empleados";
+        String query = "SELECT * FROM empleado";
         
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query))
@@ -50,6 +50,10 @@ public class EmpleadoController implements EmpleadoRepository<Empleado>
             {
                 Empleado e = createEmpleado(rs);
                 lista.add(e);
+            }
+            if (lista.isEmpty())
+            {
+                System.out.println("No hay empleados en la base de datos");
             }
         }
         catch (SQLException sex) 
@@ -63,7 +67,7 @@ public class EmpleadoController implements EmpleadoRepository<Empleado>
     public Empleado findById(Long id)
     {
         Empleado e = null;
-        String query = "SELECT * FROM empleados WHERE id_empleado = ?";
+        String query = "SELECT * FROM empleado WHERE id_empleado = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query))
         {
@@ -90,11 +94,11 @@ public class EmpleadoController implements EmpleadoRepository<Empleado>
 
         if (e.getID_Empleado() == null)
         {
-            query = "INSERT INTO empleados (nombre, apellido, nif, direccion, codigo_postal, provincia, pais, telefono, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            query = "INSERT INTO empleado (nombre, apellido, nif, direccion, codigo_postal, provincia, pais, telefono, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         }
         else
         {
-            query = "UPDATE empleados SET nombre = ?, apellido = ?, nif = ?, direccion = ?, codigo_postal = ?, provincia = ?, pais = ?, telefono = ?, email = ? WHERE id_empleado = ?";
+            query = "UPDATE empleado SET nombre = ?, apellido = ?, nif = ?, direccion = ?, codigo_postal = ?, provincia = ?, pais = ?, telefono = ?, email = ? WHERE id_empleado = ?";
         }
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
@@ -123,7 +127,7 @@ public class EmpleadoController implements EmpleadoRepository<Empleado>
     @Override
     public void delete(Long id)
     {
-        String query = "DELETE FROM empleados WHERE id_empleado = ?";
+        String query = "DELETE FROM empleado WHERE id_empleado = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
             pstmt.setLong(1, id);

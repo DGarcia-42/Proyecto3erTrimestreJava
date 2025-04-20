@@ -41,7 +41,7 @@ public class ProveedorController implements ProveedorRepository<Proveedor>
     public List<Proveedor> findAll()
     {
         List<Proveedor> lista = new ArrayList<>();
-        String query = "SELECT * FROM proveedores";
+        String query = "SELECT * FROM proveedor";
         
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query))
@@ -50,6 +50,10 @@ public class ProveedorController implements ProveedorRepository<Proveedor>
             {
                 Proveedor p = createProveedor(rs);
                 lista.add(p);
+            }
+            if (lista.isEmpty())
+            {
+                System.out.println("No hay proveedores en la base de datos");
             }
         }
         catch (SQLException sex) 
@@ -63,7 +67,7 @@ public class ProveedorController implements ProveedorRepository<Proveedor>
     public Proveedor findById(Long id)
     {
         Proveedor p = null;
-        String query = "SELECT * FROM proveedores WHERE id_proveedor = ?";
+        String query = "SELECT * FROM proveedor WHERE id_proveedor = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query))
         {
@@ -90,11 +94,11 @@ public class ProveedorController implements ProveedorRepository<Proveedor>
 
         if (p.getID_Proveedor() == null)
         {
-            query = "INSERT INTO proveedores (nombre, nombre_responsable, pais, provincia, direccion, codigo_postal, cif, telefono, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            query = "INSERT INTO proveedor (nombre, nombre_responsable, pais, provincia, direccion, codigo_postal, cif, telefono, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         }
         else
         {
-            query = "UPDATE proveedores SET nombre = ?, nombre_responsable = ?, pais = ?, provincia = ?, direccion = ?, codigo_postal = ?, cif = ?, telefono = ?, email = ? WHERE id_proveedor = ?";
+            query = "UPDATE proveedor SET nombre = ?, nombre_responsable = ?, pais = ?, provincia = ?, direccion = ?, codigo_postal = ?, cif = ?, telefono = ?, email = ? WHERE id_proveedor = ?";
         }
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
@@ -123,7 +127,7 @@ public class ProveedorController implements ProveedorRepository<Proveedor>
     @Override
     public void delete(Long id)
     {
-        String query = "DELETE FROM proveedores WHERE id_proveedor = ?";
+        String query = "DELETE FROM proveedor WHERE id_proveedor = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
             pstmt.setLong(1, id);

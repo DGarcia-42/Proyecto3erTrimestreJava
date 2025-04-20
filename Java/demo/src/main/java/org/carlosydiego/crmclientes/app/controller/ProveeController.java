@@ -62,9 +62,9 @@ public class ProveeController implements ProveeRepository<Provee>
                        "prod.nombre AS nombre_producto, " +
                        "c.id_categoria, c.nombre AS nombre_categoria " +
                        "FROM provee p " +
-                       "INNER JOIN proveedores prov ON p.id_proveedor = prov.id_proveedor " +
-                       "INNER JOIN productos prod ON p.id_producto = prod.id_productos " +
-                       "INNER JOIN categorias c ON prod.id_categoria = c.id_categoria";
+                       "INNER JOIN proveedor prov ON p.id_proveedor = prov.id_proveedor " +
+                       "INNER JOIN producto prod ON p.id_producto = prod.id_productos " +
+                       "INNER JOIN categoria c ON prod.id_categoria = c.id_categoria";
         
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query))
@@ -73,6 +73,10 @@ public class ProveeController implements ProveeRepository<Provee>
             {
                 Provee p = createProvee(rs);
                 lista.add(p);
+            }
+            if (lista.isEmpty())
+            {
+                System.out.println("No hay registros de provisiones en la base de datos");
             }
         }
         catch (SQLException sex) 
@@ -90,9 +94,9 @@ public class ProveeController implements ProveeRepository<Provee>
                        "prod.nombre AS nombre_producto, " +
                        "c.id_categoria, c.nombre AS nombre_categoria " +
                        "FROM provee p " +
-                       "INNER JOIN proveedores prov ON p.id_proveedor = prov.id_proveedor " +
-                       "INNER JOIN productos prod ON p.id_producto = prod.id_productos " +
-                       "INNER JOIN categorias c ON prod.id_categoria = c.id_categoria " +
+                       "INNER JOIN proveedor prov ON p.id_proveedor = prov.id_proveedor " +
+                       "INNER JOIN producto prod ON p.id_producto = prod.id_productos " +
+                       "INNER JOIN categoria c ON prod.id_categoria = c.id_categoria " +
                        "WHERE p.id_provee = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query))

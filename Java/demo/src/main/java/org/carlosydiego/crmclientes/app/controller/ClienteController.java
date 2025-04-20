@@ -29,7 +29,6 @@ public class ClienteController implements ClienteRepository<Cliente>
         c.setNombre_Empresa(rs.getString("nombre_empresa"));
         c.setNombre_Responsable(rs.getString("nombre_responsable"));
         c.setPais(rs.getString("pais"));
-        c.setCiudad(rs.getString("ciudad"));
         c.setProvincia(rs.getString("provincia"));
         c.setDireccion(rs.getString("direccion"));
         c.setEmail(rs.getString("email"));
@@ -42,7 +41,7 @@ public class ClienteController implements ClienteRepository<Cliente>
     public List<Cliente> findAll()
     {
         List<Cliente> lista = new ArrayList<>();
-        String query = "SELECT * FROM clientes";
+        String query = "SELECT * FROM cliente";
         
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query))
@@ -52,7 +51,11 @@ public class ClienteController implements ClienteRepository<Cliente>
                 Cliente c = createCliente(rs);
                 lista.add(c);
             }
-        }
+            if (lista.isEmpty())
+            {
+                System.out.println("No hay clientes en la base de datos");
+            }
+        } 
         catch (SQLException sex) 
         {
             sex.printStackTrace();
@@ -64,7 +67,7 @@ public class ClienteController implements ClienteRepository<Cliente>
     public Cliente findById(Long id)
     {
         Cliente c = null;
-        String query = "SELECT * FROM clientes WHERE id_cliente = ?";
+        String query = "SELECT * FROM cliente WHERE id_cliente = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query))
         {
@@ -91,11 +94,11 @@ public class ClienteController implements ClienteRepository<Cliente>
 
         if (c.getID_Cliente() == null)
         {
-            query = "INSERT INTO clientes (cif, nombre_empresa, nombre_responsable, pais, ciudad, provincia, direccion, email, telefono, codigo_postal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            query = "INSERT INTO cliente (cif, nombre_empresa, nombre_responsable, pais, provincia, direccion, email, telefono, codigo_postal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         }
         else
         {
-            query = "UPDATE clientes SET cif = ?, nombre_empresa = ?, nombre_responsable = ?, pais = ?, ciudad = ?, provincia = ?, direccion = ?, email = ?, telefono = ?, codigo_postal = ? WHERE id_cliente = ?";
+            query = "UPDATE cliente SET cif = ?, nombre_empresa = ?, nombre_responsable = ?, pais = ?, provincia = ?, direccion = ?, email = ?, telefono = ?, codigo_postal = ? WHERE id_cliente = ?";
         }
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
@@ -103,16 +106,15 @@ public class ClienteController implements ClienteRepository<Cliente>
             pstmt.setString(2, c.getNombre_Empresa());
             pstmt.setString(3, c.getNombre_Responsable());
             pstmt.setString(4, c.getPais());
-            pstmt.setString(5, c.getCiudad());
-            pstmt.setString(6, c.getProvincia());
-            pstmt.setString(7, c.getDireccion());
-            pstmt.setString(8, c.getEmail());
-            pstmt.setString(9, c.getTelefono());
-            pstmt.setString(10, c.getCodigo_Postal());
+            pstmt.setString(5, c.getProvincia());
+            pstmt.setString(6, c.getDireccion());
+            pstmt.setString(7, c.getEmail());
+            pstmt.setString(8, c.getTelefono());
+            pstmt.setString(9, c.getCodigo_Postal());
             
             if (c.getID_Cliente() != null)
             {
-                pstmt.setLong(11, c.getID_Cliente());
+                pstmt.setLong(10, c.getID_Cliente());
             }
             pstmt.executeUpdate();
         }
@@ -125,7 +127,7 @@ public class ClienteController implements ClienteRepository<Cliente>
     @Override
     public void delete(Long id)
     {
-        String query = "DELETE FROM clientes WHERE id_cliente = ?";
+        String query = "DELETE FROM cliente WHERE id_cliente = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
             pstmt.setLong(1, id);
