@@ -1,6 +1,7 @@
 package org.carlosydiego.crmclientes.app.model;
 
-public class Producto {
+public class Producto 
+{
     private Long ID_Producto;
     private String Nombre;
     private String Descripcion;
@@ -12,7 +13,8 @@ public class Producto {
 
     public Producto(){}
 
-    public Producto(Long ID_Producto, String Nombre, String Descripcion, Integer Stock, Double PVP, Double IVA, Categoria categoria, Proveedor proveedor) {
+    public Producto(Long ID_Producto, String Nombre, String Descripcion, Integer Stock, Double PVP, Double IVA, Categoria categoria, Proveedor proveedor) 
+    {
         this.ID_Producto = ID_Producto;
         this.Nombre = Nombre;
         this.Descripcion = Descripcion;
@@ -41,7 +43,8 @@ public class Producto {
     public void setProveedor(Proveedor proveedor) {this.proveedor = proveedor;}
 
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return "Producto [ID_Producto=" + ID_Producto + ", Nombre=" + Nombre + ", Descripcion=" + Descripcion 
                 + ", Stock=" + Stock + ", PVP=" + PVP + ", IVA=" + IVA + ", Categoria=" + categoria + ", Proveedor=" + proveedor + "]";
     }

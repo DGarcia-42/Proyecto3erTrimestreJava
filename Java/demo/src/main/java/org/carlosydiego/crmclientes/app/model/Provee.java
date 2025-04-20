@@ -2,7 +2,8 @@ package org.carlosydiego.crmclientes.app.model;
 
 import java.time.LocalDate;
 
-public class Provee {
+public class Provee 
+{
     private Long ID_Provee;
     private Proveedor proveedor;
     private Producto producto;
@@ -11,7 +12,8 @@ public class Provee {
     private Double Precio;
 
     public Provee(){}
-    public Provee(Long ID_Provee, Proveedor proveedor, Producto producto, LocalDate Fecha_Provision, Integer Cantidad, Double Precio) {
+    public Provee(Long ID_Provee, Proveedor proveedor, Producto producto, LocalDate Fecha_Provision, Integer Cantidad, Double Precio) 
+    {
         this.ID_Provee = ID_Provee;
         this.proveedor = proveedor;
         this.producto = producto;
@@ -45,7 +47,8 @@ public class Provee {
     public void setPrecio(Double Precio) {this.Precio = Precio;}
 
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return "ID_Provee=" + ID_Provee + ", Proveedor=" + proveedor + ", Producto=" + producto + ", Fecha_Provision=" + Fecha_Provision 
                 + ", Cantidad=" + Cantidad + ", Precio=" + Precio;
     }
