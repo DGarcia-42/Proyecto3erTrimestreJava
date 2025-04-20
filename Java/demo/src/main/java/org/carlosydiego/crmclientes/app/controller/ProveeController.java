@@ -24,7 +24,7 @@ public class ProveeController implements ProveeRepository<Provee>
         connection = DatabaseConnection.getInstance();
     }
 
-    private Provee createProvee(ResultSet rs) throws SQLException
+    public Provee createProvee(ResultSet rs) throws SQLException
     {
         Provee provee = new Provee();
         provee.setID_Provee(rs.getLong("id_provee"));
@@ -32,18 +32,18 @@ public class ProveeController implements ProveeRepository<Provee>
         provee.setCantidad(rs.getInt("cantidad"));
         provee.setPrecio(rs.getDouble("precio"));
         
-        // Crear y establecer el proveedor
+        
         Proveedor proveedor = new Proveedor();
         proveedor.setID_Proveedor(rs.getLong("id_proveedor"));
         proveedor.setNombre(rs.getString("nombre_proveedor"));
         provee.setProveedor(proveedor);
         
-        // Crear y establecer el producto
+    
         Producto producto = new Producto();
         producto.setID_Producto(rs.getLong("id_producto"));
         producto.setNombre(rs.getString("nombre_producto"));
         
-        // Crear y establecer la categoría del producto
+
         Categoria categoria = new Categoria();
         categoria.setID_Categoria(rs.getLong("id_categoria"));
         categoria.setNombre(rs.getString("nombre_categoria"));

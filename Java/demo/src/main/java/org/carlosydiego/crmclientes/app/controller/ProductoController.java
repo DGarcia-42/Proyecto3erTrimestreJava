@@ -22,7 +22,7 @@ public class ProductoController implements ProductoRepository <Producto>
         connection = DatabaseConnection.getInstance();
     }
 
-    private Producto createProduct(ResultSet rs) throws SQLException
+    public Producto createProduct(ResultSet rs) throws SQLException
     {
         Producto p = new Producto();
         p.setID_Producto(rs.getLong("id_productos"));

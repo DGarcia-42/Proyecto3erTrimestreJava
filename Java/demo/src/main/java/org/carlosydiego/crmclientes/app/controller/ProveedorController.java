@@ -21,7 +21,7 @@ public class ProveedorController implements ProveedorRepository<Proveedor>
         connection = DatabaseConnection.getInstance();
     }
 
-    private Proveedor createProveedor(ResultSet rs) throws SQLException
+    public Proveedor createProveedor(ResultSet rs) throws SQLException
     {
         Proveedor p = new Proveedor();
         p.setID_Proveedor(rs.getLong("id_proveedor"));

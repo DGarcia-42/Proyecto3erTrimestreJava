@@ -25,7 +25,7 @@ public class FacturaController implements FacturaRepository<Factura>
         connection = DatabaseConnection.getInstance();
     }
 
-    private Factura createFactura(ResultSet rs) throws SQLException
+    public Factura createFactura(ResultSet rs) throws SQLException
     {
         Factura f = new Factura();
         f.setID_Factura(rs.getLong("id_factura"));

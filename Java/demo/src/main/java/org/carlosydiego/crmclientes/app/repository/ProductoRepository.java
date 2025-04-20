@@ -2,7 +2,8 @@ package org.carlosydiego.crmclientes.app.repository;
 
 import java.util.List;
 
-public interface ProductoRepository <Producto> {
+public interface ProductoRepository <Producto> 
+{
     
     List<Producto> findAll();
     Producto findById(Long id);

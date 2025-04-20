@@ -2,7 +2,8 @@ package org.carlosydiego.crmclientes.app.repository;
 
 import java.util.List;
 
-public interface ProveeRepository <Provee> {
+public interface ProveeRepository <Provee> 
+{
     
     List<Provee> findAll();
     Provee findById(Long id);
