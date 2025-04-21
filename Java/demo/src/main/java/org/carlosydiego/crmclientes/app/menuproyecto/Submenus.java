@@ -134,12 +134,16 @@ public class Submenus {
                 
                 String cif = "";
                 boolean cifValido = false;
-                while (!cifValido) {
+                while (!cifValido) 
+                {
                     System.out.print("Ingrese el CIF del cliente: ");
                     cif = scanner.nextLine();
-                    if (cif.isEmpty()) {
+                    if (cif.isEmpty()) 
+                    {
                         System.out.println("El CIF no puede estar vacío.");
-                    } else if (!cif.matches("[A-Z]\\d{8}")) {
+                    } 
+                    else if (!cif.matches("[A-Z]\\d{8}")) 
+                    {
                         System.out.println("El CIF debe tener 1 letra seguida de 8 números.");
                     } else {
                         cifValido = true;
@@ -160,76 +164,103 @@ public class Submenus {
                 
                 String nombreResponsable = "";
                 boolean nombreResponsableValido = false;
-                while (!nombreResponsableValido) {
+                while (!nombreResponsableValido) 
+                {
                     System.out.print("Ingrese el nombre del responsable de la empresa: ");
                     nombreResponsable = scanner.nextLine();
                     if (nombreResponsable.isEmpty()) {
                         System.out.println("El nombre del responsable no puede estar vacío.");
-                    } else {
+                    } 
+                    else 
+                    {
                         nombreResponsableValido = true;
                     }
                 }
                 
                 String pais = "";
                 boolean paisValido = false;
-                while (!paisValido) {
+                while (!paisValido) 
+                {
                     System.out.print("Ingrese el país del cliente: ");
                     pais = scanner.nextLine();
-                    if (pais.isEmpty()) {
+                    if (pais.isEmpty()) 
+                    {
                         System.out.println("El país no puede estar vacío.");
-                    } else {
+                    } 
+                    else 
+                    {
                         paisValido = true;
                     }
                 }
                 
                 String provincia = "";
                 boolean provinciaValida = false;
-                while (!provinciaValida) {
+                while (!provinciaValida) 
+                {
                     System.out.print("Ingrese la provincia del cliente: ");
                     provincia = scanner.nextLine();
-                    if (provincia.isEmpty()) {
+                    if (provincia.isEmpty()) 
+                    {
                         System.out.println("La provincia no puede estar vacía.");
-                    } else {
+                    } 
+                    else 
+                    {
                         provinciaValida = true;
                     }
                 }
                 
                 String direccion = "";
                 boolean direccionValida = false;
-                while (!direccionValida) {
+                while (!direccionValida) 
+                {
                     System.out.print("Ingrese la dirección del cliente: ");
                     direccion = scanner.nextLine();
-                    if (direccion.isEmpty()) {
+                    if (direccion.isEmpty()) 
+                    {
                         System.out.println("La dirección no puede estar vacía.");
-                    } else {
+                    } 
+                    else 
+                    {
                         direccionValida = true;
                     }
                 }
                 
                 String email = "";
                 boolean emailValido = false;
-                while (!emailValido) {
+                while (!emailValido) 
+                {
                     System.out.print("Ingrese el email del cliente: ");
                     email = scanner.nextLine();
-                    if (email.isEmpty()) {
+                    if (email.isEmpty()) 
+                    {
                         System.out.println("El email no puede estar vacío.");
-                    } else if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                    } 
+                    else if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) 
+                    {
                         System.out.println("El email debe tener un formato válido.");
-                    } else {
+                    } 
+                    else 
+                    {
                         emailValido = true;
                     }
                 }
                 
                 String telefono = "";
                 boolean telefonoValido = false;
-                while (!telefonoValido) {
+                while (!telefonoValido) 
+                {
                     System.out.print("Ingrese el teléfono del cliente: ");
                     telefono = scanner.nextLine();
-                    if (telefono.isEmpty()) {
+                    if (telefono.isEmpty()) 
+                    {
                         System.out.println("El teléfono no puede estar vacío.");
-                    } else if (!telefono.matches("\\d+")) {
+                    } 
+                    else if (!telefono.matches("\\d+")) 
+                    {
                         System.out.println("El teléfono debe contener solo números.");
-                    } else {
+                    } 
+                    else 
+                    {
                         telefonoValido = true;
                     }
                 }
@@ -239,11 +270,16 @@ public class Submenus {
                 while (!cpValido) {
                     System.out.print("Ingrese el código postal del cliente: ");
                     codigoPostal = scanner.nextLine();
-                    if (codigoPostal.isEmpty()) {
+                    if (codigoPostal.isEmpty()) 
+                    {
                         System.out.println("El código postal no puede estar vacío.");
-                    } else if (!codigoPostal.matches("\\d{5}")) {
+                    } 
+                    else if (!codigoPostal.matches("\\d{5}")) 
+                    {
                         System.out.println("El código postal debe tener 5 números.");
-                    } else {
+                    } 
+                    else 
+                    {
                         cpValido = true;
                     }
                 }
@@ -282,125 +318,169 @@ public class Submenus {
                     
                     String nuevoCIF = "";
                     boolean cifValido = false;
-                    while (!cifValido) {
+                    while (!cifValido) 
+                    {
                         System.out.print("Ingrese el nuevo CIF del cliente [" + clienteExistente.getCIF() + "]: ");
                         nuevoCIF = scanner.nextLine();
-                        if (nuevoCIF.isEmpty()) {
+                        if (nuevoCIF.isEmpty()) 
+                        {
                             nuevoCIF = clienteExistente.getCIF();
                             cifValido = true;
-                        } else if (!nuevoCIF.matches("[A-Z]\\d{8}")) {
+                        } 
+                        else if (!nuevoCIF.matches("[A-Z]\\d{8}")) 
+                        {
                             System.out.println("El CIF debe tener 1 letra seguida de 8 números.");
-                        } else {
+                        } 
+                        else 
+                        {
                             cifValido = true;
                         }
                     }
                     
                     String nuevoNombreEmpresa = "";
                     boolean nombreEmpresaValido = false;
-                    while (!nombreEmpresaValido) {
+                    while (!nombreEmpresaValido) 
+                    {
                         System.out.print("Ingrese el nuevo nombre de la empresa [" + clienteExistente.getNombre_Empresa() + "]: ");
                         nuevoNombreEmpresa = scanner.nextLine();
-                        if (nuevoNombreEmpresa.isEmpty()) {
+                        if (nuevoNombreEmpresa.isEmpty()) 
+                        {
                             nuevoNombreEmpresa = clienteExistente.getNombre_Empresa();
                             nombreEmpresaValido = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             nombreEmpresaValido = true;
                         }
                     }
                     
                     String nuevoNombreResponsable = "";
                     boolean nombreResponsableValido = false;
-                    while (!nombreResponsableValido) {
+                    while (!nombreResponsableValido) 
+                    {
                         System.out.print("Ingrese el nuevo nombre del responsable [" + clienteExistente.getNombre_Responsable() + "]: ");
                         nuevoNombreResponsable = scanner.nextLine();
-                        if (nuevoNombreResponsable.isEmpty()) {
+                        if (nuevoNombreResponsable.isEmpty()) 
+                        {
                             nuevoNombreResponsable = clienteExistente.getNombre_Responsable();
                             nombreResponsableValido = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             nombreResponsableValido = true;
                         }
                     }
                     
                     String nuevoPais = "";
                     boolean paisValido = false;
-                    while (!paisValido) {
+                    while (!paisValido) 
+                    {
                         System.out.print("Ingrese el nuevo país [" + clienteExistente.getPais() + "]: ");
                         nuevoPais = scanner.nextLine();
-                        if (nuevoPais.isEmpty()) {
+                        if (nuevoPais.isEmpty()) 
+                        {
                             nuevoPais = clienteExistente.getPais();
                             paisValido = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             paisValido = true;
                         }
                     }
                     
                     String nuevaProvincia = "";
                     boolean provinciaValida = false;
-                    while (!provinciaValida) {
+                    while (!provinciaValida) 
+                    {
                         System.out.print("Ingrese la nueva provincia [" + clienteExistente.getProvincia() + "]: ");
                         nuevaProvincia = scanner.nextLine();
-                        if (nuevaProvincia.isEmpty()) {
+                        if (nuevaProvincia.isEmpty()) 
+                        {
                             nuevaProvincia = clienteExistente.getProvincia();
                             provinciaValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             provinciaValida = true;
                         }
                     }
                     
                     String nuevaDireccion = "";
                     boolean direccionValida = false;
-                    while (!direccionValida) {
+                    while (!direccionValida) 
+                    {
                         System.out.print("Ingrese la nueva dirección [" + clienteExistente.getDireccion() + "]: ");
                         nuevaDireccion = scanner.nextLine();
-                        if (nuevaDireccion.isEmpty()) {
+                        if (nuevaDireccion.isEmpty()) 
+                        {
                             nuevaDireccion = clienteExistente.getDireccion();
                             direccionValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             direccionValida = true;
                         }
                     }
                     
                     String nuevoEmail = "";
                     boolean emailValido = false;
-                    while (!emailValido) {
+                    while (!emailValido) 
+                    {
                         System.out.print("Ingrese el nuevo email [" + clienteExistente.getEmail() + "]: ");
                         nuevoEmail = scanner.nextLine();
-                        if (nuevoEmail.isEmpty()) {
+                        if (nuevoEmail.isEmpty()) 
+                        {
                             nuevoEmail = clienteExistente.getEmail();
                             emailValido = true;
-                        } else if (!nuevoEmail.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                        } 
+                        else if (!nuevoEmail.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) 
+                        {
                             System.out.println("El email debe tener un formato válido.");
-                        } else {
+                        } 
+                        else 
+                        {
                             emailValido = true;
                         }
                     }
                     
                     String nuevoTelefono = "";
                     boolean telefonoValido = false;
-                    while (!telefonoValido) {
+                    while (!telefonoValido) 
+                    {
                         System.out.print("Ingrese el nuevo teléfono [" + clienteExistente.getTelefono() + "]: ");
                         nuevoTelefono = scanner.nextLine();
-                        if (nuevoTelefono.isEmpty()) {
+                        if (nuevoTelefono.isEmpty()) 
+                        {
                             nuevoTelefono = clienteExistente.getTelefono();
                             telefonoValido = true;
-                        } else if (!nuevoTelefono.matches("\\d+")) {
+                        } 
+                        else if (!nuevoTelefono.matches("\\d+")) 
+                        {
                             System.out.println("El teléfono debe contener solo números.");
-                        } else {
+                        } 
+                        else 
+                        {
                             telefonoValido = true;
                         }
                     }
                     
                     String nuevoCodigoPostal = "";
                     boolean cpValido = false;
-                    while (!cpValido) {
+                    while (!cpValido) 
+                    {
                         System.out.print("Ingrese el nuevo código postal [" + clienteExistente.getCodigo_Postal() + "]: ");
                         nuevoCodigoPostal = scanner.nextLine();
-                        if (nuevoCodigoPostal.isEmpty()) {
+                        if (nuevoCodigoPostal.isEmpty()) 
+                        {
                             nuevoCodigoPostal = clienteExistente.getCodigo_Postal();
                             cpValido = true;
-                        } else if (!nuevoCodigoPostal.matches("\\d{5}")) {
+                        } 
+                        else if (!nuevoCodigoPostal.matches("\\d{5}")) 
+                        {
                             System.out.println("El código postal debe tener 5 números.");
-                        } else {
+                        } 
+                        else 
+                        {
                             cpValido = true;
                         }
                     }
@@ -444,13 +524,17 @@ public class Submenus {
                     boolean respuestaValida = false;
                     String respuesta = "";
                     
-                    while (!respuestaValida) {
+                    while (!respuestaValida) 
+                    {
                         System.out.print("¿Está seguro que desea eliminar este cliente? (S/N): ");
                         respuesta = scanner.nextLine().trim().toUpperCase();
                         
-                        if (respuesta.equals("S") || respuesta.equals("N")) {
+                        if (respuesta.equals("S") || respuesta.equals("N")) 
+                        {
                             respuestaValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             System.out.println("Por favor, ingrese S para confirmar o N para cancelar.");
                         }
                     }
@@ -516,12 +600,16 @@ public class Submenus {
                 Long idEmpleado = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del empleado: ");
                         idEmpleado = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -561,116 +649,158 @@ public class Submenus {
                 
                 String dni = "";
                 boolean dniValido = false;
-                while (!dniValido) {
+                while (!dniValido) 
+                {
                     System.out.print("Ingrese el DNI del empleado: ");
                     dni = scanner.nextLine();
-                    if (dni.isEmpty()) {
+                    if (dni.isEmpty()) 
+                    {
                         System.out.println("El DNI no puede estar vacío.");
-                    } else if (!dni.matches("\\d{8}[A-Z]")) {
+                    } 
+                    else if (!dni.matches("\\d{8}[A-Z]")) {
                         System.out.println("El DNI debe tener 8 números seguidos de 1 letra.");
-                    } else {
+                    } 
+                    else 
+                    {
                         dniValido = true;
                     }
                 }
                 
                 String nombre = "";
                 boolean nombreValido = false;
-                while (!nombreValido) {
+                while (!nombreValido) 
+                {
                     System.out.print("Ingrese el nombre del empleado: ");
                     nombre = scanner.nextLine();
-                    if (nombre.isEmpty()) {
+                    if (nombre.isEmpty()) 
+                    {
                         System.out.println("El nombre no puede estar vacío.");
-                    } else {
+                    } 
+                    else 
+                    {
                         nombreValido = true;
                     }
                 }
                 
                 String apellidos = "";
                 boolean apellidosValidos = false;
-                while (!apellidosValidos) {
+                while (!apellidosValidos) 
+                {
                     System.out.print("Ingrese los apellidos del empleado: ");
                     apellidos = scanner.nextLine();
-                    if (apellidos.isEmpty()) {
+                    if (apellidos.isEmpty()) 
+                    {
                         System.out.println("Los apellidos no pueden estar vacíos.");
-                    } else {
+                    } 
+                    else 
+                    {
                         apellidosValidos = true;
                     }
                 }
                 
                 String direccion = "";
                 boolean direccionValida = false;
-                while (!direccionValida) {
+                while (!direccionValida) 
+                {
                     System.out.print("Ingrese la dirección del empleado: ");
                     direccion = scanner.nextLine();
-                    if (direccion.isEmpty()) {
+                    if (direccion.isEmpty()) 
+                    {
                         System.out.println("La dirección no puede estar vacía.");
-                    } else {
+                    } 
+                    else 
+                    {
                         direccionValida = true;
                     }
                 }
                 
                 String codigoPostal = "";
                 boolean cpValido = false;
-                while (!cpValido) {
+                while (!cpValido) 
+                {
                     System.out.print("Ingrese el código postal del empleado: ");
                     codigoPostal = scanner.nextLine();
-                    if (codigoPostal.isEmpty()) {
+                    if (codigoPostal.isEmpty()) 
+                    {
                         System.out.println("El código postal no puede estar vacío.");
-                    } else if (!codigoPostal.matches("\\d{5}")) {
+                    }
+                    else if (!codigoPostal.matches("\\d{5}")) 
+                    {
                         System.out.println("El código postal debe tener 5 números.");
-                    } else {
+                    } 
+                    else 
+                    {
                         cpValido = true;
                     }
                 }
                 
                 String provincia = "";
                 boolean provinciaValida = false;
-                while (!provinciaValida) {
+                while (!provinciaValida) 
+                {
                     System.out.print("Ingrese la provincia del empleado: ");
                     provincia = scanner.nextLine();
-                    if (provincia.isEmpty()) {
+                    if (provincia.isEmpty()) 
+                    {
                         System.out.println("La provincia no puede estar vacía.");
-                    } else {
+                    } 
+                    else 
+                    {
                         provinciaValida = true;
                     }
                 }
                 
                 String pais = "";
                 boolean paisValido = false;
-                while (!paisValido) {
+                while (!paisValido) 
+                {
                     System.out.print("Ingrese el país del empleado: ");
                     pais = scanner.nextLine();
-                    if (pais.isEmpty()) {
+                    if (pais.isEmpty()) 
+                    {
                         System.out.println("El país no puede estar vacío.");
-                    } else {
+                    } 
+                    else 
+                    {
                         paisValido = true;
                     }
                 }
                 
                 String email = "";
                 boolean emailValido = false;
-                while (!emailValido) {
+                while (!emailValido) 
+                {
                     System.out.print("Ingrese el email del empleado: ");
                     email = scanner.nextLine();
-                    if (email.isEmpty()) {
+                    if (email.isEmpty()) 
+                    {
                         System.out.println("El email no puede estar vacío.");
-                    } else if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                    } 
+                    else if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
                         System.out.println("El email debe tener un formato válido.");
-                    } else {
+                    } 
+                    else 
+                    {
                         emailValido = true;
                     }
                 }
                 
                 String telefono = "";
                 boolean telefonoValido = false;
-                while (!telefonoValido) {
+                while (!telefonoValido) 
+                {
                     System.out.print("Ingrese el teléfono del empleado: ");
                     telefono = scanner.nextLine();
-                    if (telefono.isEmpty()) {
+                    if (telefono.isEmpty()) 
+                    {
                         System.out.println("El teléfono no puede estar vacío.");
-                    } else if (!telefono.matches("\\d+")) {
+                    } 
+                    else if (!telefono.matches("\\d+")) 
+                    {
                         System.out.println("El teléfono debe contener solo números.");
-                    } else {
+                    } 
+                    else 
+                    {
                         telefonoValido = true;
                     }
                 }
@@ -709,12 +839,16 @@ public class Submenus {
                 Long idEmpleadoActualizar = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del empleado: ");
                         idEmpleadoActualizar = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -729,125 +863,168 @@ public class Submenus {
                     
                     String nuevoDNI = "";
                     boolean dniValido = false;
-                    while (!dniValido) {
+                    while (!dniValido) 
+                    {
                         System.out.print("Ingrese el nuevo DNI [" + empleadoExistente.getNIF() + "]: ");
                         nuevoDNI = scanner.nextLine();
-                        if (nuevoDNI.isEmpty()) {
+                        if (nuevoDNI.isEmpty()) 
+                        {
                             nuevoDNI = empleadoExistente.getNIF();
                             dniValido = true;
-                        } else if (!nuevoDNI.matches("\\d{8}[A-Z]")) {
+                        } 
+                        else if (!nuevoDNI.matches("\\d{8}[A-Z]")) 
+                        {
                             System.out.println("El DNI debe tener 8 números seguidos de 1 letra.");
-                        } else {
+                        } 
+                        else 
+                        {
                             dniValido = true;
                         }
                     }
                     
                     String nuevoNombre = "";
                     boolean nombreValido = false;
-                    while (!nombreValido) {
+                    while (!nombreValido) 
+                    {
                         System.out.print("Ingrese el nuevo nombre [" + empleadoExistente.getNombre() + "]: ");
                         nuevoNombre = scanner.nextLine();
-                        if (nuevoNombre.isEmpty()) {
+                        if (nuevoNombre.isEmpty()) 
+                        {
                             nuevoNombre = empleadoExistente.getNombre();
                             nombreValido = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             nombreValido = true;
                         }
                     }
                     
                     String nuevosApellidos = "";
                     boolean apellidosValidos = false;
-                    while (!apellidosValidos) {
+                    while (!apellidosValidos) 
+                    {
                         System.out.print("Ingrese los nuevos apellidos [" + empleadoExistente.getApellido() + "]: ");
                         nuevosApellidos = scanner.nextLine();
-                        if (nuevosApellidos.isEmpty()) {
+                        if (nuevosApellidos.isEmpty()) 
+                        {
                             nuevosApellidos = empleadoExistente.getApellido();
                             apellidosValidos = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             apellidosValidos = true;
                         }
                     }
                     
                     String nuevaDireccion = "";
                     boolean direccionValida = false;
-                    while (!direccionValida) {
+                    while (!direccionValida) 
+                    {
                         System.out.print("Ingrese la nueva dirección [" + empleadoExistente.getDireccion() + "]: ");
                         nuevaDireccion = scanner.nextLine();
-                        if (nuevaDireccion.isEmpty()) {
+                        if (nuevaDireccion.isEmpty()) 
+                        {
                             nuevaDireccion = empleadoExistente.getDireccion();
                             direccionValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             direccionValida = true;
                         }
                     }
                     
                     String nuevoCodigoPostal = "";
                     boolean cpValido = false;
-                    while (!cpValido) {
+                    while (!cpValido) 
+                    {
                         System.out.print("Ingrese el nuevo código postal [" + empleadoExistente.getCodigo_Postal() + "]: ");
                         nuevoCodigoPostal = scanner.nextLine();
-                        if (nuevoCodigoPostal.isEmpty()) {
+                        if (nuevoCodigoPostal.isEmpty()) 
+                        {
                             nuevoCodigoPostal = empleadoExistente.getCodigo_Postal();
                             cpValido = true;
-                        } else if (!nuevoCodigoPostal.matches("\\d{5}")) {
+                        } 
+                        else if (!nuevoCodigoPostal.matches("\\d{5}")) 
+                        {
                             System.out.println("El código postal debe tener 5 números.");
-                        } else {
+                        } 
+                        else 
+                        {
                             cpValido = true;
                         }
                     }
                     
                     String nuevaProvincia = "";
                     boolean provinciaValida = false;
-                    while (!provinciaValida) {
+                    while (!provinciaValida) 
+                    {
                         System.out.print("Ingrese la nueva provincia [" + empleadoExistente.getProvincia() + "]: ");
                         nuevaProvincia = scanner.nextLine();
-                        if (nuevaProvincia.isEmpty()) {
+                        if (nuevaProvincia.isEmpty()) 
+                        {
                             nuevaProvincia = empleadoExistente.getProvincia();
                             provinciaValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             provinciaValida = true;
                         }
                     }
                     
                     String nuevoPais = "";
                     boolean paisValido = false;
-                    while (!paisValido) {
+                    while (!paisValido) 
+                    {
                         System.out.print("Ingrese el nuevo país [" + empleadoExistente.getPaís() + "]: ");
                         nuevoPais = scanner.nextLine();
-                        if (nuevoPais.isEmpty()) {
+                        if (nuevoPais.isEmpty()) 
+                        {
                             nuevoPais = empleadoExistente.getPaís();
                             paisValido = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             paisValido = true;
                         }
                     }
                     
                     String nuevoEmail = "";
                     boolean emailValido = false;
-                    while (!emailValido) {
+                    while (!emailValido) 
+                    {
                         System.out.print("Ingrese el nuevo email [" + empleadoExistente.getEmail() + "]: ");
                         nuevoEmail = scanner.nextLine();
-                        if (nuevoEmail.isEmpty()) {
+                        if (nuevoEmail.isEmpty()) 
+                        {
                             nuevoEmail = empleadoExistente.getEmail();
                             emailValido = true;
-                        } else if (!nuevoEmail.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                        } 
+                        else if (!nuevoEmail.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
                             System.out.println("El email debe tener un formato válido.");
-                        } else {
+                        }
+                        else 
+                        {
                             emailValido = true;
                         }
                     }
                     
                     String nuevoTelefono = "";
                     boolean telefonoValido = false;
-                    while (!telefonoValido) {
+                    while (!telefonoValido) 
+                    {
                         System.out.print("Ingrese el nuevo teléfono [" + empleadoExistente.getTelfono() + "]: ");
                         nuevoTelefono = scanner.nextLine();
-                        if (nuevoTelefono.isEmpty()) {
+                        if (nuevoTelefono.isEmpty()) 
+                        {
                             nuevoTelefono = empleadoExistente.getTelfono();
                             telefonoValido = true;
-                        } else if (!nuevoTelefono.matches("\\d+")) {
+                        } 
+                        else if (!nuevoTelefono.matches("\\d+")) 
+                        {
                             System.out.println("El teléfono debe contener solo números.");
-                        } else {
+                        } 
+                        else 
+                        {
                             telefonoValido = true;
                         }
                     }
@@ -892,12 +1069,16 @@ public class Submenus {
                 Long idEmpleadoEliminar = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del empleado a eliminar: ");
                         idEmpleadoEliminar = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -912,13 +1093,17 @@ public class Submenus {
                     boolean respuestaValida = false;
                     String respuesta = "";
                     
-                    while (!respuestaValida) {
+                    while (!respuestaValida) 
+                    {
                         System.out.print("¿Está seguro que desea eliminar este empleado? (S/N): ");
                         respuesta = scanner.nextLine().trim().toUpperCase();
                         
-                        if (respuesta.equals("S") || respuesta.equals("N")) {
+                        if (respuesta.equals("S") || respuesta.equals("N")) 
+                        {
                             respuestaValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             System.out.println("Por favor, ingrese S para confirmar o N para cancelar.");
                         }
                     }
@@ -979,12 +1164,16 @@ public class Submenus {
                 Long idProducto = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del producto: ");
                         idProducto = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -1027,69 +1216,97 @@ public class Submenus {
                 while (!nombreValido) {
                     System.out.print("Ingrese el nombre del producto: ");
                     nombre = scanner.nextLine();
-                    if (nombre.isEmpty()) {
+                    if (nombre.isEmpty()) 
+                    {
                         System.out.println("El nombre no puede estar vacío.");
-                    } else {
+                    } 
+                    else 
+                    {
                         nombreValido = true;
                     }
                 }
                 
                 String descripcion = "";
                 boolean descripcionValida = false;
-                while (!descripcionValida) {
+                while (!descripcionValida) 
+                {
                     System.out.print("Ingrese la descripción del producto: ");
                     descripcion = scanner.nextLine();
-                    if (descripcion.isEmpty()) {
+                    if (descripcion.isEmpty()) 
+                    {
                         System.out.println("La descripción no puede estar vacía.");
-                    } else {
+                    } 
+                    else 
+                    {
                         descripcionValida = true;
                     }
                 }
                 
                 double precio = 0.0;
                 boolean precioValido = false;
-                while (!precioValido) {
-                    try {
+                while (!precioValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el precio del producto: ");
                         precio = Double.parseDouble(scanner.nextLine());
-                        if (precio <= 0) {
+                        if (precio <= 0) 
+                        {
                             System.out.println("El precio debe ser mayor que cero.");
-                        } else {
+                        } 
+                        else 
+                        {
                             precioValido = true;
                         }
-                    } catch (NumberFormatException e) {
+                    } 
+                    catch (NumberFormatException e) 
+                    {
                         System.out.println("Debe ingresar un valor numérico válido para el precio.");
                     }
                 }
                 
                 double iva = 0.0;
                 boolean ivaValido = false;
-                while (!ivaValido) {
-                    try {
+                while (!ivaValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el IVA del producto (ej: 21 para 21%): ");
                         iva = Double.parseDouble(scanner.nextLine());
-                        if (iva < 0) {
+                        if (iva < 0) 
+                        {
                             System.out.println("El IVA no puede ser negativo.");
-                        } else {
+                        } 
+                        else 
+                        {
                             ivaValido = true;
                         }
-                    } catch (NumberFormatException e) {
+                    } 
+                    catch (NumberFormatException e) 
+                    {
                         System.out.println("Debe ingresar un valor numérico válido para el IVA.");
                     }
                 }
                 
                 int stock = 0;
                 boolean stockValido = false;
-                while (!stockValido) {
-                    try {
+                while (!stockValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el stock del producto: ");
                         stock = Integer.parseInt(scanner.nextLine());
-                        if (stock < 0) {
+                        if (stock < 0) 
+                        {
                             System.out.println("El stock no puede ser negativo.");
-                        } else {
+                        } 
+                        else 
+                        {
                             stockValido = true;
                         }
-                    } catch (NumberFormatException e) {
+                    } 
+                    catch (NumberFormatException e) 
+                    {
                         System.out.println("Debe ingresar un valor numérico entero para el stock.");
                     }
                 }
@@ -1101,17 +1318,24 @@ public class Submenus {
                 boolean categoriaValida = false;
                 Categoria categoria = null;
                 
-                while (!categoriaValida) {
-                    try {
+                while (!categoriaValida) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID de la categoría: ");
                         idCategoria = Long.parseLong(scanner.nextLine());
                         categoria = categoriaController.findById(idCategoria);
-                        if (categoria == null) {
+                        if (categoria == null) 
+                        {
                             System.out.println("La categoría seleccionada no existe.");
-                        } else {
+                        }
+                        else 
+                        {
                             categoriaValida = true;
                         }
-                    } catch (NumberFormatException e) {
+                    } 
+                    catch (NumberFormatException e) 
+                    {
                         System.out.println("Debe ingresar un valor numérico válido para el ID de categoría.");
                     }
                 }
@@ -1123,22 +1347,32 @@ public class Submenus {
                 boolean proveedorValido = false;
                 Proveedor proveedor = null;
                 
-                while (!proveedorValido) {
-                    try {
+                while (!proveedorValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del proveedor (0 para ninguno): ");
                         idProveedor = Long.parseLong(scanner.nextLine());
                         
-                        if (idProveedor == 0) {
+                        if (idProveedor == 0) 
+                        {
                             proveedorValido = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             proveedor = proveedorController.findById(idProveedor);
-                            if (proveedor == null) {
+                            if (proveedor == null) 
+                            {
                                 System.out.println("El proveedor seleccionado no existe.");
-                            } else {
+                            } 
+                            else 
+                            {
                                 proveedorValido = true;
                             }
                         }
-                    } catch (NumberFormatException e) {
+                    }
+                    catch (NumberFormatException e) 
+                    {
                         System.out.println("Debe ingresar un valor numérico válido para el ID de proveedor.");
                     }
                 }
@@ -1176,12 +1410,16 @@ public class Submenus {
                 Long idProductoActualizar = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del producto: ");
                         idProductoActualizar = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -1196,89 +1434,127 @@ public class Submenus {
                     
                     String nuevoNombre = "";
                     boolean nombreValido = false;
-                    while (!nombreValido) {
+                    while (!nombreValido) 
+                    {
                         System.out.print("Ingrese el nuevo nombre [" + productoExistente.getNombre() + "]: ");
                         nuevoNombre = scanner.nextLine();
-                        if (nuevoNombre.isEmpty()) {
+                        if (nuevoNombre.isEmpty()) 
+                        {
                             nuevoNombre = productoExistente.getNombre();
                             nombreValido = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             nombreValido = true;
                         }
                     }
                     
                     String nuevaDescripcion = "";
                     boolean descripcionValida = false;
-                    while (!descripcionValida) {
+                    while (!descripcionValida) 
+                    {
                         System.out.print("Ingrese la nueva descripción [" + productoExistente.getDescripcion() + "]: ");
                         nuevaDescripcion = scanner.nextLine();
-                        if (nuevaDescripcion.isEmpty()) {
+                        if (nuevaDescripcion.isEmpty()) 
+                        {
                             nuevaDescripcion = productoExistente.getDescripcion();
                             descripcionValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             descripcionValida = true;
                         }
                     }
                     
                     double nuevoPrecio = productoExistente.getPVP();
                     boolean precioValido = false;
-                    while (!precioValido) {
-                        try {
+                    while (!precioValido) 
+                    {
+                        try 
+                        {
                             System.out.print("Ingrese el nuevo precio [" + productoExistente.getPVP() + "]: ");
                             String precioStr = scanner.nextLine();
-                            if (precioStr.isEmpty()) {
+                            if (precioStr.isEmpty()) 
+                            {
                                 precioValido = true;
-                            } else {
+                            } 
+                            else 
+                            {
                                 nuevoPrecio = Double.parseDouble(precioStr);
-                                if (nuevoPrecio <= 0) {
+                                if (nuevoPrecio <= 0) 
+                                {
                                     System.out.println("El precio debe ser mayor que cero.");
-                                } else {
+                                } 
+                                else 
+                                {
                                     precioValido = true;
                                 }
                             }
-                        } catch (NumberFormatException e) {
+                        } 
+                        catch (NumberFormatException e) 
+                        {
                             System.out.println("Precio no válido. Debe ingresar un valor numérico.");
                         }
                     }
                     
                     double nuevoIVA = (productoExistente.getIVA() != null) ? productoExistente.getIVA() : 0.0;
                     boolean ivaValido = false;
-                    while (!ivaValido) {
-                        try {
+                    while (!ivaValido) 
+                    {
+                        try 
+                        {
                             System.out.print("Ingrese el nuevo IVA (ej: 21 para 21%) [" + nuevoIVA + "]: ");
                             String ivaStr = scanner.nextLine();
-                            if (ivaStr.isEmpty()) {
+                            if (ivaStr.isEmpty()) 
+                            {
                                 ivaValido = true;
-                            } else {
+                            } 
+                            else 
+                            {
                                 nuevoIVA = Double.parseDouble(ivaStr);
-                                if (nuevoIVA < 0) {
+                                if (nuevoIVA < 0) 
+                                {
                                     System.out.println("El IVA no puede ser negativo.");
-                                } else {
+                                } 
+                                else 
+                                {
                                     ivaValido = true;
                                 }
                             }
-                        } catch (NumberFormatException e) {
+                        } 
+                        catch (NumberFormatException e) 
+                        {
                             System.out.println("IVA no válido. Debe ingresar un valor numérico.");
                         }
                     }
                     
                     int nuevoStock = productoExistente.getStock();
                     boolean stockValido = false;
-                    while (!stockValido) {
-                        try {
+                    while (!stockValido) 
+                    {
+                        try 
+                        {
                             System.out.print("Ingrese el nuevo stock [" + productoExistente.getStock() + "]: ");
                             String stockStr = scanner.nextLine();
-                            if (stockStr.isEmpty()) {
+                            if (stockStr.isEmpty()) 
+                            {
                                 stockValido = true;
-                            } else {
+                            } 
+                            else 
+                            {
                                 nuevoStock = Integer.parseInt(stockStr);
-                                if (nuevoStock < 0) {
+                                if (nuevoStock < 0) 
+                                {
                                     System.out.println("El stock no puede ser negativo.");
-                                } else {
+                                } 
+                                else 
+                                {
                                     stockValido = true;
                                 }
                             }
-                        } catch (NumberFormatException e) {
+                        } 
+                        catch (NumberFormatException e) 
+                        {
                             System.out.println("Stock no válido. Debe ingresar un valor numérico entero.");
                         }
                     }
@@ -1286,31 +1562,43 @@ public class Submenus {
                     Categoria nuevaCategoria = productoExistente.getCategoria();
                     boolean categoriaValida = false;
                     
-                    while (!categoriaValida) {
+                    while (!categoriaValida) 
+                    {
                         System.out.print("¿Desea cambiar la categoría? (S/N): ");
                         String cambiarCategoria = scanner.nextLine().toUpperCase();
                         
-                        if (cambiarCategoria.equals("S")) {
+                        if (cambiarCategoria.equals("S")) 
+                        {
                             System.out.println("Categorías disponibles:");
                             categoriaController.findAll().forEach(System.out::println);
                             
-                            try {
+                            try 
+                            {
                                 System.out.print("Ingrese el ID de la nueva categoría: ");
                                 Long idNuevaCategoria = Long.parseLong(scanner.nextLine());
                                 Categoria tempCategoria = categoriaController.findById(idNuevaCategoria);
                                 
-                                if (tempCategoria == null) {
+                                if (tempCategoria == null) 
+                                {
                                     System.out.println("La categoría seleccionada no existe. Se mantendrá la categoría actual.");
-                                } else {
+                                } 
+                                else 
+                                {
                                     nuevaCategoria = tempCategoria;
                                 }
                                 categoriaValida = true;
-                            } catch (NumberFormatException e) {
+                            } 
+                            catch (NumberFormatException e) 
+                            {
                                 System.out.println("ID de categoría no válido. Debe ingresar un valor numérico.");
                             }
-                        } else if (cambiarCategoria.equals("N")) {
+                        } 
+                        else if (cambiarCategoria.equals("N")) 
+                        {
                             categoriaValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             System.out.println("Respuesta no válida. Ingrese S o N.");
                         }
                     }
@@ -1318,37 +1606,52 @@ public class Submenus {
                     Proveedor nuevoProveedor = productoExistente.getProveedor();
                     boolean proveedorValido = false;
                     
-                    while (!proveedorValido) {
+                    while (!proveedorValido) 
+                    {
                         System.out.print("¿Desea cambiar el proveedor? (S/N): ");
                         String cambiarProveedor = scanner.nextLine().toUpperCase();
                         
-                        if (cambiarProveedor.equals("S")) {
+                        if (cambiarProveedor.equals("S")) 
+                        {
                             System.out.println("Proveedores disponibles:");
                             proveedorController.findAll().forEach(System.out::println);
                             
-                            try {
+                            try 
+                            {
                                 System.out.print("Ingrese el ID del nuevo proveedor (0 para ninguno): ");
                                 Long idNuevoProveedor = Long.parseLong(scanner.nextLine());
                                 
-                                if (idNuevoProveedor == 0) {
+                                if (idNuevoProveedor == 0) 
+                                {
                                     nuevoProveedor = null;
                                     proveedorValido = true;
-                                } else {
+                                } 
+                                else 
+                                {
                                     Proveedor tempProveedor = proveedorController.findById(idNuevoProveedor);
                                     
-                                    if (tempProveedor == null) {
+                                    if (tempProveedor == null) 
+                                    {
                                         System.out.println("El proveedor seleccionado no existe. Se mantendrá el proveedor actual.");
-                                    } else {
+                                    } 
+                                    else 
+                                    {
                                         nuevoProveedor = tempProveedor;
                                     }
                                     proveedorValido = true;
                                 }
-                            } catch (NumberFormatException e) {
+                            } 
+                            catch (NumberFormatException e) 
+                            {
                                 System.out.println("ID de proveedor no válido. Debe ingresar un valor numérico.");
                             }
-                        } else if (cambiarProveedor.equals("N")) {
+                        } 
+                        else if (cambiarProveedor.equals("N")) 
+                        {
                             proveedorValido = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             System.out.println("Respuesta no válida. Ingrese S o N.");
                         }
                     }
@@ -1391,12 +1694,16 @@ public class Submenus {
                 Long idProductoEliminar = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del producto a eliminar: ");
                         idProductoEliminar = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -1411,13 +1718,16 @@ public class Submenus {
                     boolean respuestaValida = false;
                     String respuesta = "";
                     
-                    while (!respuestaValida) {
+                    while (!respuestaValida) 
+                    {
                         System.out.print("¿Está seguro que desea eliminar este producto? (S/N): ");
                         respuesta = scanner.nextLine().trim().toUpperCase();
                         
                         if (respuesta.equals("S") || respuesta.equals("N")) {
                             respuestaValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             System.out.println("Por favor, ingrese S para confirmar o N para cancelar.");
                         }
                     }
@@ -1478,12 +1788,16 @@ public class Submenus {
                 Long idProveedor = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del proveedor: ");
                         idProveedor = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -1523,116 +1837,160 @@ public class Submenus {
                 
                 String cif = "";
                 boolean cifValido = false;
-                while (!cifValido) {
+                while (!cifValido) 
+                {
                     System.out.print("Ingrese el CIF del proveedor: ");
                     cif = scanner.nextLine();
-                    if (cif.isEmpty()) {
+                    if (cif.isEmpty()) 
+                    {
                         System.out.println("El CIF no puede estar vacío.");
-                    } else if (!cif.matches("[A-Z]\\d{8}")) {
+                    } 
+                    else if (!cif.matches("[A-Z]\\d{8}")) 
+                    {
                         System.out.println("El CIF debe tener 1 letra seguida de 8 números.");
-                    } else {
+                    } 
+                    else 
+                    {
                         cifValido = true;
                     }
                 }
                 
                 String nombreEmpresa = "";
                 boolean nombreEmpresaValido = false;
-                while (!nombreEmpresaValido) {
+                while (!nombreEmpresaValido) 
+                {
                     System.out.print("Ingrese el nombre de la empresa: ");
                     nombreEmpresa = scanner.nextLine();
-                    if (nombreEmpresa.isEmpty()) {
+                    if (nombreEmpresa.isEmpty()) 
+                    {
                         System.out.println("El nombre de la empresa no puede estar vacío.");
-                    } else {
+                    } 
+                    else 
+                    {
                         nombreEmpresaValido = true;
                     }
                 }
                 
                 String nombreResponsable = "";
                 boolean nombreResponsableValido = false;
-                while (!nombreResponsableValido) {
+                while (!nombreResponsableValido) 
+                {
                     System.out.print("Ingrese el nombre del responsable: ");
                     nombreResponsable = scanner.nextLine();
-                    if (nombreResponsable.isEmpty()) {
+                    if (nombreResponsable.isEmpty()) 
+                    {
                         System.out.println("El nombre del responsable no puede estar vacío.");
-                    } else {
+                    } 
+                    else 
+                    {
                         nombreResponsableValido = true;
                     }
                 }
                 
                 String pais = "";
                 boolean paisValido = false;
-                while (!paisValido) {
+                while (!paisValido) 
+                {
                     System.out.print("Ingrese el país del proveedor: ");
                     pais = scanner.nextLine();
-                    if (pais.isEmpty()) {
+                    if (pais.isEmpty()) 
+                    {
                         System.out.println("El país no puede estar vacío.");
-                    } else {
+                    } 
+                    else 
+                    {
                         paisValido = true;
                     }
                 }
                 
                 String provincia = "";
                 boolean provinciaValida = false;
-                while (!provinciaValida) {
+                while (!provinciaValida) 
+                {
                     System.out.print("Ingrese la provincia del proveedor: ");
                     provincia = scanner.nextLine();
-                    if (provincia.isEmpty()) {
+                    if (provincia.isEmpty()) 
+                    {
                         System.out.println("La provincia no puede estar vacía.");
-                    } else {
+                    } 
+                    else 
+                    {
                         provinciaValida = true;
                     }
                 }
                 
                 String direccion = "";
                 boolean direccionValida = false;
-                while (!direccionValida) {
+                while (!direccionValida) 
+                {
                     System.out.print("Ingrese la dirección del proveedor: ");
                     direccion = scanner.nextLine();
-                    if (direccion.isEmpty()) {
+                    if (direccion.isEmpty()) 
+                    {
                         System.out.println("La dirección no puede estar vacía.");
-                    } else {
+                    } 
+                    else 
+                    {
                         direccionValida = true;
                     }
                 }
                 
                 String email = "";
                 boolean emailValido = false;
-                while (!emailValido) {
+                while (!emailValido) 
+                {
                     System.out.print("Ingrese el email del proveedor: ");
                     email = scanner.nextLine();
-                    if (email.isEmpty()) {
+                    if (email.isEmpty()) 
+                    {
                         System.out.println("El email no puede estar vacío.");
-                    } else if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                    } 
+                    else if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) 
+                    {
                         System.out.println("El email debe tener un formato válido.");
-                    } else {
+                    } 
+                    else 
+                    {
                         emailValido = true;
                     }
                 }
                 
                 String telefono = "";
                 boolean telefonoValido = false;
-                while (!telefonoValido) {
+                while (!telefonoValido) 
+                {
                     System.out.print("Ingrese el teléfono del proveedor: ");
                     telefono = scanner.nextLine();
-                    if (telefono.isEmpty()) {
+                    if (telefono.isEmpty()) 
+                    {
                         System.out.println("El teléfono no puede estar vacío.");
-                    } else if (!telefono.matches("\\d+")) {
+                    } 
+                    else if (!telefono.matches("\\d+")) 
+                    {
                         System.out.println("El teléfono debe contener solo números.");
-                    } else {
+                    } 
+                    else 
+                    {
                         telefonoValido = true;
                     }
                 }
                 
                 String codigoPostal = "";
                 boolean cpValido = false;
-                while (!cpValido) {
+                while (!cpValido) 
+                {
                     System.out.print("Ingrese el código postal del proveedor: ");
                     codigoPostal = scanner.nextLine();
-                    if (codigoPostal.isEmpty()) {
+                    if (codigoPostal.isEmpty()) 
+                    {
                         System.out.println("El código postal no puede estar vacío.");
-                    } else if (!codigoPostal.matches("\\d{5}")) {
+                    } 
+                    else if (!codigoPostal.matches("\\d{5}")) 
+                    {
                         System.out.println("El código postal debe tener 5 números.");
-                    } else {
+                    } 
+                    else 
+                    {
                         cpValido = true;
                     }
                 }
@@ -1663,19 +2021,24 @@ public class Submenus {
     
     protected void actualizarProveedor() 
     {
-        if (proveedorController != null) {
+        if (proveedorController != null) 
+        {
             try 
             {
                 System.out.println("Actualizando proveedor...");
                 Long idProveedorActualizar = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del proveedor: ");
                         idProveedorActualizar = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -1690,125 +2053,169 @@ public class Submenus {
                     
                     String nuevoCIF = "";
                     boolean cifValido = false;
-                    while (!cifValido) {
+                    while (!cifValido) 
+                    {
                         System.out.print("Ingrese el nuevo CIF [" + proveedorExistente.getCIF() + "]: ");
                         nuevoCIF = scanner.nextLine();
-                        if (nuevoCIF.isEmpty()) {
+                        if (nuevoCIF.isEmpty())
+                        {
                             nuevoCIF = proveedorExistente.getCIF();
                             cifValido = true;
-                        } else if (!nuevoCIF.matches("[A-Z]\\d{8}")) {
+                        } 
+                        else if (!nuevoCIF.matches("[A-Z]\\d{8}")) 
+                        {
                             System.out.println("El CIF debe tener 1 letra seguida de 8 números.");
-                        } else {
+                        } 
+                        else 
+                        {
                             cifValido = true;
                         }
                     }
                     
                     String nuevoNombreEmpresa = "";
                     boolean nombreEmpresaValido = false;
-                    while (!nombreEmpresaValido) {
+                    while (!nombreEmpresaValido) 
+                    {
                         System.out.print("Ingrese el nuevo nombre de la empresa [" + proveedorExistente.getNombre() + "]: ");
                         nuevoNombreEmpresa = scanner.nextLine();
-                        if (nuevoNombreEmpresa.isEmpty()) {
+                        if (nuevoNombreEmpresa.isEmpty()) 
+                        {
                             nuevoNombreEmpresa = proveedorExistente.getNombre();
                             nombreEmpresaValido = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             nombreEmpresaValido = true;
                         }
                     }
                     
                     String nuevoNombreResponsable = "";
                     boolean nombreResponsableValido = false;
-                    while (!nombreResponsableValido) {
+                    while (!nombreResponsableValido) 
+                    {
                         System.out.print("Ingrese el nuevo nombre del responsable [" + proveedorExistente.getNombre_Responsable() + "]: ");
                         nuevoNombreResponsable = scanner.nextLine();
-                        if (nuevoNombreResponsable.isEmpty()) {
+                        if (nuevoNombreResponsable.isEmpty()) 
+                        {
                             nuevoNombreResponsable = proveedorExistente.getNombre_Responsable();
                             nombreResponsableValido = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             nombreResponsableValido = true;
                         }
                     }
                     
                     String nuevoPais = "";
                     boolean paisValido = false;
-                    while (!paisValido) {
+                    while (!paisValido) 
+                    {
                         System.out.print("Ingrese el nuevo país [" + proveedorExistente.getPais() + "]: ");
                         nuevoPais = scanner.nextLine();
-                        if (nuevoPais.isEmpty()) {
+                        if (nuevoPais.isEmpty()) 
+                        {
                             nuevoPais = proveedorExistente.getPais();
                             paisValido = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             paisValido = true;
                         }
                     }
                     
                     String nuevaProvincia = "";
                     boolean provinciaValida = false;
-                    while (!provinciaValida) {
+                    while (!provinciaValida) 
+                    {
                         System.out.print("Ingrese la nueva provincia [" + proveedorExistente.getProvincia() + "]: ");
                         nuevaProvincia = scanner.nextLine();
-                        if (nuevaProvincia.isEmpty()) {
+                        if (nuevaProvincia.isEmpty()) 
+                        {
                             nuevaProvincia = proveedorExistente.getProvincia();
                             provinciaValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             provinciaValida = true;
                         }
                     }
                     
                     String nuevaDireccion = "";
                     boolean direccionValida = false;
-                    while (!direccionValida) {
+                    while (!direccionValida) 
+                    {
                         System.out.print("Ingrese la nueva dirección [" + proveedorExistente.getDireccion() + "]: ");
                         nuevaDireccion = scanner.nextLine();
-                        if (nuevaDireccion.isEmpty()) {
+                        if (nuevaDireccion.isEmpty()) 
+                        {
                             nuevaDireccion = proveedorExistente.getDireccion();
                             direccionValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             direccionValida = true;
                         }
                     }
                     
                     String nuevoEmail = "";
                     boolean emailValido = false;
-                    while (!emailValido) {
+                    while (!emailValido) 
+                    {
                         System.out.print("Ingrese el nuevo email [" + proveedorExistente.getEmail() + "]: ");
                         nuevoEmail = scanner.nextLine();
-                        if (nuevoEmail.isEmpty()) {
+                        if (nuevoEmail.isEmpty()) 
+                        {
                             nuevoEmail = proveedorExistente.getEmail();
                             emailValido = true;
-                        } else if (!nuevoEmail.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                        } 
+                        else if (!nuevoEmail.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) 
+                        {
                             System.out.println("El email debe tener un formato válido.");
-                        } else {
+                        } 
+                        else 
+                        {
                             emailValido = true;
                         }
                     }
                     
                     String nuevoTelefono = "";
                     boolean telefonoValido = false;
-                    while (!telefonoValido) {
+                    while (!telefonoValido) 
+                    {
                         System.out.print("Ingrese el nuevo teléfono [" + proveedorExistente.getTelefono() + "]: ");
                         nuevoTelefono = scanner.nextLine();
-                        if (nuevoTelefono.isEmpty()) {
+                        if (nuevoTelefono.isEmpty()) 
+                        {
                             nuevoTelefono = proveedorExistente.getTelefono();
                             telefonoValido = true;
-                        } else if (!nuevoTelefono.matches("\\d+")) {
+                        } 
+                        else if (!nuevoTelefono.matches("\\d+")) 
+                        {
                             System.out.println("El teléfono debe contener solo números.");
-                        } else {
+                        } 
+                        else 
+                        {
                             telefonoValido = true;
                         }
                     }
                     
                     String nuevoCodigoPostal = "";
                     boolean cpValido = false;
-                    while (!cpValido) {
+                    while (!cpValido) 
+                    {
                         System.out.print("Ingrese el nuevo código postal [" + proveedorExistente.getCodigo_Postal() + "]: ");
                         nuevoCodigoPostal = scanner.nextLine();
-                        if (nuevoCodigoPostal.isEmpty()) {
+                        if (nuevoCodigoPostal.isEmpty()) 
+                        {
                             nuevoCodigoPostal = proveedorExistente.getCodigo_Postal();
                             cpValido = true;
-                        } else if (!nuevoCodigoPostal.matches("\\d{5}")) {
+                        } 
+                        else if (!nuevoCodigoPostal.matches("\\d{5}")) 
+                        {
                             System.out.println("El código postal debe tener 5 números.");
-                        } else {
+                        } 
+                        else 
+                        {
                             cpValido = true;
                         }
                     }
@@ -1853,12 +2260,16 @@ public class Submenus {
                 Long idProveedorEliminar = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del proveedor a eliminar: ");
                         idProveedorEliminar = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -1873,13 +2284,17 @@ public class Submenus {
                     boolean respuestaValida = false;
                     String respuesta = "";
                     
-                    while (!respuestaValida) {
+                    while (!respuestaValida) 
+                    {
                         System.out.print("¿Está seguro que desea eliminar este proveedor? (S/N): ");
                         respuesta = scanner.nextLine().trim().toUpperCase();
                         
-                        if (respuesta.equals("S") || respuesta.equals("N")) {
+                        if (respuesta.equals("S") || respuesta.equals("N")) 
+                        {
                             respuestaValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             System.out.println("Por favor, ingrese S para confirmar o N para cancelar.");
                         }
                     }
@@ -1940,12 +2355,16 @@ public class Submenus {
                 Long idCategoria = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID de la categoría: ");
                         idCategoria = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -1985,12 +2404,16 @@ public class Submenus {
                 
                 String nombre = "";
                 boolean nombreValido = false;
-                while (!nombreValido) {
+                while (!nombreValido) 
+                {
                     System.out.print("Ingrese el nombre de la categoría: ");
                     nombre = scanner.nextLine();
-                    if (nombre.isEmpty()) {
+                    if (nombre.isEmpty()) 
+                    {
                         System.out.println("El nombre no puede estar vacío.");
-                    } else {
+                    } 
+                    else 
+                    {
                         nombreValido = true;
                     }
                 }
@@ -2021,12 +2444,16 @@ public class Submenus {
                 Long idCategoriaActualizar = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID de la categoría: ");
                         idCategoriaActualizar = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -2083,12 +2510,16 @@ public class Submenus {
                 Long idCategoriaEliminar = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID de la categoría a eliminar: ");
                         idCategoriaEliminar = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -2119,13 +2550,17 @@ public class Submenus {
                     boolean respuestaValida = false;
                     String respuesta = "";
                     
-                    while (!respuestaValida) {
+                    while (!respuestaValida) 
+                    {
                         System.out.print("¿Está seguro que desea eliminar esta categoría? (S/N): ");
                         respuesta = scanner.nextLine().trim().toUpperCase();
                         
-                        if (respuesta.equals("S") || respuesta.equals("N")) {
+                        if (respuesta.equals("S") || respuesta.equals("N")) 
+                        {
                             respuestaValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             System.out.println("Por favor, ingrese S para confirmar o N para cancelar.");
                         }
                     }
@@ -2186,12 +2621,16 @@ public class Submenus {
                 Long idFactura = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID de la factura: ");
                         idFactura = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -2238,17 +2677,24 @@ public class Submenus {
                 boolean clienteValido = false;
                 Cliente cliente = null;
                 
-                while (!clienteValido) {
-                    try {
+                while (!clienteValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del cliente: ");
                         idCliente = Long.parseLong(scanner.nextLine());
                         cliente = clienteController.findById(idCliente);
-                        if (cliente == null) {
+                        if (cliente == null) 
+                        {
                             System.out.println("El cliente seleccionado no existe.");
-                        } else {
+                        } 
+                        else 
+                        {
                             clienteValido = true;
                         }
-                    } catch (NumberFormatException e) {
+                    } 
+                    catch (NumberFormatException e) 
+                    {
                         System.out.println("Debe ingresar un valor numérico válido para el ID de cliente.");
                     }
                 }
@@ -2260,17 +2706,24 @@ public class Submenus {
                 boolean empleadoValido = false;
                 Empleado empleado = null;
                 
-                while (!empleadoValido) {
-                    try {
+                while (!empleadoValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del empleado: ");
                         idEmpleado = Long.parseLong(scanner.nextLine());
                         empleado = empleadoController.findById(idEmpleado);
-                        if (empleado == null) {
+                        if (empleado == null) 
+                        {
                             System.out.println("El empleado seleccionado no existe.");
-                        } else {
+                        }
+                        else 
+                        {
                             empleadoValido = true;
                         }
-                    } catch (NumberFormatException e) {
+                    } 
+                    catch (NumberFormatException e) 
+                    {
                         System.out.println("Debe ingresar un valor numérico válido para el ID de empleado.");
                     }
                 }
@@ -2278,13 +2731,17 @@ public class Submenus {
                 LocalDate fecha = null;
                 boolean fechaValida = false;
                 
-                while (!fechaValida) {
-                    try {
+                while (!fechaValida) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese la fecha de la factura (YYYY-MM-DD): ");
                         String fechaStr = scanner.nextLine();
                         fecha = LocalDate.parse(fechaStr);
                         fechaValida = true;
-                    } catch (Exception e) {
+                    } 
+                    catch (Exception e) 
+                    {
                         System.out.println("Formato de fecha inválido. Use el formato YYYY-MM-DD.");
                     }
                 }
@@ -2292,12 +2749,16 @@ public class Submenus {
                 String metodoPago = "";
                 boolean metodoPagoValido = false;
                 
-                while (!metodoPagoValido) {
+                while (!metodoPagoValido) 
+                {
                     System.out.print("Ingrese el método de pago: ");
                     metodoPago = scanner.nextLine();
-                    if (metodoPago.isEmpty()) {
+                    if (metodoPago.isEmpty()) 
+                    {
                         System.out.println("El método de pago no puede estar vacío.");
-                    } else {
+                    } 
+                    else 
+                    {
                         metodoPagoValido = true;
                     }
                 }
@@ -2305,16 +2766,22 @@ public class Submenus {
                 String estado = "";
                 boolean estadoValido = false;
                 
-                while (!estadoValido) {
+                while (!estadoValido) 
+                {
                     System.out.print("Ingrese el estado de la factura (Pendiente/Pagada/Cancelada): ");
                     estado = scanner.nextLine();
-                    if (estado.isEmpty()) {
+                    if (estado.isEmpty()) 
+                    {
                         System.out.println("El estado no puede estar vacío.");
-                    } else if (!(estado.equalsIgnoreCase("Pendiente") || 
+                    } 
+                    else if (!(estado.equalsIgnoreCase("Pendiente") || 
                                estado.equalsIgnoreCase("Pagada") || 
-                               estado.equalsIgnoreCase("Cancelada"))) {
+                               estado.equalsIgnoreCase("Cancelada"))) 
+                               {
                         System.out.println("El estado debe ser 'Pendiente', 'Pagada' o 'Cancelada'.");
-                    } else {
+                    } 
+                    else 
+                    {
                         estadoValido = true;
                     }
                 }
@@ -2333,17 +2800,24 @@ public class Submenus {
                 boolean productoValido = false;
                 Producto producto = null;
                 
-                while (!productoValido) {
-                    try {
+                while (!productoValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID del producto: ");
                         idProducto = Long.parseLong(scanner.nextLine());
                         producto = productoController.findById(idProducto);
-                        if (producto == null) {
+                        if (producto == null) 
+                        {
                             System.out.println("El producto seleccionado no existe.");
-                        } else {
+                        } 
+                        else 
+                        {
                             productoValido = true;
                         }
-                    } catch (NumberFormatException e) {
+                    } 
+                    catch (NumberFormatException e) 
+                    {
                         System.out.println("Debe ingresar un valor numérico válido para el ID de producto.");
                     }
                 }
@@ -2351,18 +2825,26 @@ public class Submenus {
                 int cantidad = 0;
                 boolean cantidadValida = false;
                 
-                while (!cantidadValida) {
-                    try {
+                while (!cantidadValida) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese la cantidad: ");
                         cantidad = Integer.parseInt(scanner.nextLine());
-                        if (cantidad <= 0) {
+                        if (cantidad <= 0) 
+                        {
                             System.out.println("La cantidad debe ser mayor que cero.");
-                        } else if (cantidad > producto.getStock()) {
+                        } 
+                        else if (cantidad > producto.getStock()) {
                             System.out.println("La cantidad no puede superar el stock disponible (" + producto.getStock() + ").");
-                        } else {
+                        } 
+                        else 
+                        {
                             cantidadValida = true;
                         }
-                    } catch (NumberFormatException e) {
+                    } 
+                    catch (NumberFormatException e) 
+                    {
                         System.out.println("Debe ingresar un valor numérico entero para la cantidad.");
                     }
                 }
@@ -2398,12 +2880,16 @@ public class Submenus {
                 Long idFacturaActualizar = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID de la factura: ");
                         idFacturaActualizar = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -2459,17 +2945,24 @@ public class Submenus {
                     LocalDate nuevaFecha = facturaExistente.getFecha_Venta();
                     boolean fechaValida = false;
                     
-                    while (!fechaValida) {
-                        try {
+                    while (!fechaValida) 
+                    {
+                        try 
+                        {
                             System.out.print("Ingrese la nueva fecha (YYYY-MM-DD) [" + facturaExistente.getFecha_Venta() + "]: ");
                             String nuevaFechaStr = scanner.nextLine();
-                            if (nuevaFechaStr.isEmpty()) {
+                            if (nuevaFechaStr.isEmpty()) 
+                            {
                                 fechaValida = true;
-                            } else {
+                            } 
+                            else 
+                            {
                                 nuevaFecha = LocalDate.parse(nuevaFechaStr);
                                 fechaValida = true;
                             }
-                        } catch (Exception e) {
+                        } 
+                        catch (Exception e) 
+                        {
                             System.out.println("Formato de fecha inválido. Use el formato YYYY-MM-DD.");
                         }
                     }
@@ -2477,13 +2970,17 @@ public class Submenus {
                     String nuevoMetodoPago = "";
                     boolean metodoPagoValido = false;
                     
-                    while (!metodoPagoValido) {
+                    while (!metodoPagoValido) 
+                    {
                         System.out.print("Ingrese el nuevo método de pago [" + facturaExistente.getCanal_Compra() + "]: ");
                         nuevoMetodoPago = scanner.nextLine();
-                        if (nuevoMetodoPago.isEmpty()) {
+                        if (nuevoMetodoPago.isEmpty()) 
+                        {
                             nuevoMetodoPago = facturaExistente.getCanal_Compra();
                             metodoPagoValido = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             metodoPagoValido = true;
                         }
                     }
@@ -2491,17 +2988,23 @@ public class Submenus {
                     String nuevoEstado = "";
                     boolean estadoValido = false;
                     
-                    while (!estadoValido) {
+                    while (!estadoValido) 
+                    {
                         System.out.print("Ingrese el nuevo estado (Pendiente/Pagada/Cancelada) [" + facturaExistente.getPagado() + "]: ");
                         nuevoEstado = scanner.nextLine();
-                        if (nuevoEstado.isEmpty()) {
+                        if (nuevoEstado.isEmpty()) 
+                        {
                             nuevoEstado = facturaExistente.getPagado();
                             estadoValido = true;
-                        } else if (!(nuevoEstado.equalsIgnoreCase("Pendiente") || 
+                        } 
+                        else if (!(nuevoEstado.equalsIgnoreCase("Pendiente") || 
                                    nuevoEstado.equalsIgnoreCase("Pagada") || 
-                                   nuevoEstado.equalsIgnoreCase("Cancelada"))) {
+                                   nuevoEstado.equalsIgnoreCase("Cancelada"))) 
+                        {
                             System.out.println("El estado debe ser 'Pendiente', 'Pagada' o 'Cancelada'.");
-                        } else {
+                        } 
+                        else 
+                        {
                             estadoValido = true;
                         }
                     }
@@ -2544,12 +3047,16 @@ public class Submenus {
                 Long idFacturaEliminar = 0L;
                 boolean idValido = false;
                 
-                while (!idValido) {
-                    try {
+                while (!idValido) 
+                {
+                    try 
+                    {
                         System.out.print("Ingrese el ID de la factura a eliminar: ");
                         idFacturaEliminar = scanner.nextLong();
                         idValido = true;
-                    } catch (InputMismatchException e) {
+                    } 
+                    catch (InputMismatchException e) 
+                    {
                         System.err.println("Error: Debe ingresar un número válido para el ID.");
                         scanner.nextLine();
                     }
@@ -2564,13 +3071,17 @@ public class Submenus {
                     boolean respuestaValida = false;
                     String respuesta = "";
                     
-                    while (!respuestaValida) {
+                    while (!respuestaValida) 
+                    {
                         System.out.print("¿Está seguro que desea eliminar esta factura? (S/N): ");
                         respuesta = scanner.nextLine().trim().toUpperCase();
                         
-                        if (respuesta.equals("S") || respuesta.equals("N")) {
+                        if (respuesta.equals("S") || respuesta.equals("N")) 
+                        {
                             respuestaValida = true;
-                        } else {
+                        } 
+                        else 
+                        {
                             System.out.println("Por favor, ingrese S para confirmar o N para cancelar.");
                         }
                     }

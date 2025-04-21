@@ -194,7 +194,8 @@ public class MenuProyecto extends Submenus
     {
         boolean volver = false;
         
-        while (!volver) {
+        while (!volver) 
+        {
             System.out.println("\n=== GESTIÓN DE PROVEEDORES ===");
             System.out.println("1. Ver todos los proveedores");
             System.out.println("2. Buscar proveedor por ID");
@@ -236,7 +237,8 @@ public class MenuProyecto extends Submenus
     {
         boolean volver = false;
         
-        while (!volver) {
+        while (!volver) 
+        {
             System.out.println("\n=== GESTIÓN DE FACTURAS ===");
             System.out.println("1. Ver todas las facturas");
             System.out.println("2. Buscar factura por ID");
