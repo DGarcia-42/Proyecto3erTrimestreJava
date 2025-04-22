@@ -31,7 +31,7 @@ public class EmpleadoController implements EmpleadoRepository<Empleado>
         e.setDireccion(rs.getString("direccion"));
         e.setCodigo_Postal(rs.getString("codigo_postal"));
         e.setProvincia(rs.getString("provincia"));
-        e.setPaís(rs.getString("País"));
+        e.setPais(rs.getString("Pais"));
         e.setTelfono(rs.getString("telefono"));
         e.setEmail(rs.getString("email"));
         return e;
@@ -94,11 +94,11 @@ public class EmpleadoController implements EmpleadoRepository<Empleado>
 
         if (e.getID_Empleado() == null)
         {
-            query = "INSERT INTO empleado (nombre, apellido, nif, direccion, codigo_postal, provincia, País, telefono, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            query = "INSERT INTO empleado (nombre, apellido, nif, direccion, codigo_postal, provincia, Pais, telefono, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         }
         else
         {
-            query = "UPDATE empleado SET nombre = ?, apellido = ?, nif = ?, direccion = ?, codigo_postal = ?, provincia = ?, País = ?, telefono = ?, email = ? WHERE id_empleado = ?";
+            query = "UPDATE empleado SET nombre = ?, apellido = ?, nif = ?, direccion = ?, codigo_postal = ?, provincia = ?, Pais = ?, telefono = ?, email = ? WHERE id_empleado = ?";
         }
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
@@ -108,7 +108,7 @@ public class EmpleadoController implements EmpleadoRepository<Empleado>
             pstmt.setString(4, e.getDireccion());
             pstmt.setString(5, e.getCodigo_Postal());
             pstmt.setString(6, e.getProvincia());
-            pstmt.setString(7, e.getPaís());
+            pstmt.setString(7, e.getPais());
             pstmt.setString(8, e.getTelfono());
             pstmt.setString(9, e.getEmail());
             

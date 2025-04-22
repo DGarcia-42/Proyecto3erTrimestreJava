@@ -9,7 +9,7 @@ public class Empleado
     private String Direccion;
     private String Codigo_Postal;
     private String Provincia;
-    private String País;
+    private String Pais;
     private String Telfono;
     private String Email;
 
@@ -23,7 +23,7 @@ public class Empleado
         this.Direccion = Direccion;
         this.Codigo_Postal = Codigo_Postal;
         this.Provincia = Provincia;
-        this.País = País;
+        this.Pais = Pais;
         this.Telfono = Telfono;
         this.Email = Email;
     }
@@ -41,8 +41,8 @@ public class Empleado
     public void setCodigo_Postal(String codigo_Postal) {Codigo_Postal = codigo_Postal;}
     public String getProvincia() {return Provincia;}
     public void setProvincia(String provincia) {Provincia = provincia;}
-    public String getPaís() {return País;}
-    public void setPaís(String país) {País = país;}
+    public String getPais() {return Pais;}
+    public void setPais(String pais) {Pais = pais;}
     public String getTelfono() {return Telfono;}
     public void setTelfono(String telfono) {Telfono = telfono;}
     public String getEmail() {return Email;}
@@ -52,7 +52,7 @@ public class Empleado
     {
         return "Empleado [ID_Empleado=" + ID_Empleado + ", Nombre=" + Nombre + ", Apellido=" + Apellido + ", NIF=" + NIF
                 + ", Direccion=" + Direccion + ", Codigo_Postal=" + Codigo_Postal + ", Provincia=" + Provincia
-                + ", País=" + País + ", Telfono=" + Telfono + ", Email=" + Email + "]";
+                + ", Pais=" + Pais + ", Telfono=" + Telfono + ", Email=" + Email + "]";
     }
 
     

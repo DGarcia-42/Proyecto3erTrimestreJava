@@ -8,6 +8,7 @@ import org.carlosydiego.crmclientes.app.model.Empleado;
 import org.carlosydiego.crmclientes.app.model.Factura;
 import org.carlosydiego.crmclientes.app.model.Producto;
 import org.carlosydiego.crmclientes.app.model.Proveedor;
+import org.carlosydiego.crmclientes.app.model.Provee;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -812,7 +813,7 @@ public class Submenus {
                 empleado.setDireccion(direccion);
                 empleado.setCodigo_Postal(codigoPostal);
                 empleado.setProvincia(provincia);
-                empleado.setPaís(pais);
+                empleado.setPais(pais);
                 empleado.setEmail(email);
                 empleado.setTelfono(telefono);
                 empleadoController.save(empleado);
@@ -975,11 +976,11 @@ public class Submenus {
                     boolean paisValido = false;
                     while (!paisValido) 
                     {
-                        System.out.print("Ingrese el nuevo país [" + empleadoExistente.getPaís() + "]: ");
+                        System.out.print("Ingrese el nuevo país [" + empleadoExistente.getPais() + "]: ");
                         nuevoPais = scanner.nextLine();
                         if (nuevoPais.isEmpty()) 
                         {
-                            nuevoPais = empleadoExistente.getPaís();
+                            nuevoPais = empleadoExistente.getPais();
                             paisValido = true;
                         } 
                         else 
@@ -1037,7 +1038,7 @@ public class Submenus {
                     empleadoActualizado.setDireccion(nuevaDireccion);
                     empleadoActualizado.setCodigo_Postal(nuevoCodigoPostal);
                     empleadoActualizado.setProvincia(nuevaProvincia);
-                    empleadoActualizado.setPaís(nuevoPais);
+                    empleadoActualizado.setPais(nuevoPais);
                     empleadoActualizado.setEmail(nuevoEmail);
                     empleadoActualizado.setTelfono(nuevoTelefono);
                     empleadoController.save(empleadoActualizado);
@@ -2768,17 +2769,15 @@ public class Submenus {
                 
                 while (!estadoValido) 
                 {
-                    System.out.print("Ingrese el estado de la factura (Pendiente/Pagada/Cancelada): ");
-                    estado = scanner.nextLine();
+                    System.out.print("¿Factura pagada? (SI/NO): ");
+                    estado = scanner.nextLine().toUpperCase();
                     if (estado.isEmpty()) 
                     {
                         System.out.println("El estado no puede estar vacío.");
                     } 
-                    else if (!(estado.equalsIgnoreCase("Pendiente") || 
-                               estado.equalsIgnoreCase("Pagada") || 
-                               estado.equalsIgnoreCase("Cancelada"))) 
-                               {
-                        System.out.println("El estado debe ser 'Pendiente', 'Pagada' o 'Cancelada'.");
+                    else if (!(estado.equals("SI") || estado.equals("NO"))) 
+                    {
+                        System.out.println("El estado debe ser 'SI' o 'NO'.");
                     } 
                     else 
                     {
@@ -2857,11 +2856,12 @@ public class Submenus {
                 factura.setTotal(subtotal);
                 
                 facturaController.save(factura);
-                System.out.println("Factura creada correctamente con un total de: " + subtotal + "€");
+                System.out.println("Factura creada correctamente");
             } 
             catch (Exception e) 
             {
                 System.err.println("Error al crear la factura: " + e.getMessage());
+                e.printStackTrace();
             }
         } 
         else 
@@ -2990,18 +2990,16 @@ public class Submenus {
                     
                     while (!estadoValido) 
                     {
-                        System.out.print("Ingrese el nuevo estado (Pendiente/Pagada/Cancelada) [" + facturaExistente.getPagado() + "]: ");
-                        nuevoEstado = scanner.nextLine();
+                        System.out.print("¿Factura pagada? (SI/NO) [" + facturaExistente.getPagado() + "]: ");
+                        nuevoEstado = scanner.nextLine().toUpperCase();
                         if (nuevoEstado.isEmpty()) 
                         {
                             nuevoEstado = facturaExistente.getPagado();
                             estadoValido = true;
                         } 
-                        else if (!(nuevoEstado.equalsIgnoreCase("Pendiente") || 
-                                   nuevoEstado.equalsIgnoreCase("Pagada") || 
-                                   nuevoEstado.equalsIgnoreCase("Cancelada"))) 
+                        else if (!(nuevoEstado.equals("SI") || nuevoEstado.equals("NO"))) 
                         {
-                            System.out.println("El estado debe ser 'Pendiente', 'Pagada' o 'Cancelada'.");
+                            System.out.println("El estado debe ser 'SI' o 'NO'.");
                         } 
                         else 
                         {
@@ -3029,6 +3027,7 @@ public class Submenus {
             catch (Exception e) 
             {
                 System.err.println("Error al actualizar la factura: " + e.getMessage());
+                e.printStackTrace();
             }
         } 
         else 
@@ -3104,6 +3103,504 @@ public class Submenus {
             catch (Exception e) 
             {
                 System.err.println("Error al eliminar la factura: " + e.getMessage());
+            }
+        } 
+        else 
+        {
+            System.err.println("Error: No hay conexión con la base de datos");
+        }
+    }
+
+    protected void listarProvees() 
+    {
+        System.out.println("Lista de provees...");
+        if (proveeController != null) 
+        {
+            try 
+            {
+                proveeController.findAll().forEach(System.out::println);
+            } 
+            catch (Exception e) 
+            {
+                System.err.println("Error al obtener la lista de provees: " + e.getMessage());
+            }
+        } 
+        else 
+        {
+            System.err.println("Error: No hay conexión con la base de datos");
+        }
+    }
+    
+    protected void buscarProveePorId() 
+    {
+        if (proveeController != null) 
+        {
+            try 
+            {
+                System.out.println("Buscando provee...");
+                Long idProvee = 0L;
+                boolean idValido = false;
+                
+                while (!idValido) 
+                {
+                    try 
+                    {
+                        System.out.print("Ingrese el ID de la provee: ");
+                        idProvee = scanner.nextLong();
+                        idValido = true;
+                    } 
+                    catch (InputMismatchException e) 
+                    {
+                        System.err.println("Error: Debe ingresar un número válido para el ID.");
+                        scanner.nextLine();
+                    }
+                }
+                scanner.nextLine();
+                
+                System.out.println("Buscando provee con ID " + idProvee + "...");
+                Provee provee = proveeController.findById(idProvee);
+                if (provee != null) 
+                {
+                    System.out.println(provee);
+                } 
+                else 
+                {
+                    System.out.println("No se encontró una provee con el ID: " + idProvee);
+                }
+            } 
+            catch (Exception e) 
+            {
+                System.err.println("Error al buscar la provisión: " + e.getMessage());
+            }
+        } 
+        else 
+        {
+            System.err.println("Error: No hay conexión con la base de datos");
+        }
+    }
+    
+    protected void añadirProvee() 
+    {
+        if (proveeController != null && proveedorController != null && productoController != null) 
+        {
+            try 
+            {
+                System.out.println("Añadiendo nuevo provee...");
+                scanner.nextLine();
+                
+                // Seleccionar proveedor
+                System.out.println("Proveedores disponibles:");
+                proveedorController.findAll().forEach(System.out::println);
+                
+                Long idProveedor = 0L;
+                boolean proveedorValido = false;
+                Proveedor proveedor = null;
+                
+                while (!proveedorValido) 
+                {
+                    try 
+                    {
+                        System.out.print("Ingrese el ID del proveedor: ");
+                        idProveedor = Long.parseLong(scanner.nextLine());
+                        proveedor = proveedorController.findById(idProveedor);
+                        if (proveedor == null) 
+                        {
+                            System.out.println("El proveedor seleccionado no existe.");
+                        } 
+                        else 
+                        {
+                            proveedorValido = true;
+                        }
+                    } 
+                    catch (NumberFormatException e) 
+                    {
+                        System.out.println("Debe ingresar un valor numérico válido para el ID de proveedor.");
+                    }
+                }
+                
+                // Seleccionar producto
+                System.out.println("Productos disponibles:");
+                productoController.findAll().forEach(System.out::println);
+                
+                Long idProducto = 0L;
+                boolean productoValido = false;
+                Producto producto = null;
+                
+                while (!productoValido) 
+                {
+                    try 
+                    {
+                        System.out.print("Ingrese el ID del producto: ");
+                        idProducto = Long.parseLong(scanner.nextLine());
+                        producto = productoController.findById(idProducto);
+                        if (producto == null) 
+                        {
+                            System.out.println("El producto seleccionado no existe.");
+                        } 
+                        else 
+                        {
+                            productoValido = true;
+                        }
+                    } 
+                    catch (NumberFormatException e) 
+                    {
+                        System.out.println("Debe ingresar un valor numérico válido para el ID de producto.");
+                    }
+                }
+                
+                // Fecha de provisión
+                LocalDate fechaProvision = null;
+                boolean fechaValida = false;
+                
+                while (!fechaValida) 
+                {
+                    try 
+                    {
+                        System.out.print("Ingrese la fecha de provisión (YYYY-MM-DD): ");
+                        String fechaStr = scanner.nextLine();
+                        fechaProvision = LocalDate.parse(fechaStr);
+                        fechaValida = true;
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println("Formato de fecha inválido. Use el formato YYYY-MM-DD.");
+                    }
+                }
+                
+                // Cantidad
+                int cantidad = 0;
+                boolean cantidadValida = false;
+                
+                while (!cantidadValida) 
+                {
+                    try 
+                    {
+                        System.out.print("Ingrese la cantidad: ");
+                        cantidad = Integer.parseInt(scanner.nextLine());
+                        if (cantidad <= 0) 
+                        {
+                            System.out.println("La cantidad debe ser mayor que cero.");
+                        } 
+                        else 
+                        {
+                            cantidadValida = true;
+                        }
+                    } 
+                    catch (NumberFormatException e) 
+                    {
+                        System.out.println("Debe ingresar un valor numérico entero para la cantidad.");
+                    }
+                }
+                
+                // Precio
+                double precio = 0.0;
+                boolean precioValido = false;
+                
+                while (!precioValido) 
+                {
+                    try 
+                    {
+                        System.out.print("Ingrese el precio unitario: ");
+                        precio = Double.parseDouble(scanner.nextLine());
+                        if (precio <= 0) 
+                        {
+                            System.out.println("El precio debe ser mayor que cero.");
+                        } 
+                        else 
+                        {
+                            precioValido = true;
+                        }
+                    } 
+                    catch (NumberFormatException e) 
+                    {
+                        System.out.println("Debe ingresar un valor numérico válido para el precio.");
+                    }
+                }
+                
+                // Crear y guardar la provisión
+                Provee provee = new Provee();
+                provee.setProveedor(proveedor);
+                provee.setProducto(producto);
+                provee.setFecha_Provision(fechaProvision);
+                provee.setCantidad(cantidad);
+                provee.setPrecio(precio);
+                
+                proveeController.save(provee);
+                System.out.println("Provee añadido correctamente.");
+            } 
+            catch (Exception e) 
+            {
+                System.err.println("Error al añadir el provee: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } 
+        else 
+        {
+            System.err.println("Error: No hay conexión con la base de datos o los controladores no están inicializados");
+        }
+    }
+    
+    protected void actualizarProvee() 
+    {
+        if (proveeController != null && proveedorController != null && productoController != null) 
+        {
+            try 
+            {
+                System.out.println("Actualizando provee...");
+                Long idProveeActualizar = 0L;
+                boolean idValido = false;
+                
+                while (!idValido) 
+                {
+                    try 
+                    {
+                        System.out.print("Ingrese el ID de la provee: ");
+                        idProveeActualizar = scanner.nextLong();
+                        idValido = true;
+                    } 
+                    catch (InputMismatchException e) 
+                    {
+                        System.err.println("Error: Debe ingresar un número válido para el ID.");
+                        scanner.nextLine();
+                    }
+                }
+                scanner.nextLine();
+                
+                Provee proveeExistente = proveeController.findById(idProveeActualizar);
+                if (proveeExistente != null) 
+                {
+                    System.out.println("Provee encontrado: " + proveeExistente);
+                    System.out.println("Ingrese los nuevos datos (deje en blanco para mantener el valor actual):");
+                    
+                    // Proveedor
+                    Proveedor nuevoProveedor = proveeExistente.getProveedor();
+                    boolean cambiarProveedor = false;
+                    
+                    System.out.print("¿Desea cambiar el proveedor? (S/N): ");
+                    String respuestaProveedor = scanner.nextLine().toUpperCase();
+                    if (respuestaProveedor.equals("S")) 
+                    {
+                        cambiarProveedor = true;
+                        System.out.println("Proveedores disponibles:");
+                        proveedorController.findAll().forEach(System.out::println);
+                        
+                        boolean proveedorValido = false;
+                        while (!proveedorValido) 
+                        {
+                            try 
+                            {
+                                System.out.print("Ingrese el ID del nuevo proveedor: ");
+                                Long idNuevoProveedor = Long.parseLong(scanner.nextLine());
+                                Proveedor tempProveedor = proveedorController.findById(idNuevoProveedor);
+                                if (tempProveedor == null) 
+                                {
+                                    System.out.println("El proveedor seleccionado no existe.");
+                                } 
+                                else 
+                                {
+                                    nuevoProveedor = tempProveedor;
+                                    proveedorValido = true;
+                                }
+                            } 
+                            catch (NumberFormatException e) 
+                            {
+                                System.out.println("Debe ingresar un valor numérico válido para el ID de proveedor.");
+                            }
+                        }
+                    }
+                    
+                    // Producto
+                    Producto nuevoProducto = proveeExistente.getProducto();
+                    boolean cambiarProducto = false;
+                    
+                    System.out.print("¿Desea cambiar el producto? (S/N): ");
+                    String respuestaProducto = scanner.nextLine().toUpperCase();
+                    if (respuestaProducto.equals("S")) 
+                    {
+                        cambiarProducto = true;
+                        System.out.println("Productos disponibles:");
+                        productoController.findAll().forEach(System.out::println);
+                        
+                        boolean productoValido = false;
+                        while (!productoValido) 
+                        {
+                            try 
+                            {
+                                System.out.print("Ingrese el ID del nuevo producto: ");
+                                Long idNuevoProducto = Long.parseLong(scanner.nextLine());
+                                Producto tempProducto = productoController.findById(idNuevoProducto);
+                                if (tempProducto == null) 
+                                {
+                                    System.out.println("El producto seleccionado no existe.");
+                                } 
+                                else 
+                                {
+                                    nuevoProducto = tempProducto;
+                                    productoValido = true;
+                                }
+                            } 
+                            catch (NumberFormatException e) 
+                            {
+                                System.out.println("Debe ingresar un valor numérico válido para el ID de producto.");
+                            }
+                        }
+                    }
+                    
+                    // Fecha de provisión
+                    LocalDate nuevaFecha = proveeExistente.getFecha_Provision();
+                    System.out.print("Ingrese la nueva fecha de provisión (YYYY-MM-DD) [" + nuevaFecha + "]: ");
+                    String fechaStr = scanner.nextLine();
+                    if (!fechaStr.isEmpty()) 
+                    {
+                        try 
+                        {
+                            nuevaFecha = LocalDate.parse(fechaStr);
+                        } 
+                        catch (Exception e) 
+                        {
+                            System.out.println("Formato de fecha inválido. Se mantendrá la fecha actual.");
+                        }
+                    }
+                    
+                    // Cantidad
+                    int nuevaCantidad = proveeExistente.getCantidad();
+                    System.out.print("Ingrese la nueva cantidad [" + nuevaCantidad + "]: ");
+                    String cantidadStr = scanner.nextLine();
+                    if (!cantidadStr.isEmpty()) 
+                    {
+                        try 
+                        {
+                            nuevaCantidad = Integer.parseInt(cantidadStr);
+                            if (nuevaCantidad <= 0) 
+                            {
+                                System.out.println("La cantidad debe ser mayor que cero. Se mantendrá la cantidad actual.");
+                                nuevaCantidad = proveeExistente.getCantidad();
+                            }
+                        } 
+                        catch (NumberFormatException e) 
+                        {
+                            System.out.println("Valor de cantidad no válido. Se mantendrá la cantidad actual.");
+                        }
+                    }
+                    
+                    // Precio
+                    double nuevoPrecio = proveeExistente.getPrecio();
+                    System.out.print("Ingrese el nuevo precio unitario [" + nuevoPrecio + "]: ");
+                    String precioStr = scanner.nextLine();
+                    if (!precioStr.isEmpty()) 
+                    {
+                        try 
+                        {
+                            nuevoPrecio = Double.parseDouble(precioStr);
+                            if (nuevoPrecio <= 0) 
+                            {
+                                System.out.println("El precio debe ser mayor que cero. Se mantendrá el precio actual.");
+                                nuevoPrecio = proveeExistente.getPrecio();
+                            }
+                        } 
+                        catch (NumberFormatException e) 
+                        {
+                            System.out.println("Valor de precio no válido. Se mantendrá el precio actual.");
+                        }
+                    }
+                    
+                    // Crear y guardar la provisión actualizada
+                    Provee proveeActualizado = new Provee();
+                    proveeActualizado.setID_Provee(idProveeActualizar);
+                    proveeActualizado.setProveedor(nuevoProveedor);
+                    proveeActualizado.setProducto(nuevoProducto);
+                    proveeActualizado.setFecha_Provision(nuevaFecha);
+                    proveeActualizado.setCantidad(nuevaCantidad);
+                    proveeActualizado.setPrecio(nuevoPrecio);
+                    
+                    proveeController.save(proveeActualizado);
+                    System.out.println("Provee actualizado correctamente.");
+                } 
+                else 
+                {
+                    System.out.println("No se encontró el provee con ID: " + idProveeActualizar);
+                }
+            } 
+            catch (Exception e) 
+            {
+                System.err.println("Error al actualizar el provee: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } 
+        else 
+        {
+            System.err.println("Error: No hay conexión con la base de datos o los controladores no están inicializados");
+        }
+    }
+    
+    protected void eliminarProvee() 
+    {
+        if (proveeController != null) 
+        {
+            try 
+            {
+                System.out.println("Eliminando provee...");
+                Long idProveeEliminar = 0L;
+                boolean idValido = false;
+                
+                while (!idValido) 
+                {
+                    try 
+                    {
+                        System.out.print("Ingrese el ID de la provee a eliminar: ");
+                        idProveeEliminar = scanner.nextLong();
+                        idValido = true;
+                    } 
+                    catch (InputMismatchException e) 
+                    {
+                        System.err.println("Error: Debe ingresar un número válido para el ID.");
+                        scanner.nextLine();
+                    }
+                }
+                scanner.nextLine();
+                
+                Provee proveeExistente = proveeController.findById(idProveeEliminar);
+                if (proveeExistente != null) 
+                {
+                    System.out.println("Se eliminará el siguiente provee: " + proveeExistente);
+                    
+                    boolean respuestaValida = false;
+                    String respuesta = "";
+                    
+                    while (!respuestaValida) 
+                    {
+                        System.out.print("¿Está seguro que desea eliminar este provee? (S/N): ");
+                        respuesta = scanner.nextLine().trim().toUpperCase();
+                        
+                        if (respuesta.equals("S") || respuesta.equals("N")) 
+                        {
+                            respuestaValida = true;
+                        } 
+                        else 
+                        {
+                            System.out.println("Por favor, ingrese S para confirmar o N para cancelar.");
+                        }
+                    }
+                    
+                    if (respuesta.equals("S")) 
+                    {
+                        proveeController.delete(idProveeEliminar);
+                        System.out.println("Provee eliminado correctamente.");
+                    } 
+                    else 
+                    {
+                        System.out.println("Operación cancelada por el usuario.");
+                    }
+                } 
+                else 
+                {
+                    System.out.println("No se encontró el provee con ID: " + idProveeEliminar);
+                }
+            } 
+            catch (Exception e) 
+            {
+                System.err.println("Error al eliminar el provee: " + e.getMessage());
+                e.printStackTrace();
             }
         } 
         else 

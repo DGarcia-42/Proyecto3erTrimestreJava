@@ -11,6 +11,7 @@ import java.util.List;
 import org.carlosydiego.crmclientes.app.database.DatabaseConnection;
 import org.carlosydiego.crmclientes.app.model.Categoria;
 import org.carlosydiego.crmclientes.app.model.Producto;
+import org.carlosydiego.crmclientes.app.model.Proveedor;
 import org.carlosydiego.crmclientes.app.repository.ProductoRepository;
 
 public class ProductoController implements ProductoRepository <Producto>
@@ -37,17 +38,21 @@ public class ProductoController implements ProductoRepository <Producto>
         c.setNombre(rs.getString("nombreCategoria"));
 
         p.setCategoria(c);
-        return p;
-    }
 
-    // Método auxiliar para depuración
-    private void printResultSetMetaData(ResultSet rs) throws SQLException {
-        java.sql.ResultSetMetaData metaData = rs.getMetaData();
-        int columnCount = metaData.getColumnCount();
-        System.out.println("Columnas disponibles en el ResultSet:");
-        for (int i = 1; i <= columnCount; i++) {
-            System.out.println(i + ": " + metaData.getColumnName(i) + " (" + metaData.getColumnLabel(i) + ")");
-        }
+        Proveedor prov = new Proveedor();
+        prov.setID_Proveedor(rs.getLong("id_proveedor"));
+        prov.setNombre(rs.getString("nombreProveedor"));
+        prov.setNombre_Responsable(rs.getString("nombreProveedor"));
+        prov.setPais(rs.getString("paisProveedor"));
+        prov.setProvincia(rs.getString("provinciaProveedor"));
+        prov.setDireccion(rs.getString("direccionProveedor"));
+        prov.setCodigo_Postal(rs.getString("codigo_postalProveedor"));
+        prov.setCIF(rs.getString("cifProveedor"));
+        prov.setTelefono(rs.getString("telefonoProveedor"));
+        prov.setEmail(rs.getString("emailProveedor"));
+        p.setProveedor(prov);
+
+        return p;
     }
 
     @Override
@@ -55,15 +60,18 @@ public class ProductoController implements ProductoRepository <Producto>
     {
         List <Producto> lista = new ArrayList<>();
         String query = "SELECT p.id_producto, p.nombre, p.pvp as precio, p.stock, p.descripcion, p.iva, " +
-                       "c.id_categoria, c.nombre AS nombreCategoria " +
-                       "FROM producto AS p INNER JOIN categoria AS c ON p.Categoria = c.id_categoria";
+                       "c.id_categoria, c.nombre AS nombreCategoria, " +
+                       "pr.id_proveedor, pr.nombre AS nombreProveedor, " +
+                       "pr.nombre_responsable AS nombreResponsable, pr.pais AS paisProveedor, " +
+                       "pr.provincia AS provinciaProveedor, pr.direccion AS direccionProveedor, " +
+                       "pr.codigo_postal AS codigo_postalProveedor, pr.cif AS cifProveedor, " +
+                       "pr.telefono AS telefonoProveedor, pr.email AS emailProveedor " +
+                       "FROM producto AS p INNER JOIN categoria AS c ON p.Categoria = c.id_categoria " +
+                       "LEFT JOIN proveedor AS pr ON p.Proveedor_Clave = pr.id_proveedor";
         
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query))
         {
-            // Imprimir metadatos para depuración
-            printResultSetMetaData(rs);
-            
             while (rs.next())
             {
                 Producto p = createProduct(rs);
@@ -86,9 +94,15 @@ public class ProductoController implements ProductoRepository <Producto>
     {
         Producto p = null;
         String query = "SELECT p.id_producto, p.nombre, p.pvp as precio, p.stock, p.descripcion, p.iva, " +
-                      "c.id_categoria, c.nombre AS nombreCategoria " +
-                      "FROM producto AS p INNER JOIN categoria AS c ON p.Categoria = c.id_categoria " +
-                      "WHERE p.id_producto = ?";
+                       "c.id_categoria, c.nombre AS nombreCategoria, " +
+                       "pr.id_proveedor, pr.nombre AS nombreProveedor, " +
+                       "pr.nombre_responsable AS nombreResponsable, pr.pais AS paisProveedor, " +
+                       "pr.provincia AS provinciaProveedor, pr.direccion AS direccionProveedor, " +
+                       "pr.codigo_postal AS codigo_postalProveedor, pr.cif AS cifProveedor, " +
+                       "pr.telefono AS telefonoProveedor, pr.email AS emailProveedor " +
+                       "FROM producto AS p INNER JOIN categoria AS c ON p.Categoria = c.id_categoria " +
+                       "LEFT JOIN proveedor AS pr ON p.Proveedor_Clave = pr.id_proveedor " +
+                       "WHERE p.id_producto = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query))
         {
@@ -115,11 +129,11 @@ public class ProductoController implements ProductoRepository <Producto>
 
         if (p.getID_Producto() == null)
         {
-            query = "INSERT INTO producto (nombre, descripcion, stock, pvp, iva, Categoria) VALUES (?, ?, ?, ?, ?, ?)";
+            query = "INSERT INTO producto (nombre, descripcion, stock, pvp, iva, Categoria, Proveedor_Clave) VALUES (?, ?, ?, ?, ?, ?, ?)";
         }
         else
         {
-            query = "UPDATE producto SET nombre = ?, descripcion = ?, stock = ?, pvp = ?, iva = ?, Categoria = ? WHERE id_producto = ?";
+            query = "UPDATE producto SET nombre = ?, descripcion = ?, stock = ?, pvp = ?, iva = ?, Categoria = ?, Proveedor_Clave = ? WHERE id_producto = ?";
         }
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
@@ -130,9 +144,16 @@ public class ProductoController implements ProductoRepository <Producto>
             pstmt.setDouble(5, p.getIVA());
             pstmt.setLong(6, p.getCategoria().getID_Categoria());
             
+            // Manejar el ID del proveedor
+            if (p.getProveedor() != null && p.getProveedor().getID_Proveedor() != null) {
+                pstmt.setLong(7, p.getProveedor().getID_Proveedor());
+            } else {
+                pstmt.setNull(7, java.sql.Types.INTEGER);
+            }
+            
             if (p.getID_Producto() != null)
             {
-                pstmt.setLong(7, p.getID_Producto());
+                pstmt.setLong(8, p.getID_Producto());
             }
             pstmt.executeUpdate();
         }

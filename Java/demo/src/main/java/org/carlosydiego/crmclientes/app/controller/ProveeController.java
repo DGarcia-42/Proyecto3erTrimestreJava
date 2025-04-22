@@ -27,23 +27,35 @@ public class ProveeController implements ProveeRepository<Provee>
     public Provee createProvee(ResultSet rs) throws SQLException
     {
         Provee provee = new Provee();
-        provee.setID_Provee(rs.getLong("id_provee"));
-        provee.setFecha_Provision(rs.getDate("fecha_provision").toLocalDate());
-        provee.setCantidad(rs.getInt("cantidad"));
-        provee.setPrecio(rs.getDouble("precio"));
+        provee.setID_Provee(rs.getLong("ID_Provision"));
+        provee.setFecha_Provision(rs.getDate("Fecha_Provision").toLocalDate());
+        provee.setCantidad(rs.getInt("Cantidad"));
+        provee.setPrecio(rs.getDouble("Precio"));
         
-        
+        // Crear y configurar el proveedor con todos sus atributos
         Proveedor proveedor = new Proveedor();
-        proveedor.setID_Proveedor(rs.getLong("id_proveedor"));
+        proveedor.setID_Proveedor(rs.getLong("Proveedor"));
         proveedor.setNombre(rs.getString("nombre_proveedor"));
+        proveedor.setNombre_Responsable(rs.getString("nombre_responsable"));
+        proveedor.setPais(rs.getString("pais_proveedor"));
+        proveedor.setProvincia(rs.getString("provincia_proveedor"));
+        proveedor.setDireccion(rs.getString("direccion_proveedor"));
+        proveedor.setCodigo_Postal(rs.getString("codigo_postal_proveedor"));
+        proveedor.setCIF(rs.getString("cif_proveedor"));
+        proveedor.setTelefono(rs.getString("telefono_proveedor"));
+        proveedor.setEmail(rs.getString("email_proveedor"));
         provee.setProveedor(proveedor);
         
-    
+        // Crear y configurar el producto con todos sus atributos
         Producto producto = new Producto();
-        producto.setID_Producto(rs.getLong("id_producto"));
+        producto.setID_Producto(rs.getLong("Producto_Clave"));
         producto.setNombre(rs.getString("nombre_producto"));
-        
+        producto.setDescripcion(rs.getString("descripcion"));
+        producto.setStock(rs.getInt("stock"));
+        producto.setPVP(rs.getDouble("pvp"));
+        producto.setIVA(rs.getDouble("iva"));
 
+        // Crear y configurar la categoría para el producto
         Categoria categoria = new Categoria();
         categoria.setID_Categoria(rs.getLong("id_categoria"));
         categoria.setNombre(rs.getString("nombre_categoria"));
@@ -58,13 +70,19 @@ public class ProveeController implements ProveeRepository<Provee>
     public List<Provee> findAll()
     {
         List<Provee> lista = new ArrayList<>();
-        String query = "SELECT p.*, prov.nombre AS nombre_proveedor, " +
-                       "prod.nombre AS nombre_producto, " +
+        String query = "SELECT p.*, " +
+                       "prov.id_proveedor, prov.nombre AS nombre_proveedor, " +
+                       "prov.nombre_responsable, prov.pais AS pais_proveedor, " +
+                       "prov.provincia AS provincia_proveedor, prov.direccion AS direccion_proveedor, " +
+                       "prov.codigo_postal AS codigo_postal_proveedor, prov.cif AS cif_proveedor, " +
+                       "prov.telefono AS telefono_proveedor, prov.email AS email_proveedor, " +
+                       "prod.id_producto, prod.nombre AS nombre_producto, " +
+                       "prod.descripcion, prod.stock, prod.pvp, prod.iva, " +
                        "c.id_categoria, c.nombre AS nombre_categoria " +
                        "FROM provee p " +
-                       "INNER JOIN proveedor prov ON p.id_proveedor = prov.id_proveedor " +
-                       "INNER JOIN producto prod ON p.id_producto = prod.id_producto " +
-                       "INNER JOIN categoria c ON prod.id_categoria = c.id_categoria";
+                       "INNER JOIN proveedor prov ON p.Proveedor = prov.id_proveedor " +
+                       "INNER JOIN producto prod ON p.Producto_Clave = prod.id_producto " +
+                       "INNER JOIN categoria c ON prod.Categoria = c.id_categoria";
         
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query))
@@ -90,14 +108,20 @@ public class ProveeController implements ProveeRepository<Provee>
     public Provee findById(Long id)
     {
         Provee p = null;
-        String query = "SELECT p.*, prov.nombre AS nombre_proveedor, " +
-                       "prod.nombre AS nombre_producto, " +
+        String query = "SELECT p.*, " +
+                       "prov.id_proveedor, prov.nombre AS nombre_proveedor, " +
+                       "prov.nombre_responsable, prov.pais AS pais_proveedor, " +
+                       "prov.provincia AS provincia_proveedor, prov.direccion AS direccion_proveedor, " +
+                       "prov.codigo_postal AS codigo_postal_proveedor, prov.cif AS cif_proveedor, " +
+                       "prov.telefono AS telefono_proveedor, prov.email AS email_proveedor, " +
+                       "prod.id_producto, prod.nombre AS nombre_producto, " +
+                       "prod.descripcion, prod.stock, prod.pvp, prod.iva, " +
                        "c.id_categoria, c.nombre AS nombre_categoria " +
                        "FROM provee p " +
-                       "INNER JOIN proveedor prov ON p.id_proveedor = prov.id_proveedor " +
-                       "INNER JOIN producto prod ON p.id_producto = prod.id_producto " +
-                       "INNER JOIN categoria c ON prod.id_categoria = c.id_categoria " +
-                       "WHERE p.id_provee = ?";
+                       "INNER JOIN proveedor prov ON p.Proveedor = prov.id_proveedor " +
+                       "INNER JOIN producto prod ON p.Producto_Clave = prod.id_producto " +
+                       "INNER JOIN categoria c ON prod.Categoria = c.id_categoria " +
+                       "WHERE p.ID_Provision = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query))
         {
@@ -124,11 +148,11 @@ public class ProveeController implements ProveeRepository<Provee>
 
         if (p.getID_Provee() == null)
         {
-            query = "INSERT INTO provee (id_proveedor, id_producto, fecha_provision, cantidad, precio) VALUES (?, ?, ?, ?, ?)";
+            query = "INSERT INTO provee (Proveedor, Producto_Clave, Fecha_Provision, Cantidad, Precio) VALUES (?, ?, ?, ?, ?)";
         }
         else
         {
-            query = "UPDATE provee SET id_proveedor = ?, id_producto = ?, fecha_provision = ?, cantidad = ?, precio = ? WHERE id_provee = ?";
+            query = "UPDATE provee SET Proveedor = ?, Producto_Clave = ?, Fecha_Provision = ?, Cantidad = ?, Precio = ? WHERE ID_Provision = ?";
         }
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
@@ -153,7 +177,7 @@ public class ProveeController implements ProveeRepository<Provee>
     @Override
     public void delete(Long id)
     {
-        String query = "DELETE FROM provee WHERE id_provee = ?";
+        String query = "DELETE FROM provee WHERE ID_Provision = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
             pstmt.setLong(1, id);

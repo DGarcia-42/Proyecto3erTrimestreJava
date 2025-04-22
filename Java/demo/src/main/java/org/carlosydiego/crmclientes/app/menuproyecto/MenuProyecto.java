@@ -27,6 +27,7 @@ public class MenuProyecto extends Submenus
             System.out.println("4. Gestión de Proveedores");
             System.out.println("5. Gestión de Facturas");
             System.out.println("6. Gestión de Categorías");
+            System.out.println("7. Gestión de Provees");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             
@@ -50,6 +51,9 @@ public class MenuProyecto extends Submenus
                     break;
                 case 6:
                     mostrarMenuCategorias();
+                    break;
+                case 7:
+                    mostrarMenuProvees();
                     break;
                 case 0:
                     salir = true;
@@ -319,6 +323,47 @@ public class MenuProyecto extends Submenus
         }
     }
 
-
+    private void mostrarMenuProvees() 
+    {
+        boolean volver = false;
+        
+        while (!volver) 
+        {
+            System.out.println("\n=== GESTIÓN DE PROVEES ===");
+            System.out.println("1. Ver todos los provees");
+            System.out.println("2. Buscar provee por ID");
+            System.out.println("3. Añadir nuevo provee");
+            System.out.println("4. Actualizar provee");
+            System.out.println("5. Eliminar provee");
+            System.out.println("0. Volver al menú principal");
+            System.out.print("Seleccione una opción: ");
+            
+            int opcion = scanner.nextInt();
+            
+            switch (opcion) 
+            {
+                case 1:
+                    listarProvees();
+                    break;
+                case 2:
+                    buscarProveePorId();
+                    break;
+                case 3:
+                    añadirProvee();
+                    break;
+                case 4:
+                    actualizarProvee();
+                    break;
+                case 5:
+                    eliminarProvee();
+                    break;
+                case 0:
+                    volver = true;
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+            }
+        }
+    }
 }
 
