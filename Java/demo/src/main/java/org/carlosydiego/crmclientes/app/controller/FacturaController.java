@@ -74,10 +74,10 @@ public class FacturaController implements FacturaRepository<Factura>
                        "e.nombre AS nombre_empleado, e.apellido AS apellido_empleado, " + 
                        "cl.nombre_empresa, cl.nombre_responsable " +
                        "FROM factura f " +
-                       "INNER JOIN producto p ON f.id_producto = p.id_productos " +
+                       "INNER JOIN producto p ON f.id_producto = p.id_producto " +
                        "INNER JOIN categoria c ON p.id_categoria = c.id_categoria " +
-                       "INNER JOIN empleado e ON f.id_empleado = e.id_empleado " +
-                       "INNER JOIN cliente cl ON f.id_cliente = cl.id_cliente";
+                       "INNER JOIN empleado e ON f.empleado = e.id_empleado " +
+                       "INNER JOIN cliente cl ON f.cliente = cl.id_cliente";
         
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query))
@@ -107,10 +107,10 @@ public class FacturaController implements FacturaRepository<Factura>
                        "e.nombre AS nombre_empleado, e.apellido AS apellido_empleado, " + 
                        "cl.nombre_empresa, cl.nombre_responsable " +
                        "FROM factura f " +
-                       "INNER JOIN producto p ON f.id_producto = p.id_productos " +
+                       "INNER JOIN producto p ON f.id_producto = p.id_producto " +
                        "INNER JOIN categoria c ON p.id_categoria = c.id_categoria " +
-                       "INNER JOIN empleado e ON f.id_empleado = e.id_empleado " +
-                       "INNER JOIN cliente cl ON f.id_cliente = cl.id_cliente " +
+                       "INNER JOIN empleado e ON f.empleado = e.id_empleado " +
+                       "INNER JOIN cliente cl ON f.cliente = cl.id_cliente " +
                        "WHERE f.id_factura = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query))
@@ -138,11 +138,11 @@ public class FacturaController implements FacturaRepository<Factura>
 
         if (f.getID_Factura() == null)
         {
-            query = "INSERT INTO factura (fecha_venta, canal_compra, cantidad, id_producto, pagado, id_empleado, id_cliente, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            query = "INSERT INTO factura (fecha_venta, canal_compra, cantidad, id_producto, pagado, empleado, cliente, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         }
         else
         {
-            query = "UPDATE factura SET fecha_venta = ?, canal_compra = ?, cantidad = ?, id_producto = ?, pagado = ?, id_empleado = ?, id_cliente = ?, total = ? WHERE id_factura = ?";
+            query = "UPDATE factura SET fecha_venta = ?, canal_compra = ?, cantidad = ?, id_producto = ?, pagado = ?, empleado = ?, cliente = ?, total = ? WHERE id_factura = ?";
         }
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {

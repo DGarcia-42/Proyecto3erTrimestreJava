@@ -25,10 +25,12 @@ public class ProductoController implements ProductoRepository <Producto>
     public Producto createProduct(ResultSet rs) throws SQLException
     {
         Producto p = new Producto();
-        p.setID_Producto(rs.getLong("id_productos"));
+        p.setID_Producto(rs.getLong("id_producto"));
         p.setNombre(rs.getString("nombre"));
         p.setPVP(rs.getDouble("precio"));
         p.setStock(rs.getInt("stock"));
+        p.setDescripcion(rs.getString("descripcion"));
+        p.setIVA(rs.getDouble("iva"));
         
         Categoria c = new Categoria();
         c.setID_Categoria(rs.getLong("id_categoria"));
@@ -38,15 +40,30 @@ public class ProductoController implements ProductoRepository <Producto>
         return p;
     }
 
+    // Método auxiliar para depuración
+    private void printResultSetMetaData(ResultSet rs) throws SQLException {
+        java.sql.ResultSetMetaData metaData = rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        System.out.println("Columnas disponibles en el ResultSet:");
+        for (int i = 1; i <= columnCount; i++) {
+            System.out.println(i + ": " + metaData.getColumnName(i) + " (" + metaData.getColumnLabel(i) + ")");
+        }
+    }
+
     @Override
     public List<Producto> findAll()
     {
         List <Producto> lista = new ArrayList<>();
-        String query = "SELECT p.*, c.nombre AS nombreCategoria FROM producto AS p INNER JOIN categoria AS c ON p.id_categoria = c.id";
+        String query = "SELECT p.id_producto, p.nombre, p.pvp as precio, p.stock, p.descripcion, p.iva, " +
+                       "c.id_categoria, c.nombre AS nombreCategoria " +
+                       "FROM producto AS p INNER JOIN categoria AS c ON p.Categoria = c.id_categoria";
         
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query))
         {
+            // Imprimir metadatos para depuración
+            printResultSetMetaData(rs);
+            
             while (rs.next())
             {
                 Producto p = createProduct(rs);
@@ -68,7 +85,10 @@ public class ProductoController implements ProductoRepository <Producto>
     public Producto findById(Long id_productos) 
     {
         Producto p = null;
-        String query = "SELECT p.*, c.nombre AS nombreCategoria FROM producto AS p INNER JOIN categoria AS c ON p.id_categoria = c.id WHERE p.id_productos = ?";
+        String query = "SELECT p.id_producto, p.nombre, p.pvp as precio, p.stock, p.descripcion, p.iva, " +
+                      "c.id_categoria, c.nombre AS nombreCategoria " +
+                      "FROM producto AS p INNER JOIN categoria AS c ON p.Categoria = c.id_categoria " +
+                      "WHERE p.id_producto = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query))
         {
@@ -95,11 +115,11 @@ public class ProductoController implements ProductoRepository <Producto>
 
         if (p.getID_Producto() == null)
         {
-            query = "INSERT INTO producto (nombre, descripcion, stock, pvp, iva, id_categoria) VALUES (?, ?, ?, ?, ?, ?)";
+            query = "INSERT INTO producto (nombre, descripcion, stock, pvp, iva, Categoria) VALUES (?, ?, ?, ?, ?, ?)";
         }
         else
         {
-            query = "UPDATE producto SET nombre = ?, descripcion = ?, stock = ?, pvp = ?, iva = ?, id_categoria = ? WHERE id_productos = ?";
+            query = "UPDATE producto SET nombre = ?, descripcion = ?, stock = ?, pvp = ?, iva = ?, Categoria = ? WHERE id_producto = ?";
         }
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
@@ -125,7 +145,7 @@ public class ProductoController implements ProductoRepository <Producto>
     @Override
     public void delete(Long id_productos) 
     {
-        String query = "DELETE FROM producto WHERE id_productos = ?";
+        String query = "DELETE FROM producto WHERE id_producto = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query))
         {
             pstmt.setLong(1, id_productos);

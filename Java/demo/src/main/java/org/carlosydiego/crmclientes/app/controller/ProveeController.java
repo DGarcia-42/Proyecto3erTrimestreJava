@@ -63,7 +63,7 @@ public class ProveeController implements ProveeRepository<Provee>
                        "c.id_categoria, c.nombre AS nombre_categoria " +
                        "FROM provee p " +
                        "INNER JOIN proveedor prov ON p.id_proveedor = prov.id_proveedor " +
-                       "INNER JOIN producto prod ON p.id_producto = prod.id_productos " +
+                       "INNER JOIN producto prod ON p.id_producto = prod.id_producto " +
                        "INNER JOIN categoria c ON prod.id_categoria = c.id_categoria";
         
         try (Statement stmt = connection.createStatement();
@@ -95,7 +95,7 @@ public class ProveeController implements ProveeRepository<Provee>
                        "c.id_categoria, c.nombre AS nombre_categoria " +
                        "FROM provee p " +
                        "INNER JOIN proveedor prov ON p.id_proveedor = prov.id_proveedor " +
-                       "INNER JOIN producto prod ON p.id_producto = prod.id_productos " +
+                       "INNER JOIN producto prod ON p.id_producto = prod.id_producto " +
                        "INNER JOIN categoria c ON prod.id_categoria = c.id_categoria " +
                        "WHERE p.id_provee = ?";
 
