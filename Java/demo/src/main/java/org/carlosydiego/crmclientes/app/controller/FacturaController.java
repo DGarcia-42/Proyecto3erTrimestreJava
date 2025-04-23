@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -247,5 +248,81 @@ public class FacturaController implements FacturaRepository<Factura>
         {
             sex.printStackTrace();
         }
+    }
+    
+    @Override
+    public List<Factura> findByPeriod(int periodType)
+    {
+        List<Factura> lista = new ArrayList<>();
+        LocalDate fechaActual = LocalDate.now();
+        LocalDate fechaInicio;
+        
+        switch (periodType) 
+        {
+            case 1: // Última semana
+                fechaInicio = fechaActual.minusDays(7);
+                break;
+            case 2: // Últimos 15 días
+                fechaInicio = fechaActual.minusDays(15);
+                break;
+            case 3: // Último mes
+                fechaInicio = fechaActual.minusMonths(1);
+                break;
+            case 4: // Últimos 6 meses
+                fechaInicio = fechaActual.minusMonths(6);
+                break;
+            case 5: // Último año
+                fechaInicio = fechaActual.minusYears(1);
+                break;
+            default:
+                return findAll();
+        }
+        
+        String query = "SELECT f.*, " +
+                       "p.nombre AS nombre_producto, p.pvp, p.stock, p.descripcion, p.iva, " +
+                       "c.id_categoria, c.nombre AS nombre_categoria, " +
+                       "pr.id_proveedor, pr.nombre AS nombre_proveedor, " +
+                       "pr.nombre_responsable, pr.pais AS pais_proveedor, " +
+                       "pr.provincia AS provincia_proveedor, pr.direccion AS direccion_proveedor, " +
+                       "pr.codigo_postal AS codigo_postal_proveedor, pr.cif AS cif_proveedor, " +
+                       "pr.telefono AS telefono_proveedor, pr.email AS email_proveedor, " + 
+                       "e.nombre AS nombre_empleado, e.apellido AS apellido_empleado, " +
+                       "e.nif AS nif_empleado, e.direccion AS direccion_empleado, " +
+                       "e.codigo_postal AS codigo_postal_empleado, e.provincia AS provincia_empleado, " +
+                       "e.pais AS pais_empleado, e.telefono AS telefono_empleado, " +
+                       "e.email AS email_empleado, " +
+                       "cl.nombre_empresa, cl.nombre_responsable, cl.pais AS pais_cliente, " +
+                       "cl.provincia AS provincia_cliente, cl.direccion AS direccion_cliente, " +
+                       "cl.codigo_postal AS codigo_postal_cliente, cl.cif AS cif_cliente, " +
+                       "cl.telefono AS telefono_cliente, cl.email AS email_cliente " +
+                       "FROM factura f " +
+                       "INNER JOIN producto p ON f.Producto = p.id_producto " +
+                       "INNER JOIN categoria c ON p.Categoria = c.id_categoria " +
+                       "LEFT JOIN proveedor pr ON p.Proveedor_Clave = pr.id_proveedor " +
+                       "INNER JOIN empleado e ON f.Empleado = e.id_empleado " +
+                       "INNER JOIN cliente cl ON f.Cliente = cl.id_cliente " +
+                       "WHERE f.Fecha_Venta >= ?";
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(query))
+        {
+            pstmt.setDate(1, java.sql.Date.valueOf(fechaInicio));
+            try (ResultSet rs = pstmt.executeQuery())
+            {
+                while (rs.next())
+                {
+                    Factura f = createFactura(rs);
+                    lista.add(f);
+                }
+                if (lista.isEmpty())
+                {
+                    System.out.println("No hay facturas en el período seleccionado");
+                }
+            }
+        }
+        catch (SQLException sex) 
+        {
+            sex.printStackTrace();
+        }
+        return lista;
     }
 } 

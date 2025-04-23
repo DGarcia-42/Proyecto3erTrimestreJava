@@ -249,6 +249,7 @@ public class MenuProyecto extends Submenus
             System.out.println("3. Crear nueva factura");
             System.out.println("4. Actualizar factura");
             System.out.println("5. Eliminar factura");
+            System.out.println("6. Filtrar facturas por período");
             System.out.println("0. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
             
@@ -270,6 +271,9 @@ public class MenuProyecto extends Submenus
                     break;
                 case 5:
                     eliminarFactura();
+                    break;
+                case 6:
+                    filtrarFacturasPorPeriodo();
                     break;
                 case 0:
                     volver = true;

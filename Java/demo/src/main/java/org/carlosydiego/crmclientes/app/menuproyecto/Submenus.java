@@ -1,22 +1,30 @@
 package org.carlosydiego.crmclientes.app.menuproyecto;
 
-import org.carlosydiego.crmclientes.app.controller.*;
-import org.carlosydiego.crmclientes.app.database.DatabaseConnection;
-import org.carlosydiego.crmclientes.app.model.Cliente;
-import org.carlosydiego.crmclientes.app.model.Categoria;
-import org.carlosydiego.crmclientes.app.model.Empleado;
-import org.carlosydiego.crmclientes.app.model.Factura;
-import org.carlosydiego.crmclientes.app.model.Producto;
-import org.carlosydiego.crmclientes.app.model.Proveedor;
-import org.carlosydiego.crmclientes.app.model.Provee;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
-public class Submenus {
+import org.carlosydiego.crmclientes.app.controller.CategoriaController;
+import org.carlosydiego.crmclientes.app.controller.ClienteController;
+import org.carlosydiego.crmclientes.app.controller.EmpleadoController;
+import org.carlosydiego.crmclientes.app.controller.FacturaController;
+import org.carlosydiego.crmclientes.app.controller.ProductoController;
+import org.carlosydiego.crmclientes.app.controller.ProveeController;
+import org.carlosydiego.crmclientes.app.controller.ProveedorController;
+import org.carlosydiego.crmclientes.app.database.DatabaseConnection;
+import org.carlosydiego.crmclientes.app.model.Categoria;
+import org.carlosydiego.crmclientes.app.model.Cliente;
+import org.carlosydiego.crmclientes.app.model.Empleado;
+import org.carlosydiego.crmclientes.app.model.Factura;
+import org.carlosydiego.crmclientes.app.model.Producto;
+import org.carlosydiego.crmclientes.app.model.Provee;
+import org.carlosydiego.crmclientes.app.model.Proveedor;
+
+public class Submenus 
+{
     protected Connection connection;
     protected ClienteController clienteController;
     protected EmpleadoController empleadoController;
@@ -3601,6 +3609,78 @@ public class Submenus {
             {
                 System.err.println("Error al eliminar el provee: " + e.getMessage());
                 e.printStackTrace();
+            }
+        } 
+        else 
+        {
+            System.err.println("Error: No hay conexión con la base de datos");
+        }
+    }
+
+    protected void filtrarFacturasPorPeriodo() 
+    {
+        if (facturaController != null) 
+        {
+            try 
+            {
+                System.out.println("\n=== FILTRAR FACTURAS POR PERÍODO ===");
+                System.out.println("1. Última semana");
+                System.out.println("2. Últimos 15 días");
+                System.out.println("3. Último mes");
+                System.out.println("4. Últimos 6 meses");
+                System.out.println("5. Último año");
+                System.out.println("0. Volver");
+                System.out.print("Seleccione un período: ");
+                
+                int opcion = scanner.nextInt();
+                scanner.nextLine();
+                
+                if (opcion >= 1 && opcion <= 5) 
+                {
+                    System.out.println("Buscando facturas...");
+                    List<Factura> facturas = facturaController.findByPeriod(opcion);
+                    
+                    if (!facturas.isEmpty()) 
+                    {
+                        String periodoTexto;
+                        switch (opcion) 
+                        {
+                            case 1:
+                                periodoTexto = "la última semana";
+                                break;
+                            case 2:
+                                periodoTexto = "los últimos 15 días";
+                                break;
+                            case 3:
+                                periodoTexto = "el último mes";
+                                break;
+                            case 4:
+                                periodoTexto = "los últimos 6 meses";
+                                break;
+                            case 5:
+                                periodoTexto = "el último año";
+                                break;
+                            default:
+                                periodoTexto = "el período seleccionado";
+                        }
+                        
+                        System.out.println("Facturas encontradas en " + periodoTexto + ":");
+                        facturas.forEach(System.out::println);
+                    }
+                } 
+                else if (opcion != 0) 
+                {
+                    System.out.println("Opción no válida.");
+                }
+            } 
+            catch (InputMismatchException e) 
+            {
+                System.err.println("Error: Debe ingresar un número válido para la opción.");
+                scanner.nextLine();
+            }
+            catch (Exception e) 
+            {
+                System.err.println("Error al filtrar facturas: " + e.getMessage());
             }
         } 
         else 
