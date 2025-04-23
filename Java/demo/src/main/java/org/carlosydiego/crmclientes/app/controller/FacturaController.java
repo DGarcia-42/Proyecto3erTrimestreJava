@@ -1,6 +1,8 @@
 package org.carlosydiego.crmclientes.app.controller;
 
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +19,7 @@ import org.carlosydiego.crmclientes.app.model.Factura;
 import org.carlosydiego.crmclientes.app.model.Producto;
 import org.carlosydiego.crmclientes.app.model.Proveedor;
 import org.carlosydiego.crmclientes.app.repository.FacturaRepository;
+import org.carlosydiego.crmclientes.app.util.FacturaFileManager;
 
 public class FacturaController implements FacturaRepository<Factura>
 {
@@ -200,53 +203,98 @@ public class FacturaController implements FacturaRepository<Factura>
     }
 
     @Override
-    public void save(Factura f)
+    public void save(Factura factura)
     {
         String query;
-
-        if (f.getID_Factura() == null)
+        if (factura.getID_Factura() == null)
         {
-            query = "INSERT INTO factura (Fecha_Venta, Canal_Compra, Cantidad, Producto, Pagado, Empleado, Cliente, Total) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            query = "INSERT INTO factura (Pagado, Empleado, Cliente, Producto, Total, " +
+                    "Canal_Compra, Cantidad, Fecha_Venta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS))
+            {
+                ps.setString(1, factura.getPagado());
+                ps.setLong(2, factura.getEmpleado().getID_Empleado());
+                ps.setLong(3, factura.getCliente().getID_Cliente());
+                ps.setLong(4, factura.getProducto().getID_Producto());
+                ps.setDouble(5, factura.getTotal());
+                ps.setString(6, factura.getCanal_Compra());
+                ps.setInt(7, factura.getCantidad());
+                ps.setDate(8, Date.valueOf(factura.getFecha_Venta()));
+
+                int filasAfectadas = ps.executeUpdate();
+                if (filasAfectadas == 0)
+                {
+                    return;
+                }
+
+                try (ResultSet generatedKeys = ps.getGeneratedKeys())
+                {
+                    if (generatedKeys.next())
+                    {
+                        factura.setID_Factura(generatedKeys.getLong(1));
+                        // Generar el archivo de texto para la nueva factura
+                        FacturaFileManager.generarArchivoFactura(factura);
+                    }
+                }
+            }
+            catch (SQLException e)
+            {
+                System.err.println("Error al guardar la factura: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
         else
         {
-            query = "UPDATE factura SET Fecha_Venta = ?, Canal_Compra = ?, Cantidad = ?, Producto = ?, Pagado = ?, Empleado = ?, Cliente = ?, Total = ? WHERE ID_Factura = ?";
-        }
-        try (PreparedStatement pstmt = connection.prepareStatement(query))
-        {
-            pstmt.setDate(1, java.sql.Date.valueOf(f.getFecha_Venta()));
-            pstmt.setString(2, f.getCanal_Compra());
-            pstmt.setInt(3, f.getCantidad());
-            pstmt.setLong(4, f.getProducto().getID_Producto());
-            pstmt.setString(5, f.getPagado());
-            pstmt.setLong(6, f.getEmpleado().getID_Empleado());
-            pstmt.setLong(7, f.getCliente().getID_Cliente());
-            pstmt.setDouble(8, f.getTotal());
-            
-            if (f.getID_Factura() != null)
+            query = "UPDATE factura SET Pagado = ?, Empleado = ?, Cliente = ?, Producto = ?, " +
+                    "Total = ?, Canal_Compra = ?, Cantidad = ?, Fecha_Venta = ? WHERE ID_Factura = ?";
+            try (PreparedStatement ps = connection.prepareStatement(query))
             {
-                pstmt.setLong(9, f.getID_Factura());
+                ps.setString(1, factura.getPagado());
+                ps.setLong(2, factura.getEmpleado().getID_Empleado());
+                ps.setLong(3, factura.getCliente().getID_Cliente());
+                ps.setLong(4, factura.getProducto().getID_Producto());
+                ps.setDouble(5, factura.getTotal());
+                ps.setString(6, factura.getCanal_Compra());
+                ps.setInt(7, factura.getCantidad());
+                ps.setDate(8, Date.valueOf(factura.getFecha_Venta()));
+                ps.setLong(9, factura.getID_Factura());
+
+                int filasAfectadas = ps.executeUpdate();
+                if (filasAfectadas == 0)
+                {
+                    return;
+                }
+                
+                FacturaFileManager.generarArchivoFactura(factura);
             }
-            pstmt.executeUpdate();
-        }
-        catch (SQLException sex)
-        {
-            sex.printStackTrace();
+            catch (SQLException e)
+            {
+                System.err.println("Error al actualizar la factura: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
     public void delete(Long id)
     {
-        String query = "DELETE FROM factura WHERE ID_Factura = ?";
-        try (PreparedStatement pstmt = connection.prepareStatement(query))
+        String sql = "DELETE FROM factura WHERE ID_Factura = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql))
         {
-            pstmt.setLong(1, id);
-            pstmt.executeUpdate();
+            ps.setLong(1, id);
+
+            int filasAfectadas = ps.executeUpdate();
+            
+
+            if (filasAfectadas > 0)
+            {
+                FacturaFileManager.eliminarArchivoFactura(id);
+            }
         }
-        catch (SQLException sex)
+        catch (SQLException e)
         {
-            sex.printStackTrace();
+            System.err.println("Error al eliminar la factura: " + e.getMessage());
+            e.printStackTrace();
         }
     }
     

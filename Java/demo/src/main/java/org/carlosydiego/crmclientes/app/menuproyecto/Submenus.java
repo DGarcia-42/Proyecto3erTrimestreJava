@@ -22,6 +22,7 @@ import org.carlosydiego.crmclientes.app.model.Factura;
 import org.carlosydiego.crmclientes.app.model.Producto;
 import org.carlosydiego.crmclientes.app.model.Provee;
 import org.carlosydiego.crmclientes.app.model.Proveedor;
+import org.carlosydiego.crmclientes.app.util.FacturaFileManager;
 
 public class Submenus 
 {
@@ -3015,6 +3016,57 @@ public class Submenus
                         }
                     }
                     
+                    System.out.print("¿Desea cambiar el producto? (S/N): ");
+                    String cambiarProducto = scanner.nextLine().toUpperCase();
+                    Producto nuevoProducto = facturaExistente.getProducto();
+                    Integer nuevaCantidad = facturaExistente.getCantidad();
+                    Double nuevoTotal = facturaExistente.getTotal();
+                    
+                    if (cambiarProducto.equals("S")) 
+                    {
+                        System.out.println("Productos disponibles:");
+                        productoController.findAll().forEach(System.out::println);
+                        System.out.print("Ingrese el ID del nuevo producto: ");
+                        Long idNuevoProducto = scanner.nextLong();
+                        scanner.nextLine(); 
+                        
+                        nuevoProducto = productoController.findById(idNuevoProducto);
+                        if (nuevoProducto == null) 
+                        {
+                            System.out.println("El producto seleccionado no existe. Se mantendrá el producto actual.");
+                            nuevoProducto = facturaExistente.getProducto();
+                        }
+                        else
+                        {
+                            // Si se cambia el producto, solicitar nueva cantidad
+                            boolean cantidadValida = false;
+                            while (!cantidadValida) 
+                            {
+                                try 
+                                {
+                                    System.out.print("Ingrese la nueva cantidad [" + facturaExistente.getCantidad() + "]: ");
+                                    String cantidadStr = scanner.nextLine();
+                                    if (cantidadStr.isEmpty()) 
+                                    {
+                                        cantidadValida = true;
+                                    } 
+                                    else 
+                                    {
+                                        nuevaCantidad = Integer.parseInt(cantidadStr);
+                                        cantidadValida = true;
+                                    }
+                                } 
+                                catch (NumberFormatException e) 
+                                {
+                                    System.out.println("Por favor, ingrese un número válido.");
+                                }
+                            }
+                            
+                            // Calcular el nuevo total basado en el nuevo producto y cantidad
+                            nuevoTotal = nuevoProducto.getPVP() * nuevaCantidad;
+                        }
+                    }
+                    
                     Factura facturaActualizada = new Factura();
                     facturaActualizada.setID_Factura(idFacturaActualizar);
                     facturaActualizada.setCliente(nuevoCliente);
@@ -3022,7 +3074,9 @@ public class Submenus
                     facturaActualizada.setFecha_Venta(nuevaFecha);
                     facturaActualizada.setCanal_Compra(nuevoMetodoPago);
                     facturaActualizada.setPagado(nuevoEstado);
-                    facturaActualizada.setTotal(facturaExistente.getTotal());
+                    facturaActualizada.setProducto(nuevoProducto);
+                    facturaActualizada.setCantidad(nuevaCantidad);
+                    facturaActualizada.setTotal(nuevoTotal);
                     
                     facturaController.save(facturaActualizada);
                     System.out.println("Factura actualizada correctamente.");
@@ -3684,6 +3738,59 @@ public class Submenus
             }
         } 
         else 
+        {
+            System.err.println("Error: No hay conexión con la base de datos");
+        }
+    }
+
+    protected void generarArchivoFacturaPorId()
+    {
+        if (facturaController != null)
+        {
+            try
+            {
+                System.out.println("Generando archivo de factura...");
+                Long idFactura = 0L;
+                boolean idValido = false;
+                
+                
+                while (!idValido)
+                {
+                    try
+                    {
+                        System.out.print("Ingrese el ID de la factura: ");
+                        idFactura = scanner.nextLong();
+                        idValido = true;
+                    }
+                    catch (java.util.InputMismatchException e)
+                    {
+                        System.err.println("Error: Debe ingresar un número válido para el ID.");
+                        scanner.nextLine();
+                    }
+                }
+                scanner.nextLine(); 
+                
+                
+                Factura factura = facturaController.findById(idFactura);
+                
+                if (factura != null)
+                {
+                    
+                    FacturaFileManager.generarArchivoFactura(factura);
+                    System.out.println("Archivo de factura generado correctamente para la factura ID: " + idFactura);
+                }
+                else
+                {
+                    System.out.println("No se encontró ninguna factura con el ID: " + idFactura);
+                }
+            }
+            catch (Exception e)
+            {
+                System.err.println("Error al generar el archivo de factura: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        else
         {
             System.err.println("Error: No hay conexión con la base de datos");
         }
