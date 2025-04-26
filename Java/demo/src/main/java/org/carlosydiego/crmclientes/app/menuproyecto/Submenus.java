@@ -265,9 +265,9 @@ public class Submenus
                     {
                         System.out.println("El teléfono no puede estar vacío.");
                     } 
-                    else if (!telefono.matches("\\d+")) 
+                    else if (!telefono.matches("\\d{9}")) 
                     {
-                        System.out.println("El teléfono debe contener solo números.");
+                        System.out.println("El teléfono debe contener exactamente 9 números.");
                     } 
                     else 
                     {
@@ -464,9 +464,9 @@ public class Submenus
                             nuevoTelefono = clienteExistente.getTelefono();
                             telefonoValido = true;
                         } 
-                        else if (!nuevoTelefono.matches("\\d+")) 
+                        else if (!nuevoTelefono.matches("\\d{9}")) 
                         {
-                            System.out.println("El teléfono debe contener solo números.");
+                            System.out.println("El teléfono debe contener exactamente 9 números.");
                         } 
                         else 
                         {
@@ -805,9 +805,9 @@ public class Submenus
                     {
                         System.out.println("El teléfono no puede estar vacío.");
                     } 
-                    else if (!telefono.matches("\\d+")) 
+                    else if (!telefono.matches("\\d{9}")) 
                     {
-                        System.out.println("El teléfono debe contener solo números.");
+                        System.out.println("El teléfono debe contener exactamente 9 números.");
                     } 
                     else 
                     {
@@ -1029,9 +1029,9 @@ public class Submenus
                             nuevoTelefono = empleadoExistente.getTelfono();
                             telefonoValido = true;
                         } 
-                        else if (!nuevoTelefono.matches("\\d+")) 
+                        else if (!nuevoTelefono.matches("\\d{9}")) 
                         {
-                            System.out.println("El teléfono debe contener solo números.");
+                            System.out.println("El teléfono debe contener exactamente 9 números.");
                         } 
                         else 
                         {
@@ -1975,9 +1975,9 @@ public class Submenus
                     {
                         System.out.println("El teléfono no puede estar vacío.");
                     } 
-                    else if (!telefono.matches("\\d+")) 
+                    else if (!telefono.matches("\\d{9}")) 
                     {
-                        System.out.println("El teléfono debe contener solo números.");
+                        System.out.println("El teléfono debe contener exactamente 9 números.");
                     } 
                     else 
                     {
@@ -2199,9 +2199,9 @@ public class Submenus
                             nuevoTelefono = proveedorExistente.getTelefono();
                             telefonoValido = true;
                         } 
-                        else if (!nuevoTelefono.matches("\\d+")) 
+                        else if (!nuevoTelefono.matches("\\d{9}")) 
                         {
-                            System.out.println("El teléfono debe contener solo números.");
+                            System.out.println("El teléfono debe contener exactamente 9 números.");
                         } 
                         else 
                         {
