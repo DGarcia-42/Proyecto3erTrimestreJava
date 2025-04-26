@@ -17,7 +17,7 @@ import org.carlosydiego.crmclientes.app.database.DatabaseConnection;
 import org.carlosydiego.crmclientes.app.model.*;
 import org.carlosydiego.crmclientes.app.util.FacturaFileManager;
 
-public class MenuProyecto extends JFrame implements ActionListener
+public class MenuProyecto extends JFrame
 {
     private JButton VolverMenu;
     private JButton Clientes;
@@ -33,11 +33,13 @@ public class MenuProyecto extends JFrame implements ActionListener
     private JButton ModificarCliente;
     private JButton AñadirCliente;
     private JButton EliminarCliente;
+    private JButton ActualizarCliente;
 
    public MenuProyecto()
    {
     inicializarControladores();
     setVisible(true);
+    setLayout(null);
     setTitle("Menu Proyecto");
     setSize(800, 600);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -50,42 +52,89 @@ public class MenuProyecto extends JFrame implements ActionListener
     Clientes = new JButton("Gestion de Clientes");
     Clientes.setBounds(100, 100, 200, 50);
     add(Clientes);
-    Clientes.addActionListener(this);
+    Clientes.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            dispose();
+            MenuCliente();
+        }
+    });
 
     Empleados = new JButton("Gestion de Empleados");
     Empleados.setBounds(100, 150, 200, 50);
     add(Empleados);
-    Empleados.addActionListener(this);
+    Empleados.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Implementar cuando se tenga la funcionalidad
+            JOptionPane.showMessageDialog(null, "Funcionalidad no implementada aún");
+        }
+    });
 
     Productos = new JButton("Gestion de Productos");
     Productos.setBounds(100, 200, 200, 50);
     add(Productos);
-    Productos.addActionListener(this);
+    Productos.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Implementar cuando se tenga la funcionalidad
+            JOptionPane.showMessageDialog(null, "Funcionalidad no implementada aún");
+        }
+    });
 
     Proveedores = new JButton("Gestion de Proveedores");
     Proveedores.setBounds(100, 250, 200, 50);
     add(Proveedores);
-    Proveedores.addActionListener(this);
+    Proveedores.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Implementar cuando se tenga la funcionalidad
+            JOptionPane.showMessageDialog(null, "Funcionalidad no implementada aún");
+        }
+    });
 
     Facturas = new JButton("Gestion de Facturas");
     Facturas.setBounds(100, 300, 200, 50);
     add(Facturas);
-    Facturas.addActionListener(this);
+    Facturas.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Implementar cuando se tenga la funcionalidad
+            JOptionPane.showMessageDialog(null, "Funcionalidad no implementada aún");
+        }
+    });
 
     Categorias = new JButton("Gestion de Categorias");
     Categorias.setBounds(100, 350, 200, 50);
     add(Categorias);
-    Categorias.addActionListener(this);
+    Categorias.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Implementar cuando se tenga la funcionalidad
+            JOptionPane.showMessageDialog(null, "Funcionalidad no implementada aún");
+        }
+    });
 
     Provees = new JButton("Gestion de Provees");
     Provees.setBounds(100, 400, 200, 50);
     add(Provees);
-    Provees.addActionListener(this);
+    Provees.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Implementar cuando se tenga la funcionalidad
+            JOptionPane.showMessageDialog(null, "Funcionalidad no implementada aún");
+        }
+    });
 
     Salir = new JButton("Salir");
     Salir.setBounds(100, 450, 200, 50);
     add(Salir);
-    Salir.addActionListener(this);
+    Salir.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            dispose();
+        }
+    });
 
 
    }
@@ -93,8 +142,8 @@ public class MenuProyecto extends JFrame implements ActionListener
   private void MenuCliente()
   {
 
-
     JFrame frame = new JFrame("Menu Cliente");
+    frame.setLayout(null);
     frame.setSize(800, 600);
     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     frame.setVisible(true);
@@ -117,25 +166,49 @@ public class MenuProyecto extends JFrame implements ActionListener
     BuscarCliente = new JButton("Buscar cliente por ID");
     BuscarCliente.setBounds(100, 150, 200, 50);
     frame.add(BuscarCliente);
-    BuscarCliente.addActionListener(this);
+    BuscarCliente.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            frame.dispose();
+            BuscarCliente();
+        }
+    });
     
     AñadirCliente = new JButton("Añadir nuevo cliente");
     AñadirCliente.setBounds(100, 200, 200, 50);
     frame.add(AñadirCliente);
-    AñadirCliente.addActionListener(this);
+    AñadirCliente.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            frame.dispose();
+            AñadirCliente();
+        }
+    });
 
     ModificarCliente = new JButton("Actualizar cliente");
-    ModificarCliente.setBounds(100, 200, 200, 50);
+    ModificarCliente.setBounds(100, 250, 200, 50);
     frame.add(ModificarCliente);
-    ModificarCliente.addActionListener(this);
+    ModificarCliente.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            frame.dispose();
+            ActualizarCliente();
+        }
+    });
     
     EliminarCliente = new JButton("Eliminar cliente");
-    EliminarCliente.setBounds(100, 250, 200, 50);
+    EliminarCliente.setBounds(100, 300, 200, 50);
     frame.add(EliminarCliente);
-    EliminarCliente.addActionListener(this);
+    EliminarCliente.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            frame.dispose();
+            EliminarCliente();
+        }
+    });
 
     VolverMenu = new JButton("Volver al menu principal");
-    VolverMenu.setBounds(100, 250, 200, 50);
+    VolverMenu.setBounds(100, 350, 200, 50);
     frame.add(VolverMenu);
     VolverMenu.addActionListener(new ActionListener() {
         @Override
@@ -150,6 +223,7 @@ public class MenuProyecto extends JFrame implements ActionListener
   private void ListarClientes()
   {
     JFrame frame = new JFrame("Listar Clientes");
+    frame.setLayout(null);
     frame.setSize(800, 600);
     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     frame.setVisible(true);
@@ -165,31 +239,58 @@ public class MenuProyecto extends JFrame implements ActionListener
             List<Cliente> clientes = clienteController.findAll();
             if(clientes!=null)
             {
+                JPanel panelClientes = new JPanel();
+                panelClientes.setLayout(null);
+                
+                JScrollPane scrollPane = new JScrollPane(panelClientes);
+                scrollPane.setBounds(50, 70, 700, 400);
+                frame.add(scrollPane);
+                
+                panelClientes.setPreferredSize(new Dimension(680, Math.max(380, clientes.size() * 150)));
+                
                 for(int i = 0; i < clientes.size(); i++)
                 {
-                    JLabel clienteLabel = new JLabel(clientes.get(i).toString());
-                    clienteLabel.setBounds(100, 100 + i * 50, 200, 50);
-                    frame.add(clienteLabel);
-                    
+                    JTextArea clienteTextArea = new JTextArea(clientes.get(i).toString());
+                    clienteTextArea.setBounds(50, 10 + i * 150, 600, 130);
+                    clienteTextArea.setEditable(false);
+                    clienteTextArea.setBackground(new Color(240, 240, 240));
+                    clienteTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                    panelClientes.add(clienteTextArea);
                 }
+            }
+            else
+            {
+                JLabel noClientesLabel = new JLabel("No hay clientes registrados en el sistema");
+                noClientesLabel.setBounds(300, 200, 300, 30);
+                frame.add(noClientesLabel);
             }
         }
         catch(Exception e)
         {
             System.err.println("Error al obtener los clientes: " + e.getMessage());
         } 
-
     }
     else
     {
         System.out.println("Error: No hay conexion a la base de datos");
     }
 
+    JButton volverButton = new JButton("Volver");
+    volverButton.setBounds(300, 500, 200, 30);
+    frame.add(volverButton);
+    volverButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            frame.dispose();
+            MenuCliente();
+        }
+    });
   }
 
   private void BuscarCliente()
   {
     JFrame frame = new JFrame("Buscar Cliente");
+    frame.setLayout(null);
     frame.setSize(800, 600);
     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     frame.setVisible(true);
@@ -205,20 +306,30 @@ public class MenuProyecto extends JFrame implements ActionListener
           boolean idValido = false;
           
           JLabel idLabel = new JLabel("Introduce el ID del cliente:");
-          idLabel.setBounds(100, 100, 200, 50);
+          idLabel.setBounds(100, 100, 200, 30);
           frame.add(idLabel);
 
           JTextField idTextField = new JTextField(10);
-          idTextField.setBounds(100, 150, 200, 50);
+          idTextField.setBounds(300, 100, 200, 30);
           frame.add(idTextField);
           
-          final JLabel clienteLabel = new JLabel("Buscando cliente...");
-          clienteLabel.setBounds(100, 300, 200, 50);
-          frame.add(clienteLabel);
-
           JButton buscarButton = new JButton("Buscar");
-          buscarButton.setBounds(100, 200, 200, 50);
+          buscarButton.setBounds(550, 100, 150, 30);
           frame.add(buscarButton);
+          
+          final JLabel statusLabel = new JLabel("");
+          statusLabel.setBounds(100, 150, 600, 30);
+          frame.add(statusLabel);
+          
+          // Área para mostrar la información del cliente (inicialmente invisible)
+          final JTextArea clienteTextArea = new JTextArea();
+          clienteTextArea.setBounds(100, 190, 600, 180);
+          clienteTextArea.setEditable(false);
+          clienteTextArea.setBackground(new Color(240, 240, 240));
+          clienteTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+          clienteTextArea.setVisible(false);
+          frame.add(clienteTextArea);
+          
           buscarButton.addActionListener(new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent e) {
@@ -226,42 +337,40 @@ public class MenuProyecto extends JFrame implements ActionListener
                   try
                   {
                       long id = Long.parseLong(input);
-                      boolean idValido = true;
-                      
-                      clienteLabel.setText("Buscando cliente...");
+                      statusLabel.setText("Buscando cliente...");
                       
                       Cliente cliente = clienteController.findById(id);
                       if(cliente!=null)
                       {
-                          clienteLabel.setText("Cliente encontrado: ");
-                          JLabel clienteInfo = new JLabel(cliente.toString());
-                          clienteInfo.setBounds(100, 350, 200, 50);
-                          frame.add(clienteInfo);
+                          statusLabel.setText("Cliente encontrado:");
+                          clienteTextArea.setText(cliente.toString());
+                          clienteTextArea.setVisible(true);
                           frame.repaint();
                       }
                       else
                       {
-                          clienteLabel.setText("Cliente no encontrado");
+                          statusLabel.setText("Cliente no encontrado");
+                          clienteTextArea.setVisible(false);
+                          frame.repaint();
                       }
                   }
                   catch(NumberFormatException nfe)
                   {
-                      JLabel errorLabel = new JLabel("ID invalido. Introduce un numero valido.");
-                      errorLabel.setBounds(100, 250, 200, 50);
-                      frame.add(errorLabel);
+                      statusLabel.setText("ID inválido. Introduce un número válido.");
+                      clienteTextArea.setVisible(false);
                       frame.repaint();
                   }
               }
           });
           
           JButton volverButton = new JButton("Volver");
-          volverButton.setBounds(100, 300, 200, 50);
+          volverButton.setBounds(300, 400, 200, 30);
           frame.add(volverButton);
           volverButton.addActionListener(new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent e) {
                   frame.dispose();
-                  BuscarCliente();
+                  MenuCliente();
               }
           });
         }
@@ -536,108 +645,109 @@ public class MenuProyecto extends JFrame implements ActionListener
             frame.add(idLabel);
             
             JTextField idTextField = new JTextField(10);
-            idTextField.setBounds(350, 70, 200, 30);
+            idTextField.setBounds(300, 70, 200, 30);
             frame.add(idTextField);
             
+            // Botón de búsqueda junto al campo de ID
+            final JButton buscarButton = new JButton("Buscar Cliente");
+            buscarButton.setBounds(520, 70, 150, 30);
+            frame.add(buscarButton);
         
+            // Crear label de estado en la parte superior para mostrar mensajes inmediatos
             final JLabel statusLabel = new JLabel("");
-            statusLabel.setBounds(100, 470, 400, 30);
+            statusLabel.setBounds(100, 110, 600, 30);
             frame.add(statusLabel);
             
             
             JLabel cifLabel = new JLabel("CIF:");
-            cifLabel.setBounds(100, 110, 200, 30);
+            cifLabel.setBounds(100, 150, 200, 30);
             frame.add(cifLabel);
             
             final JTextField cifTextField = new JTextField(10);
-            cifTextField.setBounds(350, 110, 200, 30);
+            cifTextField.setBounds(350, 150, 200, 30);
             cifTextField.setEnabled(false);
             frame.add(cifTextField);
             
             JLabel nombreEmpresaLabel = new JLabel("Nombre de la Empresa:");
-            nombreEmpresaLabel.setBounds(100, 150, 200, 30);
+            nombreEmpresaLabel.setBounds(100, 190, 200, 30);
             frame.add(nombreEmpresaLabel);
             
             final JTextField nombreEmpresaTextField = new JTextField(10);
-            nombreEmpresaTextField.setBounds(350, 150, 200, 30);
+            nombreEmpresaTextField.setBounds(350, 190, 200, 30);
             nombreEmpresaTextField.setEnabled(false);
             frame.add(nombreEmpresaTextField);
             
             JLabel nombreResponsableLabel = new JLabel("Nombre del Responsable:");
-            nombreResponsableLabel.setBounds(100, 190, 200, 30);
+            nombreResponsableLabel.setBounds(100, 230, 200, 30);
             frame.add(nombreResponsableLabel);
             
             final JTextField nombreResponsableTextField = new JTextField(10);
-            nombreResponsableTextField.setBounds(350, 190, 200, 30);
+            nombreResponsableTextField.setBounds(350, 230, 200, 30);
             nombreResponsableTextField.setEnabled(false);
             frame.add(nombreResponsableTextField);
             
             JLabel paisLabel = new JLabel("País:");
-            paisLabel.setBounds(100, 230, 200, 30);
+            paisLabel.setBounds(100, 270, 200, 30);
             frame.add(paisLabel);
             
             final JTextField paisTextField = new JTextField(10);
-            paisTextField.setBounds(350, 230, 200, 30);
+            paisTextField.setBounds(350, 270, 200, 30);
             paisTextField.setEnabled(false);
             frame.add(paisTextField);
             
             JLabel provinciaLabel = new JLabel("Provincia:");
-            provinciaLabel.setBounds(100, 270, 200, 30);
+            provinciaLabel.setBounds(100, 310, 200, 30);
             frame.add(provinciaLabel);
             
             final JTextField provinciaTextField = new JTextField(10);
-            provinciaTextField.setBounds(350, 270, 200, 30);
+            provinciaTextField.setBounds(350, 310, 200, 30);
             provinciaTextField.setEnabled(false);
             frame.add(provinciaTextField);
             
             JLabel direccionLabel = new JLabel("Dirección:");
-            direccionLabel.setBounds(100, 310, 200, 30);
+            direccionLabel.setBounds(100, 350, 200, 30);
             frame.add(direccionLabel);
             
             final JTextField direccionTextField = new JTextField(10);
-            direccionTextField.setBounds(350, 310, 200, 30);
+            direccionTextField.setBounds(350, 350, 200, 30);
             direccionTextField.setEnabled(false);
             frame.add(direccionTextField);
             
             JLabel emailLabel = new JLabel("Email:");
-            emailLabel.setBounds(100, 350, 200, 30);
+            emailLabel.setBounds(100, 390, 200, 30);
             frame.add(emailLabel);
             
             final JTextField emailTextField = new JTextField(10);
-            emailTextField.setBounds(350, 350, 200, 30);
+            emailTextField.setBounds(350, 390, 200, 30);
             emailTextField.setEnabled(false);
             frame.add(emailTextField);
             
             JLabel telefonoLabel = new JLabel("Teléfono:");
-            telefonoLabel.setBounds(100, 390, 200, 30);
+            telefonoLabel.setBounds(100, 430, 200, 30);
             frame.add(telefonoLabel);
             
             final JTextField telefonoTextField = new JTextField(10);
-            telefonoTextField.setBounds(350, 390, 200, 30);
+            telefonoTextField.setBounds(350, 430, 200, 30);
             telefonoTextField.setEnabled(false);
             frame.add(telefonoTextField);
             
             JLabel cpLabel = new JLabel("Código Postal:");
-            cpLabel.setBounds(100, 430, 200, 30);
+            cpLabel.setBounds(100, 470, 200, 30);
             frame.add(cpLabel);
             
             final JTextField cpTextField = new JTextField(10);
-            cpTextField.setBounds(350, 430, 200, 30);
+            cpTextField.setBounds(350, 470, 200, 30);
             cpTextField.setEnabled(false);
             frame.add(cpTextField);
             
             // Botones
-            final JButton buscarButton = new JButton("Buscar Cliente");
-            buscarButton.setBounds(600, 70, 150, 30);
-            frame.add(buscarButton);
-            
             final JButton guardarButton = new JButton("Guardar Cambios");
-            guardarButton.setBounds(100, 470, 200, 30);
+            guardarButton.setBounds(100, 510, 200, 30);
             guardarButton.setEnabled(false);
             frame.add(guardarButton);
             
             JButton volverButton = new JButton("Volver");
-            volverButton.setBounds(350, 470, 200, 30);
+            volverButton.setBounds(350, 510, 200, 30);
             frame.add(volverButton);
             
             
@@ -847,11 +957,13 @@ public class MenuProyecto extends JFrame implements ActionListener
             final JTextArea clienteInfo = new JTextArea();
             clienteInfo.setBounds(100, 190, 600, 100);
             clienteInfo.setEditable(false);
+            clienteInfo.setBackground(new Color(240, 240, 240));
+            clienteInfo.setBorder(BorderFactory.createLineBorder(Color.GRAY));
             frame.add(clienteInfo);
             
             
             final JLabel statusLabel = new JLabel("");
-            statusLabel.setBounds(100, 350, 400, 30);
+            statusLabel.setBounds(100, 350, 600, 30);
             frame.add(statusLabel);
             
         
@@ -860,12 +972,12 @@ public class MenuProyecto extends JFrame implements ActionListener
             frame.add(buscarButton);
             
             final JButton eliminarButton = new JButton("Eliminar Cliente");
-            eliminarButton.setBounds(100, 300, 200, 30);
+            eliminarButton.setBounds(200, 400, 200, 30);
             eliminarButton.setEnabled(false);
             frame.add(eliminarButton);
             
             JButton volverButton = new JButton("Volver");
-            volverButton.setBounds(350, 300, 200, 30);
+            volverButton.setBounds(420, 400, 200, 30);
             frame.add(volverButton);
             
             
@@ -957,54 +1069,6 @@ public class MenuProyecto extends JFrame implements ActionListener
         System.out.println("Error: No hay conexion a la base de datos");
     }
   }
-
-   public void actionPerformed(ActionEvent e)
-   {
-    if (e.getSource() == Clientes)
-    {
-        dispose();
-        MenuCliente();
-    }
-
-    if (e.getSource() == Salir)
-    {
-        dispose();
-    } 
-
-    
-
-    if (e.getSource() == VolverMenu)
-    {
-        dispose();
-        new MenuProyecto();
-    }
-    if (e.getSource() == TodoCliente)
-    {
-        dispose();
-        ListarClientes();
-    }
-    if (e.getSource() == BuscarCliente)
-    {
-        dispose();
-        BuscarCliente();
-    }
-    if (e.getSource() == AñadirCliente)
-    {
-        dispose();
-        AñadirCliente();
-    }
-    if (e.getSource() == ModificarCliente)
-    {
-        dispose();
-        ActualizarCliente();
-    }
-    if (e.getSource() == EliminarCliente)
-    {
-        dispose();
-        EliminarCliente();
-    }
-    
-   } 
 
    protected Connection connection;
    protected ClienteController clienteController;
