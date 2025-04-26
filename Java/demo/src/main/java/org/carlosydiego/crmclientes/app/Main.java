@@ -9,6 +9,5 @@ public class Main
     public static void main(String[] args) 
     {
         MenuProyecto menuProyecto = new MenuProyecto();
-        menuProyecto.mostrarMenuPrincipal();
     }
 }

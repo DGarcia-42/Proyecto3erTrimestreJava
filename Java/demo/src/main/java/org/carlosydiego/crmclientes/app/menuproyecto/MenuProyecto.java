@@ -1,377 +1,358 @@
 package org.carlosydiego.crmclientes.app.menuproyecto;
 
 import java.util.Scanner;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
+import org.carlosydiego.crmclientes.app.controller.*;
+import org.carlosydiego.crmclientes.app.database.DatabaseConnection;
+import org.carlosydiego.crmclientes.app.model.*;
+import org.carlosydiego.crmclientes.app.util.FacturaFileManager;
 
-public class MenuProyecto extends Submenus
+public class MenuProyecto extends JFrame implements ActionListener
 {
-    public MenuProyecto() 
-    {
-        this.scanner = new Scanner(System.in);
-        inicializarControladores();
-    }
-    
+    private JButton VolverMenu;
+    private JButton Clientes;
+    private JButton Empleados;
+    private JButton Productos;
+    private JButton Proveedores;
+    private JButton Facturas;
+    private JButton Categorias;
+    private JButton Provees;
+    private JButton Salir;
+    private JButton TodoCliente;
+    private JButton BuscarCliente;
+    private JButton ModificarCliente;
+    private JButton AñadirCliente;
+    private JButton EliminarCliente;
 
+   public MenuProyecto()
+   {
+    inicializarControladores();
+    setVisible(true);
+    setTitle("Menu Proyecto");
+    setSize(800, 600);
+    setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+    JLabel Title = new JLabel("\n=== SISTEMA CRM CLIENTES ===");
+    Title.setBounds(300, 10, 200, 50);
+    add(Title);
+
+
+    Clientes = new JButton("Gestion de Clientes");
+    Clientes.setBounds(100, 100, 200, 50);
+    add(Clientes);
+    Clientes.addActionListener(this);
+
+    Empleados = new JButton("Gestion de Empleados");
+    Empleados.setBounds(100, 150, 200, 50);
+    add(Empleados);
+    Empleados.addActionListener(this);
+
+    Productos = new JButton("Gestion de Productos");
+    Productos.setBounds(100, 200, 200, 50);
+    add(Productos);
+    Productos.addActionListener(this);
+
+    Proveedores = new JButton("Gestion de Proveedores");
+    Proveedores.setBounds(100, 250, 200, 50);
+    add(Proveedores);
+    Proveedores.addActionListener(this);
+
+    Facturas = new JButton("Gestion de Facturas");
+    Facturas.setBounds(100, 300, 200, 50);
+    add(Facturas);
+    Facturas.addActionListener(this);
+
+    Categorias = new JButton("Gestion de Categorias");
+    Categorias.setBounds(100, 350, 200, 50);
+    add(Categorias);
+    Categorias.addActionListener(this);
+
+    Provees = new JButton("Gestion de Provees");
+    Provees.setBounds(100, 400, 200, 50);
+    add(Provees);
+    Provees.addActionListener(this);
+
+    Salir = new JButton("Salir");
+    Salir.setBounds(100, 450, 200, 50);
+    add(Salir);
+    Salir.addActionListener(this);
+
+
+
+
+   }
+
+  private void MenuCliente()
+  {
+
+
+    JFrame frame = new JFrame("Menu Cliente");
+    frame.setSize(800, 600);
+    frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    frame.setVisible(true);
+
+    JLabel Title = new JLabel("\n=== GESTIÓN DE CLIENTES ===");
+    Title.setBounds(300, 10, 200, 50);
+    frame.add(Title);
+
+    TodoCliente = new JButton("Ver todos los clientes");
+    TodoCliente.setBounds(100, 100, 200, 50);
+    frame.add(TodoCliente);
+    TodoCliente.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            frame.dispose();
+            ListarClientes();
+        }
+    });
     
-    public void mostrarMenuPrincipal() 
+    BuscarCliente = new JButton("Buscar cliente por ID");
+    BuscarCliente.setBounds(100, 150, 200, 50);
+    frame.add(BuscarCliente);
+    BuscarCliente.addActionListener(this);
+    
+    AñadirCliente = new JButton("Añadir nuevo cliente");
+    AñadirCliente.setBounds(100, 200, 200, 50);
+    frame.add(AñadirCliente);
+    AñadirCliente.addActionListener(this);
+
+    ModificarCliente = new JButton("Actualizar cliente");
+    ModificarCliente.setBounds(100, 200, 200, 50);
+    frame.add(ModificarCliente);
+    ModificarCliente.addActionListener(this);
+    
+    EliminarCliente = new JButton("Eliminar cliente");
+    EliminarCliente.setBounds(100, 250, 200, 50);
+    frame.add(EliminarCliente);
+    EliminarCliente.addActionListener(this);
+
+    VolverMenu = new JButton("Volver al menu principal");
+    VolverMenu.setBounds(100, 250, 200, 50);
+    frame.add(VolverMenu);
+    VolverMenu.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            frame.dispose();
+            new MenuProyecto();
+        }
+    });
+    
+  }
+
+  private void ListarClientes()
+  {
+    JFrame frame = new JFrame("Listar Clientes");
+    frame.setSize(800, 600);
+    frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    frame.setVisible(true);
+
+    JLabel Title = new JLabel("\n=== LISTA DE CLIENTES ===");
+    Title.setBounds(300, 10, 200, 50);
+    frame.add(Title);
+
+    if(clienteController!=null)
     {
-        boolean salir = false;
-        
-        while (!salir) 
+        try
         {
-            System.out.println("\n=== SISTEMA CRM CLIENTES ===");
-            System.out.println("1. Gestión de Clientes");
-            System.out.println("2. Gestión de Empleados");
-            System.out.println("3. Gestión de Productos");
-            System.out.println("4. Gestión de Proveedores");
-            System.out.println("5. Gestión de Facturas");
-            System.out.println("6. Gestión de Categorías");
-            System.out.println("7. Gestión de Provees");
-            System.out.println("0. Salir");
-            System.out.print("Seleccione una opción: ");
-            
-            int opcion = scanner.nextInt();
-            switch (opcion) 
+            List<Cliente> clientes = clienteController.findAll();
+            if(clientes!=null)
             {
-                case 1:
-                    mostrarMenuClientes();
-                    break;
-                case 2:
-                    mostrarMenuEmpleados();
-                    break;
-                case 3:
-                    mostrarMenuProductos();
-                    break;
-                case 4:
-                    mostrarMenuProveedores();
-                    break;
-                case 5:
-                    mostrarMenuFacturas();
-                    break;
-                case 6:
-                    mostrarMenuCategorias();
-                    break;
-                case 7:
-                    mostrarMenuProvees();
-                    break;
-                case 0:
-                    salir = true;
-                    System.out.println("¡Gracias por usar el sistema CRM!");
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                for(int i = 0; i < clientes.size(); i++)
+                {
+                    JLabel clienteLabel = new JLabel(clientes.get(i).toString());
+                    clienteLabel.setBounds(100, 100 + i * 50, 200, 50);
+                    frame.add(clienteLabel);
+                    
+                }
             }
         }
+        catch(Exception e)
+        {
+            System.err.println("Error al obtener los clientes: " + e.getMessage());
+        } 
+
     }
-    
-    private void mostrarMenuClientes() 
+    else
     {
-        boolean volver = false;
-        
-        while (!volver) 
-        {
-            System.out.println("\n=== GESTIÓN DE CLIENTES ===");
-            System.out.println("1. Ver todos los clientes");
-            System.out.println("2. Buscar cliente por ID");
-            System.out.println("3. Añadir nuevo cliente");
-            System.out.println("4. Actualizar cliente");
-            System.out.println("5. Eliminar cliente");
-            System.out.println("0. Volver al menú principal");
-            System.out.print("Seleccione una opción: ");
-            
-            int opcion = scanner.nextInt();
-            
-            switch (opcion) 
-            {
-                case 1:
-                    listarClientes();
-                    break;
-                case 2:
-                    buscarClientePorId();
-                    break;
-                case 3:
-                    añadirCliente();
-                    break;
-                case 4:
-                    actualizarCliente();
-                    break;
-                case 5:
-                    eliminarCliente();
-                    break;
-                case 0:
-                    volver = true;
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-            }
-        }
-    }
-    
-    private void mostrarMenuEmpleados() 
-    {
-        boolean volver = false;
-        
-        while (!volver) 
-        {
-            System.out.println("\n=== GESTIÓN DE EMPLEADOS ===");
-            System.out.println("1. Ver todos los empleados");
-            System.out.println("2. Buscar empleado por ID");
-            System.out.println("3. Añadir nuevo empleado");
-            System.out.println("4. Actualizar empleado");
-            System.out.println("5. Eliminar empleado");
-            System.out.println("0. Volver al menú principal");
-            System.out.print("Seleccione una opción: ");
-            
-            int opcion = scanner.nextInt();
-            
-            switch (opcion) 
-            {
-                case 1:
-                    listarEmpleados();
-                    break;
-                case 2:
-                    buscarEmpleadoPorId();
-                    break;
-                case 3:
-                    añadirEmpleado();
-                    break;
-                case 4:
-                    actualizarEmpleado();
-                    break;
-                case 5:
-                    eliminarEmpleado();
-                    break;
-                case 0:
-                    volver = true;
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-            }
-        }
-    }
-    
-    private void mostrarMenuProductos() 
-    {
-        boolean volver = false;
-        
-        while (!volver) 
-        {
-            System.out.println("\n=== GESTIÓN DE PRODUCTOS ===");
-            System.out.println("1. Ver todos los productos");
-            System.out.println("2. Buscar producto por ID");
-            System.out.println("3. Añadir nuevo producto");
-            System.out.println("4. Actualizar producto");
-            System.out.println("5. Eliminar producto");
-            System.out.println("0. Volver al menú principal");
-            System.out.print("Seleccione una opción: ");
-            
-            int opcion = scanner.nextInt();
-            
-            switch (opcion) 
-            {
-                case 1:
-                    listarProductos();
-                    break;
-                case 2:
-                    buscarProductoPorId();
-                    break;
-                case 3:
-                    añadirProducto();
-                    break;
-                case 4:
-                    actualizarProducto();
-                    break;
-                case 5:
-                    eliminarProducto();
-                    break;
-                case 0:
-                    volver = true;
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-            }
-        }
-    }
-    
-    private void mostrarMenuProveedores() 
-    {
-        boolean volver = false;
-        
-        while (!volver) 
-        {
-            System.out.println("\n=== GESTIÓN DE PROVEEDORES ===");
-            System.out.println("1. Ver todos los proveedores");
-            System.out.println("2. Buscar proveedor por ID");
-            System.out.println("3. Añadir nuevo proveedor");
-            System.out.println("4. Actualizar proveedor");
-            System.out.println("5. Eliminar proveedor");
-            System.out.println("0. Volver al menú principal");
-            System.out.print("Seleccione una opción: ");
-            
-            int opcion = scanner.nextInt();
-            
-            switch (opcion) 
-            {
-                case 1:
-                    listarProveedores();
-                    break;
-                case 2:
-                    buscarProveedorPorId();
-                    break;
-                case 3:
-                    añadirProveedor();
-                    break;
-                case 4:
-                    actualizarProveedor();
-                    break;
-                case 5:
-                    eliminarProveedor();
-                    break;
-                case 0:
-                    volver = true;
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-            }
-        }
-    }
-    
-    private void mostrarMenuFacturas() 
-    {
-        boolean volver = false;
-        
-        while (!volver) 
-        {
-            System.out.println("\n=== GESTIÓN DE FACTURAS ===");
-            System.out.println("1. Ver todas las facturas");
-            System.out.println("2. Buscar factura por ID");
-            System.out.println("3. Crear nueva factura");
-            System.out.println("4. Actualizar factura");
-            System.out.println("5. Eliminar factura");
-            System.out.println("6. Filtrar facturas por período");
-            System.out.println("7. Generar archivo de factura por ID");
-            System.out.println("0. Volver al menú principal");
-            System.out.print("Seleccione una opción: ");
-            
-            int opcion = scanner.nextInt();
-            
-            switch (opcion) 
-            {
-                case 1:
-                    listarFacturas();
-                    break;
-                case 2:
-                    buscarFacturaPorId();
-                    break;
-                case 3:
-                    crearFactura();
-                    break;
-                case 4:
-                    actualizarFactura();
-                    break;
-                case 5:
-                    eliminarFactura();
-                    break;
-                case 6:
-                    filtrarFacturasPorPeriodo();
-                    break;
-                case 7:
-                    generarArchivoFacturaPorId();
-                    break;
-                case 0:
-                    volver = true;
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-            }
-        }
-    }
-    
-    private void mostrarMenuCategorias() 
-    {
-        boolean volver = false;
-        
-        while (!volver) 
-        {
-            System.out.println("\n=== GESTIÓN DE CATEGORÍAS ===");
-            System.out.println("1. Ver todas las categorías");
-            System.out.println("2. Buscar categoría por ID");
-            System.out.println("3. Añadir nueva categoría");
-            System.out.println("4. Actualizar categoría");
-            System.out.println("5. Eliminar categoría");
-            System.out.println("0. Volver al menú principal");
-            System.out.print("Seleccione una opción: ");
-            
-            int opcion = scanner.nextInt();
-            
-            switch (opcion) 
-            {
-                case 1:
-                    listarCategorias();
-                    break;
-                case 2:
-                    buscarCategoriaPorId();
-                    break;
-                case 3:
-                    añadirCategoria();
-                    break;
-                case 4:
-                    actualizarCategoria();
-                    break;
-                case 5:
-                    eliminarCategoria();
-                    break;
-                case 0:
-                    volver = true;
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-            }
-        }
+        System.out.println("Error: No hay conexion a la base de datos");
     }
 
-    private void mostrarMenuProvees() 
+  }
+
+  private void BuscarCliente()
+  {
+    JFrame frame = new JFrame("Buscar Cliente");
+    frame.setSize(800, 600);
+    frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    frame.setVisible(true);
+
+    JLabel Title = new JLabel("\n=== BUSCAR CLIENTE ===");
+    Title.setBounds(300, 10, 200, 50);
+    frame.add(Title);
+    if(clienteController!=null)
     {
-        boolean volver = false;
-        
-        while (!volver) 
+        try
         {
-            System.out.println("\n=== GESTIÓN DE PROVEES ===");
-            System.out.println("1. Ver todos los provees");
-            System.out.println("2. Buscar provee por ID");
-            System.out.println("3. Añadir nuevo provee");
-            System.out.println("4. Actualizar provee");
-            System.out.println("5. Eliminar provee");
-            System.out.println("0. Volver al menú principal");
-            System.out.print("Seleccione una opción: ");
-            
-            int opcion = scanner.nextInt();
-            
-            switch (opcion) 
-            {
-                case 1:
-                    listarProvees();
-                    break;
-                case 2:
-                    buscarProveePorId();
-                    break;
-                case 3:
-                    añadirProvee();
-                    break;
-                case 4:
-                    actualizarProvee();
-                    break;
-                case 5:
-                    eliminarProvee();
-                    break;
-                case 0:
-                    volver = true;
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-            }
+          Long id= 0L;
+          boolean idValido = false;
+          
+          JLabel idLabel = new JLabel("Introduce el ID del cliente:");
+          idLabel.setBounds(100, 100, 200, 50);
+          frame.add(idLabel);
+
+          JTextField idTextField = new JTextField(10);
+          idTextField.setBounds(100, 150, 200, 50);
+          frame.add(idTextField);
+          
+          final JLabel clienteLabel = new JLabel("Buscando cliente...");
+          clienteLabel.setBounds(100, 300, 200, 50);
+          frame.add(clienteLabel);
+
+          JButton buscarButton = new JButton("Buscar");
+          buscarButton.setBounds(100, 200, 200, 50);
+          frame.add(buscarButton);
+          buscarButton.addActionListener(new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                  String input = idTextField.getText();
+                  try
+                  {
+                      long id = Long.parseLong(input);
+                      boolean idValido = true;
+                      
+                      clienteLabel.setText("Buscando cliente...");
+                      
+                      Cliente cliente = clienteController.findById(id);
+                      if(cliente!=null)
+                      {
+                          clienteLabel.setText("Cliente encontrado: ");
+                          JLabel clienteInfo = new JLabel(cliente.toString());
+                          clienteInfo.setBounds(100, 350, 200, 50);
+                          frame.add(clienteInfo);
+                          frame.repaint();
+                      }
+                      else
+                      {
+                          clienteLabel.setText("Cliente no encontrado");
+                      }
+                  }
+                  catch(NumberFormatException nfe)
+                  {
+                      JLabel errorLabel = new JLabel("ID invalido. Introduce un numero valido.");
+                      errorLabel.setBounds(100, 250, 200, 50);
+                      frame.add(errorLabel);
+                      frame.repaint();
+                  }
+              }
+          });
+          
+          JButton volverButton = new JButton("Volver");
+          volverButton.setBounds(100, 300, 200, 50);
+          frame.add(volverButton);
+          volverButton.addActionListener(new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                  frame.dispose();
+                  BuscarCliente();
+              }
+          });
+        }
+        catch(Exception e)
+        {
+            System.err.println("Error al buscar el cliente: " + e.getMessage());
         }
     }
+    else
+    {
+        System.out.println("Error: No hay conexion a la base de datos");
+    }
+  } 
+
+   public void actionPerformed(ActionEvent e)
+   {
+    if (e.getSource() == Clientes)
+    {
+        dispose();
+        MenuCliente();
+    }
+
+    if (e.getSource() == Salir)
+    {
+        dispose();
+    } 
+
+    
+
+    if (e.getSource() == VolverMenu)
+    {
+        dispose();
+        new MenuProyecto();
+    }
+    if (e.getSource() == TodoCliente)
+    {
+        dispose();
+        ListarClientes();
+    }
+    if (e.getSource() == BuscarCliente)
+    {
+        dispose();
+        BuscarCliente();
+    }
+    
+   } 
+
+   protected Connection connection;
+   protected ClienteController clienteController;
+   protected EmpleadoController empleadoController;
+   protected ProductoController productoController;
+   protected ProveedorController proveedorController;
+   protected FacturaController facturaController;
+   protected CategoriaController categoriaController;
+   protected ProveeController proveeController;
+   protected Scanner scanner;
+   
+   protected void inicializarControladores() 
+   {
+       try 
+       {
+           this.connection = DatabaseConnection.getInstance();
+           
+           this.clienteController = new ClienteController();
+           this.empleadoController = new EmpleadoController();
+           this.productoController = new ProductoController();
+           this.proveedorController = new ProveedorController();
+           this.facturaController = new FacturaController();
+           this.categoriaController = new CategoriaController();
+           this.proveeController = new ProveeController();
+           
+           System.out.println("Conexión a la base de datos establecida correctamente");
+       } 
+       catch (SQLException e) 
+       {
+           System.err.println("Error al conectar con la base de datos: " + e.getMessage());
+           e.printStackTrace();
+       }
+   }
+   
+   protected boolean VerificarDato(String dato) 
+   {
+       if (dato.isEmpty())
+       {
+           System.out.println("El dato no puede estar vacío.");
+           return false;
+       }
+       return true;
+   }
 }
+
 
