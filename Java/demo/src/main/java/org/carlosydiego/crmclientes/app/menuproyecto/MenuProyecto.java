@@ -41,6 +41,14 @@ public class MenuProyecto extends JFrame
     private JButton AñadirEmpleado;
     private JButton EliminarEmpleado;
     private JButton ActualizarEmpleado;
+    // Botones para el menú de factura
+    private JButton TodoFactura;
+    private JButton BuscarFactura;
+    private JButton ModificarFactura;
+    private JButton AñadirFactura;
+    private JButton EliminarFactura;
+    private JButton ActualizarFactura;
+    private JButton GenerarArchivoFactura;
 
    public MenuProyecto()
    {
@@ -106,8 +114,8 @@ public class MenuProyecto extends JFrame
     Facturas.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Implementar cuando se tenga la funcionalidad
-            JOptionPane.showMessageDialog(null, "Funcionalidad no implementada aún");
+            dispose();
+            MenuFactura();
         }
     });
 
@@ -117,8 +125,8 @@ public class MenuProyecto extends JFrame
     Categorias.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // Implementar cuando se tenga la funcionalidad
-            JOptionPane.showMessageDialog(null, "Funcionalidad no implementada aún");
+            dispose();
+            MenuCategoria();
         }
     });
 
@@ -1758,7 +1766,7 @@ public class MenuProyecto extends JFrame
                          {
                              statusLabel.setText("No se encontró un empleado con el ID: " + id);
                              
-                         
+                        
                              nombreTextField.setText("");
                              apellidoTextField.setText("");
                              nifTextField.setText("");
@@ -1992,7 +2000,7 @@ public class MenuProyecto extends JFrame
                          {
                              empleadoController.delete(empleadoId[0]);
                              
-                         
+                        
                              empleadoInfo.setText("");
                              idTextField.setText("");
                              eliminarButton.setEnabled(false);
@@ -2026,6 +2034,949 @@ public class MenuProyecto extends JFrame
          System.out.println("Error: No hay conexion a la base de datos");
      }
    }
+
+   private void MenuFactura()
+   {
+     JFrame frame = new JFrame("Menu Factura");
+     frame.setLayout(null);
+     frame.setSize(800, 600);
+     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+     frame.setVisible(true);
+
+     JLabel Title = new JLabel("\n=== GESTIÓN DE FACTURAS ===");
+     Title.setBounds(300, 10, 200, 50);
+     frame.add(Title);
+
+     TodoFactura = new JButton("Ver todas las facturas");
+     TodoFactura.setBounds(100, 100, 200, 50);
+     frame.add(TodoFactura);
+     TodoFactura.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             ListarFacturas();
+         }
+     });
+     
+     BuscarFactura = new JButton("Buscar factura por ID");
+     BuscarFactura.setBounds(100, 150, 200, 50);
+     frame.add(BuscarFactura);
+     BuscarFactura.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             BuscarFactura();
+         }
+     });
+     
+     AñadirFactura = new JButton("Crear nueva factura");
+     AñadirFactura.setBounds(100, 200, 200, 50);
+     frame.add(AñadirFactura);
+     AñadirFactura.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             GenerarArchivoFacturaPorId();
+         }
+     });
+
+     ModificarFactura = new JButton("Actualizar factura");
+     ModificarFactura.setBounds(100, 250, 200, 50);
+     frame.add(ModificarFactura);
+     ModificarFactura.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             ListarFacturas();
+         }
+     });
+     
+     EliminarFactura = new JButton("Eliminar factura");
+     EliminarFactura.setBounds(100, 300, 200, 50);
+     frame.add(EliminarFactura);
+     EliminarFactura.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             BuscarFactura();
+         }
+     });
+     
+     GenerarArchivoFactura = new JButton("Generar archivo de factura");
+     GenerarArchivoFactura.setBounds(100, 350, 200, 50);
+     frame.add(GenerarArchivoFactura);
+     GenerarArchivoFactura.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             GenerarArchivoFacturaPorId();
+         }
+     });
+
+     VolverMenu = new JButton("Volver al menu principal");
+     VolverMenu.setBounds(100, 400, 200, 50);
+     frame.add(VolverMenu);
+     VolverMenu.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             new MenuProyecto();
+         }
+     });
+   }
+
+   private void ListarFacturas()
+   {
+     JFrame frame = new JFrame("Listar Facturas");
+     frame.setLayout(null);
+     frame.setSize(800, 600);
+     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+     frame.setVisible(true);
+
+     JLabel Title = new JLabel("\n=== LISTA DE FACTURAS ===");
+     Title.setBounds(300, 10, 200, 50);
+     frame.add(Title);
+
+     if(facturaController!=null)
+     {
+         try
+         {
+             List<Factura> facturas = facturaController.findAll();
+             if(facturas!=null && !facturas.isEmpty())
+             {
+                 JPanel panelFacturas = new JPanel();
+                 panelFacturas.setLayout(null);
+                 
+                 JScrollPane scrollPane = new JScrollPane(panelFacturas);
+                 scrollPane.setBounds(50, 70, 700, 400);
+                 frame.add(scrollPane);
+                 
+                 panelFacturas.setPreferredSize(new Dimension(680, Math.max(380, facturas.size() * 150)));
+                 
+                 for(int i = 0; i < facturas.size(); i++)
+                 {
+                     JTextArea facturaTextArea = new JTextArea(facturas.get(i).toString());
+                     facturaTextArea.setBounds(50, 10 + i * 150, 600, 130);
+                     facturaTextArea.setEditable(false);
+                     facturaTextArea.setBackground(new Color(240, 240, 240));
+                     facturaTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                     panelFacturas.add(facturaTextArea);
+                 }
+             }
+             else
+             {
+                 JLabel noFacturasLabel = new JLabel("No hay facturas registradas en el sistema");
+                 noFacturasLabel.setBounds(300, 200, 300, 30);
+                 frame.add(noFacturasLabel);
+             }
+         }
+         catch(Exception e)
+         {
+             System.err.println("Error al obtener las facturas: " + e.getMessage());
+         } 
+     }
+     else
+     {
+         System.out.println("Error: No hay conexion a la base de datos");
+     }
+
+     JButton volverButton = new JButton("Volver");
+     volverButton.setBounds(300, 500, 200, 30);
+     frame.add(volverButton);
+     volverButton.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             MenuFactura();
+         }
+     });
+   }
+
+   private void BuscarFactura()
+   {
+     JFrame frame = new JFrame("Buscar Factura");
+     frame.setLayout(null);
+     frame.setSize(800, 600);
+     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+     frame.setVisible(true);
+
+     JLabel Title = new JLabel("\n=== BUSCAR FACTURA ===");
+     Title.setBounds(300, 10, 200, 50);
+     frame.add(Title);
+     if(facturaController!=null)
+     {
+         try
+         {
+           Long id= 0L;
+           boolean idValido = false;
+           
+           JLabel idLabel = new JLabel("Introduce el ID de la factura:");
+           idLabel.setBounds(100, 100, 200, 30);
+           frame.add(idLabel);
+
+           JTextField idTextField = new JTextField(10);
+           idTextField.setBounds(300, 100, 200, 30);
+           frame.add(idTextField);
+           
+           JButton buscarButton = new JButton("Buscar");
+           buscarButton.setBounds(550, 100, 150, 30);
+           frame.add(buscarButton);
+           
+           final JLabel statusLabel = new JLabel("");
+           statusLabel.setBounds(100, 150, 600, 30);
+           frame.add(statusLabel);
+           
+           
+           final JTextArea facturaTextArea = new JTextArea();
+           facturaTextArea.setBounds(100, 190, 600, 180);
+           facturaTextArea.setEditable(false);
+           facturaTextArea.setBackground(new Color(240, 240, 240));
+           facturaTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+           facturaTextArea.setVisible(false);
+           frame.add(facturaTextArea);
+           
+           buscarButton.addActionListener(new ActionListener() {
+               @Override
+               public void actionPerformed(ActionEvent e) {
+                   String input = idTextField.getText();
+                   try
+                   {
+                       long id = Long.parseLong(input);
+                       statusLabel.setText("Buscando factura...");
+                       
+                       Factura factura = facturaController.findById(id);
+                       if(factura!=null)
+                       {
+                           statusLabel.setText("Factura encontrada:");
+                           facturaTextArea.setText(factura.toString());
+                           facturaTextArea.setVisible(true);
+                           frame.repaint();
+                       }
+                       else
+                       {
+                           statusLabel.setText("Factura no encontrada");
+                           facturaTextArea.setVisible(false);
+                           frame.repaint();
+                       }
+                   }
+                   catch(NumberFormatException nfe)
+                   {
+                       statusLabel.setText("ID inválido. Introduce un número válido.");
+                       facturaTextArea.setVisible(false);
+                       frame.repaint();
+                   }
+               }
+           });
+           
+           JButton volverButton = new JButton("Volver");
+           volverButton.setBounds(300, 400, 200, 30);
+           frame.add(volverButton);
+           volverButton.addActionListener(new ActionListener() {
+               @Override
+               public void actionPerformed(ActionEvent e) {
+                   frame.dispose();
+                   MenuFactura();
+               }
+           });
+         }
+         catch(Exception e)
+         {
+             System.err.println("Error al buscar la factura: " + e.getMessage());
+         }
+     }
+     else
+     {
+         System.out.println("Error: No hay conexion a la base de datos");
+     }
+   }
+
+   private void MenuCategoria()
+   {
+     JFrame frame = new JFrame("Menu Categoría");
+     frame.setLayout(null);
+     frame.setSize(800, 600);
+     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+     frame.setVisible(true);
+
+     JLabel Title = new JLabel("\n=== GESTIÓN DE CATEGORÍAS ===");
+     Title.setBounds(300, 10, 200, 50);
+     frame.add(Title);
+
+     JButton listarCategoriasButton = new JButton("Ver todas las categorías");
+     listarCategoriasButton.setBounds(100, 100, 200, 50);
+     frame.add(listarCategoriasButton);
+     listarCategoriasButton.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             ListarCategorias();
+         }
+     });
+     
+     JButton añadirCategoriaButton = new JButton("Añadir nueva categoría");
+     añadirCategoriaButton.setBounds(100, 150, 200, 50);
+     frame.add(añadirCategoriaButton);
+     añadirCategoriaButton.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             AñadirCategoria();
+         }
+     });
+     
+     JButton buscarCategoriaButton = new JButton("Buscar categoría por ID");
+     buscarCategoriaButton.setBounds(100, 200, 200, 50);
+     frame.add(buscarCategoriaButton);
+     buscarCategoriaButton.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             BuscarCategoria();
+         }
+     });
+
+     JButton actualizarCategoriaButton = new JButton("Actualizar categoría");
+     actualizarCategoriaButton.setBounds(100, 250, 200, 50);
+     frame.add(actualizarCategoriaButton);
+     actualizarCategoriaButton.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             ActualizarCategoria();
+         }
+     });
+
+     JButton eliminarCategoriaButton = new JButton("Eliminar categoría");
+     eliminarCategoriaButton.setBounds(100, 300, 200, 50);
+     frame.add(eliminarCategoriaButton);
+     eliminarCategoriaButton.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             EliminarCategoria();
+         }
+     });
+
+     VolverMenu = new JButton("Volver al menu principal");
+     VolverMenu.setBounds(100, 350, 200, 50);
+     frame.add(VolverMenu);
+     VolverMenu.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             new MenuProyecto();
+         }
+     });
+   }
+
+   private void ListarCategorias()
+   {
+     JFrame frame = new JFrame("Listar Categorías");
+     frame.setLayout(null);
+     frame.setSize(800, 600);
+     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+     frame.setVisible(true);
+
+     JLabel Title = new JLabel("\n=== LISTA DE CATEGORÍAS ===");
+     Title.setBounds(300, 10, 200, 50);
+     frame.add(Title);
+
+     if(categoriaController!=null)
+     {
+         try
+         {
+             List<Categoria> categorias = categoriaController.findAll();
+             if(categorias!=null && !categorias.isEmpty())
+             {
+                 JPanel panelCategorias = new JPanel();
+                 panelCategorias.setLayout(null);
+                 
+                 JScrollPane scrollPane = new JScrollPane(panelCategorias);
+                 scrollPane.setBounds(50, 70, 700, 400);
+                 frame.add(scrollPane);
+                 
+                 panelCategorias.setPreferredSize(new Dimension(680, Math.max(380, categorias.size() * 150)));
+                 
+                 for(int i = 0; i < categorias.size(); i++)
+                 {
+                     JTextArea categoriaTextArea = new JTextArea(categorias.get(i).toString());
+                     categoriaTextArea.setBounds(50, 10 + i * 150, 600, 130);
+                     categoriaTextArea.setEditable(false);
+                     categoriaTextArea.setBackground(new Color(240, 240, 240));
+                     categoriaTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                     panelCategorias.add(categoriaTextArea);
+                 }
+             }
+             else
+             {
+                 JLabel noCategoriasLabel = new JLabel("No hay categorías registradas en el sistema");
+                 noCategoriasLabel.setBounds(300, 200, 300, 30);
+                 frame.add(noCategoriasLabel);
+             }
+         }
+         catch(Exception e)
+         {
+             System.err.println("Error al obtener las categorías: " + e.getMessage());
+         } 
+     }
+     else
+     {
+         System.out.println("Error: No hay conexion a la base de datos");
+     }
+
+     JButton volverButton = new JButton("Volver");
+     volverButton.setBounds(300, 500, 200, 30);
+     frame.add(volverButton);
+     volverButton.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             frame.dispose();
+             MenuCategoria();
+         }
+     });
+   }
+
+   private void AñadirCategoria()
+   {
+     JFrame frame = new JFrame("Añadir Categoría");
+     frame.setSize(800, 600);
+     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+     frame.setVisible(true);
+     frame.setLayout(null);
+
+     JLabel Title = new JLabel("\n=== AÑADIR NUEVA CATEGORÍA ===");
+     Title.setBounds(300, 10, 300, 50);
+     frame.add(Title);
+
+     if(categoriaController!=null)
+     {
+         try
+         {
+         
+             JLabel nombreLabel = new JLabel("Nombre:");
+             nombreLabel.setBounds(100, 70, 200, 30);
+             frame.add(nombreLabel);
+             
+             JTextField nombreTextField = new JTextField(10);
+             nombreTextField.setBounds(350, 70, 200, 30);
+             frame.add(nombreTextField);
+             
+         
+             JLabel descripcionLabel = new JLabel("Descripción:");
+             descripcionLabel.setBounds(100, 110, 200, 30);
+             frame.add(descripcionLabel);
+             
+             JTextField descripcionTextField = new JTextField(10);
+             descripcionTextField.setBounds(350, 110, 200, 30);
+             frame.add(descripcionTextField);
+             
+         
+             JLabel statusLabel = new JLabel("");
+             statusLabel.setBounds(100, 470, 400, 30);
+             frame.add(statusLabel);
+         
+             JButton guardarButton = new JButton("Guardar Categoría");
+             guardarButton.setBounds(100, 430, 200, 30);
+             frame.add(guardarButton);
+             guardarButton.addActionListener(new ActionListener() 
+             {
+                 @Override
+                 public void actionPerformed(ActionEvent e) 
+                 {
+                     try {
+                         String nombre = nombreTextField.getText();
+                         if (nombre.isEmpty()) 
+                         {
+                             statusLabel.setText("Error: El nombre no puede estar vacío.");
+                             return;
+                         }
+                         
+                         String descripcion = descripcionTextField.getText();
+                         if (descripcion.isEmpty()) 
+                         {
+                             statusLabel.setText("Error: La descripción no puede estar vacía.");
+                             return;
+                         }
+                         
+                         Categoria nuevaCategoria = new Categoria(null, nombre);
+                         
+                         categoriaController.save(nuevaCategoria);
+                         
+                         statusLabel.setText("Categoría añadida correctamente.");
+                         
+                         nombreTextField.setText("");
+                         descripcionTextField.setText("");
+                     } 
+                     catch (Exception ex) 
+                     {
+                         statusLabel.setText("Error al guardar la categoría: " + ex.getMessage());
+                     }
+                 }
+             });
+             
+         
+             JButton volverButton = new JButton("Volver");
+             volverButton.setBounds(350, 430, 200, 30);
+             frame.add(volverButton);
+             volverButton.addActionListener(new ActionListener() 
+             {
+                 @Override
+                 public void actionPerformed(ActionEvent e) 
+                 {
+                     frame.dispose();
+                     MenuCategoria();
+                 }
+             });
+         }
+         catch(Exception e)
+         {
+             System.err.println("Error al añadir la categoría: " + e.getMessage());
+         }
+     }
+     else
+     {
+         System.out.println("Error: No hay conexion a la base de datos");
+     }
+   }
+
+   private void EliminarCategoria()
+   {
+     JFrame frame = new JFrame("Eliminar Categoría");
+     frame.setSize(800, 600);
+     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+     frame.setVisible(true);
+     frame.setLayout(null);
+
+     JLabel Title = new JLabel("\n=== ELIMINAR CATEGORÍA ===");
+     Title.setBounds(300, 10, 300, 50);
+     frame.add(Title);
+
+     if(categoriaController!=null)
+     {
+         try
+         {
+             
+             JLabel idLabel = new JLabel("ID de la categoría a eliminar:");
+             idLabel.setBounds(100, 100, 200, 30);
+             frame.add(idLabel);
+             
+             JTextField idTextField = new JTextField(10);
+             idTextField.setBounds(300, 100, 200, 30);
+             frame.add(idTextField);
+             
+             
+             final JLabel infoLabel = new JLabel("Información de la categoría:");
+             infoLabel.setBounds(100, 150, 500, 30);
+             frame.add(infoLabel);
+             
+             final JTextArea categoriaInfo = new JTextArea();
+             categoriaInfo.setBounds(100, 190, 600, 100);
+             categoriaInfo.setEditable(false);
+             categoriaInfo.setBackground(new Color(240, 240, 240));
+             categoriaInfo.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+             frame.add(categoriaInfo);
+             
+             
+             final JLabel statusLabel = new JLabel("");
+             statusLabel.setBounds(100, 350, 600, 30);
+             frame.add(statusLabel);
+             
+         
+             final JButton buscarButton = new JButton("Buscar Categoría");
+             buscarButton.setBounds(550, 100, 150, 30);
+             frame.add(buscarButton);
+             
+             final JButton eliminarButton = new JButton("Eliminar Categoría");
+             eliminarButton.setBounds(200, 400, 200, 30);
+             eliminarButton.setEnabled(false);
+             frame.add(eliminarButton);
+             
+             JButton volverButton = new JButton("Volver");
+             volverButton.setBounds(420, 400, 200, 30);
+             frame.add(volverButton);
+             
+             
+             final Long[] categoriaId = new Long[1];
+             
+             buscarButton.addActionListener(new ActionListener() 
+             {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     try {
+                         String input = idTextField.getText();
+                         long id = Long.parseLong(input);
+                         
+                         Categoria categoria = categoriaController.findById(id);
+                         if (categoria != null) {
+                     
+                             categoriaId[0] = categoria.getID_Categoria();
+                             
+                             categoriaInfo.setText(categoria.toString());
+                             eliminarButton.setEnabled(true);
+                             statusLabel.setText("Categoría encontrada. Pulse 'Eliminar Categoría' para confirmar.");
+                         } 
+                         else 
+                         {
+                             categoriaInfo.setText("");
+                             eliminarButton.setEnabled(false);
+                             statusLabel.setText("No se encontró una categoría con el ID: " + id);
+                         }
+                     } catch (NumberFormatException nfe) {
+                         statusLabel.setText("ID inválido. Introduce un número válido.");
+                     }
+                 }
+             });
+             
+             eliminarButton.addActionListener(new ActionListener() 
+             {
+                 @Override
+                 public void actionPerformed(ActionEvent e) 
+                 {
+                     try 
+                     {
+                     
+                         int confirmacion = JOptionPane.showConfirmDialog(frame, 
+                             "¿Está seguro de que desea eliminar esta categoría?", 
+                             "Confirmar eliminación", 
+                             JOptionPane.YES_NO_OPTION);
+                         
+                         if (confirmacion == JOptionPane.YES_OPTION) 
+                         {
+                             categoriaController.delete(categoriaId[0]);
+                             
+                        
+                             categoriaInfo.setText("");
+                             idTextField.setText("");
+                             eliminarButton.setEnabled(false);
+                             statusLabel.setText("Categoría eliminada correctamente.");
+                         }
+                     } 
+                     catch (Exception ex) 
+                     {
+                         statusLabel.setText("Error al eliminar la categoría: " + ex.getMessage());
+                     }
+                 }
+             });
+             
+             volverButton.addActionListener(new ActionListener() 
+             {
+                 @Override
+                 public void actionPerformed(ActionEvent e) 
+                 {
+                     frame.dispose();
+                     MenuCategoria();
+                 }
+             });
+         }
+         catch(Exception e)
+         {
+             System.err.println("Error al eliminar la categoría: " + e.getMessage());
+         }
+     }
+     else
+     {
+         System.out.println("Error: No hay conexion a la base de datos");
+     }
+   }
+
+   private void GenerarArchivoFacturaPorId()
+   {
+     JFrame frame = new JFrame("Generar Archivo de Factura");
+     frame.setLayout(null);
+     frame.setSize(800, 600);
+     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+     frame.setVisible(true);
+
+     JLabel Title = new JLabel("\n=== GENERAR ARCHIVO DE FACTURA ===");
+     Title.setBounds(300, 10, 200, 50);
+     frame.add(Title);
+
+     if(facturaController!=null)
+     {
+         try
+         {
+             JLabel idLabel = new JLabel("Introduce el ID de la factura:");
+             idLabel.setBounds(100, 100, 200, 30);
+             frame.add(idLabel);
+
+             JTextField idTextField = new JTextField(10);
+             idTextField.setBounds(300, 100, 200, 30);
+             frame.add(idTextField);
+             
+             JButton generarButton = new JButton("Generar");
+             generarButton.setBounds(550, 100, 150, 30);
+             frame.add(generarButton);
+             
+             final JLabel statusLabel = new JLabel("");
+             statusLabel.setBounds(100, 150, 600, 30);
+             frame.add(statusLabel);
+             
+             generarButton.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     String input = idTextField.getText();
+                     try {
+                         long id = Long.parseLong(input);
+                         statusLabel.setText("Generando archivo...");
+                         
+                         Factura factura = facturaController.findById(id);
+                         if(factura != null) {
+                             FacturaFileManager.generarArchivoFactura(factura);
+                             statusLabel.setText("Archivo generado correctamente.");
+                         } else {
+                             statusLabel.setText("No se encontró la factura con el ID especificado.");
+                         }
+                     } catch (NumberFormatException nfe) {
+                         statusLabel.setText("ID inválido. Introduce un número válido.");
+                     }
+                 }
+             });
+             
+             JButton volverButton = new JButton("Volver");
+             volverButton.setBounds(300, 400, 200, 30);
+             frame.add(volverButton);
+             volverButton.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     frame.dispose();
+                     MenuFactura();
+                 }
+             });
+         }
+         catch(Exception e)
+         {
+             System.err.println("Error al generar el archivo de factura: " + e.getMessage());
+         }
+     }
+     else
+     {
+         System.out.println("Error: No hay conexion a la base de datos");
+     }
+   }
+
+  private void BuscarCategoria()
+  {
+    JFrame frame = new JFrame("Buscar Categoría");
+    frame.setLayout(null);
+    frame.setSize(800, 600);
+    frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    frame.setVisible(true);
+
+    JLabel Title = new JLabel("\n=== BUSCAR CATEGORÍA ===");
+    Title.setBounds(300, 10, 200, 50);
+    frame.add(Title);
+    
+    if(categoriaController!=null)
+    {
+        try
+        {
+          Long id= 0L;
+          boolean idValido = false;
+          
+          JLabel idLabel = new JLabel("Introduce el ID de la categoría:");
+          idLabel.setBounds(100, 100, 200, 30);
+          frame.add(idLabel);
+
+          JTextField idTextField = new JTextField(10);
+          idTextField.setBounds(300, 100, 200, 30);
+          frame.add(idTextField);
+          
+          JButton buscarButton = new JButton("Buscar");
+          buscarButton.setBounds(550, 100, 150, 30);
+          frame.add(buscarButton);
+          
+          final JLabel statusLabel = new JLabel("");
+          statusLabel.setBounds(100, 150, 600, 30);
+          frame.add(statusLabel);
+          
+          final JTextArea categoriaTextArea = new JTextArea();
+          categoriaTextArea.setBounds(100, 190, 600, 180);
+          categoriaTextArea.setEditable(false);
+          categoriaTextArea.setBackground(new Color(240, 240, 240));
+          categoriaTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+          categoriaTextArea.setVisible(false);
+          frame.add(categoriaTextArea);
+          
+          buscarButton.addActionListener(new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                  String input = idTextField.getText();
+                  try
+                  {
+                      long id = Long.parseLong(input);
+                      statusLabel.setText("Buscando categoría...");
+                      
+                      Categoria categoria = categoriaController.findById(id);
+                      if(categoria!=null)
+                      {
+                          statusLabel.setText("Categoría encontrada:");
+                          categoriaTextArea.setText(categoria.toString());
+                          categoriaTextArea.setVisible(true);
+                          frame.repaint();
+                      }
+                      else
+                      {
+                          statusLabel.setText("Categoría no encontrada");
+                          categoriaTextArea.setVisible(false);
+                          frame.repaint();
+                      }
+                  }
+                  catch(NumberFormatException nfe)
+                  {
+                      statusLabel.setText("ID inválido. Introduce un número válido.");
+                      categoriaTextArea.setVisible(false);
+                      frame.repaint();
+                  }
+              }
+          });
+          
+          JButton volverButton = new JButton("Volver");
+          volverButton.setBounds(300, 400, 200, 30);
+          frame.add(volverButton);
+          volverButton.addActionListener(new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                  frame.dispose();
+                  MenuCategoria();
+              }
+          });
+        }
+        catch(Exception e)
+        {
+            System.err.println("Error al buscar la categoría: " + e.getMessage());
+        }
+    }
+    else
+    {
+        System.out.println("Error: No hay conexion a la base de datos");
+    }
+  }
+
+  private void ActualizarCategoria()
+  {
+    JFrame frame = new JFrame("Actualizar Categoría");
+    frame.setSize(800, 600);
+    frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    frame.setVisible(true);
+    frame.setLayout(null);
+
+    JLabel Title = new JLabel("\n=== ACTUALIZAR CATEGORÍA ===");
+    Title.setBounds(300, 10, 300, 50);
+    frame.add(Title);
+
+    if(categoriaController!=null)
+    {
+        try
+        {
+            JLabel idLabel = new JLabel("ID de la categoría a actualizar:");
+            idLabel.setBounds(100, 70, 200, 30);
+            frame.add(idLabel);
+            
+            JTextField idTextField = new JTextField(10);
+            idTextField.setBounds(300, 70, 200, 30);
+            frame.add(idTextField);
+            
+            final JButton buscarButton = new JButton("Buscar Categoría");
+            buscarButton.setBounds(520, 70, 150, 30);
+            frame.add(buscarButton);
+        
+            final JLabel statusLabel = new JLabel("");
+            statusLabel.setBounds(100, 110, 600, 30);
+            frame.add(statusLabel);
+            
+            JLabel nombreLabel = new JLabel("Nombre:");
+            nombreLabel.setBounds(100, 150, 200, 30);
+            frame.add(nombreLabel);
+            
+            final JTextField nombreTextField = new JTextField(10);
+            nombreTextField.setBounds(300, 150, 200, 30);
+            nombreTextField.setEnabled(false);
+            frame.add(nombreTextField);
+            
+            final JButton guardarButton = new JButton("Guardar Cambios");
+            guardarButton.setBounds(100, 200, 200, 30);
+            guardarButton.setEnabled(false);
+            frame.add(guardarButton);
+            
+            JButton volverButton = new JButton("Volver");
+            volverButton.setBounds(350, 200, 200, 30);
+            frame.add(volverButton);
+            
+            final Long[] categoriaId = new Long[1];
+            
+            buscarButton.addActionListener(new ActionListener() 
+            {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        String input = idTextField.getText();
+                        long id = Long.parseLong(input);
+                        
+                        Categoria categoria = categoriaController.findById(id);
+                        if (categoria != null) {
+                            categoriaId[0] = categoria.getID_Categoria();
+                            
+                            nombreTextField.setText(categoria.getNombre());
+                            
+                            nombreTextField.setEnabled(true);
+                            guardarButton.setEnabled(true);
+                            
+                            statusLabel.setText("Categoría encontrada. Modifique los campos y guarde los cambios.");
+                        } 
+                        else 
+                        {
+                            statusLabel.setText("No se encontró una categoría con el ID: " + id);
+                            
+                            nombreTextField.setText("");
+                            
+                            nombreTextField.setEnabled(false);
+                            guardarButton.setEnabled(false);
+                        }
+                    } catch (NumberFormatException nfe) {
+                        statusLabel.setText("ID inválido. Introduce un número válido.");
+                    }
+                }
+            });
+            
+            guardarButton.addActionListener(new ActionListener() 
+            {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        Categoria categoriaExistente = categoriaController.findById(categoriaId[0]);
+                    
+                        String nombre = nombreTextField.getText();
+                        if (nombre.isEmpty()) {
+                            nombre = categoriaExistente.getNombre();
+                        }
+                        
+                        Categoria categoriaActualizada = new Categoria(categoriaId[0], nombre);
+                        
+                        categoriaController.save(categoriaActualizada);
+                        
+                        statusLabel.setText("Categoría actualizada correctamente.");
+                    } catch (Exception ex) {
+                        statusLabel.setText("Error al actualizar la categoría: " + ex.getMessage());
+                    }
+                }
+            });
+            
+            volverButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame.dispose();
+                    MenuCategoria();
+                }
+            });
+        }
+        catch(Exception e)
+        {
+            System.err.println("Error al actualizar la categoría: " + e.getMessage());
+        }
+    }
+    else
+    {
+        System.out.println("Error: No hay conexion a la base de datos");
+    }
+  }
 }
-
-
