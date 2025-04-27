@@ -49,7 +49,11 @@ public class Provee
     @Override
     public String toString() 
     {
-        return "ID_Provee=" + ID_Provee + ", Proveedor=" + proveedor + ", Producto=" + producto + ", Fecha_Provision=" + Fecha_Provision 
-                + ", Cantidad=" + Cantidad + ", Precio=" + Precio;
+        return "Provisión [ID_Provee=" + ID_Provee + "]" + "\n" +
+               "Proveedor: " + (proveedor != null ? proveedor.getNombre() : "N/A") + "\n" +
+               "Producto: " + (producto != null ? producto.getNombre() : "N/A") + "\n" +
+               "Fecha de Provisión: " + Fecha_Provision + "\n" +
+               "Cantidad: " + Cantidad + "\n" +
+               "Precio: " + Precio;
     }
 }

@@ -49,11 +49,15 @@ public class Cliente
     @Override
     public String toString() 
     {
-        return "Cliente [ID_Cliente=" + ID_Cliente + ", CIF=" + CIF + "]" +
-               "\nNombre Empresa: " + Nombre_Empresa + 
-               "\nResponsable: " + Nombre_Responsable + 
-               "\nDirección: " + Direccion + ", " + Provincia + ", " + Pais + " (CP: " + Codigo_Postal + ")" +
-               "\nContacto: " + Email + " | Tel: " + Telefono;
+        return "Cliente [ID_Cliente=" + ID_Cliente + ", CIF=" + CIF + "]" + "\n" +
+               "Nombre Empresa: " + Nombre_Empresa + "\n" +
+               "Responsable: " + Nombre_Responsable + "\n" +
+               "Dirección: " + Direccion + "\n" +
+               "Provincia: " + Provincia + "\n" +
+               "País: " + Pais + "\n" +
+               "Código Postal: " + Codigo_Postal + "\n" +
+               "Email: " + Email + "\n" +
+               "Teléfono: " + Telefono;
     }
     
     

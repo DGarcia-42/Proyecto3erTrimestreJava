@@ -52,10 +52,15 @@ public class Proveedor
     @Override
     public String toString() 
     {
-        return "Proveedor [ID_Proveedor=" + ID_Proveedor + ", Nombre=" + Nombre + ", Nombre_Responsable="
-                + Nombre_Responsable + ", Pais=" + Pais + ", Provincia=" + Provincia + ", Direccion=" + Direccion
-                + ", Codigo_Postal=" + Codigo_Postal + ", CIF=" + CIF + ", Telefono=" + Telefono + ", Email=" + Email
-                + "]";
+        return "Proveedor [ID_Proveedor=" + ID_Proveedor + ", CIF=" + CIF + "]" + "\n" +
+               "Nombre: " + Nombre + "\n" +
+               "Responsable: " + Nombre_Responsable + "\n" +
+               "Dirección: " + Direccion + "\n" +
+               "Provincia: " + Provincia + "\n" +
+               "País: " + Pais + "\n" +
+               "Código Postal: " + Codigo_Postal + "\n" +
+               "Email: " + Email + "\n" +
+               "Teléfono: " + Telefono;
     }
     
     

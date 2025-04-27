@@ -23,7 +23,7 @@ public class Empleado
         this.Direccion = Direccion;
         this.Codigo_Postal = Codigo_Postal;
         this.Provincia = Provincia;
-        this.Pais = Pais;
+        this.Pais = País;
         this.Telfono = Telfono;
         this.Email = Email;
     }
@@ -50,9 +50,15 @@ public class Empleado
     @Override
     public String toString() 
     {
-        return "Empleado [ID_Empleado=" + ID_Empleado + ", Nombre=" + Nombre + ", Apellido=" + Apellido + ", NIF=" + NIF
-                + ", Direccion=" + Direccion + ", Codigo_Postal=" + Codigo_Postal + ", Provincia=" + Provincia
-                + ", Pais=" + Pais + ", Telfono=" + Telfono + ", Email=" + Email + "]";
+        return "Empleado [ID_Empleado=" + ID_Empleado + ", NIF=" + NIF + "]" + "\n" +
+               "Nombre: " + Nombre + "\n" +
+               "Apellido: " + Apellido + "\n" +
+               "Dirección: " + Direccion + "\n" +
+               "Provincia: " + Provincia + "\n" +
+               "País: " + Pais + "\n" +
+               "Código Postal: " + Codigo_Postal + "\n" +
+               "Email: " + Email + "\n" +
+               "Teléfono: " + Telfono;
     }
 
     

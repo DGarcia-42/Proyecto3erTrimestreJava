@@ -22,7 +22,10 @@ public class Categoria
     public void setNombre(String Nombre) {this.Nombre = Nombre;}
     @Override
     public String toString() 
-    {return "Categoria [ID_Categoria=" + ID_Categoria + ", Nombre=" + Nombre + "]";}
+    {
+        return "Categoría [ID_Categoria=" + ID_Categoria + "]" + "\n" +
+               "Nombre: " + Nombre;
+    }
 
     
 }

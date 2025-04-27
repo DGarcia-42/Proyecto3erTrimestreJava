@@ -52,8 +52,14 @@ public class Factura
     @Override
     public String toString() 
     {
-        return "Factura [ID_Factura=" + ID_Factura + ", Fecha_Venta=" + Fecha_Venta + ", Canal_Compra=" + Canal_Compra 
-                + ", Cantidad=" + Cantidad + ", producto=" + producto + ", Pagado=" + Pagado + ", empleado=" + empleado 
-                + ", cliente=" + cliente + ", Total=" + Total + "]";
+        return "Factura [ID_Factura=" + ID_Factura + "]" + "\n" +
+               "Fecha de Venta: " + Fecha_Venta + "\n" +
+               "Canal de Compra: " + Canal_Compra + "\n" +
+               "Producto: " + (producto != null ? producto.getNombre() : "N/A") + "\n" +
+               "Cantidad: " + Cantidad + "\n" +
+               "Total: " + Total + "\n" +
+               "Estado: " + Pagado + "\n" +
+               "Cliente: " + (cliente != null ? cliente.getNombre_Empresa() : "N/A") + "\n" +
+               "Empleado: " + (empleado != null ? empleado.getNombre() + " " + empleado.getApellido() : "N/A");
     }
 }

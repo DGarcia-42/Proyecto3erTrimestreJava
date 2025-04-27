@@ -45,7 +45,13 @@ public class Producto
     @Override
     public String toString() 
     {
-        return "Producto [ID_Producto=" + ID_Producto + ", Nombre=" + Nombre + ", Descripcion=" + Descripcion 
-                + ", Stock=" + Stock + ", PVP=" + PVP + ", IVA=" + IVA + ", Categoria=" + categoria + ", Proveedor=" + proveedor + "]";
+        return "Producto [ID_Producto=" + ID_Producto + "]" + "\n" +
+               "Nombre: " + Nombre + "\n" +
+               "Descripción: " + Descripcion + "\n" +
+               "Stock: " + Stock + "\n" +
+               "PVP: " + PVP + "\n" +
+               "IVA: " + IVA + "\n" +
+               "Categoría: " + (categoria != null ? categoria.getNombre() : "N/A") + "\n" +
+               "Proveedor: " + (proveedor != null ? proveedor.getNombre() : "N/A");
     }
 }
