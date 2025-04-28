@@ -1981,7 +1981,7 @@ public class MenuProyecto extends JFrame
          @Override
          public void actionPerformed(ActionEvent e) {
              frame.dispose();
-             GenerarArchivoFacturaPorId();
+             AñadirFactura();
          }
      });
 
@@ -1992,7 +1992,7 @@ public class MenuProyecto extends JFrame
          @Override
          public void actionPerformed(ActionEvent e) {
              frame.dispose();
-             ListarFacturas();
+             ActualizarFactura();
          }
      });
      
@@ -2003,7 +2003,7 @@ public class MenuProyecto extends JFrame
          @Override
          public void actionPerformed(ActionEvent e) {
              frame.dispose();
-             BuscarFactura();
+             EliminarFactura();
          }
      });
      
@@ -2093,7 +2093,607 @@ public class MenuProyecto extends JFrame
          MenuFactura();
      });
    }
-
+   private void AñadirFactura()
+   {
+     JFrame frame = new JFrame("Añadir Factura");
+     frame.setLayout(null);
+     frame.setSize(800, 600);
+     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+     frame.setVisible(true);
+ 
+     JLabel Title = new JLabel("\n=== AÑADIR NUEVA FACTURA ===");
+     Title.setBounds(300, 10, 200, 50);
+     frame.add(Title);
+ 
+     if(facturaController!=null)
+     {
+         try
+         {
+     
+             JLabel clienteLabel = new JLabel("ID del Cliente:");
+             clienteLabel.setBounds(100, 100, 200, 30);
+             frame.add(clienteLabel);
+ 
+             JTextField clienteTextField = new JTextField(10);
+             clienteTextField.setBounds(300, 100, 200, 30);
+             frame.add(clienteTextField);
+ 
+     
+             JLabel empleadoLabel = new JLabel("ID del Empleado:");
+             empleadoLabel.setBounds(100, 150, 200, 30);
+             frame.add(empleadoLabel);
+ 
+             JTextField empleadoTextField = new JTextField(10);
+             empleadoTextField.setBounds(300, 150, 200, 30);
+             frame.add(empleadoTextField);
+ 
+         
+             JLabel fechaLabel = new JLabel("Fecha (YYYY-MM-DD):");
+             fechaLabel.setBounds(100, 200, 200, 30);
+             frame.add(fechaLabel);
+ 
+             JTextField fechaTextField = new JTextField(10);
+             fechaTextField.setBounds(300, 200, 200, 30);
+             frame.add(fechaTextField);
+ 
+             
+             JLabel metodoPagoLabel = new JLabel("Método de Pago:");
+             metodoPagoLabel.setBounds(100, 250, 200, 30);
+             frame.add(metodoPagoLabel);
+ 
+             JTextField metodoPagoTextField = new JTextField(10);
+             metodoPagoTextField.setBounds(300, 250, 200, 30);
+             frame.add(metodoPagoTextField);
+ 
+             
+             JLabel estadoLabel = new JLabel("Estado (SI/NO):");
+             estadoLabel.setBounds(100, 300, 200, 30);
+             frame.add(estadoLabel);
+ 
+             JTextField estadoTextField = new JTextField(10);
+             estadoTextField.setBounds(300, 300, 200, 30);
+             frame.add(estadoTextField);
+ 
+         
+             JLabel productoLabel = new JLabel("ID del Producto:");
+             productoLabel.setBounds(100, 350, 200, 30);
+             frame.add(productoLabel);
+ 
+             JTextField productoTextField = new JTextField(10);
+             productoTextField.setBounds(300, 350, 200, 30);
+             frame.add(productoTextField);
+ 
+             
+             JLabel cantidadLabel = new JLabel("Cantidad:");
+             cantidadLabel.setBounds(100, 400, 200, 30);
+             frame.add(cantidadLabel);
+ 
+             JTextField cantidadTextField = new JTextField(10);
+             cantidadTextField.setBounds(300, 400, 200, 30);
+             frame.add(cantidadTextField);
+ 
+     
+             JButton guardarButton = new JButton("Guardar");
+             guardarButton.setBounds(300, 450, 200, 30);
+             frame.add(guardarButton);
+ 
+             
+             JLabel statusLabel = new JLabel("");
+             statusLabel.setBounds(100, 500, 600, 30);
+             frame.add(statusLabel);
+ 
+             guardarButton.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     try {
+                     
+                         Long idCliente = Long.parseLong(clienteTextField.getText());
+                         Cliente cliente = clienteController.findById(idCliente);
+                         if (cliente == null) {
+                             statusLabel.setText("Error: Cliente no encontrado");
+                             return;
+                         }
+ 
+                         
+                         Long idEmpleado = Long.parseLong(empleadoTextField.getText());
+                         Empleado empleado = empleadoController.findById(idEmpleado);
+                         if (empleado == null) {
+                             statusLabel.setText("Error: Empleado no encontrado");
+                             return;
+                         }
+ 
+                         
+                         LocalDate fecha = LocalDate.parse(fechaTextField.getText());
+ 
+                     
+                         String metodoPago = metodoPagoTextField.getText();
+                         if (metodoPago.isEmpty()) {
+                             statusLabel.setText("Error: El método de pago no puede estar vacío");
+                             return;
+                         }
+ 
+                         
+                         String estado = estadoTextField.getText().toUpperCase();
+                         if (!estado.equals("SI") && !estado.equals("NO")) {
+                             statusLabel.setText("Error: El estado debe ser SI o NO");
+                             return;
+                         }
+ 
+                         
+                         Long idProducto = Long.parseLong(productoTextField.getText());
+                         Producto producto = productoController.findById(idProducto);
+                         if (producto == null) {
+                             statusLabel.setText("Error: Producto no encontrado");
+                             return;
+                         }
+ 
+                     
+                         int cantidad = Integer.parseInt(cantidadTextField.getText());
+                         if (cantidad <= 0) {
+                             statusLabel.setText("Error: La cantidad debe ser mayor que cero");
+                             return;
+                         }
+                         if (cantidad > producto.getStock()) {
+                             statusLabel.setText("Error: La cantidad no puede superar el stock disponible");
+                             return;
+                         }
+ 
+                         
+                         double total = producto.getPVP() * cantidad;
+ 
+                         
+                         Factura factura = new Factura();
+                         factura.setCliente(cliente);
+                         factura.setEmpleado(empleado);
+                         factura.setFecha_Venta(fecha);
+                         factura.setCanal_Compra(metodoPago);
+                         factura.setPagado(estado);
+                         factura.setProducto(producto);
+                         factura.setCantidad(cantidad);
+                         factura.setTotal(total);
+ 
+                         facturaController.save(factura);
+                         statusLabel.setText("Factura creada correctamente");
+                     } catch (NumberFormatException ex) {
+                         statusLabel.setText("Error: Los campos numéricos deben contener números válidos");
+                     } catch (DateTimeParseException ex) {
+                         statusLabel.setText("Error: La fecha debe estar en formato YYYY-MM-DD");
+                     } catch (Exception ex) {
+                         statusLabel.setText("Error al crear la factura: " + ex.getMessage());
+                     }
+                 }
+             });
+ 
+         
+             JButton volverButton = new JButton("Volver");
+             volverButton.setBounds(300, 500, 200, 30);
+             frame.add(volverButton);
+             volverButton.addActionListener(e -> {
+                 frame.dispose();
+                 MenuFactura();
+             });
+         }
+         catch(Exception e)
+         {
+             System.err.println("Error al crear la factura: " + e.getMessage());
+         }
+     }
+     else
+     {
+         JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
+         errorLabel.setBounds(100, 100, 500, 30);
+         frame.add(errorLabel);
+         
+         JButton volverButton = new JButton("Volver");
+         volverButton.setBounds(300, 500, 200, 30);
+         frame.add(volverButton);
+         volverButton.addActionListener(e -> {
+             frame.dispose();
+             MenuFactura();
+         });
+     }
+   }
+ 
+   private void ActualizarFactura()
+   {
+     JFrame frame = new JFrame("Actualizar Factura");
+     frame.setLayout(null);
+     frame.setSize(800, 600);
+     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+     frame.setVisible(true);
+ 
+     JLabel Title = new JLabel("\n=== ACTUALIZAR FACTURA ===");
+     Title.setBounds(300, 10, 200, 50);
+     frame.add(Title);
+ 
+     if(facturaController!=null)
+     {
+         try
+         {
+         
+             JLabel idLabel = new JLabel("ID de la Factura:");
+             idLabel.setBounds(100, 100, 200, 30);
+             frame.add(idLabel);
+ 
+             JTextField idTextField = new JTextField(10);
+             idTextField.setBounds(300, 100, 200, 30);
+             frame.add(idTextField);
+ 
+             
+             JButton buscarButton = new JButton("Buscar");
+             buscarButton.setBounds(550, 100, 150, 30);
+             frame.add(buscarButton);
+ 
+         
+             JPanel updatePanel = new JPanel();
+             updatePanel.setLayout(null);
+             updatePanel.setBounds(50, 150, 700, 400);
+             updatePanel.setVisible(false);
+             frame.add(updatePanel);
+ 
+         
+             JLabel clienteLabel = new JLabel("ID del Cliente:");
+             clienteLabel.setBounds(50, 20, 200, 30);
+             updatePanel.add(clienteLabel);
+ 
+             JTextField clienteTextField = new JTextField(10);
+             clienteTextField.setBounds(250, 20, 200, 30);
+             updatePanel.add(clienteTextField);
+ 
+             
+             JLabel empleadoLabel = new JLabel("ID del Empleado:");
+             empleadoLabel.setBounds(50, 70, 200, 30);
+             updatePanel.add(empleadoLabel);
+ 
+             JTextField empleadoTextField = new JTextField(10);
+             empleadoTextField.setBounds(250, 70, 200, 30);
+             updatePanel.add(empleadoTextField);
+ 
+     
+             JLabel fechaLabel = new JLabel("Fecha (YYYY-MM-DD):");
+             fechaLabel.setBounds(50, 120, 200, 30);
+             updatePanel.add(fechaLabel);
+ 
+             JTextField fechaTextField = new JTextField(10);
+             fechaTextField.setBounds(250, 120, 200, 30);
+             updatePanel.add(fechaTextField);
+ 
+             
+             JLabel metodoPagoLabel = new JLabel("Método de Pago:");
+             metodoPagoLabel.setBounds(50, 170, 200, 30);
+             updatePanel.add(metodoPagoLabel);
+ 
+             JTextField metodoPagoTextField = new JTextField(10);
+             metodoPagoTextField.setBounds(250, 170, 200, 30);
+             updatePanel.add(metodoPagoTextField);
+ 
+         
+             JLabel estadoLabel = new JLabel("Estado (SI/NO):");
+             estadoLabel.setBounds(50, 220, 200, 30);
+             updatePanel.add(estadoLabel);
+ 
+             JTextField estadoTextField = new JTextField(10);
+             estadoTextField.setBounds(250, 220, 200, 30);
+             updatePanel.add(estadoTextField);
+ 
+         
+             JLabel productoLabel = new JLabel("ID del Producto:");
+             productoLabel.setBounds(50, 270, 200, 30);
+             updatePanel.add(productoLabel);
+ 
+             JTextField productoTextField = new JTextField(10);
+             productoTextField.setBounds(250, 270, 200, 30);
+             updatePanel.add(productoTextField);
+ 
+         
+             JLabel cantidadLabel = new JLabel("Cantidad:");
+             cantidadLabel.setBounds(50, 320, 200, 30);
+             updatePanel.add(cantidadLabel);
+ 
+             JTextField cantidadTextField = new JTextField(10);
+             cantidadTextField.setBounds(250, 320, 200, 30);
+             updatePanel.add(cantidadTextField);
+ 
+         
+             JButton guardarButton = new JButton("Guardar Cambios");
+             guardarButton.setBounds(250, 370, 200, 30);
+             updatePanel.add(guardarButton);
+ 
+         
+             JLabel statusLabel = new JLabel("");
+             statusLabel.setBounds(100, 500, 600, 30);
+             frame.add(statusLabel);
+ 
+             buscarButton.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     try {
+                         Long idFactura = Long.parseLong(idTextField.getText());
+                         Factura factura = facturaController.findById(idFactura);
+                         
+                         if (factura != null) {
+                         
+                             clienteTextField.setText(factura.getCliente().getID_Cliente().toString());
+                             empleadoTextField.setText(factura.getEmpleado().getID_Empleado().toString());
+                             fechaTextField.setText(factura.getFecha_Venta().toString());
+                             metodoPagoTextField.setText(factura.getCanal_Compra());
+                             estadoTextField.setText(factura.getPagado());
+                             productoTextField.setText(factura.getProducto().getID_Producto().toString());
+                             cantidadTextField.setText(factura.getCantidad().toString());
+                             
+                             updatePanel.setVisible(true);
+                             statusLabel.setText("Factura encontrada. Puede modificar los campos necesarios.");
+                         } else {
+                             updatePanel.setVisible(false);
+                             statusLabel.setText("No se encontró la factura con el ID especificado.");
+                         }
+                     } catch (NumberFormatException ex) {
+                         statusLabel.setText("Error: El ID debe ser un número válido");
+                     } catch (Exception ex) {
+                         statusLabel.setText("Error al buscar la factura: " + ex.getMessage());
+                     }
+                 }
+             });
+ 
+             guardarButton.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     try {
+                         Long idFactura = Long.parseLong(idTextField.getText());
+                         Factura factura = facturaController.findById(idFactura);
+                         
+                         if (factura != null) {
+                         
+                             Long idCliente = Long.parseLong(clienteTextField.getText());
+                             Cliente cliente = clienteController.findById(idCliente);
+                             if (cliente == null) {
+                                 statusLabel.setText("Error: Cliente no encontrado");
+                                 return;
+                             }
+ 
+                         
+                             Long idEmpleado = Long.parseLong(empleadoTextField.getText());
+                             Empleado empleado = empleadoController.findById(idEmpleado);
+                             if (empleado == null) {
+                                 statusLabel.setText("Error: Empleado no encontrado");
+                                 return;
+                             }
+ 
+                     
+                             LocalDate fecha = LocalDate.parse(fechaTextField.getText());
+ 
+                             
+                             String metodoPago = metodoPagoTextField.getText();
+                             if (metodoPago.isEmpty()) {
+                                 statusLabel.setText("Error: El método de pago no puede estar vacío");
+                                 return;
+                             }
+ 
+                     
+                             String estado = estadoTextField.getText().toUpperCase();
+                             if (!estado.equals("SI") && !estado.equals("NO")) {
+                                 statusLabel.setText("Error: El estado debe ser SI o NO");
+                                 return;
+                             }
+ 
+                         
+                             Long idProducto = Long.parseLong(productoTextField.getText());
+                             Producto producto = productoController.findById(idProducto);
+                             if (producto == null) {
+                                 statusLabel.setText("Error: Producto no encontrado");
+                                 return;
+                             }
+ 
+                         
+                             int cantidad = Integer.parseInt(cantidadTextField.getText());
+                             if (cantidad <= 0) {
+                                 statusLabel.setText("Error: La cantidad debe ser mayor que cero");
+                                 return;
+                             }
+                             if (cantidad > producto.getStock()) {
+                                 statusLabel.setText("Error: La cantidad no puede superar el stock disponible");
+                                 return;
+                             }
+ 
+                             double total = producto.getPVP() * cantidad;
+ 
+                         
+                             factura.setCliente(cliente);
+                             factura.setEmpleado(empleado);
+                             factura.setFecha_Venta(fecha);
+                             factura.setCanal_Compra(metodoPago);
+                             factura.setPagado(estado);
+                             factura.setProducto(producto);
+                             factura.setCantidad(cantidad);
+                             factura.setTotal(total);
+ 
+                             facturaController.save(factura);
+                             statusLabel.setText("Factura actualizada correctamente");
+                         } else {
+                             statusLabel.setText("No se encontró la factura con el ID especificado.");
+                         }
+                     } catch (NumberFormatException ex) {
+                         statusLabel.setText("Error: Los campos numéricos deben contener números válidos");
+                     } catch (DateTimeParseException ex) {
+                         statusLabel.setText("Error: La fecha debe estar en formato YYYY-MM-DD");
+                     } catch (Exception ex) {
+                         statusLabel.setText("Error al actualizar la factura: " + ex.getMessage());
+                     }
+                 }
+             });
+ 
+             // Botón para volver
+             JButton volverButton = new JButton("Volver");
+             volverButton.setBounds(300, 550, 200, 30);
+             frame.add(volverButton);
+             volverButton.addActionListener(e -> {
+                 frame.dispose();
+                 MenuFactura();
+             });
+         }
+         catch(Exception e)
+         {
+             System.err.println("Error al actualizar la factura: " + e.getMessage());
+         }
+     }
+     else
+     {
+         JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
+         errorLabel.setBounds(100, 100, 500, 30);
+         frame.add(errorLabel);
+         
+         JButton volverButton = new JButton("Volver");
+         volverButton.setBounds(300, 500, 200, 30);
+         frame.add(volverButton);
+         volverButton.addActionListener(e -> {
+             frame.dispose();
+             MenuFactura();
+         });
+     }
+   }
+ 
+   private void EliminarFactura()
+   {
+     JFrame frame = new JFrame("Eliminar Factura");
+     frame.setLayout(null);
+     frame.setSize(800, 600);
+     frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+     frame.setVisible(true);
+ 
+     JLabel Title = new JLabel("\n=== ELIMINAR FACTURA ===");
+     Title.setBounds(300, 10, 200, 50);
+     frame.add(Title);
+ 
+     if(facturaController!=null)
+     {
+         try
+         {
+             // Campo para ID de factura
+             JLabel idLabel = new JLabel("ID de la Factura:");
+             idLabel.setBounds(100, 100, 200, 30);
+             frame.add(idLabel);
+ 
+             JTextField idTextField = new JTextField(10);
+             idTextField.setBounds(300, 100, 200, 30);
+             frame.add(idTextField);
+ 
+             // Botón de buscar
+             JButton buscarButton = new JButton("Buscar");
+             buscarButton.setBounds(550, 100, 150, 30);
+             frame.add(buscarButton);
+ 
+             // Panel para mostrar detalles de la factura
+             JPanel facturaPanel = new JPanel();
+             facturaPanel.setLayout(null);
+             facturaPanel.setBounds(50, 150, 700, 300);
+             facturaPanel.setVisible(false);
+             frame.add(facturaPanel);
+ 
+             // Área de texto para mostrar detalles
+             JTextArea facturaTextArea = new JTextArea();
+             facturaTextArea.setBounds(50, 20, 600, 200);
+             facturaTextArea.setEditable(false);
+             facturaTextArea.setBackground(new Color(240, 240, 240));
+             facturaTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+             facturaPanel.add(facturaTextArea);
+ 
+             // Botón de eliminar
+             JButton eliminarButton = new JButton("Eliminar");
+             eliminarButton.setBounds(250, 250, 200, 30);
+             eliminarButton.setVisible(false);
+             facturaPanel.add(eliminarButton);
+ 
+             // Etiqueta de estado
+             JLabel statusLabel = new JLabel("");
+             statusLabel.setBounds(100, 500, 600, 30);
+             frame.add(statusLabel);
+ 
+             buscarButton.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     try {
+                         Long idFactura = Long.parseLong(idTextField.getText());
+                         Factura factura = facturaController.findById(idFactura);
+                         
+                         if (factura != null) {
+                             facturaTextArea.setText(factura.toString());
+                             facturaPanel.setVisible(true);
+                             eliminarButton.setVisible(true);
+                             statusLabel.setText("Factura encontrada. ¿Desea eliminarla?");
+                         } else {
+                             facturaPanel.setVisible(false);
+                             eliminarButton.setVisible(false);
+                             statusLabel.setText("No se encontró la factura con el ID especificado.");
+                         }
+                     } catch (NumberFormatException ex) {
+                         statusLabel.setText("Error: El ID debe ser un número válido");
+                     } catch (Exception ex) {
+                         statusLabel.setText("Error al buscar la factura: " + ex.getMessage());
+                     }
+                 }
+             });
+ 
+             eliminarButton.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     try {
+                         Long idFactura = Long.parseLong(idTextField.getText());
+                         Factura factura = facturaController.findById(idFactura);
+                         
+                         if (factura != null) {
+                             int confirmacion = JOptionPane.showConfirmDialog(
+                                 frame,
+                                 "¿Está seguro que desea eliminar esta factura?",
+                                 "Confirmar eliminación",
+                                 JOptionPane.YES_NO_OPTION
+                             );
+                             
+                             if (confirmacion == JOptionPane.YES_OPTION) {
+                                 facturaController.delete(idFactura);
+                                 statusLabel.setText("Factura eliminada correctamente");
+                                 facturaPanel.setVisible(false);
+                                 eliminarButton.setVisible(false);
+                             } else {
+                                 statusLabel.setText("Operación cancelada por el usuario");
+                             }
+                         } else {
+                             statusLabel.setText("No se encontró la factura con el ID especificado.");
+                         }
+                     } catch (Exception ex) {
+                         statusLabel.setText("Error al eliminar la factura: " + ex.getMessage());
+                     }
+                 }
+             });
+ 
+         
+             JButton volverButton = new JButton("Volver");
+             volverButton.setBounds(300, 550, 200, 30);
+             frame.add(volverButton);
+             volverButton.addActionListener(e -> {
+                 frame.dispose();
+                 MenuFactura();
+             });
+         }
+         catch(Exception e)
+         {
+             System.err.println("Error al eliminar la factura: " + e.getMessage());
+         }
+     }
+     else
+     {
+         JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
+         errorLabel.setBounds(100, 100, 500, 30);
+         frame.add(errorLabel);
+         
+         JButton volverButton = new JButton("Volver");
+         volverButton.setBounds(300, 500, 200, 30);
+         frame.add(volverButton);
+         volverButton.addActionListener(e -> {
+             frame.dispose();
+             MenuFactura();
+         });
+     }
+   }
    private void BuscarFactura()
    {
      JFrame frame = new JFrame("Buscar Factura");
@@ -3245,7 +3845,7 @@ public class MenuProyecto extends JFrame
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        // Obtener todos los valores de los campos
+                        
                         String nombre = nombreTextField.getText();
                         String descripcion = descripcionTextField.getText();
                         String precioStr = precioTextField.getText();
@@ -3254,14 +3854,13 @@ public class MenuProyecto extends JFrame
                         String categoriaStr = categoriaTextField.getText();
                         String proveedorStr = proveedorTextField.getText();
                         
-                        // Verificar que ninguno de los campos obligatorios esté vacío
+                    
                         if (nombre.isEmpty() || descripcion.isEmpty() || precioStr.isEmpty() || 
                             ivaStr.isEmpty() || stockStr.isEmpty() || categoriaStr.isEmpty() || proveedorStr.isEmpty()) {
                             statusLabel.setText("Error: Todos los campos son obligatorios");
                             return;
                         }
-                        
-                        // Validar formato y rango de valores para precio
+                    
                         double precio = 0;
                         try {
                             precio = Double.parseDouble(precioStr);
@@ -3274,7 +3873,7 @@ public class MenuProyecto extends JFrame
                             return;
                         }
                         
-                        // Validar formato y rango de valores para IVA
+                    
                         double iva = 0;
                         try {
                             iva = Double.parseDouble(ivaStr);
@@ -3287,7 +3886,7 @@ public class MenuProyecto extends JFrame
                             return;
                         }
                         
-                        // Validar formato y rango de valores para stock
+                    
                         int stock = 0;
                         try {
                             stock = Integer.parseInt(stockStr);
@@ -3299,8 +3898,7 @@ public class MenuProyecto extends JFrame
                             statusLabel.setText("Error: El stock debe ser un número entero válido");
                             return;
                         }
-                        
-                        // Validar la existencia de la categoría si se ha proporcionado
+                    
                         Categoria categoria = null;
                         if (!categoriaStr.isEmpty()) {
                             try {
@@ -3316,7 +3914,7 @@ public class MenuProyecto extends JFrame
                             }
                         }
                         
-                        // Validar la existencia del proveedor si se ha proporcionado
+                
                         Proveedor proveedor = null;
                         if (!proveedorStr.isEmpty()) {
                             try {
@@ -3332,7 +3930,7 @@ public class MenuProyecto extends JFrame
                             }
                         }
                         
-                        // Crear y guardar el producto si todas las validaciones son correctas
+                    
                         Producto nuevoProducto = new Producto();
                         nuevoProducto.setNombre(nombre);
                         nuevoProducto.setDescripcion(descripcion);
@@ -3345,8 +3943,7 @@ public class MenuProyecto extends JFrame
                         productoController.save(nuevoProducto);
                         
                         statusLabel.setText("Producto añadido correctamente.");
-                        
-                        // Limpiar los campos después de guardar
+                    
                         nombreTextField.setText("");
                         descripcionTextField.setText("");
                         precioTextField.setText("");
