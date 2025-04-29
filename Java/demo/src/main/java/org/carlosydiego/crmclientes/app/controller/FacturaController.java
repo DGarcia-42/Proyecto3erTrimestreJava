@@ -1,6 +1,5 @@
 package org.carlosydiego.crmclientes.app.controller;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -232,8 +231,6 @@ public class FacturaController implements FacturaRepository<Factura>
                     if (generatedKeys.next())
                     {
                         factura.setID_Factura(generatedKeys.getLong(1));
-                        // Generar el archivo de texto para la nueva factura
-                        FacturaFileManager.generarArchivoFactura(factura);
                     }
                 }
             }
@@ -265,7 +262,7 @@ public class FacturaController implements FacturaRepository<Factura>
                     return;
                 }
                 
-                FacturaFileManager.generarArchivoFactura(factura);
+                // Ya no generamos automáticamente el archivo de factura
             }
             catch (SQLException e)
             {

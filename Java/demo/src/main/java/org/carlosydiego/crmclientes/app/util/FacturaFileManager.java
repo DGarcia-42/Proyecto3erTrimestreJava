@@ -22,9 +22,33 @@ public class FacturaFileManager {
         }
     }
     
-  
-    public static void generarArchivoFactura(Factura factura) {
+
+
+    public static boolean existeArchivoFactura(Long facturaId) {
+        String filePath = getFacturaFilePath(facturaId);
+        File file = new File(filePath);
+        return file.exists();
+    }
+    
+    public static String getFacturaRutaAbsoluta(Long facturaId) {
+        String filePath = getFacturaFilePath(facturaId);
+        File file = new File(filePath);
+        return file.getAbsolutePath();
+    }
+
+    public static String generarArchivoFactura(Factura factura) {
+        return generarArchivoFactura(factura, false);
+    }
+    
+
+    public static String generarArchivoFactura(Factura factura, boolean forzarGeneracion) {
         String filePath = getFacturaFilePath(factura.getID_Factura());
+        File file = new File(filePath);
+        String rutaAbsoluta = file.getAbsolutePath();
+        
+        if (!forzarGeneracion && existeArchivoFactura(factura.getID_Factura())) {
+            return rutaAbsoluta;
+        }
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write("=================================================");
@@ -77,23 +101,27 @@ public class FacturaFileManager {
             writer.newLine();
             writer.write("=================================================");
             
-            System.out.println("Archivo de factura generado correctamente: " + filePath);
+            return rutaAbsoluta;
         } catch (IOException e) {
             System.err.println("Error al generar el archivo de factura: " + e.getMessage());
             e.printStackTrace();
+            return null;
         }
     }
     
 
-    public static void eliminarArchivoFactura(Long facturaId) {
+    public static String eliminarArchivoFactura(Long facturaId) {
         String filePath = getFacturaFilePath(facturaId);
+        File file = new File(filePath);
+        String rutaAbsoluta = file.getAbsolutePath();
         
         try {
             Files.deleteIfExists(Paths.get(filePath));
-            System.out.println("Archivo de factura eliminado correctamente: " + filePath);
+            return rutaAbsoluta;
         } catch (IOException e) {
             System.err.println("Error al eliminar el archivo de factura: " + e.getMessage());
             e.printStackTrace();
+            return null;
         }
     }
     private static String getFacturaFilePath(Long facturaId) {

@@ -1,0 +1,25 @@
+=================================================
+              FACTURA DE VENTA                   
+=================================================
+No. Factura: 3
+Fecha: 11/02/2001
+=================================================
+CLIENTE: Innovación Digital S.A.
+ID Cliente: 6
+=================================================
+                 DETALLES DEL PRODUCTO           
+                 --------------------            
+                 Monitor UltraHD
+                 Precio: $349,99
+                 Cantidad: 99
+                 TOTAL: $34649,01
+=================================================
+Pagado: Sí
+Canal de compra: Tarjeta
+=================================================
+INFORMACIÓN DEL VENDEDOR:
+ID: 3
+Nombre: María Rodríguez
+Teléfono: 678912345
+Email: maria.rodriguez@empresa.com
+=================================================
