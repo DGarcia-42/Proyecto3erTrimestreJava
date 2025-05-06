@@ -27,13 +27,19 @@ public class MenuProducto extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Menu Producto");
+        getContentPane().setBackground(new Color(245, 247, 250));
 
         JLabel Title = new JLabel("\n=== GESTIÓN DE PRODUCTOS ===");
         Title.setBounds(300, 10, 300, 50);
+        Title.setFont(new Font("Roboto", Font.BOLD, 14));
+        Title.setForeground(new Color(46, 46, 46));
         add(Title);
 
         JButton ListarProductosBtn = new JButton("Ver todos los productos");
         ListarProductosBtn.setBounds(100, 100, 200, 50);
+        ListarProductosBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ListarProductosBtn.setBackground(new Color(0, 123, 255));
+        ListarProductosBtn.setForeground(Color.WHITE);
         add(ListarProductosBtn);
         ListarProductosBtn.addActionListener(e -> {
             dispose();
@@ -42,6 +48,9 @@ public class MenuProducto extends JFrame {
         
         JButton BuscarProductoBtn = new JButton("Buscar producto por ID");
         BuscarProductoBtn.setBounds(100, 150, 200, 50);
+        BuscarProductoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        BuscarProductoBtn.setBackground(new Color(0, 123, 255));
+        BuscarProductoBtn.setForeground(Color.WHITE);
         add(BuscarProductoBtn);
         BuscarProductoBtn.addActionListener(e -> {
             dispose();
@@ -50,6 +59,9 @@ public class MenuProducto extends JFrame {
         
         JButton AñadirProductoBtn = new JButton("Añadir nuevo producto");
         AñadirProductoBtn.setBounds(100, 200, 200, 50);
+        AñadirProductoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        AñadirProductoBtn.setBackground(new Color(76, 175, 80));
+        AñadirProductoBtn.setForeground(Color.WHITE);
         add(AñadirProductoBtn);
         AñadirProductoBtn.addActionListener(e -> {
             dispose();
@@ -58,6 +70,9 @@ public class MenuProducto extends JFrame {
 
         JButton ActualizarProductoBtn = new JButton("Actualizar producto");
         ActualizarProductoBtn.setBounds(100, 250, 200, 50);
+        ActualizarProductoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ActualizarProductoBtn.setBackground(new Color(0, 123, 255));
+        ActualizarProductoBtn.setForeground(Color.WHITE);
         add(ActualizarProductoBtn);
         ActualizarProductoBtn.addActionListener(e -> {
             dispose();
@@ -66,6 +81,9 @@ public class MenuProducto extends JFrame {
         
         JButton EliminarProductoBtn = new JButton("Eliminar producto");
         EliminarProductoBtn.setBounds(100, 300, 200, 50);
+        EliminarProductoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        EliminarProductoBtn.setBackground(new Color(0, 123, 255));
+        EliminarProductoBtn.setForeground(Color.WHITE);
         add(EliminarProductoBtn);
         EliminarProductoBtn.addActionListener(e -> {
             dispose();
@@ -74,6 +92,9 @@ public class MenuProducto extends JFrame {
 
         JButton VolverBtn = new JButton("Volver al menu principal");
         VolverBtn.setBounds(100, 350, 200, 50);
+        VolverBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        VolverBtn.setBackground(new Color(0, 123, 255));
+        VolverBtn.setForeground(Color.WHITE);
         add(VolverBtn);
         VolverBtn.addActionListener(e -> {
             dispose();
@@ -89,10 +110,13 @@ public class MenuProducto extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
       JLabel Title = new JLabel("\n=== LISTA DE PRODUCTOS ===");
       Title.setBounds(300, 10, 200, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(productoController!=null)
@@ -118,6 +142,7 @@ public class MenuProducto extends JFrame {
                       productoTextArea.setEditable(false);
                       productoTextArea.setBackground(new Color(240, 240, 240));
                       productoTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                      productoTextArea.setFont(new Font("Roboto", Font.PLAIN, 12));
                       panelProductos.add(productoTextArea);
                   }
               }
@@ -125,6 +150,7 @@ public class MenuProducto extends JFrame {
               {
                   JLabel noProductosLabel = new JLabel("No hay productos registrados en el sistema");
                   noProductosLabel.setBounds(300, 200, 300, 30);
+                  noProductosLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
                   frame.add(noProductosLabel);
               }
           }
@@ -140,6 +166,9 @@ public class MenuProducto extends JFrame {
   
       JButton volverButton = new JButton("Volver");
       volverButton.setBounds(300, 500, 200, 30);
+      volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+      volverButton.setBackground(new Color(0, 123, 255));
+      volverButton.setForeground(Color.WHITE);
       frame.add(volverButton);
       volverButton.addActionListener(e -> {
           frame.dispose();
@@ -153,10 +182,13 @@ public class MenuProducto extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
       JLabel Title = new JLabel("\n=== BUSCAR PRODUCTO ===");
       Title.setBounds(300, 10, 200, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
       if(productoController!=null)
       {
@@ -164,18 +196,24 @@ public class MenuProducto extends JFrame {
           {
             JLabel idLabel = new JLabel("Introduce el ID del producto:");
             idLabel.setBounds(100, 100, 200, 30);
+            idLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
             frame.add(idLabel);
   
             JTextField idTextField = new JTextField(10);
             idTextField.setBounds(300, 100, 200, 30);
+            idTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
             frame.add(idTextField);
             
             JButton buscarButton = new JButton("Buscar");
             buscarButton.setBounds(550, 100, 150, 30);
+            buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+            buscarButton.setBackground(new Color(0, 123, 255));
+            buscarButton.setForeground(Color.WHITE);
             frame.add(buscarButton);
             
             final JLabel statusLabel = new JLabel("");
             statusLabel.setBounds(100, 150, 600, 30);
+            statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
             frame.add(statusLabel);
             
             final JTextArea productoTextArea = new JTextArea();
@@ -183,6 +221,7 @@ public class MenuProducto extends JFrame {
             productoTextArea.setEditable(false);
             productoTextArea.setBackground(new Color(240, 240, 240));
             productoTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            productoTextArea.setFont(new Font("Roboto", Font.PLAIN, 12));
             productoTextArea.setVisible(false);
             frame.add(productoTextArea);
             
@@ -221,6 +260,9 @@ public class MenuProducto extends JFrame {
             
             JButton volverButton = new JButton("Volver");
             volverButton.setBounds(300, 400, 200, 30);
+            volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+            volverButton.setBackground(new Color(0, 123, 255));
+            volverButton.setForeground(Color.WHITE);
             frame.add(volverButton);
             volverButton.addActionListener(e -> {
                 frame.dispose();
@@ -244,10 +286,13 @@ public class MenuProducto extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
       JLabel Title = new JLabel("\n=== AÑADIR NUEVO PRODUCTO ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(productoController!=null && categoriaController!=null)
@@ -304,6 +349,9 @@ public class MenuProducto extends JFrame {
               
               JButton verCategoriasButton = new JButton("Ver Categorías");
               verCategoriasButton.setBounds(560, 270, 130, 30);
+              verCategoriasButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verCategoriasButton.setBackground(new Color(0, 123, 255));
+              verCategoriasButton.setForeground(Color.WHITE);
               frame.add(verCategoriasButton);
               verCategoriasButton.addActionListener(new ActionListener() {
                   @Override
@@ -352,6 +400,9 @@ public class MenuProducto extends JFrame {
               
               JButton verProveedoresButton = new JButton("Ver Proveedores");
               verProveedoresButton.setBounds(560, 310, 130, 30);
+              verProveedoresButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verProveedoresButton.setBackground(new Color(0, 123, 255));
+              verProveedoresButton.setForeground(Color.WHITE);
               frame.add(verProveedoresButton);
               verProveedoresButton.addActionListener(new ActionListener() {
                   @Override
@@ -396,6 +447,9 @@ public class MenuProducto extends JFrame {
               
               JButton guardarButton = new JButton("Guardar Producto");
               guardarButton.setBounds(100, 400, 200, 30);
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              guardarButton.setBackground(new Color(76, 175, 80));
+              guardarButton.setForeground(Color.WHITE);
               frame.add(guardarButton);
               guardarButton.addActionListener(new ActionListener() {
                   @Override
@@ -515,6 +569,9 @@ public class MenuProducto extends JFrame {
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(350, 400, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               volverButton.addActionListener(e -> {
                   frame.dispose();
@@ -534,6 +591,9 @@ public class MenuProducto extends JFrame {
           
           JButton volverButton = new JButton("Volver");
           volverButton.setBounds(300, 500, 200, 30);
+          volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+          volverButton.setBackground(new Color(0, 123, 255));
+          volverButton.setForeground(Color.WHITE);
           frame.add(volverButton);
           volverButton.addActionListener(e -> {
               frame.dispose();
@@ -548,10 +608,13 @@ public class MenuProducto extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
       JLabel Title = new JLabel("\n=== ACTUALIZAR PRODUCTO ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(productoController!=null && categoriaController!=null && proveedorController!=null)
@@ -568,6 +631,9 @@ public class MenuProducto extends JFrame {
               
               final JButton buscarButton = new JButton("Buscar Producto");
               buscarButton.setBounds(520, 70, 150, 30);
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setBackground(new Color(0, 123, 255));
+              buscarButton.setForeground(Color.WHITE);
               frame.add(buscarButton);
           
               final JLabel statusLabel = new JLabel("");
@@ -631,6 +697,9 @@ public class MenuProducto extends JFrame {
               final JButton verCategoriasButton = new JButton("Ver Categorías");
               verCategoriasButton.setBounds(560, 350, 130, 30);
               verCategoriasButton.setEnabled(false);
+              verCategoriasButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verCategoriasButton.setBackground(new Color(0, 123, 255));
+              verCategoriasButton.setForeground(Color.WHITE);
               frame.add(verCategoriasButton);
               
               JLabel proveedorLabel = new JLabel("ID de Proveedor:");
@@ -645,15 +714,23 @@ public class MenuProducto extends JFrame {
               final JButton verProveedoresButton = new JButton("Ver Proveedores");
               verProveedoresButton.setBounds(560, 390, 130, 30);
               verProveedoresButton.setEnabled(false);
+              verProveedoresButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verProveedoresButton.setBackground(new Color(0, 123, 255));
+              verProveedoresButton.setForeground(Color.WHITE);
               frame.add(verProveedoresButton);
               
               final JButton guardarButton = new JButton("Guardar Cambios");
               guardarButton.setBounds(100, 450, 200, 30);
-              guardarButton.setEnabled(false);
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              guardarButton.setBackground(new Color(76, 175, 80));
+              guardarButton.setForeground(Color.WHITE);
               frame.add(guardarButton);
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(350, 450, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               
               final Long[] productoId = new Long[1];
@@ -934,6 +1011,9 @@ public class MenuProducto extends JFrame {
           
           JButton volverButton = new JButton("Volver");
           volverButton.setBounds(300, 500, 200, 30);
+          volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+          volverButton.setBackground(new Color(0, 123, 255));
+          volverButton.setForeground(Color.WHITE);
           frame.add(volverButton);
           volverButton.addActionListener(e -> {
               frame.dispose();
@@ -948,10 +1028,13 @@ public class MenuProducto extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
       JLabel Title = new JLabel("\n=== ELIMINAR PRODUCTO ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(productoController!=null)
@@ -983,15 +1066,24 @@ public class MenuProducto extends JFrame {
               
               final JButton buscarButton = new JButton("Buscar Producto");
               buscarButton.setBounds(550, 100, 150, 30);
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setBackground(new Color(0, 123, 255));
+              buscarButton.setForeground(Color.WHITE);
               frame.add(buscarButton);
               
               final JButton eliminarButton = new JButton("Eliminar Producto");
               eliminarButton.setBounds(200, 400, 200, 30);
               eliminarButton.setEnabled(false);
+              eliminarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              eliminarButton.setBackground(new Color(0, 123, 255));
+              eliminarButton.setForeground(Color.WHITE);
               frame.add(eliminarButton);
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(420, 400, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               
               final Long[] productoId = new Long[1];
@@ -1077,6 +1169,9 @@ public class MenuProducto extends JFrame {
           
           JButton volverButton = new JButton("Volver");
           volverButton.setBounds(300, 500, 200, 30);
+          volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+          volverButton.setBackground(new Color(0, 123, 255));
+          volverButton.setForeground(Color.WHITE);
           frame.add(volverButton);
           volverButton.addActionListener(e -> {
               frame.dispose();

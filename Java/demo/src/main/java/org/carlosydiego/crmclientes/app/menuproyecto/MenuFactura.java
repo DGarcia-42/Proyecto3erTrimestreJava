@@ -32,13 +32,19 @@ public class MenuFactura extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Menu Factura");
+        getContentPane().setBackground(new Color(245, 247, 250));
 
         JLabel Title = new JLabel("\n=== GESTIÓN DE FACTURAS ===");
         Title.setBounds(300, 10, 300, 50);
+        Title.setFont(new Font("Roboto", Font.BOLD, 14));
+        Title.setForeground(new Color(46, 46, 46));
         add(Title);
 
         JButton ListarFacturasBtn = new JButton("Ver todas las facturas");
         ListarFacturasBtn.setBounds(100, 100, 200, 50);
+        ListarFacturasBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ListarFacturasBtn.setBackground(new Color(0, 123, 255));
+        ListarFacturasBtn.setForeground(Color.WHITE);
         add(ListarFacturasBtn);
         ListarFacturasBtn.addActionListener(e -> {
             dispose();
@@ -47,6 +53,9 @@ public class MenuFactura extends JFrame {
         
         JButton BuscarFacturaBtn = new JButton("Buscar factura por ID");
         BuscarFacturaBtn.setBounds(100, 150, 200, 50);
+        BuscarFacturaBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        BuscarFacturaBtn.setBackground(new Color(0, 123, 255));
+        BuscarFacturaBtn.setForeground(Color.WHITE);
         add(BuscarFacturaBtn);
         BuscarFacturaBtn.addActionListener(e -> {
             dispose();
@@ -55,6 +64,9 @@ public class MenuFactura extends JFrame {
         
         JButton AñadirFacturaBtn = new JButton("Añadir nueva factura");
         AñadirFacturaBtn.setBounds(100, 200, 200, 50);
+        AñadirFacturaBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        AñadirFacturaBtn.setBackground(new Color(76, 175, 80));
+        AñadirFacturaBtn.setForeground(Color.WHITE);
         add(AñadirFacturaBtn);
         AñadirFacturaBtn.addActionListener(e -> {
             dispose();
@@ -63,6 +75,9 @@ public class MenuFactura extends JFrame {
 
         JButton ActualizarFacturaBtn = new JButton("Actualizar factura");
         ActualizarFacturaBtn.setBounds(100, 250, 200, 50);
+        ActualizarFacturaBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ActualizarFacturaBtn.setBackground(new Color(0, 123, 255));
+        ActualizarFacturaBtn.setForeground(Color.WHITE);
         add(ActualizarFacturaBtn);
         ActualizarFacturaBtn.addActionListener(e -> {
             dispose();
@@ -71,6 +86,9 @@ public class MenuFactura extends JFrame {
         
         JButton EliminarFacturaBtn = new JButton("Eliminar factura");
         EliminarFacturaBtn.setBounds(100, 300, 200, 50);
+        EliminarFacturaBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        EliminarFacturaBtn.setBackground(new Color(0, 123, 255));
+        EliminarFacturaBtn.setForeground(Color.WHITE);
         add(EliminarFacturaBtn);
         EliminarFacturaBtn.addActionListener(e -> {
             dispose();
@@ -79,6 +97,9 @@ public class MenuFactura extends JFrame {
 
         JButton GenerarArchivoBtn = new JButton("Generar archivo de factura");
         GenerarArchivoBtn.setBounds(100, 350, 200, 50);
+        GenerarArchivoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        GenerarArchivoBtn.setBackground(new Color(0, 123, 255));
+        GenerarArchivoBtn.setForeground(Color.WHITE);
         add(GenerarArchivoBtn);
         GenerarArchivoBtn.addActionListener(e -> {
             dispose();
@@ -87,6 +108,9 @@ public class MenuFactura extends JFrame {
 
         JButton VolverBtn = new JButton("Volver al menu principal");
         VolverBtn.setBounds(100, 400, 200, 50);
+        VolverBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        VolverBtn.setBackground(new Color(0, 123, 255));
+        VolverBtn.setForeground(Color.WHITE);
         add(VolverBtn);
         VolverBtn.addActionListener(e -> {
             dispose();
@@ -102,10 +126,13 @@ public class MenuFactura extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
  
       JLabel Title = new JLabel("\n=== LISTA DE FACTURAS ===");
       Title.setBounds(300, 10, 200, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
  
       if(facturaController!=null)
@@ -131,6 +158,7 @@ public class MenuFactura extends JFrame {
                       facturaTextArea.setEditable(false);
                       facturaTextArea.setBackground(new Color(240, 240, 240));
                       facturaTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                      facturaTextArea.setFont(new Font("Roboto", Font.PLAIN, 12));
                       panelFacturas.add(facturaTextArea);
                   }
               }
@@ -138,6 +166,7 @@ public class MenuFactura extends JFrame {
               {
                   JLabel noFacturasLabel = new JLabel("No hay facturas registradas en el sistema");
                   noFacturasLabel.setBounds(300, 200, 300, 30);
+                  noFacturasLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
                   frame.add(noFacturasLabel);
               }
           }
@@ -153,6 +182,9 @@ public class MenuFactura extends JFrame {
  
       JButton volverButton = new JButton("Volver");
       volverButton.setBounds(300, 500, 200, 30);
+      volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+      volverButton.setBackground(new Color(0, 123, 255));
+      volverButton.setForeground(Color.WHITE);
       frame.add(volverButton);
       volverButton.addActionListener(e -> {
           frame.dispose();
@@ -164,11 +196,14 @@ public class MenuFactura extends JFrame {
       JFrame frame = new JFrame("Añadir Factura");
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== AÑADIR NUEVA FACTURA ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(facturaController!=null)
@@ -185,6 +220,9 @@ public class MenuFactura extends JFrame {
               
               JButton verClientesButton = new JButton("Ver Clientes");
               verClientesButton.setBounds(560, 70, 130, 30);
+              verClientesButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verClientesButton.setBackground(new Color(0, 123, 255));
+              verClientesButton.setForeground(Color.WHITE);
               frame.add(verClientesButton);
               verClientesButton.addActionListener(new ActionListener() {
                   @Override
@@ -205,6 +243,7 @@ public class MenuFactura extends JFrame {
                               for (Cliente cliente : clientes) {
                                   JLabel clienteLabel = new JLabel(cliente.toString());
                                   clienteLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+                                  clienteLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
                                   panel.add(clienteLabel);
                               }
                               
@@ -233,6 +272,9 @@ public class MenuFactura extends JFrame {
               
               JButton verEmpleadosButton = new JButton("Ver Empleados");
               verEmpleadosButton.setBounds(560, 110, 130, 30);
+              verEmpleadosButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verEmpleadosButton.setBackground(new Color(0, 123, 255));
+              verEmpleadosButton.setForeground(Color.WHITE);
               frame.add(verEmpleadosButton);
               verEmpleadosButton.addActionListener(new ActionListener() {
                   @Override
@@ -253,6 +295,7 @@ public class MenuFactura extends JFrame {
                               for (Empleado empleado : empleados) {
                                   JLabel empleadoLabel = new JLabel(empleado.toString());
                                   empleadoLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+                                  empleadoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
                                   panel.add(empleadoLabel);
                               }
                               
@@ -305,6 +348,9 @@ public class MenuFactura extends JFrame {
               
               JButton verProductosButton = new JButton("Ver Productos");
               verProductosButton.setBounds(560, 270, 130, 30);
+              verProductosButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verProductosButton.setBackground(new Color(0, 123, 255));
+              verProductosButton.setForeground(Color.WHITE);
               frame.add(verProductosButton);
               verProductosButton.addActionListener(new ActionListener() {
                   @Override
@@ -325,6 +371,7 @@ public class MenuFactura extends JFrame {
                               for (Producto producto : productos) {
                                   JLabel productoLabel = new JLabel(producto.toString());
                                   productoLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+                                  productoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
                                   panel.add(productoLabel);
                               }
                               
@@ -357,6 +404,9 @@ public class MenuFactura extends JFrame {
           
               JButton guardarButton = new JButton("Guardar Factura");
               guardarButton.setBounds(100, 350, 200, 30);
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              guardarButton.setBackground(new Color(76, 175, 80));
+              guardarButton.setForeground(Color.WHITE);
               frame.add(guardarButton);
               guardarButton.addActionListener(new ActionListener() 
               {
@@ -493,6 +543,9 @@ public class MenuFactura extends JFrame {
           
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(350, 350, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               volverButton.addActionListener(e -> {
                   frame.dispose();
@@ -515,11 +568,14 @@ public class MenuFactura extends JFrame {
       JFrame frame = new JFrame("Actualizar Factura");
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== ACTUALIZAR FACTURA ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(facturaController!=null)
@@ -536,6 +592,9 @@ public class MenuFactura extends JFrame {
               
               final JButton buscarButton = new JButton("Buscar Factura");
               buscarButton.setBounds(520, 70, 150, 30);
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setBackground(new Color(0, 123, 255));
+              buscarButton.setForeground(Color.WHITE);
               frame.add(buscarButton);
           
               final JLabel statusLabel = new JLabel("");
@@ -557,6 +616,9 @@ public class MenuFactura extends JFrame {
               
               JButton verClientesButton = new JButton("Ver Clientes");
               verClientesButton.setBounds(520, 180, 130, 30);
+              verClientesButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verClientesButton.setBackground(new Color(0, 123, 255));
+              verClientesButton.setForeground(Color.WHITE);
               frame.add(verClientesButton);
               verClientesButton.addActionListener(new ActionListener() {
                   @Override
@@ -577,6 +639,7 @@ public class MenuFactura extends JFrame {
                               for (Cliente cliente : clientes) {
                                   JLabel clienteLabel = new JLabel(cliente.toString());
                                   clienteLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+                                  clienteLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
                                   panel.add(clienteLabel);
                               }
                               
@@ -606,6 +669,9 @@ public class MenuFactura extends JFrame {
               
               JButton verEmpleadosButton = new JButton("Ver Empleados");
               verEmpleadosButton.setBounds(520, 220, 130, 30);
+              verEmpleadosButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verEmpleadosButton.setBackground(new Color(0, 123, 255));
+              verEmpleadosButton.setForeground(Color.WHITE);
               frame.add(verEmpleadosButton);
               verEmpleadosButton.addActionListener(new ActionListener() {
                   @Override
@@ -626,6 +692,7 @@ public class MenuFactura extends JFrame {
                               for (Empleado empleado : empleados) {
                                   JLabel empleadoLabel = new JLabel(empleado.toString());
                                   empleadoLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+                                  empleadoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
                                   panel.add(empleadoLabel);
                               }
                               
@@ -682,6 +749,9 @@ public class MenuFactura extends JFrame {
               
               JButton verProductosButton = new JButton("Ver Productos");
               verProductosButton.setBounds(520, 380, 130, 30);
+              verProductosButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verProductosButton.setBackground(new Color(0, 123, 255));
+              verProductosButton.setForeground(Color.WHITE);
               frame.add(verProductosButton);
               verProductosButton.addActionListener(new ActionListener() {
                   @Override
@@ -702,6 +772,7 @@ public class MenuFactura extends JFrame {
                               for (Producto producto : productos) {
                                   JLabel productoLabel = new JLabel(producto.toString());
                                   productoLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+                                  productoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
                                   panel.add(productoLabel);
                               }
                               
@@ -732,10 +803,16 @@ public class MenuFactura extends JFrame {
               final JButton guardarButton = new JButton("Guardar Cambios");
               guardarButton.setBounds(100, 460, 200, 30);
               guardarButton.setEnabled(false);
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              guardarButton.setBackground(new Color(76, 175, 80));
+              guardarButton.setForeground(Color.WHITE);
               frame.add(guardarButton);
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(350, 460, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               
               final Long[] facturaId = new Long[1];
@@ -927,7 +1004,6 @@ public class MenuFactura extends JFrame {
                                       rutaLabel.setText("Ubicación: " + rutaArchivo);
                                   } else {
                                       statusLabel.setText("Factura actualizada, pero hubo un error al actualizar el archivo.");
-                                      rutaLabel.setText("");
                                   }
                                } else {
                                   statusLabel.setText("Factura actualizada correctamente. No se modificó el archivo existente.");
@@ -964,11 +1040,14 @@ public class MenuFactura extends JFrame {
       JFrame frame = new JFrame("Eliminar Factura");
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== ELIMINAR FACTURA ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(facturaController!=null)
@@ -1000,15 +1079,24 @@ public class MenuFactura extends JFrame {
               
               final JButton buscarButton = new JButton("Buscar Factura");
               buscarButton.setBounds(550, 100, 150, 30);
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setBackground(new Color(0, 123, 255));
+              buscarButton.setForeground(Color.WHITE);
               frame.add(buscarButton);
               
               final JButton eliminarButton = new JButton("Eliminar Factura");
               eliminarButton.setBounds(200, 400, 200, 30);
               eliminarButton.setEnabled(false);
+              eliminarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              eliminarButton.setBackground(new Color(0, 123, 255));
+              eliminarButton.setForeground(Color.WHITE);
               frame.add(eliminarButton);
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(420, 400, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               
               final Long[] facturaId = new Long[1];
@@ -1097,10 +1185,13 @@ public class MenuFactura extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
  
       JLabel Title = new JLabel("\n=== BUSCAR FACTURA ===");
       Title.setBounds(300, 10, 200, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
       if(facturaController!=null)
       {
@@ -1118,6 +1209,9 @@ public class MenuFactura extends JFrame {
             
             JButton buscarButton = new JButton("Buscar");
             buscarButton.setBounds(550, 100, 150, 30);
+            buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+            buscarButton.setBackground(new Color(0, 123, 255));
+            buscarButton.setForeground(Color.WHITE);
             frame.add(buscarButton);
             
             final JLabel statusLabel = new JLabel("");
@@ -1168,6 +1262,9 @@ public class MenuFactura extends JFrame {
             
             JButton volverButton = new JButton("Volver");
             volverButton.setBounds(300, 400, 200, 30);
+            volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+            volverButton.setBackground(new Color(0, 123, 255));
+            volverButton.setForeground(Color.WHITE);
             frame.add(volverButton);
             volverButton.addActionListener(e -> {
                 frame.dispose();
@@ -1191,10 +1288,13 @@ public class MenuFactura extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
  
       JLabel Title = new JLabel("\n=== GENERAR ARCHIVO DE FACTURA ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
  
       if(facturaController!=null)
@@ -1211,6 +1311,9 @@ public class MenuFactura extends JFrame {
               
               JButton generarButton = new JButton("Generar");
               generarButton.setBounds(550, 100, 150, 30);
+              generarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              generarButton.setBackground(new Color(76, 175, 80));
+              generarButton.setForeground(Color.WHITE);
               frame.add(generarButton);
               
               final JLabel statusLabel = new JLabel("");
@@ -1276,6 +1379,9 @@ public class MenuFactura extends JFrame {
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(300, 400, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               volverButton.addActionListener(e -> {
                   frame.dispose();

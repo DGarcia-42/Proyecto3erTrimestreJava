@@ -29,13 +29,19 @@ public class MenuProvee extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Menu Provee");
+        getContentPane().setBackground(new Color(245, 247, 250));
 
         JLabel Title = new JLabel("\n=== GESTIÓN DE PROVEEDORES Y PRODUCTOS ===");
         Title.setBounds(250, 10, 400, 50);
+        Title.setFont(new Font("Roboto", Font.BOLD, 14));
+        Title.setForeground(new Color(46, 46, 46));
         add(Title);
 
         JButton ListarProveesBtn = new JButton("Ver todas las relaciones");
         ListarProveesBtn.setBounds(100, 100, 200, 50);
+        ListarProveesBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ListarProveesBtn.setBackground(new Color(0, 123, 255));
+        ListarProveesBtn.setForeground(Color.WHITE);
         add(ListarProveesBtn);
         ListarProveesBtn.addActionListener(e -> {
             dispose();
@@ -44,6 +50,9 @@ public class MenuProvee extends JFrame {
         
         JButton BuscarProveeBtn = new JButton("Buscar relación por ID");
         BuscarProveeBtn.setBounds(100, 150, 200, 50);
+        BuscarProveeBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        BuscarProveeBtn.setBackground(new Color(0, 123, 255));
+        BuscarProveeBtn.setForeground(Color.WHITE);
         add(BuscarProveeBtn);
         BuscarProveeBtn.addActionListener(e -> {
             dispose();
@@ -52,6 +61,9 @@ public class MenuProvee extends JFrame {
         
         JButton AñadirProveeBtn = new JButton("Añadir nueva relación");
         AñadirProveeBtn.setBounds(100, 200, 200, 50);
+        AñadirProveeBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        AñadirProveeBtn.setBackground(new Color(76, 175, 80));
+        AñadirProveeBtn.setForeground(Color.WHITE);
         add(AñadirProveeBtn);
         AñadirProveeBtn.addActionListener(e -> {
             dispose();
@@ -60,6 +72,9 @@ public class MenuProvee extends JFrame {
 
         JButton ActualizarProveeBtn = new JButton("Actualizar relación");
         ActualizarProveeBtn.setBounds(100, 250, 200, 50);
+        ActualizarProveeBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ActualizarProveeBtn.setBackground(new Color(0, 123, 255));
+        ActualizarProveeBtn.setForeground(Color.WHITE);
         add(ActualizarProveeBtn);
         ActualizarProveeBtn.addActionListener(e -> {
             dispose();
@@ -68,6 +83,9 @@ public class MenuProvee extends JFrame {
         
         JButton EliminarProveeBtn = new JButton("Eliminar relación");
         EliminarProveeBtn.setBounds(100, 300, 200, 50);
+        EliminarProveeBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        EliminarProveeBtn.setBackground(new Color(0, 123, 255));
+        EliminarProveeBtn.setForeground(Color.WHITE);
         add(EliminarProveeBtn);
         EliminarProveeBtn.addActionListener(e -> {
             dispose();
@@ -76,6 +94,9 @@ public class MenuProvee extends JFrame {
 
         JButton VolverBtn = new JButton("Volver al menu principal");
         VolverBtn.setBounds(100, 350, 200, 50);
+        VolverBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        VolverBtn.setBackground(new Color(0, 123, 255));
+        VolverBtn.setForeground(Color.WHITE);
         add(VolverBtn);
         VolverBtn.addActionListener(e -> {
             dispose();
@@ -91,10 +112,13 @@ public class MenuProvee extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
       JLabel Title = new JLabel("\n=== LISTA DE PROVISIONES ===");
       Title.setBounds(300, 10, 200, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(proveeController!=null)
@@ -120,6 +144,7 @@ public class MenuProvee extends JFrame {
                       proveeTextArea.setEditable(false);
                       proveeTextArea.setBackground(new Color(240, 240, 240));
                       proveeTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                      proveeTextArea.setFont(new Font("Roboto", Font.PLAIN, 12));
                       panelProvees.add(proveeTextArea);
                   }
               }
@@ -127,6 +152,7 @@ public class MenuProvee extends JFrame {
               {
                   JLabel noProveesLabel = new JLabel("No hay provisiones registradas en el sistema");
                   noProveesLabel.setBounds(300, 200, 300, 30);
+                  noProveesLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
                   frame.add(noProveesLabel);
               }
           }
@@ -142,6 +168,9 @@ public class MenuProvee extends JFrame {
   
       JButton volverButton = new JButton("Volver");
       volverButton.setBounds(300, 500, 200, 30);
+      volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+      volverButton.setBackground(new Color(0, 123, 255));
+      volverButton.setForeground(Color.WHITE);
       frame.add(volverButton);
       volverButton.addActionListener(e -> {
           frame.dispose();
@@ -155,10 +184,13 @@ public class MenuProvee extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
       JLabel Title = new JLabel("\n=== BUSCAR PROVISIÓN ===");
       Title.setBounds(300, 10, 200, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
       if(proveeController!=null)
       {
@@ -166,18 +198,24 @@ public class MenuProvee extends JFrame {
           {
             JLabel idLabel = new JLabel("Introduce el ID de la provisión:");
             idLabel.setBounds(100, 100, 200, 30);
+            idLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
             frame.add(idLabel);
   
             JTextField idTextField = new JTextField(10);
             idTextField.setBounds(300, 100, 200, 30);
+            idTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
             frame.add(idTextField);
             
             JButton buscarButton = new JButton("Buscar");
             buscarButton.setBounds(550, 100, 150, 30);
+            buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+            buscarButton.setBackground(new Color(0, 123, 255));
+            buscarButton.setForeground(Color.WHITE);
             frame.add(buscarButton);
             
             final JLabel statusLabel = new JLabel("");
             statusLabel.setBounds(100, 150, 600, 30);
+            statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
             frame.add(statusLabel);
             
             final JTextArea proveeTextArea = new JTextArea();
@@ -185,6 +223,7 @@ public class MenuProvee extends JFrame {
             proveeTextArea.setEditable(false);
             proveeTextArea.setBackground(new Color(240, 240, 240));
             proveeTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            proveeTextArea.setFont(new Font("Roboto", Font.PLAIN, 12));
             proveeTextArea.setVisible(false);
             frame.add(proveeTextArea);
             
@@ -223,6 +262,9 @@ public class MenuProvee extends JFrame {
             
             JButton volverButton = new JButton("Volver");
             volverButton.setBounds(300, 400, 200, 30);
+            volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+            volverButton.setBackground(new Color(0, 123, 255));
+            volverButton.setForeground(Color.WHITE);
             frame.add(volverButton);
             volverButton.addActionListener(e -> {
                 frame.dispose();
@@ -243,13 +285,16 @@ public class MenuProvee extends JFrame {
     private void AñadirProvee()
     {
       JFrame frame = new JFrame("Añadir Provisión");
-      frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
+      frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== AÑADIR NUEVA PROVISIÓN ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(proveeController!=null && productoController!=null && proveedorController!=null)
@@ -266,6 +311,9 @@ public class MenuProvee extends JFrame {
               
               JButton verProveedoresButton = new JButton("Ver Proveedores");
               verProveedoresButton.setBounds(560, 70, 150, 30);
+              verProveedoresButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verProveedoresButton.setBackground(new Color(0, 123, 255));
+              verProveedoresButton.setForeground(Color.WHITE);
               frame.add(verProveedoresButton);
               verProveedoresButton.addActionListener(new ActionListener() {
                   @Override
@@ -314,6 +362,9 @@ public class MenuProvee extends JFrame {
               
               JButton verProductosButton = new JButton("Ver Productos");
               verProductosButton.setBounds(560, 120, 150, 30);
+              verProductosButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verProductosButton.setBackground(new Color(0, 123, 255));
+              verProductosButton.setForeground(Color.WHITE);
               frame.add(verProductosButton);
               verProductosButton.addActionListener(new ActionListener() {
                   @Override
@@ -382,10 +433,16 @@ public class MenuProvee extends JFrame {
               
               JButton guardarButton = new JButton("Guardar Provisión");
               guardarButton.setBounds(200, 370, 200, 30);
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              guardarButton.setBackground(new Color(76, 175, 80));
+              guardarButton.setForeground(Color.WHITE);
               frame.add(guardarButton);
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(420, 370, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               
               guardarButton.addActionListener(new ActionListener() {
@@ -519,6 +576,9 @@ public class MenuProvee extends JFrame {
           
           JButton volverButton = new JButton("Volver");
           volverButton.setBounds(300, 500, 200, 30);
+          volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+          volverButton.setBackground(new Color(0, 123, 255));
+          volverButton.setForeground(Color.WHITE);
           frame.add(volverButton);
           volverButton.addActionListener(e -> {
               frame.dispose();
@@ -530,13 +590,16 @@ public class MenuProvee extends JFrame {
     private void ActualizarProvee()
     {
       JFrame frame = new JFrame("Actualizar Provisión");
-      frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
+      frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== ACTUALIZAR PROVISIÓN ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(proveeController!=null && productoController!=null && proveedorController!=null)
@@ -553,6 +616,9 @@ public class MenuProvee extends JFrame {
               
               final JButton buscarButton = new JButton("Buscar Provisión");
               buscarButton.setBounds(520, 70, 150, 30);
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setBackground(new Color(0, 123, 255));
+              buscarButton.setForeground(Color.WHITE);
               frame.add(buscarButton);
           
               final JLabel statusLabel = new JLabel("");
@@ -570,7 +636,9 @@ public class MenuProvee extends JFrame {
               
               final JButton verProveedoresButton = new JButton("Ver Proveedores");
               verProveedoresButton.setBounds(560, 150, 150, 30);
-              verProveedoresButton.setEnabled(false);
+              verProveedoresButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verProveedoresButton.setBackground(new Color(0, 123, 255));
+              verProveedoresButton.setForeground(Color.WHITE);
               frame.add(verProveedoresButton);
               
               JLabel productoLabel = new JLabel("ID del Producto:");
@@ -584,7 +652,9 @@ public class MenuProvee extends JFrame {
               
               final JButton verProductosButton = new JButton("Ver Productos");
               verProductosButton.setBounds(560, 190, 150, 30);
-              verProductosButton.setEnabled(false);
+              verProductosButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verProductosButton.setBackground(new Color(0, 123, 255));
+              verProductosButton.setForeground(Color.WHITE);
               frame.add(verProductosButton);
               
               JLabel cantidadLabel = new JLabel("Cantidad:");
@@ -616,11 +686,16 @@ public class MenuProvee extends JFrame {
               
               final JButton guardarButton = new JButton("Guardar Cambios");
               guardarButton.setBounds(100, 360, 200, 30);
-              guardarButton.setEnabled(false);
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              guardarButton.setBackground(new Color(76, 175, 80));
+              guardarButton.setForeground(Color.WHITE);
               frame.add(guardarButton);
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(350, 360, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               
               final Long[] proveeId = new Long[1];
@@ -826,6 +901,9 @@ public class MenuProvee extends JFrame {
           
           JButton volverButton = new JButton("Volver");
           volverButton.setBounds(300, 500, 200, 30);
+          volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+          volverButton.setBackground(new Color(0, 123, 255));
+          volverButton.setForeground(Color.WHITE);
           frame.add(volverButton);
           volverButton.addActionListener(e -> {
               frame.dispose();
@@ -837,13 +915,16 @@ public class MenuProvee extends JFrame {
     private void EliminarProvee()
     {
       JFrame frame = new JFrame("Eliminar Provisión");
-      frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
+      frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== ELIMINAR PROVISIÓN ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(proveeController!=null)
@@ -875,15 +956,24 @@ public class MenuProvee extends JFrame {
               
               final JButton buscarButton = new JButton("Buscar Provisión");
               buscarButton.setBounds(550, 100, 150, 30);
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setBackground(new Color(0, 123, 255));
+              buscarButton.setForeground(Color.WHITE);
               frame.add(buscarButton);
               
               final JButton eliminarButton = new JButton("Eliminar Provisión");
               eliminarButton.setBounds(200, 400, 200, 30);
               eliminarButton.setEnabled(false);
+              eliminarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              eliminarButton.setBackground(new Color(0, 123, 255));
+              eliminarButton.setForeground(Color.WHITE);
               frame.add(eliminarButton);
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(420, 400, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               
               final Long[] proveeId = new Long[1];
@@ -974,6 +1064,9 @@ public class MenuProvee extends JFrame {
           
           JButton volverButton = new JButton("Volver");
           volverButton.setBounds(300, 500, 200, 30);
+          volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+          volverButton.setBackground(new Color(0, 123, 255));
+          volverButton.setForeground(Color.WHITE);
           frame.add(volverButton);
           volverButton.addActionListener(e -> {
               frame.dispose();

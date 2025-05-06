@@ -21,13 +21,19 @@ public class MenuCliente extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Menu Cliente");
+        getContentPane().setBackground(new Color(245, 247, 250));
 
         JLabel Title = new JLabel("\n=== GESTIÓN DE CLIENTES ===");
-        Title.setBounds(300, 10, 200, 50);
+        Title.setBounds(300, 10, 300, 50);
+        Title.setFont(new Font("Roboto", Font.BOLD, 14));
+        Title.setForeground(new Color(46, 46, 46));
         add(Title);
 
         JButton TodoCliente = new JButton("Ver todos los clientes");
         TodoCliente.setBounds(100, 100, 200, 50);
+        TodoCliente.setFont(new Font("Roboto", Font.BOLD, 14));
+        TodoCliente.setBackground(new Color(0, 123, 255));
+        TodoCliente.setForeground(Color.WHITE);
         add(TodoCliente);
         TodoCliente.addActionListener(e -> {
             dispose();
@@ -36,6 +42,9 @@ public class MenuCliente extends JFrame {
         
         JButton BuscarCliente = new JButton("Buscar cliente por ID");
         BuscarCliente.setBounds(100, 150, 200, 50);
+        BuscarCliente.setFont(new Font("Roboto", Font.BOLD, 14));
+        BuscarCliente.setBackground(new Color(0, 123, 255));
+        BuscarCliente.setForeground(Color.WHITE);
         add(BuscarCliente);
         BuscarCliente.addActionListener(e -> {
             dispose();
@@ -44,6 +53,9 @@ public class MenuCliente extends JFrame {
         
         JButton AñadirCliente = new JButton("Añadir nuevo cliente");
         AñadirCliente.setBounds(100, 200, 200, 50);
+        AñadirCliente.setFont(new Font("Roboto", Font.BOLD, 14));
+        AñadirCliente.setBackground(new Color(76, 175, 80));
+        AñadirCliente.setForeground(Color.WHITE);
         add(AñadirCliente);
         AñadirCliente.addActionListener(e -> {
             dispose();
@@ -52,6 +64,9 @@ public class MenuCliente extends JFrame {
 
         JButton ModificarCliente = new JButton("Actualizar cliente");
         ModificarCliente.setBounds(100, 250, 200, 50);
+        ModificarCliente.setFont(new Font("Roboto", Font.BOLD, 14));
+        ModificarCliente.setBackground(new Color(0, 123, 255));
+        ModificarCliente.setForeground(Color.WHITE);
         add(ModificarCliente);
         ModificarCliente.addActionListener(e -> {
             dispose();
@@ -60,6 +75,9 @@ public class MenuCliente extends JFrame {
         
         JButton EliminarCliente = new JButton("Eliminar cliente");
         EliminarCliente.setBounds(100, 300, 200, 50);
+        EliminarCliente.setFont(new Font("Roboto", Font.BOLD, 14));
+        EliminarCliente.setBackground(new Color(0, 123, 255));
+        EliminarCliente.setForeground(Color.WHITE);
         add(EliminarCliente);
         EliminarCliente.addActionListener(e -> {
             dispose();
@@ -68,6 +86,9 @@ public class MenuCliente extends JFrame {
 
         JButton VolverMenu = new JButton("Volver al menu principal");
         VolverMenu.setBounds(100, 350, 200, 50);
+        VolverMenu.setFont(new Font("Roboto", Font.BOLD, 14));
+        VolverMenu.setBackground(new Color(0, 123, 255));
+        VolverMenu.setForeground(Color.WHITE);
         add(VolverMenu);
         VolverMenu.addActionListener(e -> {
             dispose();
@@ -83,10 +104,13 @@ public class MenuCliente extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
       JLabel Title = new JLabel("\n=== LISTA DE CLIENTES ===");
       Title.setBounds(300, 10, 200, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(clienteController!=null)
@@ -112,6 +136,7 @@ public class MenuCliente extends JFrame {
                       clienteTextArea.setEditable(false);
                       clienteTextArea.setBackground(new Color(240, 240, 240));
                       clienteTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                      clienteTextArea.setFont(new Font("Roboto", Font.PLAIN, 12));
                       panelClientes.add(clienteTextArea);
                   }
               }
@@ -119,6 +144,7 @@ public class MenuCliente extends JFrame {
               {
                   JLabel noClientesLabel = new JLabel("No hay clientes registrados en el sistema");
                   noClientesLabel.setBounds(300, 200, 300, 30);
+                  noClientesLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
                   frame.add(noClientesLabel);
               }
           }
@@ -134,6 +160,9 @@ public class MenuCliente extends JFrame {
   
       JButton volverButton = new JButton("Volver");
       volverButton.setBounds(300, 500, 200, 30);
+      volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+      volverButton.setBackground(new Color(0, 123, 255));
+      volverButton.setForeground(Color.WHITE);
       frame.add(volverButton);
       volverButton.addActionListener(e -> {
           frame.dispose();
@@ -147,10 +176,13 @@ public class MenuCliente extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
       JLabel Title = new JLabel("\n=== BUSCAR CLIENTE ===");
       Title.setBounds(300, 10, 200, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
       if(clienteController!=null)
       {
@@ -160,18 +192,24 @@ public class MenuCliente extends JFrame {
             
             JLabel idLabel = new JLabel("Introduce el ID del cliente:");
             idLabel.setBounds(100, 100, 200, 30);
+            idLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
             frame.add(idLabel);
   
             JTextField idTextField = new JTextField(10);
             idTextField.setBounds(300, 100, 200, 30);
+            idTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
             frame.add(idTextField);
   
             JButton buscarButton = new JButton("Buscar");
             buscarButton.setBounds(550, 100, 150, 30);
+            buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+            buscarButton.setBackground(new Color(0, 123, 255));
+            buscarButton.setForeground(Color.WHITE);
             frame.add(buscarButton);
             
             final JLabel statusLabel = new JLabel("");
             statusLabel.setBounds(100, 150, 600, 30);
+            statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
             frame.add(statusLabel);
             
             final JTextArea clienteTextArea = new JTextArea();
@@ -179,12 +217,16 @@ public class MenuCliente extends JFrame {
             clienteTextArea.setEditable(false);
             clienteTextArea.setBackground(new Color(240, 240, 240));
             clienteTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            clienteTextArea.setFont(new Font("Roboto", Font.PLAIN, 12));
             clienteTextArea.setVisible(false);
             frame.add(clienteTextArea);
             
             // Crear y añadir el botón Volver antes de configurar los ActionListeners
             JButton volverButton = new JButton("Volver");
             volverButton.setBounds(300, 400, 200, 30);
+            volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+            volverButton.setBackground(new Color(0, 123, 255));
+            volverButton.setForeground(Color.WHITE);
             frame.add(volverButton);
             volverButton.addActionListener(e -> {
                 frame.dispose();
@@ -246,11 +288,14 @@ public class MenuCliente extends JFrame {
       JFrame frame = new JFrame("Añadir Cliente");
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== AÑADIR NUEVO CLIENTE ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(clienteController!=null)
@@ -260,88 +305,110 @@ public class MenuCliente extends JFrame {
           
               JLabel cifLabel = new JLabel("CIF (formato: 1 letra + 8 números):");
               cifLabel.setBounds(100, 70, 250, 30);
+              cifLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cifLabel);
               
               JTextField cifTextField = new JTextField(10);
               cifTextField.setBounds(350, 70, 200, 30);
+              cifTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cifTextField);
               
           
               JLabel nombreEmpresaLabel = new JLabel("Nombre de la Empresa:");
               nombreEmpresaLabel.setBounds(100, 110, 200, 30);
+              nombreEmpresaLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(nombreEmpresaLabel);
               
               JTextField nombreEmpresaTextField = new JTextField(10);
               nombreEmpresaTextField.setBounds(350, 110, 200, 30);
+              nombreEmpresaTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(nombreEmpresaTextField);
               
           
               JLabel nombreResponsableLabel = new JLabel("Nombre del Responsable:");
               nombreResponsableLabel.setBounds(100, 150, 200, 30);
+              nombreResponsableLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(nombreResponsableLabel);
               
               JTextField nombreResponsableTextField = new JTextField(10);
               nombreResponsableTextField.setBounds(350, 150, 200, 30);
+              nombreResponsableTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(nombreResponsableTextField);
               
       
               JLabel paisLabel = new JLabel("País:");
               paisLabel.setBounds(100, 190, 200, 30);
+              paisLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(paisLabel);
               
               JTextField paisTextField = new JTextField(10);
               paisTextField.setBounds(350, 190, 200, 30);
+              paisTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(paisTextField);
               
               
               JLabel provinciaLabel = new JLabel("Provincia:");
               provinciaLabel.setBounds(100, 230, 200, 30);
+              provinciaLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(provinciaLabel);
               
               JTextField provinciaTextField = new JTextField(10);
               provinciaTextField.setBounds(350, 230, 200, 30);
+              provinciaTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(provinciaTextField);
           
               JLabel direccionLabel = new JLabel("Dirección:");
               direccionLabel.setBounds(100, 270, 200, 30);
+              direccionLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(direccionLabel);
               
               JTextField direccionTextField = new JTextField(10);
               direccionTextField.setBounds(350, 270, 200, 30);
+              direccionTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(direccionTextField);
               
               JLabel emailLabel = new JLabel("Email:");
               emailLabel.setBounds(100, 310, 200, 30);
+              emailLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(emailLabel);
               
               JTextField emailTextField = new JTextField(10);
               emailTextField.setBounds(350, 310, 200, 30);
+              emailTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(emailTextField);
               
               JLabel telefonoLabel = new JLabel("Teléfono:");
               telefonoLabel.setBounds(100, 350, 200, 30);
+              telefonoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(telefonoLabel);
               
               JTextField telefonoTextField = new JTextField(10);
               telefonoTextField.setBounds(350, 350, 200, 30);
+              telefonoTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(telefonoTextField);
               
       
               JLabel cpLabel = new JLabel("Código Postal:");
               cpLabel.setBounds(100, 390, 200, 30);
+              cpLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cpLabel);
               
               JTextField cpTextField = new JTextField(10);
               cpTextField.setBounds(350, 390, 200, 30);
+              cpTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cpTextField);
               
       
               JLabel statusLabel = new JLabel("");
               statusLabel.setBounds(100, 470, 400, 30);
+              statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(statusLabel);
           
               JButton guardarButton = new JButton("Guardar Cliente");
               guardarButton.setBounds(100, 430, 200, 30);
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              guardarButton.setBackground(new Color(76, 175, 80));
+              guardarButton.setForeground(Color.WHITE);
               frame.add(guardarButton);
               guardarButton.addActionListener(new ActionListener() 
               {
@@ -421,6 +488,9 @@ public class MenuCliente extends JFrame {
           
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(350, 430, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               volverButton.addActionListener(e -> {
                   frame.dispose();
@@ -443,11 +513,14 @@ public class MenuCliente extends JFrame {
       JFrame frame = new JFrame("Actualizar Cliente");
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== ACTUALIZAR CLIENTE ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(clienteController!=null)
@@ -457,109 +530,139 @@ public class MenuCliente extends JFrame {
               
               JLabel idLabel = new JLabel("ID del cliente a actualizar:");
               idLabel.setBounds(100, 70, 200, 30);
+              idLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(idLabel);
               
               JTextField idTextField = new JTextField(10);
               idTextField.setBounds(300, 70, 200, 30);
+              idTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(idTextField);
               
               final JButton buscarButton = new JButton("Buscar Cliente");
               buscarButton.setBounds(520, 70, 150, 30);
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setBackground(new Color(0, 123, 255));
+              buscarButton.setForeground(Color.WHITE);
               frame.add(buscarButton);
           
               final JLabel statusLabel = new JLabel("");
               statusLabel.setBounds(100, 110, 600, 30);
+              statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(statusLabel);
               
               
               JLabel cifLabel = new JLabel("CIF:");
               cifLabel.setBounds(100, 150, 200, 30);
+              cifLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cifLabel);
               
               final JTextField cifTextField = new JTextField(10);
               cifTextField.setBounds(350, 150, 200, 30);
+              cifTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               cifTextField.setEnabled(false);
               frame.add(cifTextField);
               
               JLabel nombreEmpresaLabel = new JLabel("Nombre de la Empresa:");
               nombreEmpresaLabel.setBounds(100, 190, 200, 30);
+              nombreEmpresaLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(nombreEmpresaLabel);
               
               final JTextField nombreEmpresaTextField = new JTextField(10);
               nombreEmpresaTextField.setBounds(350, 190, 200, 30);
+              nombreEmpresaTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               nombreEmpresaTextField.setEnabled(false);
               frame.add(nombreEmpresaTextField);
               
               JLabel nombreResponsableLabel = new JLabel("Nombre del Responsable:");
               nombreResponsableLabel.setBounds(100, 230, 200, 30);
+              nombreResponsableLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(nombreResponsableLabel);
               
               final JTextField nombreResponsableTextField = new JTextField(10);
               nombreResponsableTextField.setBounds(350, 230, 200, 30);
+              nombreResponsableTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               nombreResponsableTextField.setEnabled(false);
               frame.add(nombreResponsableTextField);
               
               JLabel paisLabel = new JLabel("País:");
               paisLabel.setBounds(100, 270, 200, 30);
+              paisLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(paisLabel);
               
               final JTextField paisTextField = new JTextField(10);
               paisTextField.setBounds(350, 270, 200, 30);
+              paisTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               paisTextField.setEnabled(false);
               frame.add(paisTextField);
               
               JLabel provinciaLabel = new JLabel("Provincia:");
               provinciaLabel.setBounds(100, 310, 200, 30);
+              provinciaLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(provinciaLabel);
               
               final JTextField provinciaTextField = new JTextField(10);
               provinciaTextField.setBounds(350, 310, 200, 30);
+              provinciaTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               provinciaTextField.setEnabled(false);
               frame.add(provinciaTextField);
               
               JLabel direccionLabel = new JLabel("Dirección:");
               direccionLabel.setBounds(100, 350, 200, 30);
+              direccionLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(direccionLabel);
               
               final JTextField direccionTextField = new JTextField(10);
               direccionTextField.setBounds(350, 350, 200, 30);
+              direccionTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               direccionTextField.setEnabled(false);
               frame.add(direccionTextField);
               
               JLabel emailLabel = new JLabel("Email:");
               emailLabel.setBounds(100, 390, 200, 30);
+              emailLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(emailLabel);
               
               final JTextField emailTextField = new JTextField(10);
               emailTextField.setBounds(350, 390, 200, 30);
+              emailTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               emailTextField.setEnabled(false);
               frame.add(emailTextField);
               
               JLabel telefonoLabel = new JLabel("Teléfono:");
               telefonoLabel.setBounds(100, 430, 200, 30);
+              telefonoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(telefonoLabel);
               
               final JTextField telefonoTextField = new JTextField(10);
               telefonoTextField.setBounds(350, 430, 200, 30);
+              telefonoTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               telefonoTextField.setEnabled(false);
               frame.add(telefonoTextField);
               
               JLabel cpLabel = new JLabel("Código Postal:");
               cpLabel.setBounds(100, 470, 200, 30);
+              cpLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cpLabel);
               
               final JTextField cpTextField = new JTextField(10);
               cpTextField.setBounds(350, 470, 200, 30);
+              cpTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               cpTextField.setEnabled(false);
               frame.add(cpTextField);
               
               final JButton guardarButton = new JButton("Guardar Cambios");
               guardarButton.setBounds(100, 510, 200, 30);
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              guardarButton.setBackground(new Color(76, 175, 80));
+              guardarButton.setForeground(Color.WHITE);
               guardarButton.setEnabled(false);
               frame.add(guardarButton);
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(350, 510, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               
               
@@ -745,11 +848,14 @@ public class MenuCliente extends JFrame {
       JFrame frame = new JFrame("Eliminar Cliente");
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== ELIMINAR CLIENTE ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(clienteController!=null)
@@ -759,41 +865,55 @@ public class MenuCliente extends JFrame {
               
               JLabel idLabel = new JLabel("ID del cliente a eliminar:");
               idLabel.setBounds(100, 100, 200, 30);
+              idLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(idLabel);
               
               JTextField idTextField = new JTextField(10);
               idTextField.setBounds(300, 100, 200, 30);
+              idTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(idTextField);
               
               
               final JLabel infoLabel = new JLabel("Información del cliente:");
               infoLabel.setBounds(100, 150, 500, 30);
+              infoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(infoLabel);
               
               final JTextArea clienteInfo = new JTextArea();
-              clienteInfo.setBounds(100, 190, 600, 100);
+              clienteInfo.setBounds(100, 190, 600, 150);
               clienteInfo.setEditable(false);
               clienteInfo.setBackground(new Color(240, 240, 240));
               clienteInfo.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+              clienteInfo.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(clienteInfo);
               
               
               final JLabel statusLabel = new JLabel("");
               statusLabel.setBounds(100, 350, 600, 30);
+              statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(statusLabel);
               
           
               final JButton buscarButton = new JButton("Buscar Cliente");
               buscarButton.setBounds(550, 100, 150, 30);
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setBackground(new Color(0, 123, 255));
+              buscarButton.setForeground(Color.WHITE);
               frame.add(buscarButton);
               
               final JButton eliminarButton = new JButton("Eliminar Cliente");
               eliminarButton.setBounds(200, 400, 200, 30);
+              eliminarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              eliminarButton.setBackground(new Color(0, 123, 255));
+              eliminarButton.setForeground(Color.WHITE);
               eliminarButton.setEnabled(false);
               frame.add(eliminarButton);
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(420, 400, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               
               

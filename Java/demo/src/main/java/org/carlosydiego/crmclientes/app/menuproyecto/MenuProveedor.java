@@ -20,13 +20,19 @@ public class MenuProveedor extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Menu Proveedor");
+        getContentPane().setBackground(new Color(245, 247, 250));
 
         JLabel Title = new JLabel("\n=== GESTIÓN DE PROVEEDORES ===");
         Title.setBounds(300, 10, 300, 50);
+        Title.setFont(new Font("Roboto", Font.BOLD, 14));
+        Title.setForeground(new Color(46, 46, 46));
         add(Title);
 
         JButton ListarProveedoresBtn = new JButton("Ver todos los proveedores");
         ListarProveedoresBtn.setBounds(100, 100, 200, 50);
+        ListarProveedoresBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ListarProveedoresBtn.setBackground(new Color(0, 123, 255));
+        ListarProveedoresBtn.setForeground(Color.WHITE);
         add(ListarProveedoresBtn);
         ListarProveedoresBtn.addActionListener(e -> {
             dispose();
@@ -35,6 +41,9 @@ public class MenuProveedor extends JFrame {
         
         JButton BuscarProveedorBtn = new JButton("Buscar proveedor por ID");
         BuscarProveedorBtn.setBounds(100, 150, 200, 50);
+        BuscarProveedorBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        BuscarProveedorBtn.setBackground(new Color(0, 123, 255));
+        BuscarProveedorBtn.setForeground(Color.WHITE);
         add(BuscarProveedorBtn);
         BuscarProveedorBtn.addActionListener(e -> {
             dispose();
@@ -43,6 +52,9 @@ public class MenuProveedor extends JFrame {
         
         JButton AñadirProveedorBtn = new JButton("Añadir nuevo proveedor");
         AñadirProveedorBtn.setBounds(100, 200, 200, 50);
+        AñadirProveedorBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        AñadirProveedorBtn.setBackground(new Color(76, 175, 80));
+        AñadirProveedorBtn.setForeground(Color.WHITE);
         add(AñadirProveedorBtn);
         AñadirProveedorBtn.addActionListener(e -> {
             dispose();
@@ -51,6 +63,9 @@ public class MenuProveedor extends JFrame {
 
         JButton ActualizarProveedorBtn = new JButton("Actualizar proveedor");
         ActualizarProveedorBtn.setBounds(100, 250, 200, 50);
+        ActualizarProveedorBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ActualizarProveedorBtn.setBackground(new Color(0, 123, 255));
+        ActualizarProveedorBtn.setForeground(Color.WHITE);
         add(ActualizarProveedorBtn);
         ActualizarProveedorBtn.addActionListener(e -> {
             dispose();
@@ -59,6 +74,9 @@ public class MenuProveedor extends JFrame {
         
         JButton EliminarProveedorBtn = new JButton("Eliminar proveedor");
         EliminarProveedorBtn.setBounds(100, 300, 200, 50);
+        EliminarProveedorBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        EliminarProveedorBtn.setBackground(new Color(0, 123, 255));
+        EliminarProveedorBtn.setForeground(Color.WHITE);
         add(EliminarProveedorBtn);
         EliminarProveedorBtn.addActionListener(e -> {
             dispose();
@@ -67,6 +85,9 @@ public class MenuProveedor extends JFrame {
 
         JButton VolverBtn = new JButton("Volver al menu principal");
         VolverBtn.setBounds(100, 350, 200, 50);
+        VolverBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        VolverBtn.setBackground(new Color(0, 123, 255));
+        VolverBtn.setForeground(Color.WHITE);
         add(VolverBtn);
         VolverBtn.addActionListener(e -> {
             dispose();
@@ -82,10 +103,13 @@ public class MenuProveedor extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
       JLabel Title = new JLabel("\n=== LISTA DE PROVEEDORES ===");
       Title.setBounds(300, 10, 200, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(proveedorController!=null)
@@ -111,6 +135,7 @@ public class MenuProveedor extends JFrame {
                       proveedorTextArea.setEditable(false);
                       proveedorTextArea.setBackground(new Color(240, 240, 240));
                       proveedorTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+                      proveedorTextArea.setFont(new Font("Roboto", Font.PLAIN, 12));
                       panelProveedores.add(proveedorTextArea);
                   }
               }
@@ -118,6 +143,7 @@ public class MenuProveedor extends JFrame {
               {
                   JLabel noProveedoresLabel = new JLabel("No hay proveedores registrados en el sistema");
                   noProveedoresLabel.setBounds(300, 200, 300, 30);
+                  noProveedoresLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
                   frame.add(noProveedoresLabel);
               }
           }
@@ -133,6 +159,9 @@ public class MenuProveedor extends JFrame {
   
       JButton volverButton = new JButton("Volver");
       volverButton.setBounds(300, 500, 200, 30);
+      volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+      volverButton.setBackground(new Color(0, 123, 255));
+      volverButton.setForeground(Color.WHITE);
       frame.add(volverButton);
       volverButton.addActionListener(e -> {
           frame.dispose();
@@ -146,10 +175,13 @@ public class MenuProveedor extends JFrame {
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
       JLabel Title = new JLabel("\n=== BUSCAR PROVEEDOR ===");
       Title.setBounds(300, 10, 200, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(proveedorController!=null)
@@ -158,18 +190,24 @@ public class MenuProveedor extends JFrame {
           {
               JLabel idLabel = new JLabel("ID del proveedor:");
               idLabel.setBounds(100, 100, 150, 30);
+              idLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(idLabel);
   
               JTextField idTextField = new JTextField(10);
               idTextField.setBounds(260, 100, 200, 30);
+              idTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(idTextField);
               
               JButton buscarButton = new JButton("Buscar");
               buscarButton.setBounds(480, 100, 100, 30);
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setBackground(new Color(0, 123, 255));
+              buscarButton.setForeground(Color.WHITE);
               frame.add(buscarButton);
               
               final JLabel statusLabel = new JLabel("");
               statusLabel.setBounds(100, 150, 600, 30);
+              statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(statusLabel);
               
               final JTextArea proveedorTextArea = new JTextArea();
@@ -177,6 +215,7 @@ public class MenuProveedor extends JFrame {
               proveedorTextArea.setEditable(false);
               proveedorTextArea.setBackground(new Color(240, 240, 240));
               proveedorTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+              proveedorTextArea.setFont(new Font("Roboto", Font.PLAIN, 12));
               proveedorTextArea.setVisible(false);
               frame.add(proveedorTextArea);
               
@@ -212,6 +251,9 @@ public class MenuProveedor extends JFrame {
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(300, 420, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               volverButton.addActionListener(e -> {
                   frame.dispose();
@@ -232,13 +274,16 @@ public class MenuProveedor extends JFrame {
     private void AñadirProveedor()
     {
       JFrame frame = new JFrame("Añadir Proveedor");
-      frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
+      frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== AÑADIR NUEVO PROVEEDOR ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(proveedorController!=null)
@@ -247,86 +292,111 @@ public class MenuProveedor extends JFrame {
           {
               JLabel cifLabel = new JLabel("CIF (1 letra + 8 números):");
               cifLabel.setBounds(100, 70, 200, 30);
+              cifLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cifLabel);
               
               JTextField cifTextField = new JTextField(10);
               cifTextField.setBounds(350, 70, 200, 30);
+              cifTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cifTextField);
               
               JLabel nombreLabel = new JLabel("Nombre de la empresa:");
               nombreLabel.setBounds(100, 110, 200, 30);
+              nombreLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(nombreLabel);
               
               JTextField nombreTextField = new JTextField(10);
               nombreTextField.setBounds(350, 110, 200, 30);
+              nombreTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(nombreTextField);
               
               JLabel responsableLabel = new JLabel("Nombre del responsable:");
               responsableLabel.setBounds(100, 150, 200, 30);
+              responsableLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(responsableLabel);
               
               JTextField responsableTextField = new JTextField(10);
               responsableTextField.setBounds(350, 150, 200, 30);
+              responsableTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(responsableTextField);
               
               JLabel paisLabel = new JLabel("País:");
               paisLabel.setBounds(100, 190, 200, 30);
+              paisLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(paisLabel);
               
               JTextField paisTextField = new JTextField(10);
               paisTextField.setBounds(350, 190, 200, 30);
+              paisTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(paisTextField);
               
               JLabel provinciaLabel = new JLabel("Provincia:");
               provinciaLabel.setBounds(100, 230, 200, 30);
+              provinciaLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(provinciaLabel);
               
               JTextField provinciaTextField = new JTextField(10);
               provinciaTextField.setBounds(350, 230, 200, 30);
+              provinciaTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(provinciaTextField);
               
               JLabel direccionLabel = new JLabel("Dirección:");
               direccionLabel.setBounds(100, 270, 200, 30);
+              direccionLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(direccionLabel);
               
               JTextField direccionTextField = new JTextField(10);
               direccionTextField.setBounds(350, 270, 200, 30);
+              direccionTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(direccionTextField);
               
               JLabel emailLabel = new JLabel("Email:");
               emailLabel.setBounds(100, 310, 200, 30);
+              emailLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(emailLabel);
               
               JTextField emailTextField = new JTextField(10);
               emailTextField.setBounds(350, 310, 200, 30);
+              emailTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(emailTextField);
               
               JLabel telefonoLabel = new JLabel("Teléfono (9 dígitos):");
               telefonoLabel.setBounds(100, 350, 200, 30);
+              telefonoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(telefonoLabel);
               
               JTextField telefonoTextField = new JTextField(10);
               telefonoTextField.setBounds(350, 350, 200, 30);
+              telefonoTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(telefonoTextField);
               
               JLabel cpLabel = new JLabel("Código Postal (5 dígitos):");
               cpLabel.setBounds(100, 390, 200, 30);
+              cpLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cpLabel);
               
               JTextField cpTextField = new JTextField(10);
               cpTextField.setBounds(350, 390, 200, 30);
+              cpTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cpTextField);
               
               final JLabel statusLabel = new JLabel("");
               statusLabel.setBounds(100, 430, 600, 30);
+              statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(statusLabel);
               
               JButton guardarButton = new JButton("Guardar Proveedor");
               guardarButton.setBounds(200, 470, 200, 30);
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              guardarButton.setBackground(new Color(76, 175, 80));
+              guardarButton.setForeground(Color.WHITE);
               frame.add(guardarButton);
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(420, 470, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               
               guardarButton.addActionListener(e -> {
@@ -415,6 +485,9 @@ public class MenuProveedor extends JFrame {
           
           JButton volverButton = new JButton("Volver");
           volverButton.setBounds(300, 500, 200, 30);
+          volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+          volverButton.setBackground(new Color(0, 123, 255));
+          volverButton.setForeground(Color.WHITE);
           frame.add(volverButton);
           volverButton.addActionListener(e -> {
               frame.dispose();
@@ -426,13 +499,16 @@ public class MenuProveedor extends JFrame {
     private void ActualizarProveedor()
     {
       JFrame frame = new JFrame("Actualizar Proveedor");
-      frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
+      frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== ACTUALIZAR PROVEEDOR ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(proveedorController!=null)
@@ -441,108 +517,138 @@ public class MenuProveedor extends JFrame {
           {
               JLabel idLabel = new JLabel("ID del proveedor a actualizar:");
               idLabel.setBounds(100, 70, 200, 30);
+              idLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(idLabel);
               
               JTextField idTextField = new JTextField(10);
               idTextField.setBounds(300, 70, 200, 30);
+              idTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(idTextField);
               
               final JButton buscarButton = new JButton("Buscar Proveedor");
               buscarButton.setBounds(520, 70, 150, 30);
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setBackground(new Color(0, 123, 255));
+              buscarButton.setForeground(Color.WHITE);
               frame.add(buscarButton);
               
               final JLabel statusLabel = new JLabel("");
               statusLabel.setBounds(100, 110, 600, 30);
+              statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(statusLabel);
               
               JLabel cifLabel = new JLabel("CIF:");
               cifLabel.setBounds(100, 150, 200, 30);
+              cifLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cifLabel);
               
               final JTextField cifTextField = new JTextField(10);
               cifTextField.setBounds(300, 150, 200, 30);
               cifTextField.setEnabled(false);
+              cifTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cifTextField);
               
               JLabel nombreLabel = new JLabel("Nombre de la empresa:");
               nombreLabel.setBounds(100, 190, 200, 30);
+              nombreLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(nombreLabel);
               
               final JTextField nombreTextField = new JTextField(10);
               nombreTextField.setBounds(300, 190, 200, 30);
               nombreTextField.setEnabled(false);
+              nombreTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(nombreTextField);
               
               JLabel responsableLabel = new JLabel("Nombre del responsable:");
               responsableLabel.setBounds(100, 230, 200, 30);
+              responsableLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(responsableLabel);
               
               final JTextField responsableTextField = new JTextField(10);
               responsableTextField.setBounds(300, 230, 200, 30);
               responsableTextField.setEnabled(false);
+              responsableTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(responsableTextField);
               
               JLabel paisLabel = new JLabel("País:");
               paisLabel.setBounds(100, 270, 200, 30);
+              paisLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(paisLabel);
               
               final JTextField paisTextField = new JTextField(10);
               paisTextField.setBounds(300, 270, 200, 30);
               paisTextField.setEnabled(false);
+              paisTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(paisTextField);
               
               JLabel provinciaLabel = new JLabel("Provincia:");
               provinciaLabel.setBounds(100, 310, 200, 30);
+              provinciaLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(provinciaLabel);
               
               final JTextField provinciaTextField = new JTextField(10);
               provinciaTextField.setBounds(300, 310, 200, 30);
               provinciaTextField.setEnabled(false);
+              provinciaTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(provinciaTextField);
               
               JLabel direccionLabel = new JLabel("Dirección:");
               direccionLabel.setBounds(100, 350, 200, 30);
+              direccionLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(direccionLabel);
               
               final JTextField direccionTextField = new JTextField(10);
               direccionTextField.setBounds(300, 350, 200, 30);
               direccionTextField.setEnabled(false);
+              direccionTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(direccionTextField);
               
               JLabel emailLabel = new JLabel("Email:");
               emailLabel.setBounds(100, 390, 200, 30);
+              emailLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(emailLabel);
               
               final JTextField emailTextField = new JTextField(10);
               emailTextField.setBounds(300, 390, 200, 30);
               emailTextField.setEnabled(false);
+              emailTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(emailTextField);
               
               JLabel telefonoLabel = new JLabel("Teléfono:");
               telefonoLabel.setBounds(100, 430, 200, 30);
+              telefonoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(telefonoLabel);
               
               final JTextField telefonoTextField = new JTextField(10);
               telefonoTextField.setBounds(300, 430, 200, 30);
               telefonoTextField.setEnabled(false);
+              telefonoTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(telefonoTextField);
               
               JLabel cpLabel = new JLabel("Código Postal:");
               cpLabel.setBounds(100, 470, 200, 30);
+              cpLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cpLabel);
               
               final JTextField cpTextField = new JTextField(10);
               cpTextField.setBounds(300, 470, 200, 30);
               cpTextField.setEnabled(false);
+              cpTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(cpTextField);
               
               final JButton guardarButton = new JButton("Guardar Cambios");
               guardarButton.setBounds(100, 510, 200, 30);
               guardarButton.setEnabled(false);
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              guardarButton.setBackground(new Color(76, 175, 80));
+              guardarButton.setForeground(Color.WHITE);
               frame.add(guardarButton);
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(350, 510, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               
               final Long[] proveedorId = new Long[1];
@@ -678,6 +784,9 @@ public class MenuProveedor extends JFrame {
           
           JButton volverButton = new JButton("Volver");
           volverButton.setBounds(300, 500, 200, 30);
+          volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+          volverButton.setBackground(new Color(0, 123, 255));
+          volverButton.setForeground(Color.WHITE);
           frame.add(volverButton);
           volverButton.addActionListener(e -> {
               frame.dispose();
@@ -689,13 +798,16 @@ public class MenuProveedor extends JFrame {
     private void EliminarProveedor()
     {
       JFrame frame = new JFrame("Eliminar Proveedor");
-      frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
+      frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== ELIMINAR PROVEEDOR ===");
       Title.setBounds(300, 10, 300, 50);
+      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Title.setForeground(new Color(46, 46, 46));
       frame.add(Title);
   
       if(proveedorController!=null)
@@ -704,14 +816,17 @@ public class MenuProveedor extends JFrame {
           {
               JLabel idLabel = new JLabel("ID del proveedor a eliminar:");
               idLabel.setBounds(100, 100, 200, 30);
+              idLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(idLabel);
               
               JTextField idTextField = new JTextField(10);
               idTextField.setBounds(300, 100, 200, 30);
+              idTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(idTextField);
               
               final JLabel infoLabel = new JLabel("Información del proveedor:");
               infoLabel.setBounds(100, 150, 500, 30);
+              infoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(infoLabel);
               
               final JTextArea proveedorInfo = new JTextArea();
@@ -719,23 +834,34 @@ public class MenuProveedor extends JFrame {
               proveedorInfo.setEditable(false);
               proveedorInfo.setBackground(new Color(240, 240, 240));
               proveedorInfo.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+              proveedorInfo.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(proveedorInfo);
               
               final JLabel statusLabel = new JLabel("");
               statusLabel.setBounds(100, 350, 600, 30);
+              statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
               frame.add(statusLabel);
               
               final JButton buscarButton = new JButton("Buscar Proveedor");
               buscarButton.setBounds(550, 100, 150, 30);
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setBackground(new Color(0, 123, 255));
+              buscarButton.setForeground(Color.WHITE);
               frame.add(buscarButton);
               
               final JButton eliminarButton = new JButton("Eliminar Proveedor");
               eliminarButton.setBounds(200, 400, 200, 30);
               eliminarButton.setEnabled(false);
+              eliminarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              eliminarButton.setBackground(new Color(0, 123, 255));
+              eliminarButton.setForeground(Color.WHITE);
               frame.add(eliminarButton);
               
               JButton volverButton = new JButton("Volver");
               volverButton.setBounds(420, 400, 200, 30);
+              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
               frame.add(volverButton);
               
               final Long[] proveedorId = new Long[1];
@@ -801,6 +927,9 @@ public class MenuProveedor extends JFrame {
           
           JButton volverButton = new JButton("Volver");
           volverButton.setBounds(300, 500, 200, 30);
+          volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+          volverButton.setBackground(new Color(0, 123, 255));
+          volverButton.setForeground(Color.WHITE);
           frame.add(volverButton);
           volverButton.addActionListener(e -> {
               frame.dispose();
