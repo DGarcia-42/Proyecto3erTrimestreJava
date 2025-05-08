@@ -8,6 +8,7 @@ public class Main
 {
     public static void main(String[] args) 
     {
+        //Mostrando el menu principal
         MenuProyecto menuProyecto = new MenuProyecto();
     }
 }

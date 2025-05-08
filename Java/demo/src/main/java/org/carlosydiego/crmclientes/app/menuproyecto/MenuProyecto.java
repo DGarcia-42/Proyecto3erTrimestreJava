@@ -99,7 +99,7 @@ public class MenuProyecto extends JFrame {
             new MenuCategoria(categoriaController);
     });
 
-        JButton Provees = new JButton("Gestión de Provees");
+        JButton Provees = new JButton("Gestión de Pedidos");
     Provees.setBounds(100, 400, 200, 50);
     Provees.setFont(new Font("Roboto", Font.BOLD, 14));
     Provees.setBackground(new Color(0, 123, 255));

@@ -498,6 +498,13 @@ public class MenuFactura extends JFrame {
                                   return;
                               }
                               if (cantidadProducto > producto.getStock()) {
+                                  // Mostrar mensaje de error en un cuadro de diálogo para mayor visibilidad
+                                  JOptionPane.showMessageDialog(
+                                      frame,
+                                      "No hay suficiente stock disponible.\nStock actual: " + producto.getStock() + "\nCantidad solicitada: " + cantidadProducto,
+                                      "Error de Stock",
+                                      JOptionPane.ERROR_MESSAGE
+                                  );
                                   statusLabel.setText("Error: La cantidad no puede superar el stock disponible (" + producto.getStock() + ")");
                                   return;
                               }
@@ -520,18 +527,30 @@ public class MenuFactura extends JFrame {
                           nuevaFactura.setCantidad(cantidadProducto);
                           nuevaFactura.setTotal(total);
                           
-                          facturaController.save(nuevaFactura);
-                          
-                          statusLabel.setText("Factura añadida correctamente. Total: " + total + "€");
-                          
-                          // Limpiar campos
-                          clienteTextField.setText("");
-                          empleadoTextField.setText("");
-                          fechaTextField.setText("");
-                          metodoPagoTextField.setText("");
-                          estadoTextField.setText("");
-                          productoTextField.setText("");
-                          cantidadTextField.setText("");
+                          try {
+                              facturaController.save(nuevaFactura);
+                              statusLabel.setText("Factura añadida correctamente. Total: " + total + "€");
+                              
+                              // Limpiar campos
+                              clienteTextField.setText("");
+                              empleadoTextField.setText("");
+                              fechaTextField.setText("");
+                              metodoPagoTextField.setText("");
+                              estadoTextField.setText("");
+                              productoTextField.setText("");
+                              cantidadTextField.setText("");
+                          } catch (RuntimeException ex) {
+                              // Mostrar mensaje de error en un cuadro de diálogo para mayor visibilidad
+                              if (ex.getMessage().contains("No hay suficiente stock disponible")) {
+                                  JOptionPane.showMessageDialog(
+                                      frame,
+                                      ex.getMessage(),
+                                      "Error de Stock",
+                                      JOptionPane.ERROR_MESSAGE
+                                  );
+                              }
+                              statusLabel.setText("Error al guardar la factura: " + ex.getMessage());
+                          }
                       } 
                       catch (Exception ex) 
                       {
@@ -968,6 +987,40 @@ public class MenuFactura extends JFrame {
                                   statusLabel.setText("Error: La cantidad debe ser mayor que cero");
                                   return;
                               }
+                              // Verificar stock si es un producto diferente o si la cantidad aumentó
+                              if (!facturaExistente.getProducto().getID_Producto().equals(producto.getID_Producto()) ||
+                                  cantidadProducto > facturaExistente.getCantidad()) {
+                                  int stockActual = producto.getStock();
+                                  // Si cambiamos a otro producto, verificamos el stock completo
+                                  if (!facturaExistente.getProducto().getID_Producto().equals(producto.getID_Producto())) {
+                                      if (cantidadProducto > stockActual) {
+                                          JOptionPane.showMessageDialog(
+                                              frame,
+                                              "No hay suficiente stock disponible.\nStock actual: " + stockActual + "\nCantidad solicitada: " + cantidadProducto,
+                                              "Error de Stock",
+                                              JOptionPane.ERROR_MESSAGE
+                                          );
+                                          statusLabel.setText("Error: La cantidad no puede superar el stock disponible (" + stockActual + ")");
+                                          return;
+                                      }
+                                  } 
+                                  // Si es el mismo producto pero aumentamos la cantidad
+                                  else if (cantidadProducto > facturaExistente.getCantidad()) {
+                                      // Calcular cuánto stock adicional necesitamos
+                                      int stockAdicionalRequerido = cantidadProducto - facturaExistente.getCantidad();
+                                      if (stockAdicionalRequerido > stockActual) {
+                                          JOptionPane.showMessageDialog(
+                                              frame,
+                                              "No hay suficiente stock disponible para aumentar la cantidad.\nStock actual: " + stockActual + 
+                                              "\nCantidad adicional requerida: " + stockAdicionalRequerido,
+                                              "Error de Stock",
+                                              JOptionPane.ERROR_MESSAGE
+                                          );
+                                          statusLabel.setText("Error: No hay suficiente stock para aumentar la cantidad");
+                                          return;
+                                      }
+                                  }
+                              }
                           } catch (NumberFormatException nfe) {
                               statusLabel.setText("Error: Cantidad inválida");
                               return;
@@ -985,33 +1038,46 @@ public class MenuFactura extends JFrame {
                           facturaActualizada.setCantidad(cantidadProducto);
                           facturaActualizada.setTotal(producto.getPVP() * cantidadProducto);
                           
-                          facturaController.save(facturaActualizada);
+                          try {
+                              facturaController.save(facturaActualizada);
                           
-                          // Verificar si existe un archivo de factura para actualizarlo
-                          if (FacturaFileManager.existeArchivoFactura(facturaId[0])) {
-                              int respuesta = JOptionPane.showConfirmDialog(
-                                  frame,
-                                  "Se ha detectado un archivo de factura existente. ¿Desea actualizarlo con los nuevos datos?",
-                                  "Actualizar archivo de factura",
-                                  JOptionPane.YES_NO_OPTION
-                              );
-                              
-                              if (respuesta == JOptionPane.YES_OPTION) {
-                                  // Generar un nuevo archivo forzando la sobreescritura
-                                  String rutaArchivo = FacturaFileManager.generarArchivoFactura(facturaActualizada, true);
-                                  if (rutaArchivo != null) {
-                                      statusLabel.setText("Factura y archivo actualizados correctamente.");
-                                      rutaLabel.setText("Ubicación: " + rutaArchivo);
-                                  } else {
-                                      statusLabel.setText("Factura actualizada, pero hubo un error al actualizar el archivo.");
-                                  }
-                               } else {
-                                  statusLabel.setText("Factura actualizada correctamente. No se modificó el archivo existente.");
-                                  rutaLabel.setText("Ubicación: " + FacturaFileManager.getFacturaRutaAbsoluta(facturaId[0]));
-                               }
-                          } else {
-                              statusLabel.setText("Factura actualizada correctamente.");
-                              rutaLabel.setText("");
+                              // Verificar si existe un archivo de factura para actualizarlo
+                              if (FacturaFileManager.existeArchivoFactura(facturaId[0])) {
+                                  int respuesta = JOptionPane.showConfirmDialog(
+                                      frame,
+                                      "Se ha detectado un archivo de factura existente. ¿Desea actualizarlo con los nuevos datos?",
+                                      "Actualizar archivo de factura",
+                                      JOptionPane.YES_NO_OPTION
+                                  );
+                                  
+                                  if (respuesta == JOptionPane.YES_OPTION) {
+                                      // Generar un nuevo archivo forzando la sobreescritura
+                                      String rutaArchivo = FacturaFileManager.generarArchivoFactura(facturaActualizada, true);
+                                      if (rutaArchivo != null) {
+                                          statusLabel.setText("Factura y archivo actualizados correctamente.");
+                                          rutaLabel.setText("Ubicación: " + rutaArchivo);
+                                      } else {
+                                          statusLabel.setText("Factura actualizada, pero hubo un error al actualizar el archivo.");
+                                      }
+                                   } else {
+                                      statusLabel.setText("Factura actualizada correctamente. No se modificó el archivo existente.");
+                                      rutaLabel.setText("Ubicación: " + FacturaFileManager.getFacturaRutaAbsoluta(facturaId[0]));
+                                   }
+                              } else {
+                                  statusLabel.setText("Factura actualizada correctamente.");
+                                  rutaLabel.setText("");
+                              }
+                          } catch (RuntimeException ex) {
+                              // Mostrar mensaje de error en un cuadro de diálogo para mayor visibilidad
+                              if (ex.getMessage().contains("No hay suficiente stock disponible")) {
+                                  JOptionPane.showMessageDialog(
+                                      frame,
+                                      ex.getMessage(),
+                                      "Error de Stock",
+                                      JOptionPane.ERROR_MESSAGE
+                                  );
+                              }
+                              statusLabel.setText("Error al actualizar la factura: " + ex.getMessage());
                           }
                       } catch (Exception ex) {
                           statusLabel.setText("Error al actualizar la factura: " + ex.getMessage());

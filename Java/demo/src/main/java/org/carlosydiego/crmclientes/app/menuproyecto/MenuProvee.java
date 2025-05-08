@@ -31,13 +31,13 @@ public class MenuProvee extends JFrame {
         setTitle("Menu Provee");
         getContentPane().setBackground(new Color(245, 247, 250));
 
-        JLabel Title = new JLabel("\n=== GESTIÓN DE PROVEEDORES Y PRODUCTOS ===");
+        JLabel Title = new JLabel("\n=== GESTIÓN DE PEDIDOS ===");
         Title.setBounds(250, 10, 400, 50);
         Title.setFont(new Font("Roboto", Font.BOLD, 14));
         Title.setForeground(new Color(46, 46, 46));
         add(Title);
 
-        JButton ListarProveesBtn = new JButton("Ver todas las relaciones");
+        JButton ListarProveesBtn = new JButton("Ver todos los pedidos");
         ListarProveesBtn.setBounds(100, 100, 200, 50);
         ListarProveesBtn.setFont(new Font("Roboto", Font.BOLD, 14));
         ListarProveesBtn.setBackground(new Color(0, 123, 255));
@@ -48,7 +48,7 @@ public class MenuProvee extends JFrame {
             ListarProvees();
         });
         
-        JButton BuscarProveeBtn = new JButton("Buscar relación por ID");
+        JButton BuscarProveeBtn = new JButton("Buscar pedido por ID");
         BuscarProveeBtn.setBounds(100, 150, 200, 50);
         BuscarProveeBtn.setFont(new Font("Roboto", Font.BOLD, 14));
         BuscarProveeBtn.setBackground(new Color(0, 123, 255));
@@ -59,7 +59,7 @@ public class MenuProvee extends JFrame {
             BuscarProvee();
         });
         
-        JButton AñadirProveeBtn = new JButton("Añadir nueva relación");
+        JButton AñadirProveeBtn = new JButton("Añadir nuevo pedido");
         AñadirProveeBtn.setBounds(100, 200, 200, 50);
         AñadirProveeBtn.setFont(new Font("Roboto", Font.BOLD, 14));
         AñadirProveeBtn.setBackground(new Color(76, 175, 80));
@@ -70,7 +70,7 @@ public class MenuProvee extends JFrame {
             AñadirProvee();
         });
 
-        JButton ActualizarProveeBtn = new JButton("Actualizar relación");
+        JButton ActualizarProveeBtn = new JButton("Actualizar pedido");
         ActualizarProveeBtn.setBounds(100, 250, 200, 50);
         ActualizarProveeBtn.setFont(new Font("Roboto", Font.BOLD, 14));
         ActualizarProveeBtn.setBackground(new Color(0, 123, 255));
@@ -81,7 +81,7 @@ public class MenuProvee extends JFrame {
             ActualizarProvee();
         });
         
-        JButton EliminarProveeBtn = new JButton("Eliminar relación");
+        JButton EliminarProveeBtn = new JButton("Eliminar pedido");
         EliminarProveeBtn.setBounds(100, 300, 200, 50);
         EliminarProveeBtn.setFont(new Font("Roboto", Font.BOLD, 14));
         EliminarProveeBtn.setBackground(new Color(0, 123, 255));
@@ -108,14 +108,14 @@ public class MenuProvee extends JFrame {
 
     private void ListarProvees()
     {
-      JFrame frame = new JFrame("Listar Provisiones");
+      JFrame frame = new JFrame("Listar Pedidos");
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
-      JLabel Title = new JLabel("\n=== LISTA DE PROVISIONES ===");
+      JLabel Title = new JLabel("\n=== LISTA DE PEDIDOS ===");
       Title.setBounds(300, 10, 200, 50);
       Title.setFont(new Font("Roboto", Font.BOLD, 14));
       Title.setForeground(new Color(46, 46, 46));
@@ -150,7 +150,7 @@ public class MenuProvee extends JFrame {
               }
               else
               {
-                  JLabel noProveesLabel = new JLabel("No hay provisiones registradas en el sistema");
+                  JLabel noProveesLabel = new JLabel("No hay pedidos registrados en el sistema");
                   noProveesLabel.setBounds(300, 200, 300, 30);
                   noProveesLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
                   frame.add(noProveesLabel);
@@ -158,7 +158,7 @@ public class MenuProvee extends JFrame {
           }
           catch(Exception e)
           {
-              System.err.println("Error al obtener las provisiones: " + e.getMessage());
+              System.err.println("Error al obtener los pedidos: " + e.getMessage());
           } 
       }
       else
@@ -180,14 +180,14 @@ public class MenuProvee extends JFrame {
   
     private void BuscarProvee()
     {
-      JFrame frame = new JFrame("Buscar Provisión");
+      JFrame frame = new JFrame("Buscar Pedido");
       frame.setLayout(null);
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
-      JLabel Title = new JLabel("\n=== BUSCAR PROVISIÓN ===");
+      JLabel Title = new JLabel("\n=== BUSCAR PEDIDO ===");
       Title.setBounds(300, 10, 200, 50);
       Title.setFont(new Font("Roboto", Font.BOLD, 14));
       Title.setForeground(new Color(46, 46, 46));
@@ -196,7 +196,7 @@ public class MenuProvee extends JFrame {
       {
           try
           {
-            JLabel idLabel = new JLabel("Introduce el ID de la provisión:");
+            JLabel idLabel = new JLabel("Introduce el ID del pedido:");
             idLabel.setBounds(100, 100, 200, 30);
             idLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
             frame.add(idLabel);
@@ -234,19 +234,19 @@ public class MenuProvee extends JFrame {
                     try
                     {
                         long id = Long.parseLong(input);
-                        statusLabel.setText("Buscando provisión...");
-                        
+                        statusLabel.setText("Buscando pedido...");
+
                         Provee provee = proveeController.findById(id);
                         if(provee!=null)
                         {
-                            statusLabel.setText("Provisión encontrada:");
+                            statusLabel.setText("Pedido encontrado:");
                             proveeTextArea.setText(provee.toString());
                             proveeTextArea.setVisible(true);
                             frame.repaint();
                         }
                         else
                         {
-                            statusLabel.setText("Provisión no encontrada");
+                            statusLabel.setText("Pedido no encontrado");
                             proveeTextArea.setVisible(false);
                             frame.repaint();
                         }
@@ -273,7 +273,7 @@ public class MenuProvee extends JFrame {
           }
           catch(Exception e)
           {
-              System.err.println("Error al buscar la provisión: " + e.getMessage());
+              System.err.println("Error al buscar el pedido: " + e.getMessage());
           }
       }
       else
@@ -284,14 +284,14 @@ public class MenuProvee extends JFrame {
   
     private void AñadirProvee()
     {
-      JFrame frame = new JFrame("Añadir Provisión");
+      JFrame frame = new JFrame("Añadir Pedido");
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
   
-      JLabel Title = new JLabel("\n=== AÑADIR NUEVA PROVISIÓN ===");
+      JLabel Title = new JLabel("\n=== AÑADIR NUEVO PEDIDO ===");
       Title.setBounds(300, 10, 300, 50);
       Title.setFont(new Font("Roboto", Font.BOLD, 14));
       Title.setForeground(new Color(46, 46, 46));
@@ -541,7 +541,7 @@ public class MenuProvee extends JFrame {
                           
                           proveeController.save(provee);
                           
-                          statusLabel.setText("Provisión guardada correctamente");
+                          statusLabel.setText("Pedido guardado correctamente");
                           
                           proveedorTextField.setText("");
                           productoTextField.setText("");
@@ -550,7 +550,7 @@ public class MenuProvee extends JFrame {
                           fechaTextField.setText("");
                           
                       } catch (Exception ex) {
-                          statusLabel.setText("Error al guardar la provisión: " + ex.getMessage());
+                          statusLabel.setText("Error al guardar el pedido: " + ex.getMessage());
                       }
                   }
               });
@@ -589,14 +589,14 @@ public class MenuProvee extends JFrame {
   
     private void ActualizarProvee()
     {
-      JFrame frame = new JFrame("Actualizar Provisión");
+      JFrame frame = new JFrame("Actualizar Pedido");
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
   
-      JLabel Title = new JLabel("\n=== ACTUALIZAR PROVISIÓN ===");
+      JLabel Title = new JLabel("\n=== ACTUALIZAR PEDIDO ===");
       Title.setBounds(300, 10, 300, 50);
       Title.setFont(new Font("Roboto", Font.BOLD, 14));
       Title.setForeground(new Color(46, 46, 46));
@@ -606,7 +606,7 @@ public class MenuProvee extends JFrame {
       {
           try
           {
-              JLabel idLabel = new JLabel("ID de la provisión a actualizar:");
+              JLabel idLabel = new JLabel("ID del pedido a actualizar:");
               idLabel.setBounds(100, 70, 200, 30);
               frame.add(idLabel);
               
@@ -614,7 +614,7 @@ public class MenuProvee extends JFrame {
               idTextField.setBounds(300, 70, 200, 30);
               frame.add(idTextField);
               
-              final JButton buscarButton = new JButton("Buscar Provisión");
+              final JButton buscarButton = new JButton("Buscar Pedido");
               buscarButton.setBounds(520, 70, 150, 30);
               buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
               buscarButton.setBackground(new Color(0, 123, 255));
@@ -781,7 +781,7 @@ public class MenuProvee extends JFrame {
                           String input = idTextField.getText();
                           long id = Long.parseLong(input);
                           
-                          statusLabel.setText("Buscando provisión...");
+                          statusLabel.setText("Buscando pedido...");
                           
                           Provee provee = proveeController.findById(id);
                           if (provee != null) {
@@ -794,7 +794,7 @@ public class MenuProvee extends JFrame {
                               fechaTextField.setText(provee.getFecha_Provision() != null ? 
                                   provee.getFecha_Provision().toString() : "");
                               
-                              statusLabel.setText("Provisión encontrada. Modifique los campos o manten los mismos valores (o deje en blanco).");
+                              statusLabel.setText("Pedido encontrado. Modifique los campos o manten los mismos valores (o deje en blanco).");
                               
                               proveedorTextField.setEnabled(true);
                               productoTextField.setEnabled(true);
@@ -805,7 +805,7 @@ public class MenuProvee extends JFrame {
                               verProductosButton.setEnabled(true);
                               guardarButton.setEnabled(true);
                           } else {
-                              statusLabel.setText("No se encontró una provisión con el ID: " + id);
+                              statusLabel.setText("No se encontró un pedido con el ID: " + id);
                               
                               proveedorTextField.setEnabled(false);
                               productoTextField.setEnabled(false);
@@ -819,7 +819,7 @@ public class MenuProvee extends JFrame {
                       } catch (NumberFormatException nfe) {
                           statusLabel.setText("ID inválido. Introduce un número válido.");
                       } catch (Exception ex) {
-                          statusLabel.setText("Error al buscar la provisión: " + ex.getMessage());
+                          statusLabel.setText("Error al buscar el pedido: " + ex.getMessage());
                       }
                   }
               });
@@ -868,14 +868,14 @@ public class MenuProvee extends JFrame {
                           
                           proveeController.save(provee);
                           
-                          statusLabel.setText("Provisión actualizada correctamente");
+                          statusLabel.setText("Pedido actualizado correctamente");
                           
                       } catch (NumberFormatException nfe) {
                           statusLabel.setText("Error: Asegúrate de que los IDs, cantidad y precio son valores numéricos");
                       } catch (DateTimeParseException dtpe) {
                           statusLabel.setText("Error: El formato de fecha debe ser YYYY-MM-DD");
                       } catch (Exception ex) {
-                          statusLabel.setText("Error al actualizar la provisión: " + ex.getMessage());
+                          statusLabel.setText("Error al actualizar el pedido: " + ex.getMessage());
                       }
                   }
               });
@@ -914,14 +914,14 @@ public class MenuProvee extends JFrame {
   
     private void EliminarProvee()
     {
-      JFrame frame = new JFrame("Eliminar Provisión");
+      JFrame frame = new JFrame("Eliminar Pedido");
       frame.setSize(800, 600);
       frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
   
-      JLabel Title = new JLabel("\n=== ELIMINAR PROVISIÓN ===");
+      JLabel Title = new JLabel("\n=== ELIMINAR PEDIDO ===");
       Title.setBounds(300, 10, 300, 50);
       Title.setFont(new Font("Roboto", Font.BOLD, 14));
       Title.setForeground(new Color(46, 46, 46));
@@ -931,7 +931,7 @@ public class MenuProvee extends JFrame {
       {
           try
           {
-              JLabel idLabel = new JLabel("ID de la provisión a eliminar:");
+              JLabel idLabel = new JLabel("ID del pedido a eliminar:");
               idLabel.setBounds(100, 100, 200, 30);
               frame.add(idLabel);
               
@@ -939,7 +939,7 @@ public class MenuProvee extends JFrame {
               idTextField.setBounds(300, 100, 200, 30);
               frame.add(idTextField);
               
-              final JLabel infoLabel = new JLabel("Información de la provisión:");
+              final JLabel infoLabel = new JLabel("Información del pedido:");
               infoLabel.setBounds(100, 150, 500, 30);
               frame.add(infoLabel);
               
@@ -954,14 +954,14 @@ public class MenuProvee extends JFrame {
               statusLabel.setBounds(100, 350, 600, 30);
               frame.add(statusLabel);
               
-              final JButton buscarButton = new JButton("Buscar Provisión");
+              final JButton buscarButton = new JButton("Buscar Pedido");
               buscarButton.setBounds(550, 100, 150, 30);
               buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
               buscarButton.setBackground(new Color(0, 123, 255));
               buscarButton.setForeground(Color.WHITE);
               frame.add(buscarButton);
               
-              final JButton eliminarButton = new JButton("Eliminar Provisión");
+              final JButton eliminarButton = new JButton("Eliminar Pedido");
               eliminarButton.setBounds(200, 400, 200, 30);
               eliminarButton.setEnabled(false);
               eliminarButton.setFont(new Font("Roboto", Font.BOLD, 14));
@@ -994,13 +994,13 @@ public class MenuProvee extends JFrame {
                               proveeId[0] = provee.getID_Provee();
                               proveeInfo.setText(provee.toString());
                               eliminarButton.setEnabled(true);
-                              statusLabel.setText("Provisión encontrada. Pulse 'Eliminar Provisión' para confirmar.");
+                              statusLabel.setText("Pedido encontrado. Pulse 'Eliminar Pedido' para confirmar.");
                           } 
                           else 
                           {
                               proveeInfo.setText("");
                               eliminarButton.setEnabled(false);
-                              statusLabel.setText("No se encontró una provisión con el ID: " + id);
+                              statusLabel.setText("No se encontró un pedido con el ID: " + id);
                           }
                       } 
                       catch (NumberFormatException nfe) 
@@ -1031,12 +1031,12 @@ public class MenuProvee extends JFrame {
                               proveeInfo.setText("");
                               idTextField.setText("");
                               eliminarButton.setEnabled(false);
-                              statusLabel.setText("Provisión eliminada correctamente.");
+                              statusLabel.setText("Pedido eliminado correctamente.");
                           }
                       } 
                       catch (Exception ex) 
                       {
-                          statusLabel.setText("Error al eliminar la provisión: " + ex.getMessage());
+                          statusLabel.setText("Error al eliminar el pedido: " + ex.getMessage());
                       }
                   }
               });
@@ -1053,7 +1053,7 @@ public class MenuProvee extends JFrame {
           }
           catch(Exception e)
           {
-              System.err.println("Error al eliminar la provisión: " + e.getMessage());
+              System.err.println("Error al eliminar el pedido: " + e.getMessage());
           }
       }
       else

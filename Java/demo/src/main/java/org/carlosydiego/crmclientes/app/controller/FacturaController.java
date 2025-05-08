@@ -211,33 +211,62 @@ public class FacturaController implements FacturaRepository<Factura>
                     "Canal_Compra, Cantidad, Fecha_Venta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS))
             {
-                ps.setString(1, factura.getPagado());
-                ps.setLong(2, factura.getEmpleado().getID_Empleado());
-                ps.setLong(3, factura.getCliente().getID_Cliente());
-                ps.setLong(4, factura.getProducto().getID_Producto());
-                ps.setDouble(5, factura.getTotal());
-                ps.setString(6, factura.getCanal_Compra());
-                ps.setInt(7, factura.getCantidad());
-                ps.setDate(8, Date.valueOf(factura.getFecha_Venta()));
+                // Obtener el producto actual y verificar stock
+                String queryProducto = "SELECT * FROM producto WHERE id_producto = ?";
+                try (PreparedStatement psProducto = connection.prepareStatement(queryProducto)) {
+                    psProducto.setLong(1, factura.getProducto().getID_Producto());
+                    try (ResultSet rsProducto = psProducto.executeQuery()) {
+                        if (rsProducto.next()) {
+                            int stockActual = rsProducto.getInt("stock");
+                            int cantidadVendida = factura.getCantidad();
+                            
+                            // Verificar que hay suficiente stock (ahora retornamos un mensaje en lugar de lanzar excepción)
+                            if (stockActual < cantidadVendida) {
+                                throw new RuntimeException("No hay suficiente stock disponible. Stock actual: " + stockActual);
+                            }
+                            
+                            // Continuar con la inserción de la factura
+                            ps.setString(1, factura.getPagado());
+                            ps.setLong(2, factura.getEmpleado().getID_Empleado());
+                            ps.setLong(3, factura.getCliente().getID_Cliente());
+                            ps.setLong(4, factura.getProducto().getID_Producto());
+                            ps.setDouble(5, factura.getTotal());
+                            ps.setString(6, factura.getCanal_Compra());
+                            ps.setInt(7, factura.getCantidad());
+                            ps.setDate(8, Date.valueOf(factura.getFecha_Venta()));
 
-                int filasAfectadas = ps.executeUpdate();
-                if (filasAfectadas == 0)
-                {
-                    return;
-                }
+                            int filasAfectadas = ps.executeUpdate();
+                            if (filasAfectadas == 0)
+                            {
+                                return;
+                            }
 
-                try (ResultSet generatedKeys = ps.getGeneratedKeys())
-                {
-                    if (generatedKeys.next())
-                    {
-                        factura.setID_Factura(generatedKeys.getLong(1));
+                            try (ResultSet generatedKeys = ps.getGeneratedKeys())
+                            {
+                                if (generatedKeys.next())
+                                {
+                                    factura.setID_Factura(generatedKeys.getLong(1));
+                                    
+                                    // Actualizar el stock del producto
+                                    String updateProducto = "UPDATE producto SET stock = ? WHERE id_producto = ?";
+                                    try (PreparedStatement psUpdate = connection.prepareStatement(updateProducto)) {
+                                        int nuevoStock = stockActual - cantidadVendida;
+                                        psUpdate.setInt(1, nuevoStock);
+                                        psUpdate.setLong(2, factura.getProducto().getID_Producto());
+                                        psUpdate.executeUpdate();
+                                    }
+                                }
+                            }
+                        } else {
+                            throw new RuntimeException("El producto con ID " + factura.getProducto().getID_Producto() + " no existe");
+                        }
                     }
                 }
             }
             catch (SQLException e)
             {
                 System.err.println("Error al guardar la factura: " + e.getMessage());
-                e.printStackTrace();
+                throw new RuntimeException("Error en la base de datos: " + e.getMessage());
             }
         }
         else
@@ -246,28 +275,95 @@ public class FacturaController implements FacturaRepository<Factura>
                     "Total = ?, Canal_Compra = ?, Cantidad = ?, Fecha_Venta = ? WHERE ID_Factura = ?";
             try (PreparedStatement ps = connection.prepareStatement(query))
             {
-                ps.setString(1, factura.getPagado());
-                ps.setLong(2, factura.getEmpleado().getID_Empleado());
-                ps.setLong(3, factura.getCliente().getID_Cliente());
-                ps.setLong(4, factura.getProducto().getID_Producto());
-                ps.setDouble(5, factura.getTotal());
-                ps.setString(6, factura.getCanal_Compra());
-                ps.setInt(7, factura.getCantidad());
-                ps.setDate(8, Date.valueOf(factura.getFecha_Venta()));
-                ps.setLong(9, factura.getID_Factura());
+                // Primero obtenemos la factura original para saber la cantidad anterior
+                Factura facturaOriginal = findById(factura.getID_Factura());
+                if (facturaOriginal != null) {
+                    Long productoOriginalId = facturaOriginal.getProducto().getID_Producto();
+                    int cantidadOriginal = facturaOriginal.getCantidad();
+                    
+                    // Obtener el producto actual
+                    String queryProducto = "SELECT * FROM producto WHERE id_producto = ?";
+                    try (PreparedStatement psProducto = connection.prepareStatement(queryProducto)) {
+                        psProducto.setLong(1, factura.getProducto().getID_Producto());
+                        try (ResultSet rsProducto = psProducto.executeQuery()) {
+                            if (rsProducto.next()) {
+                                int stockActual = rsProducto.getInt("stock");
+                                
+                                // Si el producto ha cambiado o la cantidad ha cambiado, actualizamos stocks
+                                if (!productoOriginalId.equals(factura.getProducto().getID_Producto()) ||
+                                    cantidadOriginal != factura.getCantidad()) {
+                                    
+                                    // Verificar stock suficiente para el nuevo producto
+                                    if (stockActual < factura.getCantidad()) {
+                                        throw new RuntimeException("No hay suficiente stock disponible. Stock actual: " + stockActual);
+                                    }
+                                    
+                                    // Actualizar la factura
+                                    ps.setString(1, factura.getPagado());
+                                    ps.setLong(2, factura.getEmpleado().getID_Empleado());
+                                    ps.setLong(3, factura.getCliente().getID_Cliente());
+                                    ps.setLong(4, factura.getProducto().getID_Producto());
+                                    ps.setDouble(5, factura.getTotal());
+                                    ps.setString(6, factura.getCanal_Compra());
+                                    ps.setInt(7, factura.getCantidad());
+                                    ps.setDate(8, Date.valueOf(factura.getFecha_Venta()));
+                                    ps.setLong(9, factura.getID_Factura());
 
-                int filasAfectadas = ps.executeUpdate();
-                if (filasAfectadas == 0)
-                {
-                    return;
+                                    int filasAfectadas = ps.executeUpdate();
+                                    if (filasAfectadas > 0) {
+                                        // Devolver el stock al producto original si es diferente
+                                        if (!productoOriginalId.equals(factura.getProducto().getID_Producto())) {
+                                            String updateProductoOriginal = "UPDATE producto SET stock = stock + ? WHERE id_producto = ?";
+                                            try (PreparedStatement psUpdateOrig = connection.prepareStatement(updateProductoOriginal)) {
+                                                psUpdateOrig.setInt(1, cantidadOriginal);
+                                                psUpdateOrig.setLong(2, productoOriginalId);
+                                                psUpdateOrig.executeUpdate();
+                                            }
+                                            
+                                            // Restar stock al nuevo producto
+                                            String updateProductoNuevo = "UPDATE producto SET stock = stock - ? WHERE id_producto = ?";
+                                            try (PreparedStatement psUpdateNuevo = connection.prepareStatement(updateProductoNuevo)) {
+                                                psUpdateNuevo.setInt(1, factura.getCantidad());
+                                                psUpdateNuevo.setLong(2, factura.getProducto().getID_Producto());
+                                                psUpdateNuevo.executeUpdate();
+                                            }
+                                        } else if (cantidadOriginal != factura.getCantidad()) {
+                                            // Si es el mismo producto pero cantidad diferente, ajustar la diferencia
+                                            int diferencia = factura.getCantidad() - cantidadOriginal;
+                                            String updateProducto = "UPDATE producto SET stock = stock - ? WHERE id_producto = ?";
+                                            try (PreparedStatement psUpdate = connection.prepareStatement(updateProducto)) {
+                                                psUpdate.setInt(1, diferencia);
+                                                psUpdate.setLong(2, factura.getProducto().getID_Producto());
+                                                psUpdate.executeUpdate();
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    // Si no hay cambios en producto o cantidad, solo actualizar la factura
+                                    ps.setString(1, factura.getPagado());
+                                    ps.setLong(2, factura.getEmpleado().getID_Empleado());
+                                    ps.setLong(3, factura.getCliente().getID_Cliente());
+                                    ps.setLong(4, factura.getProducto().getID_Producto());
+                                    ps.setDouble(5, factura.getTotal());
+                                    ps.setString(6, factura.getCanal_Compra());
+                                    ps.setInt(7, factura.getCantidad());
+                                    ps.setDate(8, Date.valueOf(factura.getFecha_Venta()));
+                                    ps.setLong(9, factura.getID_Factura());
+                                    ps.executeUpdate();
+                                }
+                            } else {
+                                throw new RuntimeException("El producto con ID " + factura.getProducto().getID_Producto() + " no existe");
+                            }
+                        }
+                    }
+                } else {
+                    throw new RuntimeException("No se encontró la factura original con ID " + factura.getID_Factura());
                 }
-                
-                // Ya no generamos automáticamente el archivo de factura
             }
             catch (SQLException e)
             {
                 System.err.println("Error al actualizar la factura: " + e.getMessage());
-                e.printStackTrace();
+                throw new RuntimeException("Error en la base de datos: " + e.getMessage());
             }
         }
     }

@@ -12,9 +12,10 @@ import org.carlosydiego.crmclientes.app.model.Factura;
 
 
 public class FacturaFileManager {
-    
+    //Nombre del directorio para guardar las facturas
     private static final String FACTURAS_DIRECTORY = "facturas";
-    
+
+    //Crear el directorio si no existe
     static {
         File directory = new File(FACTURAS_DIRECTORY);
         if (!directory.exists()) {
@@ -23,24 +24,26 @@ public class FacturaFileManager {
     }
     
 
-
+    //Comprobar si el archivo existe
     public static boolean existeArchivoFactura(Long facturaId) {
         String filePath = getFacturaFilePath(facturaId);
         File file = new File(filePath);
         return file.exists();
     }
-    
+
+    //Obtener la ruta absoluta del archivo
     public static String getFacturaRutaAbsoluta(Long facturaId) {
         String filePath = getFacturaFilePath(facturaId);
         File file = new File(filePath);
         return file.getAbsolutePath();
     }
 
+    //Generar el archivo de factura (sin sobreescribir)
     public static String generarArchivoFactura(Factura factura) {
         return generarArchivoFactura(factura, false);
     }
     
-
+    //Metodo para generar el archivo de factura (Si forzarGeneracion es true, se sobreescribe)
     public static String generarArchivoFactura(Factura factura, boolean forzarGeneracion) {
         String filePath = getFacturaFilePath(factura.getID_Factura());
         File file = new File(filePath);
@@ -109,7 +112,7 @@ public class FacturaFileManager {
         }
     }
     
-
+    //Eliminar el archivo de factura
     public static String eliminarArchivoFactura(Long facturaId) {
         String filePath = getFacturaFilePath(facturaId);
         File file = new File(filePath);
@@ -124,6 +127,8 @@ public class FacturaFileManager {
             return null;
         }
     }
+
+    //Obtener la ruta del archivo de factura
     private static String getFacturaFilePath(Long facturaId) {
         return FACTURAS_DIRECTORY + File.separator + "factura_" + facturaId + ".txt";
     }

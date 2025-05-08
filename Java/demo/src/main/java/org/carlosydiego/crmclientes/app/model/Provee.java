@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Provee 
 {
+    //Atributos de la clase Provee
     private Long ID_Provee;
     private Proveedor proveedor;
     private Producto producto;
@@ -11,7 +12,10 @@ public class Provee
     private Integer Cantidad;
     private Double Precio;
 
+    //Constructor por defecto
     public Provee(){}
+
+    //Constructor con todos los atributos
     public Provee(Long ID_Provee, Proveedor proveedor, Producto producto, LocalDate Fecha_Provision, Integer Cantidad, Double Precio) 
     {
         this.ID_Provee = ID_Provee;
@@ -22,30 +26,57 @@ public class Provee
         this.Precio = Precio;
     }
 
-    public Long getID_Provee() {return ID_Provee;}   
+    //Getters y setters
 
-    public void setID_Provee(Long ID_Provee) {this.ID_Provee = ID_Provee;}
+    public Long getID_Provee() {
+        return ID_Provee;
+    }
 
-    public Proveedor getProveedor() {return proveedor;}
+    public void setID_Provee(Long iD_Provee) {
+        ID_Provee = iD_Provee;
+    }
 
-    public void setProveedor(Proveedor proveedor) {this.proveedor = proveedor;}
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
 
-    public Producto getProducto() {return producto;}
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
 
-    public void setProducto(Producto producto) {this.producto = producto;}
+    public Producto getProducto() {
+        return producto;
+    }
 
-    public LocalDate getFecha_Provision() {return Fecha_Provision;}
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
 
-    public void setFecha_Provision(LocalDate Fecha_Provision) {this.Fecha_Provision = Fecha_Provision;}
+    public LocalDate getFecha_Provision() {
+        return Fecha_Provision;
+    }
 
-    public Integer getCantidad() {return Cantidad;}
+    public void setFecha_Provision(LocalDate fecha_Provision) {
+        Fecha_Provision = fecha_Provision;
+    }
 
-    public void setCantidad(Integer Cantidad) {this.Cantidad = Cantidad;}
+    public Integer getCantidad() {
+        return Cantidad;
+    }
 
-    public Double getPrecio() {return Precio;}
+    public void setCantidad(Integer cantidad) {
+        Cantidad = cantidad;
+    }
 
-    public void setPrecio(Double Precio) {this.Precio = Precio;}
+    public Double getPrecio() {
+        return Precio;
+    }
 
+    public void setPrecio(Double precio) {
+        Precio = precio;
+    }
+
+    //Metodo toString
     @Override
     public String toString() 
     {
@@ -56,4 +87,5 @@ public class Provee
                "Cantidad: " + Cantidad + "\n" +
                "Precio: " + Precio;
     }
+
 }

@@ -6,17 +6,17 @@ import java.sql.SQLException;
 
 public class DatabaseConnection 
 {
-     private static String db = "jdbc:mysql://localhost:3306/proyectojava";
+    //Datos para la conexión a la base de datos
+    private static String db = "jdbc:mysql://localhost:3306/proyectojava";
     private static String user = "root";
     private static String passw = "1234";
 
     private static Connection connection;
 
-    private DatabaseConnection()
-    {
-        // Constructor privado para evitar instanciación.
-    }
+    //Constructor privado 
+    private DatabaseConnection(){}
 
+    //Método para hacer la conexión a la base de datos
     public static Connection getInstance() throws SQLException
     {
 
