@@ -264,6 +264,7 @@ public class MenuCliente extends JFrame {
             buscarButton.setForeground(Color.WHITE);
             gbc.gridx = 0;
             gbc.gridy = 5;
+            gbc.gridwidth = 1;
             frame.add(buscarButton, gbc);
             
             JButton volverButton = new JButton("Volver");
@@ -272,6 +273,7 @@ public class MenuCliente extends JFrame {
             volverButton.setBackground(new Color(0, 123, 255));
             volverButton.setForeground(Color.WHITE);
             gbc.gridx = 1;
+            gbc.gridy = 5;
             frame.add(volverButton, gbc);
             
             buscarButton.addActionListener(new ActionListener() {
