@@ -117,69 +117,99 @@ public class MenuProveedor extends JFrame {
     private void ListarProveedores()
     {
       JFrame frame = new JFrame("Listar Proveedores");
-      frame.setLayout(null);
+      frame.setLayout(new GridBagLayout());
       frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
       frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
-  
-      JLabel Title = new JLabel("\n=== LISTA DE PROVEEDORES ===");
-      Title.setBounds(300, 10, 200, 50);
-      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      int buttonWidth = (int) (screenSize.width * 0.18);
+      int buttonHeight = (int) (screenSize.height * 0.06);
+      int textAreaWidth = (int) (screenSize.width * 0.7);
+      int textAreaHeight = (int) (screenSize.height * 0.6);
+      int fontSize = (int) (screenSize.height * 0.022);
+
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridx = 0;
+      gbc.gridy = 0;
+      gbc.fill = GridBagConstraints.HORIZONTAL;
+      gbc.insets = new Insets(10, 0, 10, 0);
+
+      JLabel Title = new JLabel("=== LISTA DE PROVEEDORES ===");
+      Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
       Title.setForeground(new Color(46, 46, 46));
-      frame.add(Title);
+      Title.setHorizontalAlignment(SwingConstants.CENTER);
+      gbc.gridwidth = 2;
+      frame.add(Title, gbc);
   
       if(proveedorController!=null)
       {
           try
           {
               List<Proveedor> proveedores = proveedorController.findAll();
-              if(proveedores!=null)
+              if(proveedores!=null && !proveedores.isEmpty())
               {
-                  JPanel panelProveedores = new JPanel();
-                  panelProveedores.setLayout(null);
+                  JTextArea proveedoresTextArea = new JTextArea();
+                  proveedoresTextArea.setEditable(false);
+                  proveedoresTextArea.setFont(new Font("Monospaced", Font.PLAIN, fontSize - 2));
                   
-                  JScrollPane scrollPane = new JScrollPane(panelProveedores);
-                  scrollPane.setBounds(50, 70, 700, 400);
-                  frame.add(scrollPane);
-                  
-                  panelProveedores.setPreferredSize(new Dimension(680, Math.max(380, proveedores.size() * 150)));
-                  
-                  for(int i = 0; i < proveedores.size(); i++)
-                  {
-                      JTextArea proveedorTextArea = new JTextArea(proveedores.get(i).toString());
-                      proveedorTextArea.setBounds(50, 10 + i * 150, 600, 150);
-                      proveedorTextArea.setEditable(false);
-                      proveedorTextArea.setBackground(new Color(240, 240, 240));
-                      proveedorTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-                      proveedorTextArea.setFont(new Font("Roboto", Font.PLAIN, 12));
-                      panelProveedores.add(proveedorTextArea);
+                  StringBuilder sb = new StringBuilder();
+                  for (Proveedor proveedor : proveedores) {
+                      sb.append("ID: ").append(proveedor.getID_Proveedor()).append("\n");
+                      sb.append("CIF: ").append(proveedor.getCIF()).append("\n");
+                      sb.append("Empresa: ").append(proveedor.getNombre()).append("\n");
+                      sb.append("Responsable: ").append(proveedor.getNombre_Responsable()).append("\n");
+                      sb.append("País: ").append(proveedor.getPais()).append("\n");
+                      sb.append("Provincia: ").append(proveedor.getProvincia()).append("\n");
+                      sb.append("Dirección: ").append(proveedor.getDireccion()).append("\n");
+                      sb.append("Email: ").append(proveedor.getEmail()).append("\n");
+                      sb.append("Teléfono: ").append(proveedor.getTelefono()).append("\n");
+                      sb.append("Código Postal: ").append(proveedor.getCodigo_Postal()).append("\n");
+                      sb.append("------------------------------------------\n");
                   }
+                  proveedoresTextArea.setText(sb.toString());
+                  
+                  JScrollPane scrollPane = new JScrollPane(proveedoresTextArea);
+                  scrollPane.setPreferredSize(new Dimension(textAreaWidth, textAreaHeight));
+                  gbc.gridy = 1;
+                  frame.add(scrollPane, gbc);
               }
               else
               {
                   JLabel noProveedoresLabel = new JLabel("No hay proveedores registrados en el sistema");
-                  noProveedoresLabel.setBounds(300, 200, 300, 30);
-                  noProveedoresLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-                  frame.add(noProveedoresLabel);
+                  noProveedoresLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+                  noProveedoresLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                  gbc.gridy = 1;
+                  frame.add(noProveedoresLabel, gbc);
               }
           }
           catch(Exception e)
           {
               System.err.println("Error al obtener los proveedores: " + e.getMessage());
+              JLabel errorLabel = new JLabel("Error al obtener proveedores: " + e.getMessage());
+              errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+              gbc.gridy = 1;
+              frame.add(errorLabel, gbc);
           } 
       }
       else
       {
-          System.out.println("Error: No hay conexión a la base de datos");
+          JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
+          errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+          errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+          gbc.gridy = 1;
+          frame.add(errorLabel, gbc);
       }
   
       JButton volverButton = new JButton("Volver");
-      volverButton.setBounds(300, 500, 200, 30);
-      volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+      volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+      volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
       volverButton.setBackground(new Color(0, 123, 255));
       volverButton.setForeground(Color.WHITE);
-      frame.add(volverButton);
+      gbc.gridy = 2;
+      frame.add(volverButton, gbc);
       volverButton.addActionListener(e -> {
           frame.dispose();
           new MenuProveedor(proveedorController);
@@ -189,52 +219,83 @@ public class MenuProveedor extends JFrame {
     private void BuscarProveedor()
     {
       JFrame frame = new JFrame("Buscar Proveedor");
-      frame.setLayout(null);
+      frame.setLayout(new GridBagLayout());
       frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
       frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
+
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      int buttonWidth = (int) (screenSize.width * 0.18);
+      int buttonHeight = (int) (screenSize.height * 0.06);
+      int textFieldWidth = (int) (screenSize.width * 0.2);
+      int labelWidth = (int) (screenSize.width * 0.15);
+      int textAreaWidth = (int) (screenSize.width * 0.6);
+      int textAreaHeight = (int) (screenSize.height * 0.4);
+      int fontSize = (int) (screenSize.height * 0.022);
+
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.insets = new Insets(10, 10, 10, 10);
   
-      JLabel Title = new JLabel("\n=== BUSCAR PROVEEDOR ===");
-      Title.setBounds(300, 10, 200, 50);
-      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      JLabel Title = new JLabel("=== BUSCAR PROVEEDOR ===");
+      Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
       Title.setForeground(new Color(46, 46, 46));
-      frame.add(Title);
+      Title.setHorizontalAlignment(SwingConstants.CENTER);
+      gbc.gridx = 0;
+      gbc.gridy = 0;
+      gbc.gridwidth = 3;
+      gbc.fill = GridBagConstraints.HORIZONTAL;
+      frame.add(Title, gbc);
   
       if(proveedorController!=null)
       {
           try
           {
               JLabel idLabel = new JLabel("ID del proveedor:");
-              idLabel.setBounds(100, 100, 150, 30);
-              idLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(idLabel);
+              idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 1;
+              gbc.gridwidth = 1;
+              gbc.fill = GridBagConstraints.HORIZONTAL;
+              frame.add(idLabel, gbc);
   
               JTextField idTextField = new JTextField(10);
-              idTextField.setBounds(260, 100, 200, 30);
-              idTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(idTextField);
+              idTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              idTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight));
+              gbc.gridx = 1;
+              gbc.gridy = 1;
+              frame.add(idTextField, gbc);
               
               JButton buscarButton = new JButton("Buscar");
-              buscarButton.setBounds(480, 100, 100, 30);
-              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, fontSize - 4));
               buscarButton.setBackground(new Color(0, 123, 255));
               buscarButton.setForeground(Color.WHITE);
-              frame.add(buscarButton);
+              buscarButton.setPreferredSize(new Dimension(buttonWidth / 2, buttonHeight));
+              gbc.gridx = 2;
+              gbc.gridy = 1;
+              frame.add(buscarButton, gbc);
               
               final JLabel statusLabel = new JLabel("");
-              statusLabel.setBounds(100, 150, 600, 30);
-              statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(statusLabel);
+              statusLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 2;
+              gbc.gridwidth = 3;
+              frame.add(statusLabel, gbc);
               
               final JTextArea proveedorTextArea = new JTextArea();
-              proveedorTextArea.setBounds(100, 190, 600, 200);
               proveedorTextArea.setEditable(false);
               proveedorTextArea.setBackground(new Color(240, 240, 240));
               proveedorTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-              proveedorTextArea.setFont(new Font("Roboto", Font.PLAIN, 12));
+              proveedorTextArea.setFont(new Font("Monospaced", Font.PLAIN, fontSize - 4));
               proveedorTextArea.setVisible(false);
-              frame.add(proveedorTextArea);
+              
+              JScrollPane scrollPane = new JScrollPane(proveedorTextArea);
+              scrollPane.setPreferredSize(new Dimension(textAreaWidth, textAreaHeight));
+              gbc.gridx = 0;
+              gbc.gridy = 3;
+              gbc.gridwidth = 3;
+              gbc.fill = GridBagConstraints.BOTH;
+              frame.add(scrollPane, gbc);
               
               buscarButton.addActionListener(e -> {
                   String input = idTextField.getText();
@@ -247,31 +308,50 @@ public class MenuProveedor extends JFrame {
                       if(proveedor != null)
                       {
                           statusLabel.setText("Proveedor encontrado:");
-                          proveedorTextArea.setText(proveedor.toString());
+                          
+                          StringBuilder sb = new StringBuilder();
+                          sb.append("ID: ").append(proveedor.getID_Proveedor()).append("\n");
+                          sb.append("CIF: ").append(proveedor.getCIF()).append("\n");
+                          sb.append("Empresa: ").append(proveedor.getNombre()).append("\n");
+                          sb.append("Responsable: ").append(proveedor.getNombre_Responsable()).append("\n");
+                          sb.append("País: ").append(proveedor.getPais()).append("\n");
+                          sb.append("Provincia: ").append(proveedor.getProvincia()).append("\n");
+                          sb.append("Dirección: ").append(proveedor.getDireccion()).append("\n");
+                          sb.append("Email: ").append(proveedor.getEmail()).append("\n");
+                          sb.append("Teléfono: ").append(proveedor.getTelefono()).append("\n");
+                          sb.append("Código Postal: ").append(proveedor.getCodigo_Postal()).append("\n");
+                          
+                          proveedorTextArea.setText(sb.toString());
                           proveedorTextArea.setVisible(true);
-                          frame.repaint();
+                          scrollPane.setVisible(true);
                       }
                       else
                       {
                           statusLabel.setText("Proveedor no encontrado");
                           proveedorTextArea.setVisible(false);
-                          frame.repaint();
+                          scrollPane.setVisible(false);
                       }
                   }
                   catch(NumberFormatException nfe)
                   {
                       statusLabel.setText("ID inválido. Introduce un número válido.");
                       proveedorTextArea.setVisible(false);
-                      frame.repaint();
+                      scrollPane.setVisible(false);
                   }
               });
               
               JButton volverButton = new JButton("Volver");
-              volverButton.setBounds(300, 420, 200, 30);
-              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
               volverButton.setBackground(new Color(0, 123, 255));
               volverButton.setForeground(Color.WHITE);
-              frame.add(volverButton);
+              volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              gbc.gridx = 0;
+              gbc.gridy = 4;
+              gbc.gridwidth = 3;
+              gbc.fill = GridBagConstraints.NONE;
+              gbc.anchor = GridBagConstraints.CENTER;
+              frame.add(volverButton, gbc);
+              
               volverButton.addActionListener(e -> {
                   frame.dispose();
                   new MenuProveedor(proveedorController);
@@ -280,141 +360,263 @@ public class MenuProveedor extends JFrame {
           catch(Exception e)
           {
               System.err.println("Error al buscar el proveedor: " + e.getMessage());
+              JLabel errorLabel = new JLabel("Error: " + e.getMessage());
+              errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 1;
+              gbc.gridwidth = 3;
+              frame.add(errorLabel, gbc);
+              
+              JButton volverButton = new JButton("Volver");
+              volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
+              volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              gbc.gridx = 0;
+              gbc.gridy = 2;
+              gbc.gridwidth = 3;
+              frame.add(volverButton, gbc);
+              
+              volverButton.addActionListener(e2 -> {
+                  frame.dispose();
+                  new MenuProveedor(proveedorController);
+              });
           }
       }
       else
       {
-          System.out.println("Error: No hay conexión a la base de datos");
+          JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
+          errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+          gbc.gridx = 0;
+          gbc.gridy = 1;
+          gbc.gridwidth = 3;
+          frame.add(errorLabel, gbc);
+          
+          JButton volverButton = new JButton("Volver");
+          volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
+          volverButton.setBackground(new Color(0, 123, 255));
+          volverButton.setForeground(Color.WHITE);
+          volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+          gbc.gridx = 0;
+          gbc.gridy = 2;
+          gbc.gridwidth = 3;
+          frame.add(volverButton, gbc);
+          
+          volverButton.addActionListener(e -> {
+              frame.dispose();
+              new MenuProveedor(proveedorController);
+          });
       }
     }
   
     private void AñadirProveedor()
     {
       JFrame frame = new JFrame("Añadir Proveedor");
+      frame.setLayout(new GridBagLayout());
       frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
       frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
-      frame.setLayout(null);
+
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      int buttonWidth = (int) (screenSize.width * 0.18);
+      int buttonHeight = (int) (screenSize.height * 0.06);
+      int textFieldWidth = (int) (screenSize.width * 0.25);
+      int fontSize = (int) (screenSize.height * 0.022);
+
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.insets = new Insets(5, 10, 5, 10);
   
-      JLabel Title = new JLabel("\n=== AÑADIR NUEVO PROVEEDOR ===");
-      Title.setBounds(300, 10, 300, 50);
-      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      JLabel Title = new JLabel("=== AÑADIR NUEVO PROVEEDOR ===");
+      Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
       Title.setForeground(new Color(46, 46, 46));
-      frame.add(Title);
+      Title.setHorizontalAlignment(SwingConstants.CENTER);
+      gbc.gridx = 0;
+      gbc.gridy = 0;
+      gbc.gridwidth = 2;
+      gbc.fill = GridBagConstraints.HORIZONTAL;
+      frame.add(Title, gbc);
   
       if(proveedorController!=null)
       {
           try
           {
+              // CIF
               JLabel cifLabel = new JLabel("CIF (1 letra + 8 números):");
-              cifLabel.setBounds(100, 70, 200, 30);
-              cifLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(cifLabel);
+              cifLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 1;
+              gbc.gridwidth = 1;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(cifLabel, gbc);
               
               JTextField cifTextField = new JTextField(10);
-              cifTextField.setBounds(350, 70, 200, 30);
-              cifTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(cifTextField);
+              cifTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              cifTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
+              gbc.gridx = 1;
+              gbc.gridy = 1;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(cifTextField, gbc);
               
+              // Nombre Empresa
               JLabel nombreLabel = new JLabel("Nombre de la empresa:");
-              nombreLabel.setBounds(100, 110, 200, 30);
-              nombreLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(nombreLabel);
+              nombreLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 2;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(nombreLabel, gbc);
               
               JTextField nombreTextField = new JTextField(10);
-              nombreTextField.setBounds(350, 110, 200, 30);
-              nombreTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(nombreTextField);
+              nombreTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              nombreTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
+              gbc.gridx = 1;
+              gbc.gridy = 2;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(nombreTextField, gbc);
               
+              // Responsable
               JLabel responsableLabel = new JLabel("Nombre del responsable:");
-              responsableLabel.setBounds(100, 150, 200, 30);
-              responsableLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(responsableLabel);
+              responsableLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 3;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(responsableLabel, gbc);
               
               JTextField responsableTextField = new JTextField(10);
-              responsableTextField.setBounds(350, 150, 200, 30);
-              responsableTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(responsableTextField);
+              responsableTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              responsableTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
+              gbc.gridx = 1;
+              gbc.gridy = 3;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(responsableTextField, gbc);
               
+              // País
               JLabel paisLabel = new JLabel("País:");
-              paisLabel.setBounds(100, 190, 200, 30);
-              paisLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(paisLabel);
+              paisLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 4;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(paisLabel, gbc);
               
               JTextField paisTextField = new JTextField(10);
-              paisTextField.setBounds(350, 190, 200, 30);
-              paisTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(paisTextField);
+              paisTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              paisTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
+              gbc.gridx = 1;
+              gbc.gridy = 4;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(paisTextField, gbc);
               
+              // Provincia
               JLabel provinciaLabel = new JLabel("Provincia:");
-              provinciaLabel.setBounds(100, 230, 200, 30);
-              provinciaLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(provinciaLabel);
+              provinciaLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 5;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(provinciaLabel, gbc);
               
               JTextField provinciaTextField = new JTextField(10);
-              provinciaTextField.setBounds(350, 230, 200, 30);
-              provinciaTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(provinciaTextField);
+              provinciaTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              provinciaTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
+              gbc.gridx = 1;
+              gbc.gridy = 5;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(provinciaTextField, gbc);
               
+              // Dirección
               JLabel direccionLabel = new JLabel("Dirección:");
-              direccionLabel.setBounds(100, 270, 200, 30);
-              direccionLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(direccionLabel);
+              direccionLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 6;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(direccionLabel, gbc);
               
               JTextField direccionTextField = new JTextField(10);
-              direccionTextField.setBounds(350, 270, 200, 30);
-              direccionTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(direccionTextField);
+              direccionTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              direccionTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
+              gbc.gridx = 1;
+              gbc.gridy = 6;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(direccionTextField, gbc);
               
+              // Email
               JLabel emailLabel = new JLabel("Email:");
-              emailLabel.setBounds(100, 310, 200, 30);
-              emailLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(emailLabel);
+              emailLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 7;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(emailLabel, gbc);
               
               JTextField emailTextField = new JTextField(10);
-              emailTextField.setBounds(350, 310, 200, 30);
-              emailTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(emailTextField);
+              emailTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              emailTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
+              gbc.gridx = 1;
+              gbc.gridy = 7;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(emailTextField, gbc);
               
+              // Teléfono
               JLabel telefonoLabel = new JLabel("Teléfono (9 dígitos):");
-              telefonoLabel.setBounds(100, 350, 200, 30);
-              telefonoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(telefonoLabel);
+              telefonoLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 8;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(telefonoLabel, gbc);
               
               JTextField telefonoTextField = new JTextField(10);
-              telefonoTextField.setBounds(350, 350, 200, 30);
-              telefonoTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(telefonoTextField);
+              telefonoTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              telefonoTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
+              gbc.gridx = 1;
+              gbc.gridy = 8;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(telefonoTextField, gbc);
               
+              // Código Postal
               JLabel cpLabel = new JLabel("Código Postal (5 dígitos):");
-              cpLabel.setBounds(100, 390, 200, 30);
-              cpLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(cpLabel);
+              cpLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 9;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(cpLabel, gbc);
               
               JTextField cpTextField = new JTextField(10);
-              cpTextField.setBounds(350, 390, 200, 30);
-              cpTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(cpTextField);
+              cpTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              cpTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
+              gbc.gridx = 1;
+              gbc.gridy = 9;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(cpTextField, gbc);
               
+              // Status
               final JLabel statusLabel = new JLabel("");
-              statusLabel.setBounds(100, 430, 600, 30);
-              statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(statusLabel);
+              statusLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 10;
+              gbc.gridwidth = 2;
+              gbc.anchor = GridBagConstraints.CENTER;
+              frame.add(statusLabel, gbc);
+              
+              // Botones
+              JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
               
               JButton guardarButton = new JButton("Guardar Proveedor");
-              guardarButton.setBounds(200, 470, 200, 30);
-              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, fontSize - 2));
               guardarButton.setBackground(new Color(76, 175, 80));
               guardarButton.setForeground(Color.WHITE);
-              frame.add(guardarButton);
+              guardarButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              buttonPanel.add(guardarButton);
               
               JButton volverButton = new JButton("Volver");
-              volverButton.setBounds(420, 470, 200, 30);
-              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize - 2));
               volverButton.setBackground(new Color(0, 123, 255));
               volverButton.setForeground(Color.WHITE);
-              frame.add(volverButton);
+              volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              buttonPanel.add(volverButton);
+              
+              gbc.gridx = 0;
+              gbc.gridy = 11;
+              gbc.gridwidth = 2;
+              gbc.anchor = GridBagConstraints.CENTER;
+              frame.add(buttonPanel, gbc);
               
               guardarButton.addActionListener(e -> {
                   try {
@@ -492,20 +694,48 @@ public class MenuProveedor extends JFrame {
           catch(Exception e)
           {
               System.err.println("Error: " + e.getMessage());
+              JLabel errorLabel = new JLabel("Error: " + e.getMessage());
+              errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 1;
+              gbc.gridwidth = 2;
+              frame.add(errorLabel, gbc);
+              
+              JButton volverButton = new JButton("Volver");
+              volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
+              volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              gbc.gridx = 0;
+              gbc.gridy = 2;
+              gbc.gridwidth = 2;
+              frame.add(volverButton, gbc);
+              
+              volverButton.addActionListener(e2 -> {
+                  frame.dispose();
+                  new MenuProveedor(proveedorController);
+              });
           }
       }
       else
       {
           JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
-          errorLabel.setBounds(100, 100, 500, 30);
-          frame.add(errorLabel);
+          errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+          gbc.gridx = 0;
+          gbc.gridy = 1;
+          gbc.gridwidth = 2;
+          frame.add(errorLabel, gbc);
           
           JButton volverButton = new JButton("Volver");
-          volverButton.setBounds(300, 500, 200, 30);
-          volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+          volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
           volverButton.setBackground(new Color(0, 123, 255));
           volverButton.setForeground(Color.WHITE);
-          frame.add(volverButton);
+          volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+          gbc.gridx = 0;
+          gbc.gridy = 2;
+          gbc.gridwidth = 2;
+          frame.add(volverButton, gbc);
+          
           volverButton.addActionListener(e -> {
               frame.dispose();
               new MenuProveedor(proveedorController);
@@ -516,157 +746,243 @@ public class MenuProveedor extends JFrame {
     private void ActualizarProveedor()
     {
       JFrame frame = new JFrame("Actualizar Proveedor");
+      frame.setLayout(new GridBagLayout());
       frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
       frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
-      frame.setLayout(null);
+
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      int buttonWidth = (int) (screenSize.width * 0.18);
+      int buttonHeight = (int) (screenSize.height * 0.06);
+      int textFieldWidth = (int) (screenSize.width * 0.25);
+      int fontSize = (int) (screenSize.height * 0.022);
+
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.insets = new Insets(5, 10, 5, 10);
   
-      JLabel Title = new JLabel("\n=== ACTUALIZAR PROVEEDOR ===");
-      Title.setBounds(300, 10, 300, 50);
-      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      JLabel Title = new JLabel("=== ACTUALIZAR PROVEEDOR ===");
+      Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
       Title.setForeground(new Color(46, 46, 46));
-      frame.add(Title);
+      Title.setHorizontalAlignment(SwingConstants.CENTER);
+      gbc.gridx = 0;
+      gbc.gridy = 0;
+      gbc.gridwidth = 3;
+      gbc.fill = GridBagConstraints.HORIZONTAL;
+      frame.add(Title, gbc);
   
       if(proveedorController!=null)
       {
           try
           {
+              // Panel de búsqueda
+              JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+              
               JLabel idLabel = new JLabel("ID del proveedor a actualizar:");
-              idLabel.setBounds(100, 70, 200, 30);
-              idLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(idLabel);
+              idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              searchPanel.add(idLabel);
               
               JTextField idTextField = new JTextField(10);
-              idTextField.setBounds(300, 70, 200, 30);
-              idTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(idTextField);
+              idTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              idTextField.setPreferredSize(new Dimension(textFieldWidth / 2, buttonHeight - 10));
+              searchPanel.add(idTextField);
               
               final JButton buscarButton = new JButton("Buscar Proveedor");
-              buscarButton.setBounds(520, 70, 150, 30);
-              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, fontSize - 4));
               buscarButton.setBackground(new Color(0, 123, 255));
               buscarButton.setForeground(Color.WHITE);
-              frame.add(buscarButton);
+              buscarButton.setPreferredSize(new Dimension(buttonWidth / 2, buttonHeight - 10));
+              searchPanel.add(buscarButton);
+              
+              gbc.gridx = 0;
+              gbc.gridy = 1;
+              gbc.gridwidth = 2;
+              frame.add(searchPanel, gbc);
               
               final JLabel statusLabel = new JLabel("");
-              statusLabel.setBounds(100, 110, 600, 30);
-              statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(statusLabel);
+              statusLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 2;
+              gbc.gridwidth = 2;
+              frame.add(statusLabel, gbc);
               
+              // CIF
               JLabel cifLabel = new JLabel("CIF:");
-              cifLabel.setBounds(100, 150, 200, 30);
-              cifLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(cifLabel);
+              cifLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 3;
+              gbc.gridwidth = 1;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(cifLabel, gbc);
               
               final JTextField cifTextField = new JTextField(10);
-              cifTextField.setBounds(300, 150, 200, 30);
+              cifTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              cifTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
               cifTextField.setEnabled(false);
-              cifTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(cifTextField);
+              gbc.gridx = 1;
+              gbc.gridy = 3;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(cifTextField, gbc);
               
+              // Nombre Empresa
               JLabel nombreLabel = new JLabel("Nombre de la empresa:");
-              nombreLabel.setBounds(100, 190, 200, 30);
-              nombreLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(nombreLabel);
+              nombreLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 4;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(nombreLabel, gbc);
               
               final JTextField nombreTextField = new JTextField(10);
-              nombreTextField.setBounds(300, 190, 200, 30);
+              nombreTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              nombreTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
               nombreTextField.setEnabled(false);
-              nombreTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(nombreTextField);
+              gbc.gridx = 1;
+              gbc.gridy = 4;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(nombreTextField, gbc);
               
+              // Responsable
               JLabel responsableLabel = new JLabel("Nombre del responsable:");
-              responsableLabel.setBounds(100, 230, 200, 30);
-              responsableLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(responsableLabel);
+              responsableLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 5;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(responsableLabel, gbc);
               
               final JTextField responsableTextField = new JTextField(10);
-              responsableTextField.setBounds(300, 230, 200, 30);
+              responsableTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              responsableTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
               responsableTextField.setEnabled(false);
-              responsableTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(responsableTextField);
+              gbc.gridx = 1;
+              gbc.gridy = 5;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(responsableTextField, gbc);
               
+              // País
               JLabel paisLabel = new JLabel("País:");
-              paisLabel.setBounds(100, 270, 200, 30);
-              paisLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(paisLabel);
+              paisLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 6;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(paisLabel, gbc);
               
               final JTextField paisTextField = new JTextField(10);
-              paisTextField.setBounds(300, 270, 200, 30);
+              paisTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              paisTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
               paisTextField.setEnabled(false);
-              paisTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(paisTextField);
+              gbc.gridx = 1;
+              gbc.gridy = 6;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(paisTextField, gbc);
               
+              // Provincia
               JLabel provinciaLabel = new JLabel("Provincia:");
-              provinciaLabel.setBounds(100, 310, 200, 30);
-              provinciaLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(provinciaLabel);
+              provinciaLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 7;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(provinciaLabel, gbc);
               
               final JTextField provinciaTextField = new JTextField(10);
-              provinciaTextField.setBounds(300, 310, 200, 30);
+              provinciaTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              provinciaTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
               provinciaTextField.setEnabled(false);
-              provinciaTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(provinciaTextField);
+              gbc.gridx = 1;
+              gbc.gridy = 7;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(provinciaTextField, gbc);
               
+              // Dirección
               JLabel direccionLabel = new JLabel("Dirección:");
-              direccionLabel.setBounds(100, 350, 200, 30);
-              direccionLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(direccionLabel);
+              direccionLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 8;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(direccionLabel, gbc);
               
               final JTextField direccionTextField = new JTextField(10);
-              direccionTextField.setBounds(300, 350, 200, 30);
+              direccionTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              direccionTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
               direccionTextField.setEnabled(false);
-              direccionTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(direccionTextField);
+              gbc.gridx = 1;
+              gbc.gridy = 8;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(direccionTextField, gbc);
               
+              // Email
               JLabel emailLabel = new JLabel("Email:");
-              emailLabel.setBounds(100, 390, 200, 30);
-              emailLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(emailLabel);
+              emailLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 9;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(emailLabel, gbc);
               
               final JTextField emailTextField = new JTextField(10);
-              emailTextField.setBounds(300, 390, 200, 30);
+              emailTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              emailTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
               emailTextField.setEnabled(false);
-              emailTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(emailTextField);
+              gbc.gridx = 1;
+              gbc.gridy = 9;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(emailTextField, gbc);
               
+              // Teléfono
               JLabel telefonoLabel = new JLabel("Teléfono:");
-              telefonoLabel.setBounds(100, 430, 200, 30);
-              telefonoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(telefonoLabel);
+              telefonoLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 10;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(telefonoLabel, gbc);
               
               final JTextField telefonoTextField = new JTextField(10);
-              telefonoTextField.setBounds(300, 430, 200, 30);
+              telefonoTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              telefonoTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
               telefonoTextField.setEnabled(false);
-              telefonoTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(telefonoTextField);
+              gbc.gridx = 1;
+              gbc.gridy = 10;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(telefonoTextField, gbc);
               
+              // Código Postal
               JLabel cpLabel = new JLabel("Código Postal:");
-              cpLabel.setBounds(100, 470, 200, 30);
-              cpLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(cpLabel);
+              cpLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 11;
+              gbc.anchor = GridBagConstraints.EAST;
+              frame.add(cpLabel, gbc);
               
               final JTextField cpTextField = new JTextField(10);
-              cpTextField.setBounds(300, 470, 200, 30);
+              cpTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              cpTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
               cpTextField.setEnabled(false);
-              cpTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(cpTextField);
+              gbc.gridx = 1;
+              gbc.gridy = 11;
+              gbc.anchor = GridBagConstraints.WEST;
+              frame.add(cpTextField, gbc);
+              
+              // Botones
+              JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
               
               final JButton guardarButton = new JButton("Guardar Cambios");
-              guardarButton.setBounds(100, 510, 200, 30);
-              guardarButton.setEnabled(false);
-              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, fontSize - 2));
               guardarButton.setBackground(new Color(76, 175, 80));
               guardarButton.setForeground(Color.WHITE);
-              frame.add(guardarButton);
+              guardarButton.setEnabled(false);
+              guardarButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              buttonPanel.add(guardarButton);
               
               JButton volverButton = new JButton("Volver");
-              volverButton.setBounds(350, 510, 200, 30);
-              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize - 2));
               volverButton.setBackground(new Color(0, 123, 255));
               volverButton.setForeground(Color.WHITE);
-              frame.add(volverButton);
+              volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              buttonPanel.add(volverButton);
+              
+              gbc.gridx = 0;
+              gbc.gridy = 12;
+              gbc.gridwidth = 2;
+              gbc.anchor = GridBagConstraints.CENTER;
+              frame.add(buttonPanel, gbc);
               
               final Long[] proveedorId = new Long[1];
               
@@ -702,7 +1018,7 @@ public class MenuProveedor extends JFrame {
                           cpTextField.setEnabled(true);
                           guardarButton.setEnabled(true);
                           
-                          statusLabel.setText("Proveedor encontrado. Modifique los campos o manten los mismos valores (o deje en blanco).");
+                          statusLabel.setText("Proveedor encontrado. Modifique los campos o mantenga los mismos valores.");
                       } else {
                           statusLabel.setText("No se encontró un proveedor con el ID: " + id);
                           
@@ -791,20 +1107,48 @@ public class MenuProveedor extends JFrame {
           catch(Exception e)
           {
               System.err.println("Error: " + e.getMessage());
+              JLabel errorLabel = new JLabel("Error: " + e.getMessage());
+              errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 1;
+              gbc.gridwidth = 2;
+              frame.add(errorLabel, gbc);
+              
+              JButton volverButton = new JButton("Volver");
+              volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
+              volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              gbc.gridx = 0;
+              gbc.gridy = 2;
+              gbc.gridwidth = 2;
+              frame.add(volverButton, gbc);
+              
+              volverButton.addActionListener(e2 -> {
+                  frame.dispose();
+                  new MenuProveedor(proveedorController);
+              });
           }
       }
       else
       {
           JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
-          errorLabel.setBounds(100, 100, 500, 30);
-          frame.add(errorLabel);
+          errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+          gbc.gridx = 0;
+          gbc.gridy = 1;
+          gbc.gridwidth = 2;
+          frame.add(errorLabel, gbc);
           
           JButton volverButton = new JButton("Volver");
-          volverButton.setBounds(300, 500, 200, 30);
-          volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+          volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
           volverButton.setBackground(new Color(0, 123, 255));
           volverButton.setForeground(Color.WHITE);
-          frame.add(volverButton);
+          volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+          gbc.gridx = 0;
+          gbc.gridy = 2;
+          gbc.gridwidth = 2;
+          frame.add(volverButton, gbc);
+          
           volverButton.addActionListener(e -> {
               frame.dispose();
               new MenuProveedor(proveedorController);
@@ -815,71 +1159,113 @@ public class MenuProveedor extends JFrame {
     private void EliminarProveedor()
     {
       JFrame frame = new JFrame("Eliminar Proveedor");
+      frame.setLayout(new GridBagLayout());
       frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
       frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
-      frame.setLayout(null);
+
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      int buttonWidth = (int) (screenSize.width * 0.18);
+      int buttonHeight = (int) (screenSize.height * 0.06);
+      int textFieldWidth = (int) (screenSize.width * 0.2);
+      int textAreaWidth = (int) (screenSize.width * 0.6);
+      int textAreaHeight = (int) (screenSize.height * 0.25);
+      int fontSize = (int) (screenSize.height * 0.022);
+
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.insets = new Insets(10, 10, 10, 10);
   
-      JLabel Title = new JLabel("\n=== ELIMINAR PROVEEDOR ===");
-      Title.setBounds(300, 10, 300, 50);
-      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      JLabel Title = new JLabel("=== ELIMINAR PROVEEDOR ===");
+      Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
       Title.setForeground(new Color(46, 46, 46));
-      frame.add(Title);
+      Title.setHorizontalAlignment(SwingConstants.CENTER);
+      gbc.gridx = 0;
+      gbc.gridy = 0;
+      gbc.gridwidth = 3;
+      gbc.fill = GridBagConstraints.HORIZONTAL;
+      frame.add(Title, gbc);
   
       if(proveedorController!=null)
       {
           try
           {
+              // Panel de búsqueda
+              JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+              
               JLabel idLabel = new JLabel("ID del proveedor a eliminar:");
-              idLabel.setBounds(100, 100, 200, 30);
-              idLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(idLabel);
+              idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              searchPanel.add(idLabel);
               
               JTextField idTextField = new JTextField(10);
-              idTextField.setBounds(300, 100, 200, 30);
-              idTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(idTextField);
+              idTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              idTextField.setPreferredSize(new Dimension(textFieldWidth, buttonHeight - 10));
+              searchPanel.add(idTextField);
+              
+              final JButton buscarButton = new JButton("Buscar Proveedor");
+              buscarButton.setFont(new Font("Roboto", Font.BOLD, fontSize - 4));
+              buscarButton.setBackground(new Color(0, 123, 255));
+              buscarButton.setForeground(Color.WHITE);
+              buscarButton.setPreferredSize(new Dimension(buttonWidth / 2, buttonHeight - 10));
+              searchPanel.add(buscarButton);
+              
+              gbc.gridx = 0;
+              gbc.gridy = 1;
+              gbc.gridwidth = 3;
+              frame.add(searchPanel, gbc);
               
               final JLabel infoLabel = new JLabel("Información del proveedor:");
-              infoLabel.setBounds(100, 150, 500, 30);
-              infoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(infoLabel);
+              infoLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 2;
+              gbc.gridwidth = 3;
+              frame.add(infoLabel, gbc);
               
               final JTextArea proveedorInfo = new JTextArea();
-              proveedorInfo.setBounds(100, 190, 600, 150);
               proveedorInfo.setEditable(false);
               proveedorInfo.setBackground(new Color(240, 240, 240));
               proveedorInfo.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-              proveedorInfo.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(proveedorInfo);
+              proveedorInfo.setFont(new Font("Monospaced", Font.PLAIN, fontSize - 4));
+              
+              JScrollPane scrollPane = new JScrollPane(proveedorInfo);
+              scrollPane.setPreferredSize(new Dimension(textAreaWidth, textAreaHeight));
+              gbc.gridx = 0;
+              gbc.gridy = 3;
+              gbc.gridwidth = 3;
+              gbc.fill = GridBagConstraints.BOTH;
+              frame.add(scrollPane, gbc);
               
               final JLabel statusLabel = new JLabel("");
-              statusLabel.setBounds(100, 350, 600, 30);
-              statusLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-              frame.add(statusLabel);
+              statusLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 4;
+              gbc.gridwidth = 3;
+              gbc.fill = GridBagConstraints.HORIZONTAL;
+              frame.add(statusLabel, gbc);
               
-              final JButton buscarButton = new JButton("Buscar Proveedor");
-              buscarButton.setBounds(550, 100, 150, 30);
-              buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
-              buscarButton.setBackground(new Color(0, 123, 255));
-              buscarButton.setForeground(Color.WHITE);
-              frame.add(buscarButton);
+              // Panel de botones
+              JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
               
               final JButton eliminarButton = new JButton("Eliminar Proveedor");
-              eliminarButton.setBounds(200, 400, 200, 30);
-              eliminarButton.setEnabled(false);
-              eliminarButton.setFont(new Font("Roboto", Font.BOLD, 14));
-              eliminarButton.setBackground(new Color(0, 123, 255));
+              eliminarButton.setFont(new Font("Roboto", Font.BOLD, fontSize - 2));
+              eliminarButton.setBackground(new Color(220, 53, 69));
               eliminarButton.setForeground(Color.WHITE);
-              frame.add(eliminarButton);
+              eliminarButton.setEnabled(false);
+              eliminarButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              buttonPanel.add(eliminarButton);
               
               JButton volverButton = new JButton("Volver");
-              volverButton.setBounds(420, 400, 200, 30);
-              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize - 2));
               volverButton.setBackground(new Color(0, 123, 255));
               volverButton.setForeground(Color.WHITE);
-              frame.add(volverButton);
+              volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              buttonPanel.add(volverButton);
+              
+              gbc.gridx = 0;
+              gbc.gridy = 5;
+              gbc.gridwidth = 3;
+              gbc.fill = GridBagConstraints.NONE;
+              frame.add(buttonPanel, gbc);
               
               final Long[] proveedorId = new Long[1];
               
@@ -891,7 +1277,20 @@ public class MenuProveedor extends JFrame {
                       Proveedor proveedor = proveedorController.findById(id);
                       if (proveedor != null) {
                           proveedorId[0] = proveedor.getID_Proveedor();
-                          proveedorInfo.setText(proveedor.toString());
+                          
+                          StringBuilder sb = new StringBuilder();
+                          sb.append("ID: ").append(proveedor.getID_Proveedor()).append("\n");
+                          sb.append("CIF: ").append(proveedor.getCIF()).append("\n");
+                          sb.append("Empresa: ").append(proveedor.getNombre()).append("\n");
+                          sb.append("Responsable: ").append(proveedor.getNombre_Responsable()).append("\n");
+                          sb.append("País: ").append(proveedor.getPais()).append("\n");
+                          sb.append("Provincia: ").append(proveedor.getProvincia()).append("\n");
+                          sb.append("Dirección: ").append(proveedor.getDireccion()).append("\n");
+                          sb.append("Email: ").append(proveedor.getEmail()).append("\n");
+                          sb.append("Teléfono: ").append(proveedor.getTelefono()).append("\n");
+                          sb.append("Código Postal: ").append(proveedor.getCodigo_Postal()).append("\n");
+                          
+                          proveedorInfo.setText(sb.toString());
                           eliminarButton.setEnabled(true);
                           statusLabel.setText("Proveedor encontrado. Pulse 'Eliminar Proveedor' para confirmar.");
                       } else {
@@ -934,20 +1333,48 @@ public class MenuProveedor extends JFrame {
           catch(Exception e)
           {
               System.err.println("Error al eliminar el proveedor: " + e.getMessage());
+              JLabel errorLabel = new JLabel("Error: " + e.getMessage());
+              errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+              gbc.gridx = 0;
+              gbc.gridy = 1;
+              gbc.gridwidth = 3;
+              frame.add(errorLabel, gbc);
+              
+              JButton volverButton = new JButton("Volver");
+              volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
+              volverButton.setBackground(new Color(0, 123, 255));
+              volverButton.setForeground(Color.WHITE);
+              volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              gbc.gridx = 0;
+              gbc.gridy = 2;
+              gbc.gridwidth = 3;
+              frame.add(volverButton, gbc);
+              
+              volverButton.addActionListener(e2 -> {
+                  frame.dispose();
+                  new MenuProveedor(proveedorController);
+              });
           }
       }
       else
       {
           JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
-          errorLabel.setBounds(100, 100, 500, 30);
-          frame.add(errorLabel);
+          errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
+          gbc.gridx = 0;
+          gbc.gridy = 1;
+          gbc.gridwidth = 3;
+          frame.add(errorLabel, gbc);
           
           JButton volverButton = new JButton("Volver");
-          volverButton.setBounds(300, 500, 200, 30);
-          volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+          volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
           volverButton.setBackground(new Color(0, 123, 255));
           volverButton.setForeground(Color.WHITE);
-          frame.add(volverButton);
+          volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+          gbc.gridx = 0;
+          gbc.gridy = 2;
+          gbc.gridwidth = 3;
+          frame.add(volverButton, gbc);
+          
           volverButton.addActionListener(e -> {
               frame.dispose();
               new MenuProveedor(proveedorController);

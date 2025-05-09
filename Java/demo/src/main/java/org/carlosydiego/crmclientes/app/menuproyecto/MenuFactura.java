@@ -1,10 +1,15 @@
 package org.carlosydiego.crmclientes.app.menuproyecto;
 
 import javax.swing.*;
+import javax.swing.JSpinner.DefaultEditor;
+import javax.swing.SpinnerNumberModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.carlosydiego.crmclientes.app.controller.*;
 import org.carlosydiego.crmclientes.app.model.*;
@@ -138,464 +143,538 @@ public class MenuFactura extends JFrame {
         setVisible(true);
     }
 
-    private void ListarFacturas()
-    {
+    private void ListarFacturas() {
       JFrame frame = new JFrame("Listar Facturas");
-      frame.setLayout(null);
+      frame.setLayout(new GridBagLayout());
       frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
       frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
- 
-      JLabel Title = new JLabel("\n=== LISTA DE FACTURAS ===");
-      Title.setBounds(300, 10, 200, 50);
-      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      int buttonWidth = (int) (screenSize.width * 0.18);
+      int buttonHeight = (int) (screenSize.height * 0.06);
+      int textAreaWidth = (int) (screenSize.width * 0.7);
+      int textAreaHeight = (int) (screenSize.height * 0.6);
+      int fontSize = (int) (screenSize.height * 0.022);
+
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridx = 0;
+      gbc.fill = GridBagConstraints.HORIZONTAL;
+      gbc.insets = new Insets(10, 0, 10, 0);
+
+      JLabel Title = new JLabel("=== LISTA DE FACTURAS ===");
+      Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
       Title.setForeground(new Color(46, 46, 46));
-      frame.add(Title);
+      Title.setHorizontalAlignment(SwingConstants.CENTER);
+      gbc.gridy = 0;
+      gbc.gridwidth = 2;
+      frame.add(Title, gbc);
  
-      if(facturaController!=null)
-      {
-          try
-          {
+      if(facturaController!=null) {
+          try {
               List<Factura> facturas = facturaController.findAll();
-              if(facturas!=null && !facturas.isEmpty())
-              {
+              if(facturas!=null && !facturas.isEmpty()) {
                   JPanel panelFacturas = new JPanel();
                   panelFacturas.setLayout(null);
                   
                   JScrollPane scrollPane = new JScrollPane(panelFacturas);
-                  scrollPane.setBounds(50, 70, 700, 400);
-                  frame.add(scrollPane);
+                  scrollPane.setPreferredSize(new Dimension(textAreaWidth, textAreaHeight));
+                  gbc.gridy = 1;
+                  frame.add(scrollPane, gbc);
                   
-                  panelFacturas.setPreferredSize(new Dimension(680, Math.max(380, facturas.size() * 150)));
+                  panelFacturas.setPreferredSize(new Dimension(textAreaWidth - 50, Math.max(textAreaHeight - 50, facturas.size() * 150)));
                   
-                  for(int i = 0; i < facturas.size(); i++)
-                  {
+                  for(int i = 0; i < facturas.size(); i++) {
                       JTextArea facturaTextArea = new JTextArea(facturas.get(i).toString());
-                      facturaTextArea.setBounds(50, 10 + i * 150, 600, 150);
+                      facturaTextArea.setBounds(50, 10 + i * 150, textAreaWidth - 150, 130);
                       facturaTextArea.setEditable(false);
                       facturaTextArea.setBackground(new Color(240, 240, 240));
                       facturaTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-                      facturaTextArea.setFont(new Font("Roboto", Font.PLAIN, 12));
+                      facturaTextArea.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
                       panelFacturas.add(facturaTextArea);
                   }
-              }
-              else
-              {
+              } else {
                   JLabel noFacturasLabel = new JLabel("No hay facturas registradas en el sistema");
-                  noFacturasLabel.setBounds(300, 200, 300, 30);
-                  noFacturasLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-                  frame.add(noFacturasLabel);
+                  noFacturasLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+                  noFacturasLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                  gbc.gridy = 1;
+                  frame.add(noFacturasLabel, gbc);
               }
-          }
-          catch(Exception e)
-          {
+          } catch(Exception e) {
               System.err.println("Error al obtener las facturas: " + e.getMessage());
           } 
-      }
-      else
-      {
+      } else {
           System.out.println("Error: No hay conexion a la base de datos");
       }
  
       JButton volverButton = new JButton("Volver");
-      volverButton.setBounds(300, 500, 200, 30);
-      volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+      volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+      volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
       volverButton.setBackground(new Color(0, 123, 255));
       volverButton.setForeground(Color.WHITE);
-      frame.add(volverButton);
+      gbc.gridy = 2;
+      frame.add(volverButton, gbc);
       volverButton.addActionListener(e -> {
           frame.dispose();
           new MenuFactura(facturaController, clienteController, empleadoController, productoController);
       });
     }
-    private void AñadirFactura()
-    {
+
+    private void AñadirFactura() {
       JFrame frame = new JFrame("Añadir Factura");
+      frame.setLayout(new GridBagLayout());
       frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
       frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
-      frame.setLayout(null);
   
-      JLabel Title = new JLabel("\n=== AÑADIR NUEVA FACTURA ===");
-      Title.setBounds(300, 10, 300, 50);
-      Title.setFont(new Font("Roboto", Font.BOLD, 14));
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      int fieldWidth = (int) (screenSize.width * 0.18);
+      int fieldHeight = (int) (screenSize.height * 0.05);
+      int buttonWidth = (int) (screenSize.width * 0.18);
+      int buttonHeight = (int) (screenSize.height * 0.06);
+      int fontSize = (int) (screenSize.height * 0.022);
+
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridx = 0;
+      gbc.fill = GridBagConstraints.HORIZONTAL;
+      gbc.insets = new Insets(10, 0, 10, 0);
+      
+      JLabel Title = new JLabel("=== AÑADIR NUEVA FACTURA ===");
+      Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
       Title.setForeground(new Color(46, 46, 46));
-      frame.add(Title);
+      Title.setHorizontalAlignment(SwingConstants.CENTER);
+      gbc.gridy = 0;
+      gbc.gridwidth = 3;
+      frame.add(Title, gbc);
   
-      if(facturaController!=null)
-      {
-          try
-          {
+      if(facturaController!=null) {
+          try {
               JLabel clienteLabel = new JLabel("ID del Cliente:");
-              clienteLabel.setBounds(100, 70, 200, 30);
-              frame.add(clienteLabel);
+              clienteLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+              gbc.gridy = 1;
+              gbc.gridwidth = 1;
+              frame.add(clienteLabel, gbc);
               
               JTextField clienteTextField = new JTextField(10);
-              clienteTextField.setBounds(350, 70, 200, 30);
-              frame.add(clienteTextField);
+              clienteTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+              clienteTextField.setPreferredSize(new Dimension(fieldWidth, fieldHeight));
+              gbc.gridx = 1;
+              frame.add(clienteTextField, gbc);
               
               JButton verClientesButton = new JButton("Ver Clientes");
-              verClientesButton.setBounds(560, 70, 130, 30);
-              verClientesButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verClientesButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              verClientesButton.setFont(new Font("Roboto", Font.BOLD, fontSize - 4));
               verClientesButton.setBackground(new Color(0, 123, 255));
               verClientesButton.setForeground(Color.WHITE);
-              frame.add(verClientesButton);
+              gbc.gridx = 2;
+              frame.add(verClientesButton, gbc);
+              
               verClientesButton.addActionListener(new ActionListener() {
                   @Override
                   public void actionPerformed(ActionEvent e) {
                       try {
                           List<Cliente> clientes = clienteController.findAll();
-                          if (clientes != null && !clientes.isEmpty()) {
-                              JDialog dialog = new JDialog(frame, "Clientes Disponibles", true);
-                              dialog.setLayout(new BorderLayout());
-                              dialog.setSize(400, 300);
-                              
-                              JPanel panel = new JPanel();
-                              panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-                              
-                              JScrollPane scrollPane = new JScrollPane(panel);
-                              dialog.add(scrollPane, BorderLayout.CENTER);
-                              
-                              for (Cliente cliente : clientes) {
-                                  JLabel clienteLabel = new JLabel(cliente.toString());
-                                  clienteLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-                                  clienteLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-                                  panel.add(clienteLabel);
+                          if(clientes != null && !clientes.isEmpty()) {
+                              StringBuilder sb = new StringBuilder();
+                              for(Cliente c : clientes) {
+                                  sb.append("ID: ").append(c.getID_Cliente())
+                                    .append(" - Nombre: ").append(c.getNombre_Empresa())
+                                    .append(" ").append(c.getNombre_Responsable())
+                                    .append("\n");
                               }
-                              
-                              JButton cerrarButton = new JButton("Cerrar");
-                              cerrarButton.addActionListener(ae -> dialog.dispose());
-                              dialog.add(cerrarButton, BorderLayout.SOUTH);
-                              
-                              dialog.setLocationRelativeTo(frame);
-                              dialog.setVisible(true);
+                              JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
+                                  "Listado de Clientes", JOptionPane.INFORMATION_MESSAGE);
                           } else {
-                              JOptionPane.showMessageDialog(frame, "No hay clientes disponibles", "Error", JOptionPane.ERROR_MESSAGE);
+                              JOptionPane.showMessageDialog(frame, "No hay clientes registrados", 
+                                  "Listado de Clientes", JOptionPane.INFORMATION_MESSAGE);
                           }
-                      } catch (Exception ex) {
-                          JOptionPane.showMessageDialog(frame, "Error al cargar clientes: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                      } catch(Exception ex) {
+                          JOptionPane.showMessageDialog(frame, "Error al obtener clientes: " + ex.getMessage(), 
+                              "Error", JOptionPane.ERROR_MESSAGE);
                       }
                   }
               });
               
               JLabel empleadoLabel = new JLabel("ID del Empleado:");
-              empleadoLabel.setBounds(100, 110, 200, 30);
-              frame.add(empleadoLabel);
+              empleadoLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+              gbc.gridx = 0;
+              gbc.gridy = 2;
+              frame.add(empleadoLabel, gbc);
               
               JTextField empleadoTextField = new JTextField(10);
-              empleadoTextField.setBounds(350, 110, 200, 30);
-              frame.add(empleadoTextField);
+              empleadoTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+              empleadoTextField.setPreferredSize(new Dimension(fieldWidth, fieldHeight));
+              gbc.gridx = 1;
+              frame.add(empleadoTextField, gbc);
               
               JButton verEmpleadosButton = new JButton("Ver Empleados");
-              verEmpleadosButton.setBounds(560, 110, 130, 30);
-              verEmpleadosButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              verEmpleadosButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              verEmpleadosButton.setFont(new Font("Roboto", Font.BOLD, fontSize - 4));
               verEmpleadosButton.setBackground(new Color(0, 123, 255));
               verEmpleadosButton.setForeground(Color.WHITE);
-              frame.add(verEmpleadosButton);
+              gbc.gridx = 2;
+              frame.add(verEmpleadosButton, gbc);
+              
               verEmpleadosButton.addActionListener(new ActionListener() {
                   @Override
                   public void actionPerformed(ActionEvent e) {
                       try {
                           List<Empleado> empleados = empleadoController.findAll();
-                          if (empleados != null && !empleados.isEmpty()) {
-                              JDialog dialog = new JDialog(frame, "Empleados Disponibles", true);
-                              dialog.setLayout(new BorderLayout());
-                              dialog.setSize(400, 300);
-                              
-                              JPanel panel = new JPanel();
-                              panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-                              
-                              JScrollPane scrollPane = new JScrollPane(panel);
-                              dialog.add(scrollPane, BorderLayout.CENTER);
-                              
-                              for (Empleado empleado : empleados) {
-                                  JLabel empleadoLabel = new JLabel(empleado.toString());
-                                  empleadoLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-                                  empleadoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-                                  panel.add(empleadoLabel);
+                          if(empleados != null && !empleados.isEmpty()) {
+                              StringBuilder sb = new StringBuilder();
+                              for(Empleado emp : empleados) {
+                                  sb.append("ID: ").append(emp.getID_Empleado())
+                                    .append(" - Nombre: ").append(emp.getNombre())
+                                    .append(" ").append(emp.getApellido())
+                                    .append("\n");
                               }
-                              
-                              JButton cerrarButton = new JButton("Cerrar");
-                              cerrarButton.addActionListener(ae -> dialog.dispose());
-                              dialog.add(cerrarButton, BorderLayout.SOUTH);
-                              
-                              dialog.setLocationRelativeTo(frame);
-                              dialog.setVisible(true);
+                              JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
+                                  "Listado de Empleados", JOptionPane.INFORMATION_MESSAGE);
                           } else {
-                              JOptionPane.showMessageDialog(frame, "No hay empleados disponibles", "Error", JOptionPane.ERROR_MESSAGE);
+                              JOptionPane.showMessageDialog(frame, "No hay empleados registrados", 
+                                  "Listado de Empleados", JOptionPane.INFORMATION_MESSAGE);
                           }
-                      } catch (Exception ex) {
-                          JOptionPane.showMessageDialog(frame, "Error al cargar empleados: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                      } catch(Exception ex) {
+                          JOptionPane.showMessageDialog(frame, "Error al obtener empleados: " + ex.getMessage(), 
+                              "Error", JOptionPane.ERROR_MESSAGE);
                       }
                   }
               });
               
-              JLabel fechaLabel = new JLabel("Fecha (YYYY-MM-DD):");
-              fechaLabel.setBounds(100, 150, 200, 30);
-              frame.add(fechaLabel);
+              JLabel productosLabel = new JLabel("Productos:");
+              productosLabel.setFont(new Font("Roboto", Font.BOLD, fontSize));
+              gbc.gridx = 0;
+              gbc.gridy = 3;
+              gbc.gridwidth = 3;
+              frame.add(productosLabel, gbc);
               
-              JTextField fechaTextField = new JTextField(10);
-              fechaTextField.setBounds(350, 150, 200, 30);
-              frame.add(fechaTextField);
+              final JPanel productosPanel = new JPanel(new GridBagLayout());
+              productosPanel.setBackground(new Color(245, 247, 250));
+              GridBagConstraints panelGbc = new GridBagConstraints();
+              panelGbc.fill = GridBagConstraints.HORIZONTAL;
+              panelGbc.insets = new Insets(5, 5, 5, 5);
               
-              JLabel metodoPagoLabel = new JLabel("Método de Pago:");
-              metodoPagoLabel.setBounds(100, 190, 200, 30);
-              frame.add(metodoPagoLabel);
+              JScrollPane productosScrollPane = new JScrollPane(productosPanel);
+              productosScrollPane.setPreferredSize(new Dimension((int)(screenSize.width * 0.6), (int)(screenSize.height * 0.2)));
+              gbc.gridy = 4;
+              frame.add(productosScrollPane, gbc);
               
-              JTextField metodoPagoTextField = new JTextField(10);
-              metodoPagoTextField.setBounds(350, 190, 200, 30);
-              frame.add(metodoPagoTextField);
+              final Map<Long, Integer> productosCantidad = new HashMap<>();
               
-              JLabel estadoLabel = new JLabel("Estado (SI/NO):");
-              estadoLabel.setBounds(100, 230, 200, 30);
-              frame.add(estadoLabel);
+              JButton agregarProductoButton = new JButton("Agregar Producto");
+              agregarProductoButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              agregarProductoButton.setFont(new Font("Roboto", Font.BOLD, fontSize - 2));
+              agregarProductoButton.setBackground(new Color(40, 167, 69));
+              agregarProductoButton.setForeground(Color.WHITE);
+              gbc.gridy = 5;
+              frame.add(agregarProductoButton, gbc);
               
-              JTextField estadoTextField = new JTextField(10);
-              estadoTextField.setBounds(350, 230, 200, 30);
-              frame.add(estadoTextField);
+              final AtomicInteger productoRow = new AtomicInteger(0);
               
-              JLabel productoLabel = new JLabel("ID del Producto:");
-              productoLabel.setBounds(100, 270, 200, 30);
-              frame.add(productoLabel);
-              
-              JTextField productoTextField = new JTextField(10);
-              productoTextField.setBounds(350, 270, 200, 30);
-              frame.add(productoTextField);
-              
-              JButton verProductosButton = new JButton("Ver Productos");
-              verProductosButton.setBounds(560, 270, 130, 30);
-              verProductosButton.setFont(new Font("Roboto", Font.BOLD, 14));
-              verProductosButton.setBackground(new Color(0, 123, 255));
-              verProductosButton.setForeground(Color.WHITE);
-              frame.add(verProductosButton);
-              verProductosButton.addActionListener(new ActionListener() {
+              agregarProductoButton.addActionListener(new ActionListener() {
                   @Override
                   public void actionPerformed(ActionEvent e) {
                       try {
                           List<Producto> productos = productoController.findAll();
-                          if (productos != null && !productos.isEmpty()) {
-                              JDialog dialog = new JDialog(frame, "Productos Disponibles", true);
+                          if(productos != null && !productos.isEmpty()) {
+                              
+                              JDialog dialog = new JDialog(frame, "Seleccionar Producto", true);
                               dialog.setLayout(new BorderLayout());
-                              dialog.setSize(400, 300);
+                              dialog.setSize(500, 300);
+                              dialog.setLocationRelativeTo(frame);
                               
-                              JPanel panel = new JPanel();
-                              panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                              JPanel dialogPanel = new JPanel(new GridBagLayout());
+                              GridBagConstraints dgbc = new GridBagConstraints();
+                              dgbc.fill = GridBagConstraints.HORIZONTAL;
+                              dgbc.insets = new Insets(5, 5, 5, 5);
                               
-                              JScrollPane scrollPane = new JScrollPane(panel);
-                              dialog.add(scrollPane, BorderLayout.CENTER);
+                              JComboBox<String> productosCombo = new JComboBox<>();
+                              Map<String, Long> productosMap = new HashMap<>();
                               
-                              for (Producto producto : productos) {
-                                  JLabel productoLabel = new JLabel(producto.toString());
-                                  productoLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-                                  productoLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-                                  panel.add(productoLabel);
+                              for(Producto p : productos) {
+                                  String key = p.getID_Producto() + " - " + p.getNombre() + " - $" + p.getPVP();
+                                  productosCombo.addItem(key);
+                                  productosMap.put(key, p.getID_Producto());
                               }
                               
-                              JButton cerrarButton = new JButton("Cerrar");
-                              cerrarButton.addActionListener(ae -> dialog.dispose());
-                              dialog.add(cerrarButton, BorderLayout.SOUTH);
+                              dgbc.gridx = 0;
+                              dgbc.gridy = 0;
+                              dgbc.gridwidth = 2;
+                              dialogPanel.add(new JLabel("Seleccione un producto:"), dgbc);
                               
-                              dialog.setLocationRelativeTo(frame);
+                              dgbc.gridy = 1;
+                              dialogPanel.add(productosCombo, dgbc);
+                              
+                              dgbc.gridy = 2;
+                              dgbc.gridwidth = 1;
+                              dialogPanel.add(new JLabel("Cantidad:"), dgbc);
+                              
+                              JSpinner cantidadSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+                              dgbc.gridx = 1;
+                              dialogPanel.add(cantidadSpinner, dgbc);
+                              
+                              JPanel buttonPanel = new JPanel();
+                              JButton agregarButton = new JButton("Agregar");
+                              JButton cancelarButton = new JButton("Cancelar");
+                              buttonPanel.add(agregarButton);
+                              buttonPanel.add(cancelarButton);
+                              
+                              agregarButton.addActionListener(new ActionListener() {
+                                  @Override
+                                  public void actionPerformed(ActionEvent e) {
+                                      try {
+                                          String selectedItem = (String)productosCombo.getSelectedItem();
+                                          Long idProducto = productosMap.get(selectedItem);
+                                          int cantidad = (Integer)cantidadSpinner.getValue();
+                                          
+                                          if(productosCantidad.containsKey(idProducto)) {
+                                              JOptionPane.showMessageDialog(dialog, 
+                                                  "Este producto ya está en la factura. Modifique su cantidad.", 
+                                                  "Duplicado", JOptionPane.WARNING_MESSAGE);
+                                              return;
+                                          }
+                                          
+                                          productosCantidad.put(idProducto, cantidad);
+                                          
+                                          Producto producto = productoController.findById(idProducto);
+                                          
+                                          panelGbc.gridx = 0;
+                                          panelGbc.gridy = productoRow.getAndIncrement();
+                                          panelGbc.gridwidth = 1;
+                                          
+                                          JLabel productoLabel = new JLabel(producto.getNombre() + " - $" + producto.getPVP());
+                                          productosPanel.add(productoLabel, panelGbc);
+                                          
+                                          panelGbc.gridx = 1;
+                                          JLabel cantidadLabel = new JLabel("Cantidad: " + cantidad);
+                                          productosPanel.add(cantidadLabel, panelGbc);
+                                          
+                                          panelGbc.gridx = 2;
+                                          JLabel totalLabel = new JLabel("Total: $" + (producto.getPVP() * cantidad));
+                                          productosPanel.add(totalLabel, panelGbc);
+                                          
+                                          panelGbc.gridx = 3;
+                                          JButton removeButton = new JButton("X");
+                                          removeButton.setBackground(Color.RED);
+                                          removeButton.setForeground(Color.WHITE);
+                                          productosPanel.add(removeButton, panelGbc);
+                                          
+                                          removeButton.addActionListener(new ActionListener() {
+                                              @Override
+                                              public void actionPerformed(ActionEvent e) {
+                                                  productosCantidad.remove(idProducto);
+                                                  productosPanel.remove(productoLabel);
+                                                  productosPanel.remove(cantidadLabel);
+                                                  productosPanel.remove(totalLabel);
+                                                  productosPanel.remove(removeButton);
+                                                  productosPanel.revalidate();
+                                                  productosPanel.repaint();
+                                              }
+                                          });
+                                          
+                                          productosPanel.revalidate();
+                                          productosPanel.repaint();
+                                          dialog.dispose();
+                                      } catch(Exception ex) {
+                                          JOptionPane.showMessageDialog(dialog, 
+                                              "Error al agregar producto: " + ex.getMessage(), 
+                                              "Error", JOptionPane.ERROR_MESSAGE);
+                                      }
+                                  }
+                              });
+                              
+                              cancelarButton.addActionListener(new ActionListener() {
+                                  @Override
+                                  public void actionPerformed(ActionEvent e) {
+                                      dialog.dispose();
+                                  }
+                              });
+                              
+                              dialog.add(dialogPanel, BorderLayout.CENTER);
+                              dialog.add(buttonPanel, BorderLayout.SOUTH);
                               dialog.setVisible(true);
                           } else {
-                              JOptionPane.showMessageDialog(frame, "No hay productos disponibles", "Error", JOptionPane.ERROR_MESSAGE);
+                              JOptionPane.showMessageDialog(frame, 
+                                  "No hay productos disponibles. Agregue productos primero.", 
+                                  "Sin productos", JOptionPane.WARNING_MESSAGE);
                           }
-                      } catch (Exception ex) {
-                          JOptionPane.showMessageDialog(frame, "Error al cargar productos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                      } catch(Exception ex) {
+                          JOptionPane.showMessageDialog(frame, 
+                              "Error al cargar productos: " + ex.getMessage(), 
+                              "Error", JOptionPane.ERROR_MESSAGE);
                       }
                   }
               });
               
-              JLabel cantidadLabel = new JLabel("Cantidad:");
-              cantidadLabel.setBounds(100, 310, 200, 30);
-              frame.add(cantidadLabel);
+              JLabel fechaLabel = new JLabel("Fecha de Emisión (YYYY-MM-DD):");
+              fechaLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+              gbc.gridx = 0;
+              gbc.gridy = 6;
+              gbc.gridwidth = 1;
+              frame.add(fechaLabel, gbc);
               
-              JTextField cantidadTextField = new JTextField(10);
-              cantidadTextField.setBounds(350, 310, 200, 30);
-              frame.add(cantidadTextField);
+              JTextField fechaTextField = new JTextField(10);
+              fechaTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+              fechaTextField.setPreferredSize(new Dimension(fieldWidth, fieldHeight));
+              gbc.gridx = 1;
+              gbc.gridwidth = 2;
+              frame.add(fechaTextField, gbc);
               
-              JLabel statusLabel = new JLabel("");
-              statusLabel.setBounds(100, 390, 600, 30);
-              frame.add(statusLabel);
-          
+              JLabel metodoPagoLabel = new JLabel("Método de Pago:");
+              metodoPagoLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+              gbc.gridx = 0;
+              gbc.gridy = 7;
+              gbc.gridwidth = 1;
+              frame.add(metodoPagoLabel, gbc);
+              
+              String[] metodosPago = {"Efectivo", "Tarjeta de Crédito", "Tarjeta de Débito", "Transferencia"};
+              JComboBox<String> metodoPagoCombo = new JComboBox<>(metodosPago);
+              metodoPagoCombo.setFont(new Font("Roboto", Font.PLAIN, fontSize - 2));
+              metodoPagoCombo.setPreferredSize(new Dimension(fieldWidth, fieldHeight));
+              gbc.gridx = 1;
+              gbc.gridwidth = 2;
+              frame.add(metodoPagoCombo, gbc);
+              
+              JLabel estadoLabel = new JLabel("Estado:");
+              estadoLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+              gbc.gridx = 0;
+              gbc.gridy = 8;
+              gbc.gridwidth = 1;
+              frame.add(estadoLabel, gbc);
+              
+              String[] estados = {"Pagada", "Pendiente", "Cancelada"};
+              JComboBox<String> estadoCombo = new JComboBox<>(estados);
+              estadoCombo.setFont(new Font("Roboto", Font.PLAIN, fontSize - 2));
+              estadoCombo.setPreferredSize(new Dimension(fieldWidth, fieldHeight));
+              gbc.gridx = 1;
+              gbc.gridwidth = 2;
+              frame.add(estadoCombo, gbc);
+              
+              final JLabel statusLabel = new JLabel("");
+              statusLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+              gbc.gridx = 0;
+              gbc.gridy = 9;
+              gbc.gridwidth = 3;
+              frame.add(statusLabel, gbc);
+              
               JButton guardarButton = new JButton("Guardar Factura");
-              guardarButton.setBounds(100, 350, 200, 30);
-              guardarButton.setFont(new Font("Roboto", Font.BOLD, 14));
-              guardarButton.setBackground(new Color(76, 175, 80));
+              guardarButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              guardarButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
+              guardarButton.setBackground(new Color(40, 167, 69));
               guardarButton.setForeground(Color.WHITE);
-              frame.add(guardarButton);
-              guardarButton.addActionListener(new ActionListener() 
-              {
+              gbc.gridx = 0;
+              gbc.gridy = 10;
+              gbc.gridwidth = 1;
+              frame.add(guardarButton, gbc);
+              
+              guardarButton.addActionListener(new ActionListener() {
                   @Override
-                  public void actionPerformed(ActionEvent e)
-                  {
+                  public void actionPerformed(ActionEvent e) {
                       try {
-                          // Obtener valores de los campos
-                          String clienteId = clienteTextField.getText();
-                          String empleadoId = empleadoTextField.getText();
-                          String fecha = fechaTextField.getText();
-                          String metodoPago = metodoPagoTextField.getText();
-                          String estado = estadoTextField.getText();
-                          String productoId = productoTextField.getText();
-                          String cantidad = cantidadTextField.getText();
+                          String clienteIdStr = clienteTextField.getText().trim();
+                          String empleadoIdStr = empleadoTextField.getText().trim();
+                          String fechaStr = fechaTextField.getText().trim();
                           
-                          // Verificar que ningún campo esté vacío
-                          if (clienteId.isEmpty() || empleadoId.isEmpty() || fecha.isEmpty() || 
-                              metodoPago.isEmpty() || estado.isEmpty() || 
-                              productoId.isEmpty() || cantidad.isEmpty()) {
+                          if(clienteIdStr.isEmpty() || empleadoIdStr.isEmpty() || fechaStr.isEmpty()) {
                               statusLabel.setText("Error: Todos los campos son obligatorios");
                               return;
                           }
                           
-                          // Validar formato de estado
-                          estado = estado.toUpperCase();
-                          if (!estado.equals("SI") && !estado.equals("NO")) {
-                              statusLabel.setText("Error: El estado debe ser SI o NO");
+                          if(productosCantidad.isEmpty()) {
+                              statusLabel.setText("Error: Debe agregar al menos un producto");
                               return;
                           }
                           
-                          // Convertir ID de cliente
-                          Cliente cliente = null;
-                          try {
-                              long idCliente = Long.parseLong(clienteId);
-                              cliente = clienteController.findById(idCliente);
-                              if (cliente == null) {
-                                  statusLabel.setText("Error: Cliente no encontrado");
-                                  return;
-                              }
-                          } catch (NumberFormatException nfe) {
-                              statusLabel.setText("Error: ID de cliente inválido");
+                          if(!fechaStr.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                              statusLabel.setText("Error: La fecha debe tener formato YYYY-MM-DD");
                               return;
                           }
                           
-                          // Convertir ID de empleado
-                          Empleado empleado = null;
-                          try {
-                              long idEmpleado = Long.parseLong(empleadoId);
-                              empleado = empleadoController.findById(idEmpleado);
-                              if (empleado == null) {
-                                  statusLabel.setText("Error: Empleado no encontrado");
-                                  return;
-                              }
-                          } catch (NumberFormatException nfe) {
-                              statusLabel.setText("Error: ID de empleado inválido");
+                          Long clienteId = Long.parseLong(clienteIdStr);
+                          Long empleadoId = Long.parseLong(empleadoIdStr);
+                          
+                          Cliente cliente = clienteController.findById(clienteId);
+                          if(cliente == null) {
+                              statusLabel.setText("Error: El cliente con ID " + clienteId + " no existe");
                               return;
                           }
                           
-                          // Convertir fecha
-                          LocalDate fechaVenta = null;
-                          try {
-                              fechaVenta = LocalDate.parse(fecha);
-                          } catch (Exception ex) {
-                              statusLabel.setText("Error: Formato de fecha inválido. Use YYYY-MM-DD");
+                          Empleado empleado = empleadoController.findById(empleadoId);
+                          if(empleado == null) {
+                              statusLabel.setText("Error: El empleado con ID " + empleadoId + " no existe");
                               return;
                           }
                           
-                          // Convertir ID de producto
-                          Producto producto = null;
-                          try {
-                              long idProducto = Long.parseLong(productoId);
-                              producto = productoController.findById(idProducto);
-                              if (producto == null) {
-                                  statusLabel.setText("Error: Producto no encontrado");
-                                  return;
-                              }
-                          } catch (NumberFormatException nfe) {
-                              statusLabel.setText("Error: ID de producto inválido");
-                              return;
+                          String metodoPago = (String)metodoPagoCombo.getSelectedItem();
+                          String estado = (String)estadoCombo.getSelectedItem();
+                          
+                          double total = 0.0;
+                          for(Map.Entry<Long, Integer> entry : productosCantidad.entrySet()) {
+                              Producto producto = productoController.findById(entry.getKey());
+                              total += producto.getPVP() * entry.getValue();
                           }
                           
-                          // Convertir cantidad
-                          Integer cantidadProducto = null;
-                          try {
-                              cantidadProducto = Integer.parseInt(cantidad);
-                              if (cantidadProducto <= 0) {
-                                  statusLabel.setText("Error: La cantidad debe ser mayor que cero");
-                                  return;
-                              }
-                              if (cantidadProducto > producto.getStock()) {
-                                  // Mostrar mensaje de error en un cuadro de diálogo para mayor visibilidad
-                                  JOptionPane.showMessageDialog(
-                                      frame,
-                                      "No hay suficiente stock disponible.\nStock actual: " + producto.getStock() + "\nCantidad solicitada: " + cantidadProducto,
-                                      "Error de Stock",
-                                      JOptionPane.ERROR_MESSAGE
-                                  );
-                                  statusLabel.setText("Error: La cantidad no puede superar el stock disponible (" + producto.getStock() + ")");
-                                  return;
-                              }
-                          } catch (NumberFormatException nfe) {
-                              statusLabel.setText("Error: Cantidad inválida");
-                              return;
+                          Factura factura = new Factura();
+                          factura.setCliente(cliente);
+                          
+                          factura.setEmpleado(empleado);
+                          
+                          factura.setFecha_Venta(LocalDate.parse(fechaStr));
+                          
+                          factura.setCanal_Compra(metodoPago);
+                          factura.setPagado(estado);
+                          
+                          factura.setTotal(total);
+                          
+                          facturaController.save(factura);
+                          Long facturaId = factura.getID_Factura();
+                          
+                          for(Map.Entry<Long, Integer> entry : productosCantidad.entrySet()) {
+                              Producto producto = productoController.findById(entry.getKey());
+                              factura.setProducto(producto);
+                              factura.setCantidad(entry.getValue());
+                              facturaController.save(factura);
                           }
                           
-                          // Calcular el total
-                          double total = producto.getPVP() * cantidadProducto;
+                          statusLabel.setText("Factura guardada correctamente con ID: " + facturaId);
                           
-                          // Crear factura
-                          Factura nuevaFactura = new Factura();
-                          nuevaFactura.setCliente(cliente);
-                          nuevaFactura.setEmpleado(empleado);
-                          nuevaFactura.setFecha_Venta(fechaVenta);
-                          nuevaFactura.setCanal_Compra(metodoPago);
-                          nuevaFactura.setPagado(estado);
-                          nuevaFactura.setProducto(producto);
-                          nuevaFactura.setCantidad(cantidadProducto);
-                          nuevaFactura.setTotal(total);
+                          clienteTextField.setText("");
+                          empleadoTextField.setText("");
+                          fechaTextField.setText("");
+                          metodoPagoCombo.setSelectedIndex(0);
+                          estadoCombo.setSelectedIndex(0);
+                          productosCantidad.clear();
+                          productosPanel.removeAll();
+                          productoRow.set(0);
+                          productosPanel.revalidate();
+                          productosPanel.repaint();
                           
-                          try {
-                              facturaController.save(nuevaFactura);
-                              statusLabel.setText("Factura añadida correctamente. Total: " + total + "€");
-                              
-                              // Limpiar campos
-                              clienteTextField.setText("");
-                              empleadoTextField.setText("");
-                              fechaTextField.setText("");
-                              metodoPagoTextField.setText("");
-                              estadoTextField.setText("");
-                              productoTextField.setText("");
-                              cantidadTextField.setText("");
-                          } catch (RuntimeException ex) {
-                              // Mostrar mensaje de error en un cuadro de diálogo para mayor visibilidad
-                              if (ex.getMessage().contains("No hay suficiente stock disponible")) {
-                                  JOptionPane.showMessageDialog(
-                                      frame,
-                                      ex.getMessage(),
-                                      "Error de Stock",
-                                      JOptionPane.ERROR_MESSAGE
-                                  );
-                              }
-                              statusLabel.setText("Error al guardar la factura: " + ex.getMessage());
-                          }
-                      } 
-                      catch (Exception ex) 
-                      {
+                      } catch(NumberFormatException nfe) {
+                          statusLabel.setText("Error: Los IDs deben ser números válidos");
+                      } catch(Exception ex) {
                           statusLabel.setText("Error al guardar la factura: " + ex.getMessage());
                       }
                   }
               });
               
-          
               JButton volverButton = new JButton("Volver");
-              volverButton.setBounds(350, 350, 200, 30);
-              volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+              volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+              volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
               volverButton.setBackground(new Color(0, 123, 255));
               volverButton.setForeground(Color.WHITE);
-              frame.add(volverButton);
+              gbc.gridx = 1;
+              frame.add(volverButton, gbc);
               volverButton.addActionListener(e -> {
                   frame.dispose();
                   new MenuFactura(facturaController, clienteController, empleadoController, productoController);
               });
-          }
-          catch(Exception e)
-          {
+              
+          } catch(Exception e) {
               System.err.println("Error al añadir la factura: " + e.getMessage());
           }
-      }
-      else
-      {
+      } else {
           System.out.println("Error: No hay conexion a la base de datos");
       }
     }
@@ -922,7 +1001,6 @@ public class MenuFactura extends JFrame {
                       try {
                           Factura facturaExistente = facturaController.findById(facturaId[0]);
                       
-                          // Obtener valores de los campos
                           String clienteId = clienteTextField.getText();
                           String empleadoId = empleadoTextField.getText();
                           String fecha = fechaTextField.getText();
@@ -931,7 +1009,6 @@ public class MenuFactura extends JFrame {
                           String productoId = productoTextField.getText();
                           String cantidad = cantidadTextField.getText();
                           
-                          // Validaciones
                           if (clienteId.isEmpty() || empleadoId.isEmpty() || fecha.isEmpty() || 
                               metodoPago.isEmpty() || estado.isEmpty() || 
                               productoId.isEmpty() || cantidad.isEmpty()) {
@@ -939,14 +1016,12 @@ public class MenuFactura extends JFrame {
                               return;
                           }
                           
-                          // Validar formato de estado
                           estado = estado.toUpperCase();
                           if (!estado.equals("SI") && !estado.equals("NO")) {
                               statusLabel.setText("Error: El estado debe ser SI o NO");
                               return;
                           }
                           
-                          // Convertir ID de cliente
                           Cliente cliente = null;
                           try {
                               long idCliente = Long.parseLong(clienteId);
@@ -960,7 +1035,6 @@ public class MenuFactura extends JFrame {
                               return;
                           }
                           
-                          // Convertir ID de empleado
                           Empleado empleado = null;
                           try {
                               long idEmpleado = Long.parseLong(empleadoId);
@@ -974,7 +1048,6 @@ public class MenuFactura extends JFrame {
                               return;
                           }
                           
-                          // Convertir fecha
                           LocalDate fechaVenta = null;
                           try {
                               fechaVenta = LocalDate.parse(fecha);
@@ -983,7 +1056,6 @@ public class MenuFactura extends JFrame {
                               return;
                           }
                           
-                          // Convertir ID de producto
                           Producto producto = null;
                           try {
                               long idProducto = Long.parseLong(productoId);
@@ -997,7 +1069,6 @@ public class MenuFactura extends JFrame {
                               return;
                           }
                           
-                          // Convertir cantidad
                           Integer cantidadProducto = null;
                           try {
                               cantidadProducto = Integer.parseInt(cantidad);
@@ -1005,11 +1076,9 @@ public class MenuFactura extends JFrame {
                                   statusLabel.setText("Error: La cantidad debe ser mayor que cero");
                                   return;
                               }
-                              // Verificar stock si es un producto diferente o si la cantidad aumentó
                               if (!facturaExistente.getProducto().getID_Producto().equals(producto.getID_Producto()) ||
                                   cantidadProducto > facturaExistente.getCantidad()) {
                                   int stockActual = producto.getStock();
-                                  // Si cambiamos a otro producto, verificamos el stock completo
                                   if (!facturaExistente.getProducto().getID_Producto().equals(producto.getID_Producto())) {
                                       if (cantidadProducto > stockActual) {
                                           JOptionPane.showMessageDialog(
@@ -1022,9 +1091,7 @@ public class MenuFactura extends JFrame {
                                           return;
                                       }
                                   } 
-                                  // Si es el mismo producto pero aumentamos la cantidad
                                   else if (cantidadProducto > facturaExistente.getCantidad()) {
-                                      // Calcular cuánto stock adicional necesitamos
                                       int stockAdicionalRequerido = cantidadProducto - facturaExistente.getCantidad();
                                       if (stockAdicionalRequerido > stockActual) {
                                           JOptionPane.showMessageDialog(
@@ -1044,7 +1111,6 @@ public class MenuFactura extends JFrame {
                               return;
                           }
                           
-                          // Crear factura actualizada
                           Factura facturaActualizada = new Factura();
                           facturaActualizada.setID_Factura(facturaId[0]);
                           facturaActualizada.setCliente(cliente);
@@ -1059,7 +1125,6 @@ public class MenuFactura extends JFrame {
                           try {
                               facturaController.save(facturaActualizada);
                           
-                              // Verificar si existe un archivo de factura para actualizarlo
                               if (FacturaFileManager.existeArchivoFactura(facturaId[0])) {
                                   int respuesta = JOptionPane.showConfirmDialog(
                                       frame,
@@ -1069,7 +1134,6 @@ public class MenuFactura extends JFrame {
                                   );
                                   
                                   if (respuesta == JOptionPane.YES_OPTION) {
-                                      // Generar un nuevo archivo forzando la sobreescritura
                                       String rutaArchivo = FacturaFileManager.generarArchivoFactura(facturaActualizada, true);
                                       if (rutaArchivo != null) {
                                           statusLabel.setText("Factura y archivo actualizados correctamente.");
@@ -1086,7 +1150,6 @@ public class MenuFactura extends JFrame {
                                   rutaLabel.setText("");
                               }
                           } catch (RuntimeException ex) {
-                              // Mostrar mensaje de error en un cuadro de diálogo para mayor visibilidad
                               if (ex.getMessage().contains("No hay suficiente stock disponible")) {
                                   JOptionPane.showMessageDialog(
                                       frame,
@@ -1263,105 +1326,124 @@ public class MenuFactura extends JFrame {
           System.out.println("Error: No hay conexion a la base de datos");
       }
     }
-    private void BuscarFactura()
-    {
+    private void BuscarFactura() {
       JFrame frame = new JFrame("Buscar Factura");
-      frame.setLayout(null);
+      frame.setLayout(new GridBagLayout());
       frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
       frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
- 
-      JLabel Title = new JLabel("\n=== BUSCAR FACTURA ===");
-      Title.setBounds(300, 10, 200, 50);
-      Title.setFont(new Font("Roboto", Font.BOLD, 14));
-      Title.setForeground(new Color(46, 46, 46));
-      frame.add(Title);
-      if(facturaController!=null)
-      {
-          try
-          {
 
-            
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      int fieldWidth = (int) (screenSize.width * 0.18);
+      int fieldHeight = (int) (screenSize.height * 0.05);
+      int buttonWidth = (int) (screenSize.width * 0.18);
+      int buttonHeight = (int) (screenSize.height * 0.06);
+      int textAreaWidth = (int) (screenSize.width * 0.5);
+      int textAreaHeight = (int) (screenSize.height * 0.2);
+      int fontSize = (int) (screenSize.height * 0.022);
+
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridx = 0;
+      gbc.fill = GridBagConstraints.HORIZONTAL;
+      gbc.insets = new Insets(10, 0, 10, 0);
+ 
+      JLabel Title = new JLabel("=== BUSCAR FACTURA ===");
+      Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
+      Title.setForeground(new Color(46, 46, 46));
+      Title.setHorizontalAlignment(SwingConstants.CENTER);
+      gbc.gridy = 0;
+      gbc.gridwidth = 2;
+      frame.add(Title, gbc);
+      
+      if(facturaController!=null) {
+          try {
             JLabel idLabel = new JLabel("Introduce el ID de la factura:");
-            idLabel.setBounds(100, 100, 200, 30);
-            frame.add(idLabel);
+            idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+            gbc.gridy = 1;
+            gbc.gridwidth = 1;
+            frame.add(idLabel, gbc);
  
             JTextField idTextField = new JTextField(10);
-            idTextField.setBounds(300, 100, 200, 30);
-            frame.add(idTextField);
+            idTextField.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+            idTextField.setPreferredSize(new Dimension(fieldWidth, fieldHeight));
+            gbc.gridx = 1;
+            frame.add(idTextField, gbc);
             
             JButton buscarButton = new JButton("Buscar");
-            buscarButton.setBounds(550, 100, 150, 30);
-            buscarButton.setFont(new Font("Roboto", Font.BOLD, 14));
+            buscarButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+            buscarButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
             buscarButton.setBackground(new Color(0, 123, 255));
             buscarButton.setForeground(Color.WHITE);
-            frame.add(buscarButton);
+            gbc.gridx = 0;
+            gbc.gridy = 2;
+            gbc.gridwidth = 2;
+            frame.add(buscarButton, gbc);
             
             final JLabel statusLabel = new JLabel("");
-            statusLabel.setBounds(100, 150, 600, 30);
-            frame.add(statusLabel);
-            
+            statusLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
+            gbc.gridy = 3;
+            frame.add(statusLabel, gbc);
             
             final JTextArea facturaTextArea = new JTextArea();
-            facturaTextArea.setBounds(100, 190, 600, 180);
             facturaTextArea.setEditable(false);
             facturaTextArea.setBackground(new Color(240, 240, 240));
             facturaTextArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            facturaTextArea.setFont(new Font("Roboto", Font.PLAIN, fontSize - 2));
             facturaTextArea.setVisible(false);
-            frame.add(facturaTextArea);
+            JScrollPane scrollPane = new JScrollPane(facturaTextArea);
+            scrollPane.setPreferredSize(new Dimension(textAreaWidth, textAreaHeight));
+            gbc.gridy = 4;
+            frame.add(scrollPane, gbc);
             
             buscarButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String input = idTextField.getText();
-                    try
-                    {
+                    try {
                         long id = Long.parseLong(input);
                         statusLabel.setText("Buscando factura...");
                         
                         Factura factura = facturaController.findById(id);
-                        if(factura!=null)
-                        {
+                        if(factura!=null) {
                             statusLabel.setText("Factura encontrada:");
                             facturaTextArea.setText(factura.toString());
                             facturaTextArea.setVisible(true);
+                            scrollPane.setVisible(true);
+                            frame.revalidate();
                             frame.repaint();
-                        }
-                        else
-                        {
+                        } else {
                             statusLabel.setText("Factura no encontrada");
                             facturaTextArea.setVisible(false);
+                            scrollPane.setVisible(false);
+                            frame.revalidate();
                             frame.repaint();
                         }
-                    }
-                    catch(NumberFormatException nfe)
-                    {
+                    } catch(NumberFormatException nfe) {
                         statusLabel.setText("ID inválido. Introduce un número válido.");
                         facturaTextArea.setVisible(false);
+                        scrollPane.setVisible(false);
+                        frame.revalidate();
                         frame.repaint();
                     }
                 }
             });
             
             JButton volverButton = new JButton("Volver");
-            volverButton.setBounds(300, 400, 200, 30);
-            volverButton.setFont(new Font("Roboto", Font.BOLD, 14));
+            volverButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+            volverButton.setFont(new Font("Roboto", Font.BOLD, fontSize));
             volverButton.setBackground(new Color(0, 123, 255));
             volverButton.setForeground(Color.WHITE);
-            frame.add(volverButton);
+            gbc.gridy = 5;
+            frame.add(volverButton, gbc);
             volverButton.addActionListener(e -> {
                 frame.dispose();
                 new MenuFactura(facturaController, clienteController, empleadoController, productoController);
             });
-          }
-          catch(Exception e)
-          {
+          } catch(Exception e) {
               System.err.println("Error al buscar la factura: " + e.getMessage());
           }
-      }
-      else
-      {
+      } else {
           System.out.println("Error: No hay conexion a la base de datos");
       }
     }
@@ -1419,7 +1501,6 @@ public class MenuFactura extends JFrame {
                           
                           Factura factura = facturaController.findById(id);
                           if(factura != null) {
-                              // Verificar si ya existe un archivo para esta factura
                               if (FacturaFileManager.existeArchivoFactura(id)) {
                                   statusLabel.setText("Ya existe un archivo para esta factura. ¿Desea sobrescribirlo?");
                                   
@@ -1429,7 +1510,6 @@ public class MenuFactura extends JFrame {
                                       JOptionPane.YES_NO_OPTION);
                                   
                                   if (opcion == JOptionPane.YES_OPTION) {
-                                      // Si el usuario confirma, eliminar el archivo existente y crear uno nuevo
                                       FacturaFileManager.eliminarArchivoFactura(id);
                                       String rutaArchivo = FacturaFileManager.generarArchivoFactura(factura, true);
                                       if (rutaArchivo != null) {
@@ -1443,7 +1523,6 @@ public class MenuFactura extends JFrame {
                                       rutaLabel.setText("Ubicación: " + FacturaFileManager.getFacturaRutaAbsoluta(id));
                                   }
                               } else {
-                                  // Si no existe, generarlo
                                   String rutaArchivo = FacturaFileManager.generarArchivoFactura(factura);
                                   if (rutaArchivo != null) {
                                       statusLabel.setText("Archivo generado correctamente.");
