@@ -19,121 +19,141 @@ public class MenuProyecto extends JFrame {
     protected ProveeController proveeController;
 
     public MenuProyecto() {
-    inicializarControladores();
-    setVisible(true);
-    setLayout(null);
-    setTitle("Menu Proyecto");
-    setSize(800, 600);
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
-    getContentPane().setBackground(new Color(245, 247, 250));
+        setLayout(new GridBagLayout());
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
+        setTitle("Menu Principal");
+        getContentPane().setBackground(new Color(245, 247, 250));
+        inicializarControladores();
 
-    JLabel Title = new JLabel("\n=== SISTEMA CRM CLIENTES ===");
-    Title.setBounds(300, 10, 300, 50);
-    Title.setFont(new Font("Roboto", Font.BOLD, 14));
-    Title.setForeground(new Color(46, 46, 46));
-    add(Title);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int buttonWidth = (int) (screenSize.width * 0.18);
+        int buttonHeight = (int) (screenSize.height * 0.06);
+        int fontSize = (int) (screenSize.height * 0.022);
 
-        JButton Clientes = new JButton("Gestión de Clientes");
-    Clientes.setBounds(100, 100, 200, 50);
-    Clientes.setFont(new Font("Roboto", Font.BOLD, 14));
-    Clientes.setBackground(new Color(0, 123, 255));
-    Clientes.setForeground(Color.WHITE);
-    add(Clientes);
-        Clientes.addActionListener(e -> {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
+
+        JLabel Title = new JLabel("=== SISTEMA CRM CLIENTES ===");
+        Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        Title.setForeground(new Color(46, 46, 46));
+        Title.setHorizontalAlignment(SwingConstants.CENTER);
+        gbc.gridy = 0;
+        add(Title, gbc);
+
+        JButton btnClientes = new JButton("Gestión de Clientes");
+        btnClientes.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        btnClientes.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        btnClientes.setBackground(new Color(0, 123, 255));
+        btnClientes.setForeground(Color.WHITE);
+        gbc.gridy = 1;
+        add(btnClientes, gbc);
+        btnClientes.addActionListener(e -> {
             dispose();
             new MenuCliente(clienteController);
-    });
+        });
 
-        JButton Empleados = new JButton("Gestión de Empleados");
-    Empleados.setBounds(100, 150, 200, 50);
-    Empleados.setFont(new Font("Roboto", Font.BOLD, 14));
-    Empleados.setBackground(new Color(0, 123, 255));
-    Empleados.setForeground(Color.WHITE);
-    add(Empleados);
-        Empleados.addActionListener(e -> {
+        JButton btnEmpleados = new JButton("Gestión de Empleados");
+        btnEmpleados.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        btnEmpleados.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        btnEmpleados.setBackground(new Color(0, 123, 255));
+        btnEmpleados.setForeground(Color.WHITE);
+        gbc.gridy = 2;
+        add(btnEmpleados, gbc);
+        btnEmpleados.addActionListener(e -> {
             dispose();
             new MenuEmpleado(empleadoController);
-    });
+        });
 
-        JButton Productos = new JButton("Gestión de Productos");
-    Productos.setBounds(100, 200, 200, 50);
-    Productos.setFont(new Font("Roboto", Font.BOLD, 14));
-    Productos.setBackground(new Color(0, 123, 255));
-    Productos.setForeground(Color.WHITE);
-    add(Productos);
-        Productos.addActionListener(e -> {
+        JButton btnProductos = new JButton("Gestión de Productos");
+        btnProductos.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        btnProductos.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        btnProductos.setBackground(new Color(0, 123, 255));
+        btnProductos.setForeground(Color.WHITE);
+        gbc.gridy = 3;
+        add(btnProductos, gbc);
+        btnProductos.addActionListener(e -> {
             dispose();
             new MenuProducto(productoController, categoriaController, proveedorController);
-    });
+        });
 
-        JButton Proveedores = new JButton("Gestión de Proveedores");
-    Proveedores.setBounds(100, 250, 200, 50);
-    Proveedores.setFont(new Font("Roboto", Font.BOLD, 14));
-    Proveedores.setBackground(new Color(0, 123, 255));
-    Proveedores.setForeground(Color.WHITE);
-    add(Proveedores);
-        Proveedores.addActionListener(e -> {
+        JButton btnProveedores = new JButton("Gestión de Proveedores");
+        btnProveedores.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        btnProveedores.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        btnProveedores.setBackground(new Color(0, 123, 255));
+        btnProveedores.setForeground(Color.WHITE);
+        gbc.gridy = 4;
+        add(btnProveedores, gbc);
+        btnProveedores.addActionListener(e -> {
             dispose();
             new MenuProveedor(proveedorController);
-    });
+        });
 
-        JButton Facturas = new JButton("Gestión de Facturas");
-    Facturas.setBounds(100, 300, 200, 50);
-    Facturas.setFont(new Font("Roboto", Font.BOLD, 14));
-    Facturas.setBackground(new Color(0, 123, 255));
-    Facturas.setForeground(Color.WHITE);
-    add(Facturas);
-        Facturas.addActionListener(e -> {
+        JButton btnFacturas = new JButton("Gestión de Facturas");
+        btnFacturas.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        btnFacturas.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        btnFacturas.setBackground(new Color(0, 123, 255));
+        btnFacturas.setForeground(Color.WHITE);
+        gbc.gridy = 5;
+        add(btnFacturas, gbc);
+        btnFacturas.addActionListener(e -> {
             dispose();
             new MenuFactura(facturaController, clienteController, empleadoController, productoController);
-    });
+        });
 
-        JButton Categorias = new JButton("Gestión de Categorías");
-    Categorias.setBounds(100, 350, 200, 50);
-    Categorias.setFont(new Font("Roboto", Font.BOLD, 14));
-    Categorias.setBackground(new Color(0, 123, 255));
-    Categorias.setForeground(Color.WHITE);
-    add(Categorias);
-        Categorias.addActionListener(e -> {
+        JButton btnCategorias = new JButton("Gestión de Categorías");
+        btnCategorias.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        btnCategorias.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        btnCategorias.setBackground(new Color(0, 123, 255));
+        btnCategorias.setForeground(Color.WHITE);
+        gbc.gridy = 6;
+        add(btnCategorias, gbc);
+        btnCategorias.addActionListener(e -> {
             dispose();
             new MenuCategoria(categoriaController);
-    });
+        });
 
-        JButton Provees = new JButton("Gestión de Pedidos");
-    Provees.setBounds(100, 400, 200, 50);
-    Provees.setFont(new Font("Roboto", Font.BOLD, 14));
-    Provees.setBackground(new Color(0, 123, 255));
-    Provees.setForeground(Color.WHITE);
-    add(Provees);
-        Provees.addActionListener(e -> {
+        JButton btnPedidos = new JButton("Gestión de Pedidos");
+        btnPedidos.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        btnPedidos.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        btnPedidos.setBackground(new Color(0, 123, 255));
+        btnPedidos.setForeground(Color.WHITE);
+        gbc.gridy = 7;
+        add(btnPedidos, gbc);
+        btnPedidos.addActionListener(e -> {
             dispose();
             new MenuProvee(proveeController, productoController, proveedorController);
-    });
+        });
 
-        JButton Salir = new JButton("Salir");
-    Salir.setBounds(100, 450, 200, 50);
-    Salir.setFont(new Font("Roboto", Font.BOLD, 14));
-    Salir.setBackground(new Color(220, 53, 69));
-    Salir.setForeground(Color.WHITE);
-    add(Salir);
-        Salir.addActionListener(e -> dispose());
+        JButton btnSalir = new JButton("Salir");
+        btnSalir.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        btnSalir.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        btnSalir.setBackground(new Color(220, 53, 69));
+        btnSalir.setForeground(Color.WHITE);
+        gbc.gridy = 8;
+        add(btnSalir, gbc);
+        btnSalir.addActionListener(e -> System.exit(0));
+
+        setVisible(true);
     }
 
     protected void inicializarControladores() {
         try {
-           this.connection = DatabaseConnection.getInstance();
-           
-           this.clienteController = new ClienteController();
-           this.empleadoController = new EmpleadoController();
-           this.productoController = new ProductoController();
-           this.proveedorController = new ProveedorController();
-           this.facturaController = new FacturaController();
-           this.categoriaController = new CategoriaController();
-           this.proveeController = new ProveeController();
-           
+            this.connection = DatabaseConnection.getInstance();
+            
+            this.clienteController = new ClienteController();
+            this.empleadoController = new EmpleadoController();
+            this.productoController = new ProductoController();
+            this.proveedorController = new ProveedorController();
+            this.facturaController = new FacturaController();
+            this.categoriaController = new CategoriaController();
+            this.proveeController = new ProveeController();
+            
         } catch (SQLException e) {
-           System.err.println("Error al conectar con la base de datos: " + e.getMessage());
-           e.printStackTrace();
+            System.err.println("Error al conectar con la base de datos: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
-  }
 }

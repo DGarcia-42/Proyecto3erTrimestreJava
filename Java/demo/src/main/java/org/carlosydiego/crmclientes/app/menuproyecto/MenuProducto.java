@@ -23,79 +23,96 @@ public class MenuProducto extends JFrame {
     }
 
     private void initializeMenu() {
-        setLayout(null);
-        setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new GridBagLayout());
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
         setTitle("Menu Producto");
         getContentPane().setBackground(new Color(245, 247, 250));
 
-        JLabel Title = new JLabel("\n=== GESTIÓN DE PRODUCTOS ===");
-        Title.setBounds(300, 10, 300, 50);
-        Title.setFont(new Font("Roboto", Font.BOLD, 14));
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int buttonWidth = (int) (screenSize.width * 0.18);
+        int buttonHeight = (int) (screenSize.height * 0.06);
+        int fontSize = (int) (screenSize.height * 0.022);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
+
+        JLabel Title = new JLabel("=== GESTIÓN DE PRODUCTOS ===");
+        Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
         Title.setForeground(new Color(46, 46, 46));
-        add(Title);
+        Title.setHorizontalAlignment(SwingConstants.CENTER);
+        gbc.gridy = 0;
+        add(Title, gbc);
 
         JButton ListarProductosBtn = new JButton("Ver todos los productos");
-        ListarProductosBtn.setBounds(100, 100, 200, 50);
-        ListarProductosBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ListarProductosBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        ListarProductosBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         ListarProductosBtn.setBackground(new Color(0, 123, 255));
         ListarProductosBtn.setForeground(Color.WHITE);
-        add(ListarProductosBtn);
+        gbc.gridy = 1;
+        add(ListarProductosBtn, gbc);
         ListarProductosBtn.addActionListener(e -> {
             dispose();
             ListarProductos();
         });
-        
+
         JButton BuscarProductoBtn = new JButton("Buscar producto por ID");
-        BuscarProductoBtn.setBounds(100, 150, 200, 50);
-        BuscarProductoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        BuscarProductoBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        BuscarProductoBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         BuscarProductoBtn.setBackground(new Color(0, 123, 255));
         BuscarProductoBtn.setForeground(Color.WHITE);
-        add(BuscarProductoBtn);
+        gbc.gridy = 2;
+        add(BuscarProductoBtn, gbc);
         BuscarProductoBtn.addActionListener(e -> {
             dispose();
             BuscarProducto();
         });
-        
+
         JButton AñadirProductoBtn = new JButton("Añadir nuevo producto");
-        AñadirProductoBtn.setBounds(100, 200, 200, 50);
-        AñadirProductoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        AñadirProductoBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        AñadirProductoBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         AñadirProductoBtn.setBackground(new Color(76, 175, 80));
         AñadirProductoBtn.setForeground(Color.WHITE);
-        add(AñadirProductoBtn);
+        gbc.gridy = 3;
+        add(AñadirProductoBtn, gbc);
         AñadirProductoBtn.addActionListener(e -> {
             dispose();
             AñadirProducto();
         });
 
         JButton ActualizarProductoBtn = new JButton("Actualizar producto");
-        ActualizarProductoBtn.setBounds(100, 250, 200, 50);
-        ActualizarProductoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ActualizarProductoBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        ActualizarProductoBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         ActualizarProductoBtn.setBackground(new Color(0, 123, 255));
         ActualizarProductoBtn.setForeground(Color.WHITE);
-        add(ActualizarProductoBtn);
+        gbc.gridy = 4;
+        add(ActualizarProductoBtn, gbc);
         ActualizarProductoBtn.addActionListener(e -> {
             dispose();
             ActualizarProducto();
         });
-        
+
         JButton EliminarProductoBtn = new JButton("Eliminar producto");
-        EliminarProductoBtn.setBounds(100, 300, 200, 50);
-        EliminarProductoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        EliminarProductoBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        EliminarProductoBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         EliminarProductoBtn.setBackground(new Color(0, 123, 255));
         EliminarProductoBtn.setForeground(Color.WHITE);
-        add(EliminarProductoBtn);
+        gbc.gridy = 5;
+        add(EliminarProductoBtn, gbc);
         EliminarProductoBtn.addActionListener(e -> {
             dispose();
             EliminarProducto();
         });
 
         JButton VolverBtn = new JButton("Volver al menu principal");
-        VolverBtn.setBounds(100, 350, 200, 50);
-        VolverBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        VolverBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        VolverBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         VolverBtn.setBackground(new Color(0, 123, 255));
         VolverBtn.setForeground(Color.WHITE);
-        add(VolverBtn);
+        gbc.gridy = 6;
+        add(VolverBtn, gbc);
         VolverBtn.addActionListener(e -> {
             dispose();
             new MenuProyecto();
@@ -108,8 +125,8 @@ public class MenuProducto extends JFrame {
     {
       JFrame frame = new JFrame("Listar Productos");
       frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
@@ -180,8 +197,8 @@ public class MenuProducto extends JFrame {
     {
       JFrame frame = new JFrame("Buscar Producto");
       frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
@@ -283,11 +300,11 @@ public class MenuProducto extends JFrame {
     private void AñadirProducto()
     {
       JFrame frame = new JFrame("Añadir Producto");
-      frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
+      frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== AÑADIR NUEVO PRODUCTO ===");
       Title.setBounds(300, 10, 300, 50);
@@ -605,11 +622,11 @@ public class MenuProducto extends JFrame {
     private void ActualizarProducto()
     {
       JFrame frame = new JFrame("Actualizar Producto");
-      frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
+      frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== ACTUALIZAR PRODUCTO ===");
       Title.setBounds(300, 10, 300, 50);
@@ -1025,11 +1042,11 @@ public class MenuProducto extends JFrame {
     private void EliminarProducto()
     {
       JFrame frame = new JFrame("Eliminar Producto");
-      frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
+      frame.setLayout(null);
   
       JLabel Title = new JLabel("\n=== ELIMINAR PRODUCTO ===");
       Title.setBounds(300, 10, 300, 50);

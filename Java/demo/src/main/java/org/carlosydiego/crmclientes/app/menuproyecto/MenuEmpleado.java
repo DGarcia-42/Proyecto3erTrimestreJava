@@ -17,86 +17,102 @@ public class MenuEmpleado extends JFrame {
     }
 
     private void initializeMenu() {
-        setLayout(null);
-        setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new GridBagLayout());
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
         setTitle("Menu Empleado");
-        getContentPane().setBackground(new Color(245, 247, 250)); 
+        getContentPane().setBackground(new Color(245, 247, 250));
 
-        JLabel Title = new JLabel("\n=== GESTIÓN DE EMPLEADOS ===");
-        Title.setBounds(300, 10, 300, 50);
-        Title.setFont(new Font("Roboto", Font.BOLD, 14));
-        Title.setForeground(new Color(46, 46, 46)); 
-        add(Title);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int buttonWidth = (int) (screenSize.width * 0.18);
+        int buttonHeight = (int) (screenSize.height * 0.06);
+        int fontSize = (int) (screenSize.height * 0.022);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
+
+        JLabel Title = new JLabel("=== GESTIÓN DE EMPLEADOS ===");
+        Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        Title.setForeground(new Color(46, 46, 46));
+        Title.setHorizontalAlignment(SwingConstants.CENTER);
+        gbc.gridy = 0;
+        add(Title, gbc);
 
         JButton ListarEmpleadosBtn = new JButton("Ver todos los empleados");
-        ListarEmpleadosBtn.setBounds(100, 100, 200, 50);
-        add(ListarEmpleadosBtn);
-        ListarEmpleadosBtn.setFont(new Font("Roboto", Font.BOLD, 14));
-        ListarEmpleadosBtn.setBackground(new Color(0, 123, 255)); 
+        ListarEmpleadosBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        ListarEmpleadosBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        ListarEmpleadosBtn.setBackground(new Color(0, 123, 255));
         ListarEmpleadosBtn.setForeground(Color.WHITE);
+        gbc.gridy = 1;
+        add(ListarEmpleadosBtn, gbc);
         ListarEmpleadosBtn.addActionListener(e -> {
             dispose();
             ListarEmpleados();
         });
-        
+
         JButton BuscarEmpleadoBtn = new JButton("Buscar empleado por ID");
-        BuscarEmpleadoBtn.setBounds(100, 150, 200, 50);
-        add(BuscarEmpleadoBtn);
-        BuscarEmpleadoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
-        BuscarEmpleadoBtn.setBackground(new Color(0, 123, 255)); 
+        BuscarEmpleadoBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        BuscarEmpleadoBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        BuscarEmpleadoBtn.setBackground(new Color(0, 123, 255));
         BuscarEmpleadoBtn.setForeground(Color.WHITE);
+        gbc.gridy = 2;
+        add(BuscarEmpleadoBtn, gbc);
         BuscarEmpleadoBtn.addActionListener(e -> {
             dispose();
             BuscarEmpleado();
         });
-        
+
         JButton AñadirEmpleadoBtn = new JButton("Añadir nuevo empleado");
-        AñadirEmpleadoBtn.setBounds(100, 200, 200, 50);
-        add(AñadirEmpleadoBtn);
-        AñadirEmpleadoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
-        AñadirEmpleadoBtn.setBackground(new Color(76, 175, 80)); 
+        AñadirEmpleadoBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        AñadirEmpleadoBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        AñadirEmpleadoBtn.setBackground(new Color(76, 175, 80));
         AñadirEmpleadoBtn.setForeground(Color.WHITE);
+        gbc.gridy = 3;
+        add(AñadirEmpleadoBtn, gbc);
         AñadirEmpleadoBtn.addActionListener(e -> {
             dispose();
             AñadirEmpleado();
         });
 
         JButton ActualizarEmpleadoBtn = new JButton("Actualizar empleado");
-        ActualizarEmpleadoBtn.setBounds(100, 250, 200, 50);
-        add(ActualizarEmpleadoBtn);
-        ActualizarEmpleadoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
-        ActualizarEmpleadoBtn.setBackground(new Color(0, 123, 255)); 
+        ActualizarEmpleadoBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        ActualizarEmpleadoBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        ActualizarEmpleadoBtn.setBackground(new Color(0, 123, 255));
         ActualizarEmpleadoBtn.setForeground(Color.WHITE);
+        gbc.gridy = 4;
+        add(ActualizarEmpleadoBtn, gbc);
         ActualizarEmpleadoBtn.addActionListener(e -> {
             dispose();
             ActualizarEmpleado();
         });
-        
+
         JButton EliminarEmpleadoBtn = new JButton("Eliminar empleado");
-        EliminarEmpleadoBtn.setBounds(100, 300, 200, 50);
-        add(EliminarEmpleadoBtn);
-        EliminarEmpleadoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
-        EliminarEmpleadoBtn.setBackground(new Color(0, 123, 255)); 
+        EliminarEmpleadoBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        EliminarEmpleadoBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        EliminarEmpleadoBtn.setBackground(new Color(0, 123, 255));
         EliminarEmpleadoBtn.setForeground(Color.WHITE);
+        gbc.gridy = 5;
+        add(EliminarEmpleadoBtn, gbc);
         EliminarEmpleadoBtn.addActionListener(e -> {
             dispose();
             EliminarEmpleado();
         });
 
         JButton VolverBtn = new JButton("Volver al menu principal");
-        VolverBtn.setBounds(100, 350, 200, 50);
-        add(VolverBtn);
-        VolverBtn.setFont(new Font("Roboto", Font.BOLD, 14));
-        VolverBtn.setBackground(new Color(0, 123, 255)); 
+        VolverBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        VolverBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
+        VolverBtn.setBackground(new Color(0, 123, 255));
         VolverBtn.setForeground(Color.WHITE);
+        gbc.gridy = 6;
+        add(VolverBtn, gbc);
         VolverBtn.addActionListener(e -> {
             dispose();
             new MenuProyecto();
         });
 
         setVisible(true);
-        
     }
 
     
@@ -105,8 +121,8 @@ public class MenuEmpleado extends JFrame {
     {
       JFrame frame = new JFrame("Listar Empleados");
       frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250)); 
       frame.setVisible(true);
       
@@ -178,8 +194,8 @@ public class MenuEmpleado extends JFrame {
     {
       JFrame frame = new JFrame("Buscar Empleado");
       frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250)); 
       frame.setVisible(true);
  
@@ -283,8 +299,8 @@ public class MenuEmpleado extends JFrame {
     private void AñadirEmpleado()
     {
       JFrame frame = new JFrame("Añadir Empleado");
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250)); 
       frame.setVisible(true);
       frame.setLayout(null);
@@ -496,8 +512,8 @@ public class MenuEmpleado extends JFrame {
     private void ActualizarEmpleado()
     {
       JFrame frame = new JFrame("Actualizar Empleado");
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250)); 
       frame.setVisible(true);
       frame.setLayout(null);
@@ -829,8 +845,8 @@ public class MenuEmpleado extends JFrame {
     private void EliminarEmpleado()
     {
       JFrame frame = new JFrame("Eliminar Empleado");
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250)); 
       frame.setVisible(true);
       frame.setLayout(null);

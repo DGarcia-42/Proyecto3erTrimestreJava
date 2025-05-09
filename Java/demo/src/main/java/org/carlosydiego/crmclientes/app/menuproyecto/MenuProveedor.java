@@ -16,79 +16,96 @@ public class MenuProveedor extends JFrame {
     }
 
     private void initializeMenu() {
-        setLayout(null);
-        setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new GridBagLayout());
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
         setTitle("Menu Proveedor");
         getContentPane().setBackground(new Color(245, 247, 250));
 
-        JLabel Title = new JLabel("\n=== GESTIÓN DE PROVEEDORES ===");
-        Title.setBounds(300, 10, 300, 50);
-        Title.setFont(new Font("Roboto", Font.BOLD, 14));
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int buttonWidth = (int) (screenSize.width * 0.18);
+        int buttonHeight = (int) (screenSize.height * 0.06);
+        int fontSize = (int) (screenSize.height * 0.022);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
+
+        JLabel Title = new JLabel("=== GESTIÓN DE PROVEEDORES ===");
+        Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
         Title.setForeground(new Color(46, 46, 46));
-        add(Title);
+        Title.setHorizontalAlignment(SwingConstants.CENTER);
+        gbc.gridy = 0;
+        add(Title, gbc);
 
         JButton ListarProveedoresBtn = new JButton("Ver todos los proveedores");
-        ListarProveedoresBtn.setBounds(100, 100, 200, 50);
-        ListarProveedoresBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ListarProveedoresBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        ListarProveedoresBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         ListarProveedoresBtn.setBackground(new Color(0, 123, 255));
         ListarProveedoresBtn.setForeground(Color.WHITE);
-        add(ListarProveedoresBtn);
+        gbc.gridy = 1;
+        add(ListarProveedoresBtn, gbc);
         ListarProveedoresBtn.addActionListener(e -> {
             dispose();
             ListarProveedores();
         });
-        
+
         JButton BuscarProveedorBtn = new JButton("Buscar proveedor por ID");
-        BuscarProveedorBtn.setBounds(100, 150, 200, 50);
-        BuscarProveedorBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        BuscarProveedorBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        BuscarProveedorBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         BuscarProveedorBtn.setBackground(new Color(0, 123, 255));
         BuscarProveedorBtn.setForeground(Color.WHITE);
-        add(BuscarProveedorBtn);
+        gbc.gridy = 2;
+        add(BuscarProveedorBtn, gbc);
         BuscarProveedorBtn.addActionListener(e -> {
             dispose();
             BuscarProveedor();
         });
-        
+
         JButton AñadirProveedorBtn = new JButton("Añadir nuevo proveedor");
-        AñadirProveedorBtn.setBounds(100, 200, 200, 50);
-        AñadirProveedorBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        AñadirProveedorBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        AñadirProveedorBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         AñadirProveedorBtn.setBackground(new Color(76, 175, 80));
         AñadirProveedorBtn.setForeground(Color.WHITE);
-        add(AñadirProveedorBtn);
+        gbc.gridy = 3;
+        add(AñadirProveedorBtn, gbc);
         AñadirProveedorBtn.addActionListener(e -> {
             dispose();
             AñadirProveedor();
         });
 
         JButton ActualizarProveedorBtn = new JButton("Actualizar proveedor");
-        ActualizarProveedorBtn.setBounds(100, 250, 200, 50);
-        ActualizarProveedorBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ActualizarProveedorBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        ActualizarProveedorBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         ActualizarProveedorBtn.setBackground(new Color(0, 123, 255));
         ActualizarProveedorBtn.setForeground(Color.WHITE);
-        add(ActualizarProveedorBtn);
+        gbc.gridy = 4;
+        add(ActualizarProveedorBtn, gbc);
         ActualizarProveedorBtn.addActionListener(e -> {
             dispose();
             ActualizarProveedor();
         });
-        
+
         JButton EliminarProveedorBtn = new JButton("Eliminar proveedor");
-        EliminarProveedorBtn.setBounds(100, 300, 200, 50);
-        EliminarProveedorBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        EliminarProveedorBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        EliminarProveedorBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         EliminarProveedorBtn.setBackground(new Color(0, 123, 255));
         EliminarProveedorBtn.setForeground(Color.WHITE);
-        add(EliminarProveedorBtn);
+        gbc.gridy = 5;
+        add(EliminarProveedorBtn, gbc);
         EliminarProveedorBtn.addActionListener(e -> {
             dispose();
             EliminarProveedor();
         });
 
         JButton VolverBtn = new JButton("Volver al menu principal");
-        VolverBtn.setBounds(100, 350, 200, 50);
-        VolverBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        VolverBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        VolverBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         VolverBtn.setBackground(new Color(0, 123, 255));
         VolverBtn.setForeground(Color.WHITE);
-        add(VolverBtn);
+        gbc.gridy = 6;
+        add(VolverBtn, gbc);
         VolverBtn.addActionListener(e -> {
             dispose();
             new MenuProyecto();
@@ -101,8 +118,8 @@ public class MenuProveedor extends JFrame {
     {
       JFrame frame = new JFrame("Listar Proveedores");
       frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
@@ -173,8 +190,8 @@ public class MenuProveedor extends JFrame {
     {
       JFrame frame = new JFrame("Buscar Proveedor");
       frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
@@ -274,8 +291,8 @@ public class MenuProveedor extends JFrame {
     private void AñadirProveedor()
     {
       JFrame frame = new JFrame("Añadir Proveedor");
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
@@ -499,8 +516,8 @@ public class MenuProveedor extends JFrame {
     private void ActualizarProveedor()
     {
       JFrame frame = new JFrame("Actualizar Proveedor");
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
@@ -798,8 +815,8 @@ public class MenuProveedor extends JFrame {
     private void EliminarProveedor()
     {
       JFrame frame = new JFrame("Eliminar Proveedor");
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);

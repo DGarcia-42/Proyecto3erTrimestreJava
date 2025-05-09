@@ -25,79 +25,96 @@ public class MenuProvee extends JFrame {
     }
 
     private void initializeMenu() {
-        setLayout(null);
-        setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new GridBagLayout());
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
         setTitle("Menu Provee");
         getContentPane().setBackground(new Color(245, 247, 250));
 
-        JLabel Title = new JLabel("\n=== GESTIÓN DE PEDIDOS ===");
-        Title.setBounds(250, 10, 400, 50);
-        Title.setFont(new Font("Roboto", Font.BOLD, 14));
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int buttonWidth = (int) (screenSize.width * 0.18);
+        int buttonHeight = (int) (screenSize.height * 0.06);
+        int fontSize = (int) (screenSize.height * 0.022);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
+
+        JLabel Title = new JLabel("=== GESTIÓN DE PEDIDOS ===");
+        Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
         Title.setForeground(new Color(46, 46, 46));
-        add(Title);
+        Title.setHorizontalAlignment(SwingConstants.CENTER);
+        gbc.gridy = 0;
+        add(Title, gbc);
 
         JButton ListarProveesBtn = new JButton("Ver todos los pedidos");
-        ListarProveesBtn.setBounds(100, 100, 200, 50);
-        ListarProveesBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ListarProveesBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        ListarProveesBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         ListarProveesBtn.setBackground(new Color(0, 123, 255));
         ListarProveesBtn.setForeground(Color.WHITE);
-        add(ListarProveesBtn);
+        gbc.gridy = 1;
+        add(ListarProveesBtn, gbc);
         ListarProveesBtn.addActionListener(e -> {
             dispose();
             ListarProvees();
         });
         
         JButton BuscarProveeBtn = new JButton("Buscar pedido por ID");
-        BuscarProveeBtn.setBounds(100, 150, 200, 50);
-        BuscarProveeBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        BuscarProveeBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        BuscarProveeBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         BuscarProveeBtn.setBackground(new Color(0, 123, 255));
         BuscarProveeBtn.setForeground(Color.WHITE);
-        add(BuscarProveeBtn);
+        gbc.gridy = 2;
+        add(BuscarProveeBtn, gbc);
         BuscarProveeBtn.addActionListener(e -> {
             dispose();
             BuscarProvee();
         });
         
         JButton AñadirProveeBtn = new JButton("Añadir nuevo pedido");
-        AñadirProveeBtn.setBounds(100, 200, 200, 50);
-        AñadirProveeBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        AñadirProveeBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        AñadirProveeBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         AñadirProveeBtn.setBackground(new Color(76, 175, 80));
         AñadirProveeBtn.setForeground(Color.WHITE);
-        add(AñadirProveeBtn);
+        gbc.gridy = 3;
+        add(AñadirProveeBtn, gbc);
         AñadirProveeBtn.addActionListener(e -> {
             dispose();
             AñadirProvee();
         });
 
         JButton ActualizarProveeBtn = new JButton("Actualizar pedido");
-        ActualizarProveeBtn.setBounds(100, 250, 200, 50);
-        ActualizarProveeBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ActualizarProveeBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        ActualizarProveeBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         ActualizarProveeBtn.setBackground(new Color(0, 123, 255));
         ActualizarProveeBtn.setForeground(Color.WHITE);
-        add(ActualizarProveeBtn);
+        gbc.gridy = 4;
+        add(ActualizarProveeBtn, gbc);
         ActualizarProveeBtn.addActionListener(e -> {
             dispose();
             ActualizarProvee();
         });
         
         JButton EliminarProveeBtn = new JButton("Eliminar pedido");
-        EliminarProveeBtn.setBounds(100, 300, 200, 50);
-        EliminarProveeBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        EliminarProveeBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        EliminarProveeBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         EliminarProveeBtn.setBackground(new Color(0, 123, 255));
         EliminarProveeBtn.setForeground(Color.WHITE);
-        add(EliminarProveeBtn);
+        gbc.gridy = 5;
+        add(EliminarProveeBtn, gbc);
         EliminarProveeBtn.addActionListener(e -> {
             dispose();
             EliminarProvee();
         });
 
         JButton VolverBtn = new JButton("Volver al menu principal");
-        VolverBtn.setBounds(100, 350, 200, 50);
-        VolverBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        VolverBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        VolverBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         VolverBtn.setBackground(new Color(0, 123, 255));
         VolverBtn.setForeground(Color.WHITE);
-        add(VolverBtn);
+        gbc.gridy = 6;
+        add(VolverBtn, gbc);
         VolverBtn.addActionListener(e -> {
             dispose();
             new MenuProyecto();
@@ -108,10 +125,10 @@ public class MenuProvee extends JFrame {
 
     private void ListarProvees()
     {
-      JFrame frame = new JFrame("Listar Pedidos");
+      JFrame frame = new JFrame("Listar Provees");
       frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
@@ -180,10 +197,10 @@ public class MenuProvee extends JFrame {
   
     private void BuscarProvee()
     {
-      JFrame frame = new JFrame("Buscar Pedido");
+      JFrame frame = new JFrame("Buscar Provee");
       frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
   
@@ -284,9 +301,9 @@ public class MenuProvee extends JFrame {
   
     private void AñadirProvee()
     {
-      JFrame frame = new JFrame("Añadir Pedido");
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      JFrame frame = new JFrame("Añadir Provee");
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
@@ -589,9 +606,9 @@ public class MenuProvee extends JFrame {
   
     private void ActualizarProvee()
     {
-      JFrame frame = new JFrame("Actualizar Pedido");
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      JFrame frame = new JFrame("Actualizar Provee");
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
@@ -914,9 +931,9 @@ public class MenuProvee extends JFrame {
   
     private void EliminarProvee()
     {
-      JFrame frame = new JFrame("Eliminar Pedido");
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      JFrame frame = new JFrame("Eliminar Provee");
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);

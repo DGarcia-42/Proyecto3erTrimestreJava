@@ -28,90 +28,108 @@ public class MenuFactura extends JFrame {
     }
 
     private void initializeMenu() {
-        setLayout(null);
-        setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new GridBagLayout());
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
         setTitle("Menu Factura");
         getContentPane().setBackground(new Color(245, 247, 250));
 
-        JLabel Title = new JLabel("\n=== GESTIÓN DE FACTURAS ===");
-        Title.setBounds(300, 10, 300, 50);
-        Title.setFont(new Font("Roboto", Font.BOLD, 14));
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int buttonWidth = (int) (screenSize.width * 0.18);
+        int buttonHeight = (int) (screenSize.height * 0.06);
+        int fontSize = (int) (screenSize.height * 0.022);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0);
+
+        JLabel Title = new JLabel("=== GESTIÓN DE FACTURAS ===");
+        Title.setFont(new Font("Roboto", Font.BOLD, fontSize));
         Title.setForeground(new Color(46, 46, 46));
-        add(Title);
+        Title.setHorizontalAlignment(SwingConstants.CENTER);
+        gbc.gridy = 0;
+        add(Title, gbc);
 
         JButton ListarFacturasBtn = new JButton("Ver todas las facturas");
-        ListarFacturasBtn.setBounds(100, 100, 200, 50);
-        ListarFacturasBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ListarFacturasBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        ListarFacturasBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         ListarFacturasBtn.setBackground(new Color(0, 123, 255));
         ListarFacturasBtn.setForeground(Color.WHITE);
-        add(ListarFacturasBtn);
+        gbc.gridy = 1;
+        add(ListarFacturasBtn, gbc);
         ListarFacturasBtn.addActionListener(e -> {
             dispose();
             ListarFacturas();
         });
-        
+
         JButton BuscarFacturaBtn = new JButton("Buscar factura por ID");
-        BuscarFacturaBtn.setBounds(100, 150, 200, 50);
-        BuscarFacturaBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        BuscarFacturaBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        BuscarFacturaBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         BuscarFacturaBtn.setBackground(new Color(0, 123, 255));
         BuscarFacturaBtn.setForeground(Color.WHITE);
-        add(BuscarFacturaBtn);
+        gbc.gridy = 2;
+        add(BuscarFacturaBtn, gbc);
         BuscarFacturaBtn.addActionListener(e -> {
             dispose();
             BuscarFactura();
         });
-        
+
         JButton AñadirFacturaBtn = new JButton("Añadir nueva factura");
-        AñadirFacturaBtn.setBounds(100, 200, 200, 50);
-        AñadirFacturaBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        AñadirFacturaBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        AñadirFacturaBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         AñadirFacturaBtn.setBackground(new Color(76, 175, 80));
         AñadirFacturaBtn.setForeground(Color.WHITE);
-        add(AñadirFacturaBtn);
+        gbc.gridy = 3;
+        add(AñadirFacturaBtn, gbc);
         AñadirFacturaBtn.addActionListener(e -> {
             dispose();
             AñadirFactura();
         });
 
         JButton ActualizarFacturaBtn = new JButton("Actualizar factura");
-        ActualizarFacturaBtn.setBounds(100, 250, 200, 50);
-        ActualizarFacturaBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        ActualizarFacturaBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        ActualizarFacturaBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         ActualizarFacturaBtn.setBackground(new Color(0, 123, 255));
         ActualizarFacturaBtn.setForeground(Color.WHITE);
-        add(ActualizarFacturaBtn);
+        gbc.gridy = 4;
+        add(ActualizarFacturaBtn, gbc);
         ActualizarFacturaBtn.addActionListener(e -> {
             dispose();
             ActualizarFactura();
         });
-        
+
         JButton EliminarFacturaBtn = new JButton("Eliminar factura");
-        EliminarFacturaBtn.setBounds(100, 300, 200, 50);
-        EliminarFacturaBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        EliminarFacturaBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        EliminarFacturaBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         EliminarFacturaBtn.setBackground(new Color(0, 123, 255));
         EliminarFacturaBtn.setForeground(Color.WHITE);
-        add(EliminarFacturaBtn);
+        gbc.gridy = 5;
+        add(EliminarFacturaBtn, gbc);
         EliminarFacturaBtn.addActionListener(e -> {
             dispose();
             EliminarFactura();
         });
 
         JButton GenerarArchivoBtn = new JButton("Generar archivo de factura");
-        GenerarArchivoBtn.setBounds(100, 350, 200, 50);
-        GenerarArchivoBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        GenerarArchivoBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        GenerarArchivoBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         GenerarArchivoBtn.setBackground(new Color(0, 123, 255));
         GenerarArchivoBtn.setForeground(Color.WHITE);
-        add(GenerarArchivoBtn);
+        gbc.gridy = 6;
+        add(GenerarArchivoBtn, gbc);
         GenerarArchivoBtn.addActionListener(e -> {
             dispose();
             GenerarArchivoFacturaPorId();
         });
 
         JButton VolverBtn = new JButton("Volver al menu principal");
-        VolverBtn.setBounds(100, 400, 200, 50);
-        VolverBtn.setFont(new Font("Roboto", Font.BOLD, 14));
+        VolverBtn.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        VolverBtn.setFont(new Font("Roboto", Font.BOLD, fontSize));
         VolverBtn.setBackground(new Color(0, 123, 255));
         VolverBtn.setForeground(Color.WHITE);
-        add(VolverBtn);
+        gbc.gridy = 7;
+        add(VolverBtn, gbc);
         VolverBtn.addActionListener(e -> {
             dispose();
             new MenuProyecto();
@@ -124,8 +142,8 @@ public class MenuFactura extends JFrame {
     {
       JFrame frame = new JFrame("Listar Facturas");
       frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
  
@@ -194,8 +212,8 @@ public class MenuFactura extends JFrame {
     private void AñadirFactura()
     {
       JFrame frame = new JFrame("Añadir Factura");
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
@@ -585,8 +603,8 @@ public class MenuFactura extends JFrame {
     private void ActualizarFactura()
     {
       JFrame frame = new JFrame("Actualizar Factura");
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
@@ -1104,8 +1122,8 @@ public class MenuFactura extends JFrame {
     private void EliminarFactura()
     {
       JFrame frame = new JFrame("Eliminar Factura");
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
       frame.setLayout(null);
@@ -1249,8 +1267,8 @@ public class MenuFactura extends JFrame {
     {
       JFrame frame = new JFrame("Buscar Factura");
       frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
  
@@ -1352,8 +1370,8 @@ public class MenuFactura extends JFrame {
     {
       JFrame frame = new JFrame("Generar Archivo de Factura");
       frame.setLayout(null);
-      frame.setSize(800, 600);
-      frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+      frame.setUndecorated(true);
       frame.getContentPane().setBackground(new Color(245, 247, 250));
       frame.setVisible(true);
  
