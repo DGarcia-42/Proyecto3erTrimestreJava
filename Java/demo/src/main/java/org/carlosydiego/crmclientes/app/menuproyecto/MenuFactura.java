@@ -9,7 +9,6 @@ import java.util.List;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.carlosydiego.crmclientes.app.controller.*;
 import org.carlosydiego.crmclientes.app.model.*;
@@ -371,7 +370,7 @@ public class MenuFactura extends JFrame {
               gbc.gridy = 5;
               frame.add(agregarProductoButton, gbc);
               
-              final AtomicInteger productoRow = new AtomicInteger(0);
+              final int[] productoRow = {0};
               
               agregarProductoButton.addActionListener(new ActionListener() {
                   @Override
@@ -441,7 +440,7 @@ public class MenuFactura extends JFrame {
                                           Producto producto = productoController.findById(idProducto);
                                           
                                           panelGbc.gridx = 0;
-                                          panelGbc.gridy = productoRow.getAndIncrement();
+                                          panelGbc.gridy = productoRow[0]++;
                                           panelGbc.gridwidth = 1;
                                           
                                           JLabel productoLabel = new JLabel(producto.getNombre() + " - $" + producto.getPVP());
@@ -647,7 +646,7 @@ public class MenuFactura extends JFrame {
                           estadoCombo.setSelectedIndex(0);
                           productosCantidad.clear();
                           productosPanel.removeAll();
-                          productoRow.set(0);
+                          productoRow[0] = 0;
                           productosPanel.revalidate();
                           productosPanel.repaint();
                           
