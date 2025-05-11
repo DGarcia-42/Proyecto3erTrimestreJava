@@ -9,7 +9,9 @@ import org.carlosydiego.crmclientes.app.controller.*;
 import org.carlosydiego.crmclientes.app.database.DatabaseConnection;
 
 public class MenuProyecto extends JFrame {
+    //Conexión a la base de datos
     protected Connection connection;
+    //Controladores para cada menu
     protected ClienteController clienteController;
     protected EmpleadoController empleadoController;
     protected ProductoController productoController;
@@ -19,18 +21,20 @@ public class MenuProyecto extends JFrame {
     protected ProveeController proveeController;
 
     public MenuProyecto() {
+        //Configuración de la ventana(Ocupar toda la pantalla, sin bordes)
         setLayout(new GridBagLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setTitle("Menu Principal");
         getContentPane().setBackground(new Color(245, 247, 250));
         inicializarControladores();
-
+        //Dimensiones de los botones
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int buttonWidth = (int) (screenSize.width * 0.18);
         int buttonHeight = (int) (screenSize.height * 0.06);
         int fontSize = (int) (screenSize.height * 0.022);
 
+        //GridBagConstraints para la disposición de los botones
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -139,6 +143,7 @@ public class MenuProyecto extends JFrame {
         setVisible(true);
     }
 
+    //Inicializa los controladores para cada menu
     protected void inicializarControladores() {
         try {
             this.connection = DatabaseConnection.getInstance();

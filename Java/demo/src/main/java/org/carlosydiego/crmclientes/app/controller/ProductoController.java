@@ -33,12 +33,14 @@ public class ProductoController implements ProductoRepository <Producto>
         p.setDescripcion(rs.getString("descripcion"));
         p.setIVA(rs.getDouble("iva"));
         
+        //Crear y establecer la categoria del producto
         Categoria c = new Categoria();
         c.setID_Categoria(rs.getLong("id_categoria"));
         c.setNombre(rs.getString("nombreCategoria"));
 
         p.setCategoria(c);
 
+        //Crear y establecer el proveedor del producto
         Proveedor prov = new Proveedor();
         prov.setID_Proveedor(rs.getLong("id_proveedor"));
         prov.setNombre(rs.getString("nombreProveedor"));
@@ -144,7 +146,6 @@ public class ProductoController implements ProductoRepository <Producto>
             pstmt.setDouble(5, p.getIVA());
             pstmt.setLong(6, p.getCategoria().getID_Categoria());
             
-            // Manejar el ID del proveedor
             if (p.getProveedor() != null && p.getProveedor().getID_Proveedor() != null) {
                 pstmt.setLong(7, p.getProveedor().getID_Proveedor());
             } else {

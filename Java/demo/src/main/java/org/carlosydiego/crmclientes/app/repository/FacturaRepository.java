@@ -9,5 +9,4 @@ public interface FacturaRepository <Factura>
     Factura findById(Long id);
     void save(Factura factura);
     void delete(Long id);
-    List<Factura> findByPeriod(int periodType);
 } 

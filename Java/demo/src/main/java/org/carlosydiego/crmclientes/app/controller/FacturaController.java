@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,6 +105,7 @@ public class FacturaController implements FacturaRepository<Factura>
         return f;
     }
 
+    
     @Override
     public List<Factura> findAll()
     {
@@ -211,7 +211,7 @@ public class FacturaController implements FacturaRepository<Factura>
                     "Canal_Compra, Cantidad, Fecha_Venta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS))
             {
-                // Obtener el producto actual y verificar stock
+                // Obtenemos el producto actual 
                 String queryProducto = "SELECT * FROM producto WHERE id_producto = ?";
                 try (PreparedStatement psProducto = connection.prepareStatement(queryProducto)) {
                     psProducto.setLong(1, factura.getProducto().getID_Producto());
@@ -220,7 +220,7 @@ public class FacturaController implements FacturaRepository<Factura>
                             int stockActual = rsProducto.getInt("stock");
                             int cantidadVendida = factura.getCantidad();
                             
-                            // Verificar que hay suficiente stock (ahora retornamos un mensaje en lugar de lanzar excepción)
+                            // Verificamos que hay suficiente stock
                             if (stockActual < cantidadVendida) {
                                 throw new RuntimeException("No hay suficiente stock disponible. Stock actual: " + stockActual);
                             }
@@ -281,7 +281,7 @@ public class FacturaController implements FacturaRepository<Factura>
                     Long productoOriginalId = facturaOriginal.getProducto().getID_Producto();
                     int cantidadOriginal = facturaOriginal.getCantidad();
                     
-                    // Obtener el producto actual
+                    // Obtenemos el producto actual
                     String queryProducto = "SELECT * FROM producto WHERE id_producto = ?";
                     try (PreparedStatement psProducto = connection.prepareStatement(queryProducto)) {
                         psProducto.setLong(1, factura.getProducto().getID_Producto());
@@ -293,12 +293,12 @@ public class FacturaController implements FacturaRepository<Factura>
                                 if (!productoOriginalId.equals(factura.getProducto().getID_Producto()) ||
                                     cantidadOriginal != factura.getCantidad()) {
                                     
-                                    // Verificar stock suficiente para el nuevo producto
+                                    // Verificamos si hay stock suficiente para el nuevo producto
                                     if (stockActual < factura.getCantidad()) {
                                         throw new RuntimeException("No hay suficiente stock disponible. Stock actual: " + stockActual);
                                     }
                                     
-                                    // Actualizar la factura
+                                    // Actualizamos la factura
                                     ps.setString(1, factura.getPagado());
                                     ps.setLong(2, factura.getEmpleado().getID_Empleado());
                                     ps.setLong(3, factura.getCliente().getID_Cliente());
@@ -311,7 +311,7 @@ public class FacturaController implements FacturaRepository<Factura>
 
                                     int filasAfectadas = ps.executeUpdate();
                                     if (filasAfectadas > 0) {
-                                        // Devolver el stock al producto original si es diferente
+                                        // Devolvemos el stock al producto original si es diferente
                                         if (!productoOriginalId.equals(factura.getProducto().getID_Producto())) {
                                             String updateProductoOriginal = "UPDATE producto SET stock = stock + ? WHERE id_producto = ?";
                                             try (PreparedStatement psUpdateOrig = connection.prepareStatement(updateProductoOriginal)) {
@@ -320,7 +320,7 @@ public class FacturaController implements FacturaRepository<Factura>
                                                 psUpdateOrig.executeUpdate();
                                             }
                                             
-                                            // Restar stock al nuevo producto
+                                            // Restamos stock al nuevo producto
                                             String updateProductoNuevo = "UPDATE producto SET stock = stock - ? WHERE id_producto = ?";
                                             try (PreparedStatement psUpdateNuevo = connection.prepareStatement(updateProductoNuevo)) {
                                                 psUpdateNuevo.setInt(1, factura.getCantidad());
@@ -328,7 +328,7 @@ public class FacturaController implements FacturaRepository<Factura>
                                                 psUpdateNuevo.executeUpdate();
                                             }
                                         } else if (cantidadOriginal != factura.getCantidad()) {
-                                            // Si es el mismo producto pero cantidad diferente, ajustar la diferencia
+                                            // Si es el mismo producto pero cantidad diferente, ajustamos la diferencia
                                             int diferencia = factura.getCantidad() - cantidadOriginal;
                                             String updateProducto = "UPDATE producto SET stock = stock - ? WHERE id_producto = ?";
                                             try (PreparedStatement psUpdate = connection.prepareStatement(updateProducto)) {
@@ -339,7 +339,7 @@ public class FacturaController implements FacturaRepository<Factura>
                                         }
                                     }
                                 } else {
-                                    // Si no hay cambios en producto o cantidad, solo actualizar la factura
+                                    // Si no hay cambios en producto o cantidad, solo actualizamos la factura
                                     ps.setString(1, factura.getPagado());
                                     ps.setLong(2, factura.getEmpleado().getID_Empleado());
                                     ps.setLong(3, factura.getCliente().getID_Cliente());
@@ -391,79 +391,5 @@ public class FacturaController implements FacturaRepository<Factura>
         }
     }
     
-    @Override
-    public List<Factura> findByPeriod(int periodType)
-    {
-        List<Factura> lista = new ArrayList<>();
-        LocalDate fechaActual = LocalDate.now();
-        LocalDate fechaInicio;
-        
-        switch (periodType) 
-        {
-            case 1: // Última semana
-                fechaInicio = fechaActual.minusDays(7);
-                break;
-            case 2: // Últimos 15 días
-                fechaInicio = fechaActual.minusDays(15);
-                break;
-            case 3: // Último mes
-                fechaInicio = fechaActual.minusMonths(1);
-                break;
-            case 4: // Últimos 6 meses
-                fechaInicio = fechaActual.minusMonths(6);
-                break;
-            case 5: // Último año
-                fechaInicio = fechaActual.minusYears(1);
-                break;
-            default:
-                return findAll();
-        }
-        
-        String query = "SELECT f.*, " +
-                       "p.nombre AS nombre_producto, p.pvp, p.stock, p.descripcion, p.iva, " +
-                       "c.id_categoria, c.nombre AS nombre_categoria, " +
-                       "pr.id_proveedor, pr.nombre AS nombre_proveedor, " +
-                       "pr.nombre_responsable, pr.pais AS pais_proveedor, " +
-                       "pr.provincia AS provincia_proveedor, pr.direccion AS direccion_proveedor, " +
-                       "pr.codigo_postal AS codigo_postal_proveedor, pr.cif AS cif_proveedor, " +
-                       "pr.telefono AS telefono_proveedor, pr.email AS email_proveedor, " + 
-                       "e.nombre AS nombre_empleado, e.apellido AS apellido_empleado, " +
-                       "e.nif AS nif_empleado, e.direccion AS direccion_empleado, " +
-                       "e.codigo_postal AS codigo_postal_empleado, e.provincia AS provincia_empleado, " +
-                       "e.pais AS pais_empleado, e.telefono AS telefono_empleado, " +
-                       "e.email AS email_empleado, " +
-                       "cl.nombre_empresa, cl.nombre_responsable, cl.pais AS pais_cliente, " +
-                       "cl.provincia AS provincia_cliente, cl.direccion AS direccion_cliente, " +
-                       "cl.codigo_postal AS codigo_postal_cliente, cl.cif AS cif_cliente, " +
-                       "cl.telefono AS telefono_cliente, cl.email AS email_cliente " +
-                       "FROM factura f " +
-                       "INNER JOIN producto p ON f.Producto = p.id_producto " +
-                       "INNER JOIN categoria c ON p.Categoria = c.id_categoria " +
-                       "LEFT JOIN proveedor pr ON p.Proveedor_Clave = pr.id_proveedor " +
-                       "INNER JOIN empleado e ON f.Empleado = e.id_empleado " +
-                       "INNER JOIN cliente cl ON f.Cliente = cl.id_cliente " +
-                       "WHERE f.Fecha_Venta >= ?";
-        
-        try (PreparedStatement pstmt = connection.prepareStatement(query))
-        {
-            pstmt.setDate(1, java.sql.Date.valueOf(fechaInicio));
-            try (ResultSet rs = pstmt.executeQuery())
-            {
-                while (rs.next())
-                {
-                    Factura f = createFactura(rs);
-                    lista.add(f);
-                }
-                if (lista.isEmpty())
-                {
-                    System.out.println("No hay facturas en el período seleccionado");
-                }
-            }
-        }
-        catch (SQLException sex) 
-        {
-            sex.printStackTrace();
-        }
-        return lista;
-    }
+
 } 

@@ -16,9 +16,8 @@ public class Producto
     public Producto(){}
 
     //Constructor con todos los atributos
-    public Producto(Long ID_Producto, String Nombre, String Descripcion, Integer Stock, Double PVP, Double IVA, Categoria categoria, Proveedor proveedor) 
+    public Producto(String Nombre, String Descripcion, Integer Stock, Double PVP, Double IVA, Categoria categoria, Proveedor proveedor) 
     {
-        this.ID_Producto = ID_Producto;
         this.Nombre = Nombre;
         this.Descripcion = Descripcion;
         this.Stock = Stock;

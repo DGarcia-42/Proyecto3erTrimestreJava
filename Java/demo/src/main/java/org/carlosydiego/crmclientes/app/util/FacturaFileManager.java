@@ -86,7 +86,7 @@ public class FacturaFileManager {
             writer.newLine();
             writer.write("=================================================");
             writer.newLine();
-            writer.write("Pagado: " + (factura.getPagado().equalsIgnoreCase("Si") ? "Sí" : "No"));
+            writer.write("Estado: " + factura.getPagado());
             writer.newLine();
             writer.write("Canal de compra: " + factura.getCanal_Compra());
             writer.newLine();
