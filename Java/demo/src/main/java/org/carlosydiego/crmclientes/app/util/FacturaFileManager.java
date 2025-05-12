@@ -52,6 +52,9 @@ public class FacturaFileManager
     //Metodo para generar el archivo de factura (Si forzarGeneracion es true, se sobreescribe)
     public static String generarArchivoFactura(Factura factura, boolean forzarGeneracion) 
     {
+        // Crear el directorio si no existe
+        crearDirectorio();
+        
         String filePath = getFacturaFilePath(factura.getID_Factura());
         File file = new File(filePath);
         String rutaAbsoluta = file.getAbsolutePath();
