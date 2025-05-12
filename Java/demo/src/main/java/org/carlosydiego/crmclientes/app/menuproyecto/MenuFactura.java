@@ -14,7 +14,8 @@ import org.carlosydiego.crmclientes.app.controller.*;
 import org.carlosydiego.crmclientes.app.model.*;
 import org.carlosydiego.crmclientes.app.util.FacturaFileManager;
 
-public class MenuFactura extends JFrame {
+public class MenuFactura extends JFrame 
+{
     private FacturaController facturaController;
     private ClienteController clienteController;
     private EmpleadoController empleadoController;
@@ -24,7 +25,8 @@ public class MenuFactura extends JFrame {
     public MenuFactura(FacturaController facturaController, 
                       ClienteController clienteController,
                       EmpleadoController empleadoController,
-                      ProductoController productoController) {
+                      ProductoController productoController) 
+    {
         this.facturaController = facturaController;
         this.clienteController = clienteController;
         this.empleadoController = empleadoController;
@@ -32,7 +34,8 @@ public class MenuFactura extends JFrame {
         initializeMenu();
     }
 
-    private void initializeMenu() {
+    private void initializeMenu() 
+    {
         setLayout(new GridBagLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -63,7 +66,8 @@ public class MenuFactura extends JFrame {
         ListarFacturasBtn.setForeground(Color.WHITE);
         gbc.gridy = 1;
         add(ListarFacturasBtn, gbc);
-        ListarFacturasBtn.addActionListener(e -> {
+        ListarFacturasBtn.addActionListener(e -> 
+        {
             dispose();
             ListarFacturas();
         });
@@ -75,7 +79,8 @@ public class MenuFactura extends JFrame {
         BuscarFacturaBtn.setForeground(Color.WHITE);
         gbc.gridy = 2;
         add(BuscarFacturaBtn, gbc);
-        BuscarFacturaBtn.addActionListener(e -> {
+        BuscarFacturaBtn.addActionListener(e -> 
+        {
             dispose();
             BuscarFactura();
         });
@@ -87,7 +92,8 @@ public class MenuFactura extends JFrame {
         AñadirFacturaBtn.setForeground(Color.WHITE);
         gbc.gridy = 3;
         add(AñadirFacturaBtn, gbc);
-        AñadirFacturaBtn.addActionListener(e -> {
+        AñadirFacturaBtn.addActionListener(e -> 
+        {
             dispose();
             AñadirFactura();
         });
@@ -99,7 +105,8 @@ public class MenuFactura extends JFrame {
         ActualizarFacturaBtn.setForeground(Color.WHITE);
         gbc.gridy = 4;
         add(ActualizarFacturaBtn, gbc);
-        ActualizarFacturaBtn.addActionListener(e -> {
+        ActualizarFacturaBtn.addActionListener(e -> 
+        {
             dispose();
             ActualizarFactura();
         });
@@ -111,7 +118,8 @@ public class MenuFactura extends JFrame {
         EliminarFacturaBtn.setForeground(Color.WHITE);
         gbc.gridy = 5;
         add(EliminarFacturaBtn, gbc);
-        EliminarFacturaBtn.addActionListener(e -> {
+        EliminarFacturaBtn.addActionListener(e -> 
+        {
             dispose();
             EliminarFactura();
         });
@@ -123,7 +131,8 @@ public class MenuFactura extends JFrame {
         GenerarArchivoBtn.setForeground(Color.WHITE);
         gbc.gridy = 6;
         add(GenerarArchivoBtn, gbc);
-        GenerarArchivoBtn.addActionListener(e -> {
+        GenerarArchivoBtn.addActionListener(e -> 
+        {
             dispose();
             GenerarArchivoFacturaPorId();
         });
@@ -135,7 +144,8 @@ public class MenuFactura extends JFrame {
         VolverBtn.setForeground(Color.WHITE);
         gbc.gridy = 7;
         add(VolverBtn, gbc);
-        VolverBtn.addActionListener(e -> {
+        VolverBtn.addActionListener(e -> 
+        {
             dispose();
             new MenuProyecto();
         });
@@ -143,7 +153,8 @@ public class MenuFactura extends JFrame {
         setVisible(true);
     }
 
-    private void ListarFacturas() {
+    private void ListarFacturas() 
+    {
         JFrame frame = new JFrame("Listar Facturas");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -172,13 +183,16 @@ public class MenuFactura extends JFrame {
         frame.add(Title, gbc);
 
         //Comprobación de si hay conexión a la base de datos
-        if(facturaController != null) {
-            try {
+        if(facturaController != null) 
+        {
+            try 
+            {
                 //Se obtiene todas las facturas de la base de datos
                 List<Factura> facturas = facturaController.findAll();
 
                 //Si no hay facturas registradas, se muestra un mensaje
-                if(facturas == null || facturas.isEmpty()) {
+                if(facturas == null || facturas.isEmpty()) 
+                {
                     JLabel noFacturasLabel = new JLabel("No hay facturas registradas en el sistema");
                     noFacturasLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
                     noFacturasLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -193,20 +207,24 @@ public class MenuFactura extends JFrame {
                     gbc.gridy = 2;
                     frame.add(volverButton, gbc);
                     
-                    volverButton.addActionListener(e -> {
+                    volverButton.addActionListener(e -> 
+                    {
                         frame.dispose();
                         new MenuFactura(facturaController, clienteController, empleadoController, productoController);
                     });
 
                 //Si hay facturas registradas, se muestra el listado de facturas
-                } else {
+                } 
+                else 
+                {
                     JTextArea facturasTextArea = new JTextArea();
                     facturasTextArea.setEditable(false);
                     facturasTextArea.setFont(new Font("Monospaced", Font.PLAIN, fontSize - 2));
 
                     //Se crea un StringBuilder para almacenar el listado de facturas
                     StringBuilder sb = new StringBuilder();
-                    for (Factura factura : facturas) {
+                    for (Factura factura : facturas) 
+                    {
                         sb.append("ID: ").append(factura.getID_Factura()).append("\n");
                         sb.append("Cliente: ").append(factura.getCliente().getNombre_Empresa())
                           .append(" (ID: ").append(factura.getCliente().getID_Cliente()).append(")\n");
@@ -237,12 +255,15 @@ public class MenuFactura extends JFrame {
                     gbc.gridy = 2;
                     frame.add(volverButton, gbc);
                     
-                    volverButton.addActionListener(e -> {
+                    volverButton.addActionListener(e -> 
+                    {
                         frame.dispose();
                         new MenuFactura(facturaController, clienteController, empleadoController, productoController);
                     });
                 }
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al obtener las facturas: " + e.getMessage());
                 JLabel errorLabel = new JLabel("Error al obtener facturas: " + e.getMessage());
                 errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
@@ -257,12 +278,15 @@ public class MenuFactura extends JFrame {
                 gbc.gridy = 2;
                 frame.add(volverButton, gbc);
                 
-                volverButton.addActionListener(e2 -> {
+                volverButton.addActionListener(e2 -> 
+                {
                     frame.dispose();
                     new MenuFactura(facturaController, clienteController, empleadoController, productoController);
                 });
             } 
-        } else {
+        } 
+        else 
+        {
             JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
             errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
             gbc.gridy = 1;
@@ -276,13 +300,15 @@ public class MenuFactura extends JFrame {
             gbc.gridy = 2;
             frame.add(volverButton, gbc);
             
-            volverButton.addActionListener(e -> {
+            volverButton.addActionListener(e -> 
+            {
                 frame.dispose();
                 new MenuFactura(facturaController, clienteController, empleadoController, productoController);
             });
         }
     }
-    private void BuscarFactura() {
+    private void BuscarFactura() 
+    {
         JFrame frame = new JFrame("Buscar Factura");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -312,8 +338,10 @@ public class MenuFactura extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
       
-        if(facturaController != null) {
-            try {
+        if(facturaController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID de la factura
                 JLabel idLabel = new JLabel("ID de la factura:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -369,10 +397,13 @@ public class MenuFactura extends JFrame {
                 frame.add(volverButton, gbc);
 
                 //Acción para buscar la factura
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el ID de la factura introducido 
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
@@ -383,16 +414,21 @@ public class MenuFactura extends JFrame {
                             Factura factura = facturaController.findById(id);
 
                             //Si la factura existe, se muestra la información de la factura
-                            if(factura != null) {
+                            if(factura != null) 
+                            {
                                 facturaInfo.setText(factura.toString());
                                 statusLabel.setText("");
                                 
                             // Si la factura no existe, se muestra un mensaje de error
-                            } else {
+                            } 
+                            else 
+                            {
                                 facturaInfo.setText("");
                                 statusLabel.setText("No se encontró una factura con el ID: " + id);
                             }
-                        } catch(NumberFormatException nfe) {
+                        } 
+                        catch(NumberFormatException nfe) 
+                        {
                             //Si el ID introducido no es un número, se muestra un mensaje de error
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             facturaInfo.setText("");
@@ -400,11 +436,14 @@ public class MenuFactura extends JFrame {
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuFactura(facturaController, clienteController, empleadoController, productoController);
                 });
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al buscar la factura: " + e.getMessage());
                 JLabel errorLabel = new JLabel("Error: " + e.getMessage());
                 errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
@@ -423,12 +462,15 @@ public class MenuFactura extends JFrame {
                 gbc.gridwidth = 2;
                 frame.add(volverButton, gbc);
                 
-                volverButton.addActionListener(e2 -> {
+                volverButton.addActionListener(e2 -> 
+                {
                     frame.dispose();
                     new MenuFactura(facturaController, clienteController, empleadoController, productoController);
                 });
             }
-        } else {
+        } 
+        else 
+        {
             JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
             errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
             gbc.gridx = 0;
@@ -446,14 +488,16 @@ public class MenuFactura extends JFrame {
             gbc.gridwidth = 2;
             frame.add(volverButton, gbc);
             
-            volverButton.addActionListener(e -> {
+            volverButton.addActionListener(e -> 
+            {
                 frame.dispose();
                 new MenuFactura(facturaController, clienteController, empleadoController, productoController);
             });
         }
     }
 
-    private void AñadirFactura() {
+    private void AñadirFactura() 
+    {
         JFrame frame = new JFrame("Añadir Factura");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -481,8 +525,10 @@ public class MenuFactura extends JFrame {
         gbc.gridwidth = 3;
         frame.add(Title, gbc);
   
-        if(facturaController != null) {
-            try {
+        if(facturaController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID del cliente
                 JLabel clienteLabel = new JLabel("ID del Cliente:");
                 clienteLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -506,19 +552,23 @@ public class MenuFactura extends JFrame {
                 frame.add(verClientesButton, gbc);
 
                 //Acción para ver los clientes disponibles
-                verClientesButton.addActionListener(new ActionListener() {
+                verClientesButton.addActionListener(new ActionListener() 
+                {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        try {
+                        try 
+                        {
                             //Se obtiene todos los clientes de la base de datos
                             List<Cliente> clientes = clienteController.findAll();
 
                             //Si hay clientes registrados, se muestra el listado de clientes
-                            if(clientes != null && !clientes.isEmpty()) {
+                            if(clientes != null && !clientes.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
 
                                 //Se crea un StringBuilder para almacenar el listado de clientes
-                                for(Cliente c : clientes) {
+                                for(Cliente c : clientes) 
+                                {
                                     sb.append("ID: ").append(c.getID_Cliente())
                                       .append(" - Nombre: ").append(c.getNombre_Empresa())
                                       .append(" ").append(c.getNombre_Responsable())
@@ -528,11 +578,15 @@ public class MenuFactura extends JFrame {
                                 //Se muestra el listado de clientes
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Clientes", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            } 
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay clientes registrados", 
                                     "Listado de Clientes", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch(Exception ex) {
+                        } 
+                        catch(Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al obtener clientes: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -562,15 +616,19 @@ public class MenuFactura extends JFrame {
                 frame.add(verEmpleadosButton, gbc);
 
                 //Acción para ver los empleados disponibles
-                verEmpleadosButton.addActionListener(new ActionListener() {
+                verEmpleadosButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene todos los empleados de la base de datos
                             List<Empleado> empleados = empleadoController.findAll();
 
                             //Si hay empleados registrados, se muestra el listado de empleados
-                            if(empleados != null && !empleados.isEmpty()) {
+                            if(empleados != null && !empleados.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
                                 for(Empleado emp : empleados) {
                                     sb.append("ID: ").append(emp.getID_Empleado())
@@ -582,11 +640,15 @@ public class MenuFactura extends JFrame {
                                 //Se muestra el listado de empleados
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Empleados", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            } 
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay empleados registrados", 
                                     "Listado de Empleados", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch(Exception ex) {
+                        } 
+                        catch(Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al obtener empleados: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -605,24 +667,31 @@ public class MenuFactura extends JFrame {
                 final JComboBox<String> productosCombo = new JComboBox<>();
                 final Map<String, Long> productosMap = new HashMap<>();
                 
-                try {
+                try 
+                {
                     //Se obtiene todos los productos de la base de datos
                     List<Producto> productos = productoController.findAll();
 
                     //Si hay productos registrados, se muestra el listado de productos
-                    if(productos != null && !productos.isEmpty()) {
-                        for(Producto p : productos) {
+                    if(productos != null && !productos.isEmpty()) 
+                    {
+                        for(Producto p : productos) 
+                        {
                             String key = p.getID_Producto() + " - " + p.getNombre() + " - $" + p.getPVP();
                             productosCombo.addItem(key);
                             productosMap.put(key, p.getID_Producto());
                         }
-                    } else {
+                    }
+                    else 
+                    {
                         //Si no hay productos registrados, se muestra un mensaje de error
                         JOptionPane.showMessageDialog(frame, 
                             "No hay productos disponibles. Agregue productos primero.", 
                             "Sin productos", JOptionPane.WARNING_MESSAGE);
                     }
-                } catch(Exception ex) {
+                } 
+                catch(Exception ex) 
+                {
                     JOptionPane.showMessageDialog(frame, 
                         "Error al cargar productos: " + ex.getMessage(), 
                         "Error", JOptionPane.ERROR_MESSAGE);
@@ -716,10 +785,13 @@ public class MenuFactura extends JFrame {
                 frame.add(guardarButton, gbc);
 
                 //Acción para guardar la factura
-                guardarButton.addActionListener(new ActionListener() {
+                guardarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el ID del cliente, el empleado y la fecha de la factura
                             String clienteIdStr = clienteTextField.getText().trim();
                             String empleadoIdStr = empleadoTextField.getText().trim();
@@ -727,13 +799,15 @@ public class MenuFactura extends JFrame {
 
                             //Se comprueba si los campos son obligatorios
                             if(clienteIdStr.isEmpty() || empleadoIdStr.isEmpty() || fechaStr.isEmpty() || 
-                               productosCombo.getSelectedItem() == null) {
+                               productosCombo.getSelectedItem() == null) 
+                            {
                                 statusLabel.setText("Error: Todos los campos son obligatorios");
                                 return;
                             }
 
                             //Se comprueba si la fecha tiene el formato correcto
-                            if(!fechaStr.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                            if(!fechaStr.matches("\\d{4}-\\d{2}-\\d{2}")) 
+                            {
                                 statusLabel.setText("Error: La fecha debe tener formato YYYY-MM-DD");
                                 return;
                             }
@@ -744,14 +818,16 @@ public class MenuFactura extends JFrame {
 
                             //Se obtiene el cliente y el empleado de la base de datos
                             Cliente cliente = clienteController.findById(clienteId);
-                            if(cliente == null) {
+                            if(cliente == null) 
+                            {
                                 statusLabel.setText("Error: El cliente con ID " + clienteId + " no existe");
                                 return;
                             }
 
                             //Se obtiene el empleado de la base de datos
                             Empleado empleado = empleadoController.findById(empleadoId);
-                            if(empleado == null) {
+                            if(empleado == null) 
+                            {
                                 statusLabel.setText("Error: El empleado con ID " + empleadoId + " no existe");
                                 return;
                             }
@@ -767,7 +843,8 @@ public class MenuFactura extends JFrame {
                             
                             //Se obtiene el producto
                             Producto producto = productoController.findById(idProducto);
-                            if(producto == null) {
+                            if(producto == null) 
+                            {
                                 statusLabel.setText("Error: El producto seleccionado no existe");
                                 return;
                             }
@@ -797,15 +874,20 @@ public class MenuFactura extends JFrame {
                             empleadoTextField.setText("");
                             fechaTextField.setText("");
                             cantidadSpinner.setValue(1);
-                            if(productosCombo.getItemCount() > 0) {
+                            if(productosCombo.getItemCount() > 0) 
+                            {
                                 productosCombo.setSelectedIndex(0);
                             }
                             metodoPagoCombo.setSelectedIndex(0);
                             estadoCombo.setSelectedIndex(0);
                             
-                        } catch(NumberFormatException nfe) {
+                        } 
+                        catch(NumberFormatException nfe) 
+                        {
                             statusLabel.setText("Error: Los IDs deben ser números válidos");
-                        } catch(Exception ex) {
+                        } 
+                        catch(Exception ex) 
+                        {
                             statusLabel.setText("Error al guardar la factura: " + ex.getMessage());
                         }
                     }
@@ -818,12 +900,15 @@ public class MenuFactura extends JFrame {
                 volverButton.setForeground(Color.WHITE);
                 gbc.gridx = 1;
                 frame.add(volverButton, gbc);
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuFactura(facturaController, clienteController, empleadoController, productoController);
                 });
                 
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al añadir la factura: " + e.getMessage());
                 JLabel errorLabel = new JLabel("Error: " + e.getMessage());
                 errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
@@ -842,12 +927,15 @@ public class MenuFactura extends JFrame {
                 gbc.gridwidth = 3;
                 frame.add(volverButton, gbc);
                 
-                volverButton.addActionListener(e2 -> {
+                volverButton.addActionListener(e2 -> 
+                {
                     frame.dispose();
                     new MenuFactura(facturaController, clienteController, empleadoController, productoController);
                 });
             }
-        } else {
+        } 
+        else 
+        {
             JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
             errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
             gbc.gridx = 0;
@@ -865,14 +953,16 @@ public class MenuFactura extends JFrame {
             gbc.gridwidth = 3;
             frame.add(volverButton, gbc);
             
-            volverButton.addActionListener(e -> {
+            volverButton.addActionListener(e -> 
+            {
                 frame.dispose();
                 new MenuFactura(facturaController, clienteController, empleadoController, productoController);
             });
         }
     }
   
-    private void ActualizarFactura() {
+    private void ActualizarFactura() 
+    {
         JFrame frame = new JFrame("Actualizar Factura");
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
@@ -900,8 +990,10 @@ public class MenuFactura extends JFrame {
         gbc.gridwidth = 3;
         frame.add(Title, gbc);
 
-        if(facturaController != null) {
-            try {
+        if(facturaController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID de la factura a actualizar
                 JLabel idLabel = new JLabel("ID de la factura a actualizar:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -1084,19 +1176,24 @@ public class MenuFactura extends JFrame {
                 final Long[] facturaId = new Long[1];
                 
                 //Accion para buscar los clientes
-                verClientesButton.addActionListener(new ActionListener() {
+                verClientesButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene todos los clientes de la base de datos
                             List<Cliente> clientes = clienteController.findAll();
 
                             //Si hay clientes registrados, se muestra el listado de clientes
-                            if (clientes != null && !clientes.isEmpty()) {
+                            if (clientes != null && !clientes.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
 
                                 //Se guarda el listado de clientes en un StringBuilder
-                                for (Cliente cliente : clientes) {
+                                for (Cliente cliente : clientes) 
+                                {
                                     sb.append("ID: ").append(cliente.getID_Cliente())
                                       .append(" - Nombre: ").append(cliente.getNombre_Empresa())
                                       .append(" ").append(cliente.getNombre_Responsable())
@@ -1106,11 +1203,15 @@ public class MenuFactura extends JFrame {
                                 //Se muestra el listado de clientes
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Clientes", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            } 
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay clientes registrados", 
                                     "Listado de Clientes", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al obtener clientes: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -1118,19 +1219,24 @@ public class MenuFactura extends JFrame {
                 });
 
                 //Accion para buscar los empleados
-                verEmpleadosButton.addActionListener(new ActionListener() {
+                verEmpleadosButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene todos los empleados de la base de datos
                             List<Empleado> empleados = empleadoController.findAll();
 
                             //Si hay empleados registrados, se muestra el listado de empleados
-                            if (empleados != null && !empleados.isEmpty()) {
+                            if (empleados != null && !empleados.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
 
                                 //Se guarda el listado de empleados en un StringBuilder
-                                for (Empleado empleado : empleados) {
+                                for (Empleado empleado : empleados) 
+                                {
                                     sb.append("ID: ").append(empleado.getID_Empleado())
                                       .append(" - Nombre: ").append(empleado.getNombre())
                                       .append(" ").append(empleado.getApellido())
@@ -1140,11 +1246,15 @@ public class MenuFactura extends JFrame {
                                 //Se muestra el listado de empleados
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Empleados", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            } 
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay empleados registrados", 
                                     "Listado de Empleados", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al obtener empleados: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -1152,19 +1262,24 @@ public class MenuFactura extends JFrame {
                 });
 
                 //Accion para buscar los productos
-                verProductosButton.addActionListener(new ActionListener() {
+                verProductosButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene todos los productos de la base de datos
                             List<Producto> productos = productoController.findAll();
 
                             //Si hay productos registrados, se muestra el listado de productos
-                            if (productos != null && !productos.isEmpty()) {
+                            if (productos != null && !productos.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
 
                                 //Se guarda el listado de productos en un StringBuilder
-                                for (Producto producto : productos) {
+                                for (Producto producto : productos) 
+                                {
                                     sb.append("ID: ").append(producto.getID_Producto())
                                       .append(" - Nombre: ").append(producto.getNombre())
                                       .append("\n");
@@ -1173,11 +1288,15 @@ public class MenuFactura extends JFrame {
                                 //Se muestra el listado de productos
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Productos", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            } 
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay productos registrados", 
                                     "Listado de Productos", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al obtener productos: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -1185,10 +1304,13 @@ public class MenuFactura extends JFrame {
                 });
 
                 //Accion para buscar la factura
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
                             
@@ -1198,7 +1320,8 @@ public class MenuFactura extends JFrame {
                             Factura factura = facturaController.findById(id);
 
                             //Si la factura existe, se muestra la información de la factura
-                            if (factura != null) {
+                            if (factura != null) 
+                            {
                                 facturaId[0] = factura.getID_Factura();
                                 
                                 clienteTextField.setText(factura.getCliente().getID_Cliente().toString());
@@ -1221,7 +1344,9 @@ public class MenuFactura extends JFrame {
                                 
                                 statusLabel.setText("Factura encontrada. Modifique los campos necesarios.");
                                 rutaLabel.setText("");
-                            } else {
+                            } 
+                            else 
+                            {
                                 //Si la factura no existe, se limpia el formulario y se deshabilitan los campos
                                 statusLabel.setText("No se encontró una factura con el ID: " + id);
                                 rutaLabel.setText("");
@@ -1243,7 +1368,9 @@ public class MenuFactura extends JFrame {
                                 cantidadTextField.setEnabled(false);
                                 guardarButton.setEnabled(false);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) 
+                        {
                             //Si el ID introducido no es un número, se muestra un mensaje de error
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             rutaLabel.setText("");
@@ -1252,10 +1379,13 @@ public class MenuFactura extends JFrame {
                 });
 
                 //Accion para guardar la factura
-                guardarButton.addActionListener(new ActionListener() {
+                guardarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene la factura con el ID introducido
                             Factura facturaExistente = facturaController.findById(facturaId[0]);
                         
@@ -1271,77 +1401,98 @@ public class MenuFactura extends JFrame {
                             //Si algún campo está vacío, se muestra un mensaje de error
                             if (clienteId.isEmpty() || empleadoId.isEmpty() || fecha.isEmpty() || 
                                 metodoPago.isEmpty() || estado.isEmpty() || 
-                                productoId.isEmpty() || cantidad.isEmpty()) {
+                                productoId.isEmpty() || cantidad.isEmpty()) 
+                            {
                                 statusLabel.setText("Error: Todos los campos son obligatorios");
                                 return;
                             }
 
                             //Se obtiene el cliente con el ID introducido
                             Cliente cliente = null;
-                            try {
+                            try 
+                            {
                                 long idCliente = Long.parseLong(clienteId);
                                 cliente = clienteController.findById(idCliente);
-                                if (cliente == null) {
+                                if (cliente == null) 
+                                {
                                     statusLabel.setText("Error: Cliente no encontrado");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: ID de cliente inválido");
                                 return;
                             }
 
                             //Se obtiene el empleado con el ID introducido
                             Empleado empleado = null;
-                            try {
+                            try 
+                            {
                                 long idEmpleado = Long.parseLong(empleadoId);
                                 empleado = empleadoController.findById(idEmpleado);
-                                if (empleado == null) {
+                                if (empleado == null) 
+                                {
                                     statusLabel.setText("Error: Empleado no encontrado");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: ID de empleado inválido");
                                 return;
                             }
 
                             //Se pasa la fecha a un formato LocalDate
                             LocalDate fechaVenta = null;
-                            try {
+                            try 
+                            {
                                 fechaVenta = LocalDate.parse(fecha);
-                            } catch (Exception ex) {
+                            } 
+                            catch (Exception ex) 
+                            {
                                 statusLabel.setText("Error: Formato de fecha inválido. Use YYYY-MM-DD");
                                 return;
                             }
 
                             //Se obtiene el producto con el ID introducido
                             Producto producto = null;
-                            try {
+                            try 
+                            {
                                 long idProducto = Long.parseLong(productoId);
                                 producto = productoController.findById(idProducto);
-                                if (producto == null) {
+                                if (producto == null) 
+                                {
                                     statusLabel.setText("Error: Producto no encontrado");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: ID de producto inválido");
                                 return;
                             }
 
                             //Se convierte la cantidad a un entero
                             Integer cantidadProducto = null;
-                            try {
+                            try 
+                            {
                                 cantidadProducto = Integer.parseInt(cantidad);
-                                if (cantidadProducto <= 0) {
+                                if (cantidadProducto <= 0) 
+                                {
                                     statusLabel.setText("Error: La cantidad debe ser mayor que cero");
                                     return;
                                 }
 
                                 //Si la cantidad es mayor que el stock disponible, se muestra un mensaje de error
                                 if (!facturaExistente.getProducto().getID_Producto().equals(producto.getID_Producto()) ||
-                                    cantidadProducto > facturaExistente.getCantidad()) {
+                                    cantidadProducto > facturaExistente.getCantidad()) 
+                                    {
                                     int stockActual = producto.getStock();
-                                    if (!facturaExistente.getProducto().getID_Producto().equals(producto.getID_Producto())) {
-                                        if (cantidadProducto > stockActual) {
+                                    if (!facturaExistente.getProducto().getID_Producto().equals(producto.getID_Producto())) 
+                                    {
+                                        if (cantidadProducto > stockActual) 
+                                        {
                                             JOptionPane.showMessageDialog(
                                                 frame,
                                                 "No hay suficiente stock disponible.\nStock actual: " + stockActual + "\nCantidad solicitada: " + cantidadProducto,
@@ -1353,9 +1504,11 @@ public class MenuFactura extends JFrame {
                                         }
                                     } 
                                     //Si la cantidad es mayor que la cantidad de la factura existente, se muestra un mensaje de error
-                                    else if (cantidadProducto > facturaExistente.getCantidad()) {
+                                    else if (cantidadProducto > facturaExistente.getCantidad()) 
+                                    {
                                         int stockAdicionalRequerido = cantidadProducto - facturaExistente.getCantidad();
-                                        if (stockAdicionalRequerido > stockActual) {
+                                        if (stockAdicionalRequerido > stockActual) 
+                                        {
                                             JOptionPane.showMessageDialog(
                                                 frame,
                                                 "No hay suficiente stock disponible para aumentar la cantidad.\nStock actual: " + stockActual + 
@@ -1368,7 +1521,9 @@ public class MenuFactura extends JFrame {
                                         }
                                     }
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: Cantidad inválida");
                                 return;
                             }
@@ -1386,11 +1541,13 @@ public class MenuFactura extends JFrame {
                             facturaActualizada.setTotal(producto.getPVP() * cantidadProducto);
 
                             //Se guarda la factura
-                            try {
+                            try 
+                            {
                                 facturaController.save(facturaActualizada);
                             
                                 //Si existe un archivo de factura, se muestra un mensaje para actualizarlo
-                                if (FacturaFileManager.existeArchivoFactura(facturaId[0])) {
+                                if (FacturaFileManager.existeArchivoFactura(facturaId[0])) 
+                                {
                                     int respuesta = JOptionPane.showConfirmDialog(
                                         frame,
                                         "Se ha detectado un archivo de factura existente. ¿Desea actualizarlo con los nuevos datos?",
@@ -1399,24 +1556,35 @@ public class MenuFactura extends JFrame {
                                     );
 
                                     //Si el usuario confirma la actualización, se genera un nuevo archivo de factura
-                                    if (respuesta == JOptionPane.YES_OPTION) {
+                                    if (respuesta == JOptionPane.YES_OPTION) 
+                                    {
                                         String rutaArchivo = FacturaFileManager.generarArchivoFactura(facturaActualizada, true);
-                                        if (rutaArchivo != null) {
+                                        if (rutaArchivo != null) 
+                                        {
                                             statusLabel.setText("Factura y archivo actualizados correctamente.");
                                             rutaLabel.setText("Ubicación: " + rutaArchivo);
-                                        } else {
+                                        } 
+                                        else 
+                                        {
                                             statusLabel.setText("Factura actualizada, pero hubo un error al actualizar el archivo.");
                                         }
-                                     } else {
+                                     } 
+                                     else 
+                                     {
                                         statusLabel.setText("Factura actualizada correctamente. No se modificó el archivo existente.");
                                         rutaLabel.setText("Ubicación: " + FacturaFileManager.getFacturaRutaAbsoluta(facturaId[0]));
                                      }
-                                } else {
+                                } 
+                                else 
+                                {
                                     statusLabel.setText("Factura actualizada correctamente.");
                                     rutaLabel.setText("");
                                 }
-                            } catch (RuntimeException ex) {
-                                if (ex.getMessage().contains("No hay suficiente stock disponible")) {
+                            } 
+                            catch (RuntimeException ex) 
+                            {
+                                if (ex.getMessage().contains("No hay suficiente stock disponible")) 
+                                {
                                     JOptionPane.showMessageDialog(
                                         frame,
                                         ex.getMessage(),
@@ -1426,17 +1594,22 @@ public class MenuFactura extends JFrame {
                                 }
                                 statusLabel.setText("Error al actualizar la factura: " + ex.getMessage());
                             }
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             statusLabel.setText("Error al actualizar la factura: " + ex.getMessage());
                         }
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuFactura(facturaController, clienteController, empleadoController, productoController);
                 });
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al actualizar la factura: " + e.getMessage());
                 JLabel errorLabel = new JLabel("Error: " + e.getMessage());
                 errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
@@ -1455,12 +1628,15 @@ public class MenuFactura extends JFrame {
                 gbc.gridwidth = 3;
                 frame.add(volverButton, gbc);
                 
-                volverButton.addActionListener(e2 -> {
+                volverButton.addActionListener(e2 -> 
+                {
                     frame.dispose();
                     new MenuFactura(facturaController, clienteController, empleadoController, productoController);
                 });
             }
-        } else {
+        } 
+        else 
+        {
             JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
             errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
             gbc.gridx = 0;
@@ -1478,14 +1654,16 @@ public class MenuFactura extends JFrame {
             gbc.gridwidth = 3;
             frame.add(volverButton, gbc);
             
-            volverButton.addActionListener(e -> {
+            volverButton.addActionListener(e -> 
+            {
                 frame.dispose();
                 new MenuFactura(facturaController, clienteController, empleadoController, productoController);
             });
         }
     }
   
-    private void EliminarFactura() {
+    private void EliminarFactura() 
+    {
         JFrame frame = new JFrame("Eliminar Factura");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -1515,8 +1693,10 @@ public class MenuFactura extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if(facturaController != null) {
-            try {
+        if(facturaController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID de la factura a eliminar
                 JLabel idLabel = new JLabel("ID de la factura a eliminar:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -1585,10 +1765,13 @@ public class MenuFactura extends JFrame {
                 final Long[] facturaId = new Long[1];
                 
                 //Acción para buscar la factura
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
 
@@ -1596,18 +1779,23 @@ public class MenuFactura extends JFrame {
                             Factura factura = facturaController.findById(id);
 
                             //Si la factura existe, se muestra la información de la factura
-                            if (factura != null) {
+                            if (factura != null) 
+                            {
                                 facturaId[0] = factura.getID_Factura();
                                 facturaInfo.setText(factura.toString());
                                 eliminarButton.setEnabled(true);
                                 statusLabel.setText("Factura encontrada. Pulse 'Eliminar Factura' para confirmar.");
-                            } else {
+                            } 
+                            else 
+                            {
                                 //Si la factura no existe, se limpia el formulario y se deshabilita el botón de eliminar
                                 facturaInfo.setText("");
                                 eliminarButton.setEnabled(false);
                                 statusLabel.setText("No se encontró una factura con el ID: " + id);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) 
+                        {
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             facturaInfo.setText("");
                             eliminarButton.setEnabled(false);
@@ -1616,10 +1804,12 @@ public class MenuFactura extends JFrame {
                 });
 
                 //Acción para eliminar la factura
-                eliminarButton.addActionListener(new ActionListener() {
+                eliminarButton.addActionListener(new ActionListener() 
+                {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        try {
+                        try 
+                        {
                             //Se muestra un mensaje de confirmación para eliminar la factura
                             int confirmacion = JOptionPane.showConfirmDialog(frame, 
                                 "¿Está seguro de que desea eliminar esta factura?", 
@@ -1627,7 +1817,8 @@ public class MenuFactura extends JFrame {
                                 JOptionPane.YES_NO_OPTION);
 
                             //Si el usuario confirma la eliminación, se elimina la factura
-                            if (confirmacion == JOptionPane.YES_OPTION) {
+                            if (confirmacion == JOptionPane.YES_OPTION) 
+                            {
                                 facturaController.delete(facturaId[0]);
                                 
                                 facturaInfo.setText("");
@@ -1635,18 +1826,23 @@ public class MenuFactura extends JFrame {
                                 eliminarButton.setEnabled(false);
                                 statusLabel.setText("Factura eliminada correctamente.");
                             }
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             //Si ocurre un error, se muestra un mensaje de error
                             statusLabel.setText("Error al eliminar la factura: " + ex.getMessage());
                         }
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuFactura(facturaController, clienteController, empleadoController, productoController);
                 });
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al eliminar la factura: " + e.getMessage());
                 JLabel errorLabel = new JLabel("Error: " + e.getMessage());
                 errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
@@ -1665,12 +1861,15 @@ public class MenuFactura extends JFrame {
                 gbc.gridwidth = 2;
                 frame.add(volverButton, gbc);
                 
-                volverButton.addActionListener(e2 -> {
+                volverButton.addActionListener(e2 -> 
+                {
                     frame.dispose();
                     new MenuFactura(facturaController, clienteController, empleadoController, productoController);
                 });
             }
-        } else {
+        } 
+        else 
+        {
             JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
             errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
             gbc.gridx = 0;
@@ -1688,7 +1887,8 @@ public class MenuFactura extends JFrame {
             gbc.gridwidth = 2;
             frame.add(volverButton, gbc);
             
-            volverButton.addActionListener(e -> {
+            volverButton.addActionListener(e -> 
+            {
                 frame.dispose();
                 new MenuFactura(facturaController, clienteController, empleadoController, productoController);
             });
@@ -1764,11 +1964,14 @@ public class MenuFactura extends JFrame {
               frame.add(rutaLabel, gbc);
 
               //Acción para generar el archivo de factura
-              generarButton.addActionListener(new ActionListener() {
+              generarButton.addActionListener(new ActionListener() 
+              {
                   @Override
-                  public void actionPerformed(ActionEvent e) {
+                  public void actionPerformed(ActionEvent e) 
+                  {
                       String input = idTextField.getText();
-                      try {
+                      try 
+                      {
                           long id = Long.parseLong(input);
                           statusLabel.setText("Verificando factura...");
                           rutaLabel.setText("");
@@ -1777,8 +1980,10 @@ public class MenuFactura extends JFrame {
                           Factura factura = facturaController.findById(id);
 
                           //Si la factura existe, se verifica si existe un archivo de factura
-                          if(factura != null) {
-                              if (FacturaFileManager.existeArchivoFactura(id)) {
+                          if(factura != null) 
+                          {
+                              if (FacturaFileManager.existeArchivoFactura(id)) 
+                              {
                                   statusLabel.setText("Ya existe un archivo para esta factura. ¿Desea sobrescribirlo?");
 
                                   //Se muestra un mensaje de confirmación para sobrescribir el archivo de factura
@@ -1788,34 +1993,49 @@ public class MenuFactura extends JFrame {
                                       JOptionPane.YES_NO_OPTION);
 
                                   //Si el usuario confirma la sobrescritura, se sobrescribe el archivo de factura
-                                  if (opcion == JOptionPane.YES_OPTION) {
+                                  if (opcion == JOptionPane.YES_OPTION) 
+                                  {
                                       FacturaFileManager.eliminarArchivoFactura(id);
                                       String rutaArchivo = FacturaFileManager.generarArchivoFactura(factura, true);
-                                      if (rutaArchivo != null) {
+                                      if (rutaArchivo != null) 
+                                      {
                                           statusLabel.setText("Archivo de factura regenerado correctamente.");
                                           rutaLabel.setText("Ubicación: " + rutaArchivo);
-                                      } else {
+                                      } 
+                                      else 
+                                      {
                                           statusLabel.setText("Factura actualizada, pero hubo un error al actualizar el archivo.");
                                       }
-                                  } else {
+                                  } 
+                                  else 
+                                  {
                                       //Si el usuario no confirma la sobrescritura, se muestra un mensaje de cancelación
                                       statusLabel.setText("Operación cancelada por el usuario.");
                                       rutaLabel.setText("Ubicación: " + FacturaFileManager.getFacturaRutaAbsoluta(id));
                                   }
-                              } else {
+                              } 
+                              else 
+                              {
                                   //Si no existe un archivo de factura, se genera uno nuevo
                                   String rutaArchivo = FacturaFileManager.generarArchivoFactura(factura);
-                                  if (rutaArchivo != null) {
+                                  if (rutaArchivo != null) 
+                                  {
                                       statusLabel.setText("Archivo generado correctamente.");
                                       rutaLabel.setText("Ubicación: " + rutaArchivo);
-                                  } else {
+                                  } 
+                                  else 
+                                  {
                                       statusLabel.setText("Error al generar el archivo de factura.");
                                   }
                               }
-                          } else {
+                          } 
+                          else 
+                          {
                               statusLabel.setText("No se encontró la factura con el ID especificado.");
                           }
-                      } catch (NumberFormatException nfe) {
+                      } 
+                      catch (NumberFormatException nfe) 
+                      {
                           statusLabel.setText("ID inválido. Introduce un número válido.");
                       }
                   }
@@ -1828,7 +2048,8 @@ public class MenuFactura extends JFrame {
               volverButton.setForeground(Color.WHITE);
               gbc.gridy = 4;
               frame.add(volverButton, gbc);
-              volverButton.addActionListener(e -> {
+              volverButton.addActionListener(e -> 
+              {
                   frame.dispose();
                   new MenuFactura(facturaController, clienteController, empleadoController, productoController);
               });

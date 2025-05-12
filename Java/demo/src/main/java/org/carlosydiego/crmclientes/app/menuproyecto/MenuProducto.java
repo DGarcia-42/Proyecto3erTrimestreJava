@@ -8,7 +8,8 @@ import java.util.List;
 import org.carlosydiego.crmclientes.app.controller.*;
 import org.carlosydiego.crmclientes.app.model.*;
 
-public class MenuProducto extends JFrame {
+public class MenuProducto extends JFrame 
+{
     private ProductoController productoController;
     private CategoriaController categoriaController;
     private ProveedorController proveedorController;
@@ -16,14 +17,16 @@ public class MenuProducto extends JFrame {
     //Constructor de la clase MenuProducto con su controlador y los necesarios para sus atributos
     public MenuProducto(ProductoController productoController,
                        CategoriaController categoriaController,
-                       ProveedorController proveedorController) {
+                       ProveedorController proveedorController) 
+    {
         this.productoController = productoController;
         this.categoriaController = categoriaController;
         this.proveedorController = proveedorController;
         initializeMenu();
     }
 
-    private void initializeMenu() {
+    private void initializeMenu() 
+    {
         setLayout(new GridBagLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -54,7 +57,8 @@ public class MenuProducto extends JFrame {
         TodoProducto.setForeground(Color.WHITE);
         gbc.gridy = 1;
         add(TodoProducto, gbc);
-        TodoProducto.addActionListener(e -> {
+        TodoProducto.addActionListener(e -> 
+        {
             dispose();
             ListarProductos();
         });
@@ -66,7 +70,8 @@ public class MenuProducto extends JFrame {
         BuscarProducto.setForeground(Color.WHITE);
         gbc.gridy = 2;
         add(BuscarProducto, gbc);
-        BuscarProducto.addActionListener(e -> {
+        BuscarProducto.addActionListener(e -> 
+        {
             dispose();
             BuscarProducto();
         });
@@ -78,7 +83,8 @@ public class MenuProducto extends JFrame {
         AñadirProducto.setForeground(Color.WHITE);
         gbc.gridy = 3;
         add(AñadirProducto, gbc);
-        AñadirProducto.addActionListener(e -> {
+        AñadirProducto.addActionListener(e -> 
+        {
             dispose();
             AñadirProducto();
         });
@@ -90,7 +96,8 @@ public class MenuProducto extends JFrame {
         ModificarProducto.setForeground(Color.WHITE);
         gbc.gridy = 4;
         add(ModificarProducto, gbc);
-        ModificarProducto.addActionListener(e -> {
+        ModificarProducto.addActionListener(e -> 
+        {
             dispose();
             ActualizarProducto();
         });
@@ -102,7 +109,8 @@ public class MenuProducto extends JFrame {
         EliminarProducto.setForeground(Color.WHITE);
         gbc.gridy = 5;
         add(EliminarProducto, gbc);
-        EliminarProducto.addActionListener(e -> {
+        EliminarProducto.addActionListener(e -> 
+        {
             dispose();
             EliminarProducto();
         });
@@ -114,7 +122,8 @@ public class MenuProducto extends JFrame {
         VolverMenu.setForeground(Color.WHITE);
         gbc.gridy = 6;
         add(VolverMenu, gbc);
-        VolverMenu.addActionListener(e -> {
+        VolverMenu.addActionListener(e -> 
+        {
             dispose();
             new MenuProyecto();
         });
@@ -122,7 +131,8 @@ public class MenuProducto extends JFrame {
         setVisible(true);
     }
 
-    private void ListarProductos() {
+    private void ListarProductos() 
+    {
         JFrame frame = new JFrame("Listar Productos");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -151,13 +161,16 @@ public class MenuProducto extends JFrame {
         frame.add(Title, gbc);
 
         //Comprobación de si hay conexión a la base de datos
-        if(productoController!=null) {
-            try {
+        if(productoController!=null) 
+        {
+            try 
+            {
                 //Se obtiene todos los productos de la base de datos
                 List<Producto> productos = productoController.findAll();
 
                 //Si no hay productos registrados, se muestra un mensaje
-                if(productos==null || productos.isEmpty()) {
+                if(productos==null || productos.isEmpty()) 
+                {
                     JLabel noProductosLabel = new JLabel("No hay productos registrados en el sistema");
                     noProductosLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
                     noProductosLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -172,19 +185,23 @@ public class MenuProducto extends JFrame {
                     gbc.gridy = 2;
                     frame.add(volverButton, gbc);
                     
-                    volverButton.addActionListener(e -> {
+                    volverButton.addActionListener(e -> 
+                    {
                         frame.dispose();
                         new MenuProducto(productoController, categoriaController, proveedorController);
                     });
                 //Si hay productos registrados, se muestra el listado de productos
-                } else {
+                } 
+                else 
+                {
                     JTextArea productosTextArea = new JTextArea();
                     productosTextArea.setEditable(false);
                     productosTextArea.setFont(new Font("Monospaced", Font.PLAIN, fontSize - 2));
                     
                     //Se crea un StringBuilder para almacenar el listado de productos
                     StringBuilder sb = new StringBuilder();
-                    for (Producto producto : productos) {
+                    for (Producto producto : productos) 
+                    {
                         sb.append("ID: ").append(producto.getID_Producto()).append("\n");
                         sb.append("Nombre: ").append(producto.getNombre()).append("\n");
                         sb.append("Descripción: ").append(producto.getDescripcion()).append("\n");
@@ -192,12 +209,14 @@ public class MenuProducto extends JFrame {
                         sb.append("IVA: ").append(producto.getIVA()).append("\n");
                         sb.append("Stock: ").append(producto.getStock()).append("\n");
                         
-                        if (producto.getCategoria() != null) {
+                        if (producto.getCategoria() != null) 
+                        {
                             sb.append("Categoría: ").append(producto.getCategoria().getNombre())
                               .append(" (ID: ").append(producto.getCategoria().getID_Categoria()).append(")\n");
                         }
                         
-                        if (producto.getProveedor() != null) {
+                        if (producto.getProveedor() != null) 
+                        {
                             sb.append("Proveedor: ").append(producto.getProveedor().getNombre())
                               .append(" (ID: ").append(producto.getProveedor().getID_Proveedor()).append(")\n");
                         }
@@ -219,20 +238,26 @@ public class MenuProducto extends JFrame {
                     gbc.gridy = 2;
                     frame.add(volverButton, gbc);
                     
-                    volverButton.addActionListener(e -> {
+                    volverButton.addActionListener(e -> 
+                    {
                         frame.dispose();
                         new MenuProducto(productoController, categoriaController, proveedorController);
                     });
                 }
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al obtener los productos: " + e.getMessage());
             } 
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
 
-    private void BuscarProducto() {
+    private void BuscarProducto() 
+    {
         JFrame frame = new JFrame("Buscar Producto");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -262,8 +287,10 @@ public class MenuProducto extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if(productoController!=null) {
-            try {
+        if(productoController!=null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para el ID del producto
                 JLabel idLabel = new JLabel("ID del producto:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -319,10 +346,13 @@ public class MenuProducto extends JFrame {
                 frame.add(volverButton, gbc);
                 
                 //Acción para buscar el producto
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el ID del producto introducido 
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
@@ -331,15 +361,20 @@ public class MenuProducto extends JFrame {
                             Producto producto = productoController.findById(id);
 
                             //Si el producto existe, se muestra la información del producto
-                            if(producto != null) {
+                            if(producto != null) 
+                            {
                                 productoInfo.setText(producto.toString());
                                 statusLabel.setText("");
-                            } else {
+                            } 
+                            else 
+                            {
                                 //Si el producto no existe, se muestra un mensaje de error
                                 productoInfo.setText("");
                                 statusLabel.setText("No se encontró un producto con el ID: " + id);
                             }
-                        } catch(NumberFormatException nfe) {
+                        } 
+                        catch(NumberFormatException nfe) 
+                        {
                             //Si el ID introducido no es un número, se muestra un mensaje de error
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             productoInfo.setText("");
@@ -347,19 +382,25 @@ public class MenuProducto extends JFrame {
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuProducto(productoController, categoriaController, proveedorController);
                 });
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al buscar el producto: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
 
-    private void AñadirProducto() {
+    private void AñadirProducto() 
+    {
         JFrame frame = new JFrame("Añadir Producto");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -387,8 +428,10 @@ public class MenuProducto extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
  
-        if(productoController!=null) {
-            try {
+        if(productoController!=null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para cada campo del producto
                 JLabel nombreLabel = new JLabel("Nombre:");
                 nombreLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -501,19 +544,24 @@ public class MenuProducto extends JFrame {
                 frame.add(guardarButton, gbc);
                 
                 //Acción ver las categorías disponibles
-                verCategoriasButton.addActionListener(new ActionListener() {
+                verCategoriasButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el listado de categorías
                             List<Categoria> categorias = categoriaController.findAll();
 
                             //Si hay categorías registradas, se muestra el listado de categorías
-                            if(categorias != null && !categorias.isEmpty()) {
+                            if(categorias != null && !categorias.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
 
                                 //Se crea un StringBuilder para almacenar la información de las categorías
-                                for(Categoria c : categorias) {
+                                for(Categoria c : categorias) 
+                                {
                                     sb.append("ID: ").append(c.getID_Categoria())
                                       .append(" - Nombre: ").append(c.getNombre())
                                       .append("\n");
@@ -522,11 +570,15 @@ public class MenuProducto extends JFrame {
                                 //Se muestra el listado de categorías
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Categorías", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            } 
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay categorías registradas", 
                                     "Listado de Categorías", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch(Exception ex) {
+                        } 
+                        catch(Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al obtener categorías: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -534,19 +586,24 @@ public class MenuProducto extends JFrame {
                 });
 
                 //Acción ver los proveedores disponibles
-                verProveedoresButton.addActionListener(new ActionListener() {
+                verProveedoresButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el listado de proveedores
                             List<Proveedor> proveedores = proveedorController.findAll();
 
                             //Si hay proveedores registrados, se muestra el listado de proveedores
-                            if(proveedores != null && !proveedores.isEmpty()) {
+                            if(proveedores != null && !proveedores.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
 
                                 //Se crea un StringBuilder para almacenar la información de los proveedores
-                                for(Proveedor p : proveedores) {
+                                for(Proveedor p : proveedores) 
+                                {
                                     sb.append("ID: ").append(p.getID_Proveedor())
                                       .append(" - Nombre: ").append(p.getNombre())
                                       .append("\n");
@@ -555,11 +612,15 @@ public class MenuProducto extends JFrame {
                                 //Se muestra el listado de proveedores
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Proveedores", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            } 
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay proveedores registrados", 
                                     "Listado de Proveedores", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch(Exception ex) {
+                        } 
+                        catch(Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al obtener proveedores: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -567,10 +628,13 @@ public class MenuProducto extends JFrame {
                 });
 
                 //Acción para guardar el producto
-                guardarButton.addActionListener(new ActionListener() {
+                guardarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el valor de cada campo del producto
                             String nombre = nombreTextField.getText();
                             String descripcion = descripcionTextField.getText();
@@ -581,62 +645,80 @@ public class MenuProducto extends JFrame {
 
                             //Se comprueba si algún campo está vacío
                             if (nombre.isEmpty() || descripcion.isEmpty() || precioStr.isEmpty() || 
-                                stockStr.isEmpty() || categoriaStr.isEmpty()) {
+                                stockStr.isEmpty() || categoriaStr.isEmpty()) 
+                            {
                                 statusLabel.setText("Error: Los campos nombre, descripción, precio, stock y categoría son obligatorios");
                                 return;
                             }
 
                             //Se comprueba si el precio es un número válido
                             double precio;
-                            try {
+                            try 
+                            {
                                 precio = Double.parseDouble(precioStr);
-                                if (precio <= 0) {
+                                if (precio <= 0) 
+                                {
                                     statusLabel.setText("Error: El precio debe ser mayor que cero");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: El precio debe ser un número válido");
                                 return;
                             }
                             
                             //Se comprueba si el stock es un número válido
                             int stock;
-                            try {
+                            try 
+                            {
                                 stock = Integer.parseInt(stockStr);
-                                if (stock < 0) {
+                                if (stock < 0) 
+                                {
                                     statusLabel.setText("Error: El stock no puede ser negativo");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: El stock debe ser un número entero");
                                 return;
                             }
                             
                             Categoria categoria = null;
-                            try {
+                            try 
+                            {
                                 long categoriaId = Long.parseLong(categoriaStr);
                                 
                                 categoria = categoriaController.findById(categoriaId);
-                                if (categoria == null) {
+                                if (categoria == null) 
+                                {
                                     statusLabel.setText("Error: La categoría con ID " + categoriaId + " no existe");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: El ID de categoría debe ser un número entero");
                                 return;
                             }
 
                             //Se comprueba si el proveedor es un número válido y si existe
                             Proveedor proveedor = null;
-                            if (!proveedorStr.isEmpty()) {
-                                try {
+                            if (!proveedorStr.isEmpty()) 
+                            {
+                                try 
+                                {
                                     long proveedorId = Long.parseLong(proveedorStr);
                                     proveedor = proveedorController.findById(proveedorId);
-                                    if (proveedor == null) {
+                                    if (proveedor == null) 
+                                    {
                                         statusLabel.setText("Error: El proveedor con ID " + proveedorId + " no existe");
                                         return;
                                     }
-                                } catch (NumberFormatException nfe) {
+                                } 
+                                catch (NumberFormatException nfe) 
+                                {
                                     statusLabel.setText("Error: El ID de proveedor debe ser un número entero");
                                     return;
                                 }
@@ -658,7 +740,9 @@ public class MenuProducto extends JFrame {
                             stockTextField.setText("");
                             categoriaTextField.setText("");
                             proveedorTextField.setText("");
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             statusLabel.setText("Error al guardar el producto: " + ex.getMessage());
                         }
                     }
@@ -675,15 +759,20 @@ public class MenuProducto extends JFrame {
                     frame.dispose();
                     new MenuProducto(productoController, categoriaController, proveedorController);
                 });
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al añadir el producto: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
 
-    private void ActualizarProducto() {
+    private void ActualizarProducto() 
+    {
         JFrame frame = new JFrame("Actualizar Producto");
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
@@ -711,8 +800,10 @@ public class MenuProducto extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if(productoController!=null && categoriaController!=null && proveedorController!=null) {
-            try {
+        if(productoController!=null && categoriaController!=null && proveedorController!=null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID del producto a actualizar
                 JLabel idLabel = new JLabel("ID del producto a actualizar:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -880,19 +971,24 @@ public class MenuProducto extends JFrame {
                 final Long[] productoId = new Long[1];
 
                 //Acción para mostrar el listado de categorías
-                verCategoriasButton.addActionListener(new ActionListener() {
+                verCategoriasButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el listado de categorías
                             List<Categoria> categorias = categoriaController.findAll();
 
                             //Si hay categorías registradas, se muestra el listado de categorías
-                            if (categorias != null && !categorias.isEmpty()) {
+                            if (categorias != null && !categorias.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
 
                                 //Se crea un StringBuilder para almacenar la información de las categorías
-                                for(Categoria c : categorias) {
+                                for(Categoria c : categorias) 
+                                {
                                     sb.append("ID: ").append(c.getID_Categoria())
                                       .append(" - Nombre: ").append(c.getNombre())
                                       .append("\n");
@@ -901,11 +997,15 @@ public class MenuProducto extends JFrame {
                                 //Se muestra el listado de categorías
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Categorías", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            } 
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay categorías registradas", 
                                     "Listado de Categorías", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch(Exception ex) {
+                        } 
+                        catch(Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al obtener categorías: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -913,19 +1013,24 @@ public class MenuProducto extends JFrame {
                 });
 
                 //Acción para mostrar el listado de proveedores
-                verProveedoresButton.addActionListener(new ActionListener() {
+                verProveedoresButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el listado de proveedores
                             List<Proveedor> proveedores = proveedorController.findAll();
 
                             //Si hay proveedores registrados, se muestra el listado de proveedores
-                            if (proveedores != null && !proveedores.isEmpty()) {
+                            if (proveedores != null && !proveedores.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
 
                                 //Se crea un StringBuilder para almacenar la información de los proveedores
-                                for(Proveedor p : proveedores) {
+                                for(Proveedor p : proveedores) 
+                                {
                                     sb.append("ID: ").append(p.getID_Proveedor())
                                       .append(" - Nombre: ").append(p.getNombre())
                                       .append("\n");
@@ -934,11 +1039,15 @@ public class MenuProducto extends JFrame {
                                 //Se muestra el listado de proveedores
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Proveedores", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            } 
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay proveedores registrados", 
                                     "Listado de Proveedores", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch(Exception ex) {
+                        } 
+                        catch(Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al obtener proveedores: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -946,10 +1055,13 @@ public class MenuProducto extends JFrame {
                 });
 
                 //Acción para buscar el producto
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
 
@@ -959,7 +1071,8 @@ public class MenuProducto extends JFrame {
                             Producto producto = productoController.findById(id);
 
                             //Si el producto existe, se muestra la información del producto
-                            if (producto != null) {
+                            if (producto != null) 
+                            {
                                 productoId[0] = producto.getID_Producto();
 
                                 nombreTextField.setText(producto.getNombre());
@@ -968,11 +1081,13 @@ public class MenuProducto extends JFrame {
                                 ivaTextField.setText(String.valueOf(producto.getIVA()));
                                 stockTextField.setText(String.valueOf(producto.getStock()));
                                 
-                                if (producto.getCategoria() != null) {
+                                if (producto.getCategoria() != null) 
+                                {
                                     categoriaTextField.setText(String.valueOf(producto.getCategoria().getID_Categoria()));
                                 }
                                 
-                                if (producto.getProveedor() != null) {
+                                if (producto.getProveedor() != null) 
+                                {
                                     proveedorTextField.setText(String.valueOf(producto.getProveedor().getID_Proveedor()));
                                 }
                                 
@@ -989,7 +1104,9 @@ public class MenuProducto extends JFrame {
                                 actualizarButton.setEnabled(true);
                                 
                                 statusLabel.setText("Producto encontrado. Puedes editar los campos y actualizar.");
-                            } else {
+                            } 
+                            else 
+                            {
                                 //Si el producto no existe, se limpia el formulario y se deshabilitan los campos
                                 statusLabel.setText("No se encontró un producto con el ID: " + id);
                                 
@@ -1012,7 +1129,9 @@ public class MenuProducto extends JFrame {
                                 verProveedoresButton.setEnabled(false);
                                 actualizarButton.setEnabled(false);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) 
+                        {
                             //Si el ID introducido no es un número válido, se muestra un mensaje de error
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                         }
@@ -1020,15 +1139,19 @@ public class MenuProducto extends JFrame {
                 });
 
                 //Acción para actualizar el producto
-                actualizarButton.addActionListener(new ActionListener() {
+                actualizarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el producto original
                             Producto productoOriginal = productoController.findById(productoId[0]);
 
                             //Si el producto original no existe, se muestra un mensaje de error
-                            if (productoOriginal == null) {
+                            if (productoOriginal == null) 
+                            {
                                 statusLabel.setText("Error: No se pudo recuperar el producto original.");
                                 return;
                             }
@@ -1044,61 +1167,78 @@ public class MenuProducto extends JFrame {
 
                             //Se comprueba si algún campo está vacío
                             if (nombre.isEmpty() || descripcion.isEmpty() || precioStr.isEmpty() || 
-                                ivaStr.isEmpty() || stockStr.isEmpty() || categoriaStr.isEmpty()) {
+                                ivaStr.isEmpty() || stockStr.isEmpty() || categoriaStr.isEmpty()) 
+                            {
                                 statusLabel.setText("Error: Todos los campos son obligatorios");
                                 return;
                             }
 
                             //Se comprueba si el precio es un número válido
                             double precio = 0;
-                            try {
+                            try 
+                            {
                                 precio = Double.parseDouble(precioStr);
-                                if (precio <= 0) {
+                                if (precio <= 0) 
+                                {
                                     statusLabel.setText("Error: El precio debe ser mayor que cero");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: El precio debe ser un número válido");
                                 return;
                             }
 
                             //Se comprueba si el IVA es un número válido
                             double iva = 0;
-                            try {
+                            try 
+                            {
                                 iva = Double.parseDouble(ivaStr);
                                 if (iva < 0 || iva > 100) {
                                     statusLabel.setText("Error: El IVA debe estar entre 0 y 100");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: El IVA debe ser un número válido");
                                 return;
                             }
 
                             //Se comprueba si el stock es un número válido
                             int stock = 0;
-                            try {
+                            try 
+                            {
                                 stock = Integer.parseInt(stockStr);
-                                if (stock < 0) {
+                                if (stock < 0) 
+                                {
                                     statusLabel.setText("Error: El stock no puede ser negativo");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: El stock debe ser un número entero válido");
                                 return;
                             }
 
                             //Se comprueba si la categoría existe
                             Categoria categoria = null;
-                            if (!categoriaStr.isEmpty()) {
-                                try {
+                            if (!categoriaStr.isEmpty()) 
+                            {
+                                try 
+                                {
                                     long idCategoria = Long.parseLong(categoriaStr);
                                     categoria = categoriaController.findById(idCategoria);
-                                    if (categoria == null) {
+                                    if (categoria == null) 
+                                    {
                                         statusLabel.setText("Error: La categoría con ID " + idCategoria + " no existe");
                                         return;
                                     }
-                                } catch (NumberFormatException nfe) {
+                                } 
+                                catch (NumberFormatException nfe) 
+                                {
                                     statusLabel.setText("Error: El ID de categoría debe ser un número válido");
                                     return;
                                 }
@@ -1106,15 +1246,20 @@ public class MenuProducto extends JFrame {
 
                             //Se comprueba si el proveedor existe
                             Proveedor proveedor = null;
-                            if (!proveedorStr.isEmpty()) {
-                                try {
+                            if (!proveedorStr.isEmpty()) 
+                            {
+                                try 
+                                {
                                     long idProveedor = Long.parseLong(proveedorStr);
                                     proveedor = proveedorController.findById(idProveedor);
-                                    if (proveedor == null) {
+                                    if (proveedor == null) 
+                                    {
                                         statusLabel.setText("Error: El proveedor con ID " + idProveedor + " no existe");
                                         return;
                                     }
-                                } catch (NumberFormatException nfe) {
+                                } 
+                                catch (NumberFormatException nfe) 
+                                {
                                     statusLabel.setText("Error: El ID de proveedor debe ser un número válido");
                                     return;
                                 }
@@ -1135,25 +1280,33 @@ public class MenuProducto extends JFrame {
                             productoController.save(productoActualizado);
 
                             statusLabel.setText("Producto actualizado correctamente");
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             statusLabel.setText("Error al actualizar el producto: " + ex.getMessage());
                         }
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuProducto(productoController, categoriaController, proveedorController);
                 });
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al actualizar producto: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
 
-    private void EliminarProducto() {
+    private void EliminarProducto() 
+    {
         JFrame frame = new JFrame("Eliminar Producto");
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
@@ -1183,8 +1336,10 @@ public class MenuProducto extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if(productoController!=null) {
-            try {
+        if(productoController!=null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID del producto a eliminar
                 JLabel idLabel = new JLabel("ID del producto a eliminar:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -1253,10 +1408,13 @@ public class MenuProducto extends JFrame {
                 final Long[] productoId = new Long[1];
                 
                 //Acción para buscar el producto
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
 
@@ -1264,18 +1422,23 @@ public class MenuProducto extends JFrame {
                             Producto producto = productoController.findById(id);
 
                             //Si el producto existe, se muestra la información del producto
-                            if (producto != null) {
+                            if (producto != null) 
+                            {
                                 productoId[0] = producto.getID_Producto();
                                 productoInfo.setText(producto.toString());
                                 eliminarButton.setEnabled(true);
                                 statusLabel.setText("Producto encontrado. Pulse 'Eliminar Producto' para confirmar.");
-                            } else {
+                            } 
+                            else 
+                            {
                                 //Si el producto no existe, se limpia el formulario y se deshabilita el botón de eliminar
                                 productoInfo.setText("");
                                 eliminarButton.setEnabled(false);
                                 statusLabel.setText("No se encontró un producto con el ID: " + id);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) 
+                        {
                             //Si el ID introducido no es un número válido, se muestra un mensaje de error
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             productoInfo.setText("");
@@ -1285,10 +1448,13 @@ public class MenuProducto extends JFrame {
                 });
 
                 //Acción para eliminar el producto
-                eliminarButton.addActionListener(new ActionListener() {
+                eliminarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se muestra un mensaje de confirmación para eliminar el producto
                             int confirmacion = JOptionPane.showConfirmDialog(frame, 
                                 "¿Está seguro de que desea eliminar este producto?", 
@@ -1304,21 +1470,28 @@ public class MenuProducto extends JFrame {
                                 eliminarButton.setEnabled(false);
                                 statusLabel.setText("Producto eliminado correctamente.");
                             }
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             //Si ocurre un error, se muestra un mensaje de error
                             statusLabel.setText("Error al eliminar el producto: " + ex.getMessage());
                         }
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuProducto(productoController, categoriaController, proveedorController);
                 });
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al eliminar el producto: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }

@@ -33,83 +33,103 @@ public class Proveedor
     }
 
     //Getters y setters
-    public Long getID_Proveedor() {
+    public Long getID_Proveedor() 
+    {
         return ID_Proveedor;
     }
 
-    public void setID_Proveedor(Long iD_Proveedor) {
+    public void setID_Proveedor(Long iD_Proveedor) 
+    {
         ID_Proveedor = iD_Proveedor;
     }
 
-    public String getNombre() {
+    public String getNombre() 
+    {
         return Nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) 
+    {
         Nombre = nombre;
     }
 
-    public String getNombre_Responsable() {
+    public String getNombre_Responsable() 
+    {
         return Nombre_Responsable;
     }
 
-    public void setNombre_Responsable(String nombre_Responsable) {
+    public void setNombre_Responsable(String nombre_Responsable) 
+    {
         Nombre_Responsable = nombre_Responsable;
     }
 
-    public String getPais() {
+    public String getPais() 
+    {
         return Pais;
     }
 
-    public void setPais(String pais) {
+    public void setPais(String pais) 
+    {
         Pais = pais;
     }
 
-    public String getProvincia() {
+    public String getProvincia() 
+    {
         return Provincia;
     }
 
-    public void setProvincia(String provincia) {
+    public void setProvincia(String provincia) 
+    {
         Provincia = provincia;
     }
 
-    public String getDireccion() {
+    public String getDireccion() 
+    {
         return Direccion;
     }
 
-    public void setDireccion(String direccion) {
+    public void setDireccion(String direccion) 
+    {
         Direccion = direccion;
     }
 
-    public String getCodigo_Postal() {
+    public String getCodigo_Postal() 
+    {
         return Codigo_Postal;
     }
 
-    public void setCodigo_Postal(String codigo_Postal) {
+    public void setCodigo_Postal(String codigo_Postal) 
+    {
         Codigo_Postal = codigo_Postal;
     }
 
-    public String getCIF() {
+    public String getCIF() 
+    {
         return CIF;
     }
 
-    public void setCIF(String cIF) {
+    public void setCIF(String cIF) 
+    {
         CIF = cIF;
     }
 
-    public String getTelefono() {
+    public String getTelefono() 
+    {
         return Telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(String telefono) 
+    {
         Telefono = telefono;
     }
 
-    public String getEmail() {
+    public String getEmail() 
+    {
         return Email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) 
+    {
         Email = email;
     }
 
@@ -127,10 +147,4 @@ public class Proveedor
                "Email: " + Email + "\n" +
                "Teléfono: " + Telefono;
     }
-
-
-    
-    
-    
-    
 }

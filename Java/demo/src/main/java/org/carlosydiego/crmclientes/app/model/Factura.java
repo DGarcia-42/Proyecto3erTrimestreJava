@@ -34,75 +34,93 @@ public class Factura
     }
 
     //Getters y setters
-    public Long getID_Factura() {
+    public Long getID_Factura() 
+    {
         return ID_Factura;
     }
 
-    public void setID_Factura(Long iD_Factura) {
+    public void setID_Factura(Long iD_Factura) 
+    {
         ID_Factura = iD_Factura;
     }
 
-    public LocalDate getFecha_Venta() {
+    public LocalDate getFecha_Venta() 
+    {
         return Fecha_Venta;
     }
 
-    public void setFecha_Venta(LocalDate fecha_Venta) {
+    public void setFecha_Venta(LocalDate fecha_Venta) 
+    {
         Fecha_Venta = fecha_Venta;
     }
 
-    public String getCanal_Compra() {
+    public String getCanal_Compra() 
+    {
         return Canal_Compra;
     }
 
-    public void setCanal_Compra(String canal_Compra) {
+    public void setCanal_Compra(String canal_Compra) 
+    {
         Canal_Compra = canal_Compra;
     }
 
-    public Integer getCantidad() {
+    public Integer getCantidad() 
+    {
         return Cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(Integer cantidad) 
+    {
         Cantidad = cantidad;
     }
 
-    public Producto getProducto() {
+    public Producto getProducto() 
+    {
         return producto;
     }
 
-    public void setProducto(Producto producto) {
+    public void setProducto(Producto producto) 
+    {
         this.producto = producto;
     }
 
-    public String getPagado() {
+    public String getPagado() 
+    {
         return Pagado;
     }
 
-    public void setPagado(String pagado) {
+    public void setPagado(String pagado) 
+    {
         Pagado = pagado;
     }
 
-    public Empleado getEmpleado() {
+    public Empleado getEmpleado() 
+    {
         return empleado;
     }
 
-    public void setEmpleado(Empleado empleado) {
+    public void setEmpleado(Empleado empleado) 
+    {
         this.empleado = empleado;
     }
 
-    public Cliente getCliente() {
+    public Cliente getCliente() 
+    {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(Cliente cliente) 
+    {
         this.cliente = cliente;
     }
 
-    public Double getTotal() {
+    public Double getTotal() 
+    {
         return Total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(Double total) 
+    {
         Total = total;
     }
 

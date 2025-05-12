@@ -28,67 +28,83 @@ public class Producto
     }
 
     //Getters y setters
-    public Long getID_Producto() {
+    public Long getID_Producto() 
+    {
         return ID_Producto;
     }
 
-    public void setID_Producto(Long iD_Producto) {
+    public void setID_Producto(Long iD_Producto) 
+    {
         ID_Producto = iD_Producto;
     }
 
-    public String getNombre() {
+    public String getNombre() 
+    {
         return Nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) 
+    {
         Nombre = nombre;
     }
 
-    public String getDescripcion() {
+    public String getDescripcion() 
+    {
         return Descripcion;
     }
 
-    public void setDescripcion(String descripcion) {
+    public void setDescripcion(String descripcion) 
+    {
         Descripcion = descripcion;
     }
 
-    public Integer getStock() {
+    public Integer getStock() 
+    {
         return Stock;
     }
 
-    public void setStock(Integer stock) {
+    public void setStock(Integer stock) 
+    {
         Stock = stock;
     }
 
-    public Double getPVP() {
+    public Double getPVP() 
+    {
         return PVP;
     }
 
-    public void setPVP(Double pVP) {
+    public void setPVP(Double pVP) 
+    {
         PVP = pVP;
     }
 
-    public Double getIVA() {
+    public Double getIVA() 
+    {
         return IVA;
     }
 
-    public void setIVA(Double iVA) {
+    public void setIVA(Double iVA) 
+    {
         IVA = iVA;
     }
 
-    public Categoria getCategoria() {
+    public Categoria getCategoria() 
+    {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(Categoria categoria) 
+    {
         this.categoria = categoria;
     }
 
-    public Proveedor getProveedor() {
+    public Proveedor getProveedor() 
+    {
         return proveedor;
     }
 
-    public void setProveedor(Proveedor proveedor) {
+    public void setProveedor(Proveedor proveedor) 
+    {
         this.proveedor = proveedor;
     }
 

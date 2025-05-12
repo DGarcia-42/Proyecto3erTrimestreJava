@@ -11,49 +11,58 @@ import java.time.format.DateTimeFormatter;
 import org.carlosydiego.crmclientes.app.model.Factura;
 
 
-public class FacturaFileManager {
+public class FacturaFileManager 
+{
     //Nombre del directorio para guardar las facturas
     private static final String FACTURAS_DIRECTORY = "facturas";
 
     //Crear el directorio si no existe
-    static {
+    public static void crearDirectorio() 
+    {
         File directory = new File(FACTURAS_DIRECTORY);
-        if (!directory.exists()) {
+        if (!directory.exists()) 
+        {
             directory.mkdirs();
         }
     }
     
 
     //Comprobar si el archivo existe
-    public static boolean existeArchivoFactura(Long facturaId) {
+    public static boolean existeArchivoFactura(Long facturaId) 
+    {
         String filePath = getFacturaFilePath(facturaId);
         File file = new File(filePath);
         return file.exists();
     }
 
     //Obtener la ruta absoluta del archivo
-    public static String getFacturaRutaAbsoluta(Long facturaId) {
+    public static String getFacturaRutaAbsoluta(Long facturaId) 
+    {
         String filePath = getFacturaFilePath(facturaId);
         File file = new File(filePath);
         return file.getAbsolutePath();
     }
 
     //Generar el archivo de factura (sin sobreescribir)
-    public static String generarArchivoFactura(Factura factura) {
+    public static String generarArchivoFactura(Factura factura) 
+    {
         return generarArchivoFactura(factura, false);
     }
     
     //Metodo para generar el archivo de factura (Si forzarGeneracion es true, se sobreescribe)
-    public static String generarArchivoFactura(Factura factura, boolean forzarGeneracion) {
+    public static String generarArchivoFactura(Factura factura, boolean forzarGeneracion) 
+    {
         String filePath = getFacturaFilePath(factura.getID_Factura());
         File file = new File(filePath);
         String rutaAbsoluta = file.getAbsolutePath();
         
-        if (!forzarGeneracion && existeArchivoFactura(factura.getID_Factura())) {
+        if (!forzarGeneracion && existeArchivoFactura(factura.getID_Factura())) 
+        {
             return rutaAbsoluta;
         }
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) 
+        {
             writer.write("=================================================");
             writer.newLine();
             writer.write("              FACTURA DE VENTA                   ");
@@ -105,7 +114,9 @@ public class FacturaFileManager {
             writer.write("=================================================");
             
             return rutaAbsoluta;
-        } catch (IOException e) {
+        } 
+        catch (IOException e) 
+        {
             System.err.println("Error al generar el archivo de factura: " + e.getMessage());
             e.printStackTrace();
             return null;
@@ -113,15 +124,19 @@ public class FacturaFileManager {
     }
     
     //Eliminar el archivo de factura
-    public static String eliminarArchivoFactura(Long facturaId) {
+    public static String eliminarArchivoFactura(Long facturaId) 
+    {
         String filePath = getFacturaFilePath(facturaId);
         File file = new File(filePath);
         String rutaAbsoluta = file.getAbsolutePath();
         
-        try {
+        try 
+        {
             Files.deleteIfExists(Paths.get(filePath));
             return rutaAbsoluta;
-        } catch (IOException e) {
+        } 
+        catch (IOException e) 
+        {
             System.err.println("Error al eliminar el archivo de factura: " + e.getMessage());
             e.printStackTrace();
             return null;
@@ -129,7 +144,8 @@ public class FacturaFileManager {
     }
 
     //Obtener la ruta del archivo de factura
-    private static String getFacturaFilePath(Long facturaId) {
+    private static String getFacturaFilePath(Long facturaId) 
+    {
         return FACTURAS_DIRECTORY + File.separator + "factura_" + facturaId + ".txt";
     }
 } 

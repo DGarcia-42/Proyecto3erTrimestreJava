@@ -8,7 +8,8 @@ import java.awt.*;
 import org.carlosydiego.crmclientes.app.controller.*;
 import org.carlosydiego.crmclientes.app.database.DatabaseConnection;
 
-public class MenuProyecto extends JFrame {
+public class MenuProyecto extends JFrame 
+{
     //Conexión a la base de datos
     protected Connection connection;
     //Controladores para cada menu
@@ -20,7 +21,8 @@ public class MenuProyecto extends JFrame {
     protected CategoriaController categoriaController;
     protected ProveeController proveeController;
 
-    public MenuProyecto() {
+    public MenuProyecto() 
+    {
         //Configuración de la ventana(Ocupar toda la pantalla, sin bordes)
         setLayout(new GridBagLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -54,7 +56,8 @@ public class MenuProyecto extends JFrame {
         btnClientes.setForeground(Color.WHITE);
         gbc.gridy = 1;
         add(btnClientes, gbc);
-        btnClientes.addActionListener(e -> {
+        btnClientes.addActionListener(e -> 
+        {
             dispose();
             new MenuCliente(clienteController);
         });
@@ -66,7 +69,8 @@ public class MenuProyecto extends JFrame {
         btnEmpleados.setForeground(Color.WHITE);
         gbc.gridy = 2;
         add(btnEmpleados, gbc);
-        btnEmpleados.addActionListener(e -> {
+        btnEmpleados.addActionListener(e -> 
+        {
             dispose();
             new MenuEmpleado(empleadoController);
         });
@@ -78,7 +82,8 @@ public class MenuProyecto extends JFrame {
         btnProductos.setForeground(Color.WHITE);
         gbc.gridy = 3;
         add(btnProductos, gbc);
-        btnProductos.addActionListener(e -> {
+        btnProductos.addActionListener(e -> 
+        {
             dispose();
             new MenuProducto(productoController, categoriaController, proveedorController);
         });
@@ -90,7 +95,8 @@ public class MenuProyecto extends JFrame {
         btnProveedores.setForeground(Color.WHITE);
         gbc.gridy = 4;
         add(btnProveedores, gbc);
-        btnProveedores.addActionListener(e -> {
+        btnProveedores.addActionListener(e -> 
+        {
             dispose();
             new MenuProveedor(proveedorController);
         });
@@ -102,7 +108,8 @@ public class MenuProyecto extends JFrame {
         btnFacturas.setForeground(Color.WHITE);
         gbc.gridy = 5;
         add(btnFacturas, gbc);
-        btnFacturas.addActionListener(e -> {
+        btnFacturas.addActionListener(e -> 
+        {
             dispose();
             new MenuFactura(facturaController, clienteController, empleadoController, productoController);
         });
@@ -114,7 +121,8 @@ public class MenuProyecto extends JFrame {
         btnCategorias.setForeground(Color.WHITE);
         gbc.gridy = 6;
         add(btnCategorias, gbc);
-        btnCategorias.addActionListener(e -> {
+        btnCategorias.addActionListener(e -> 
+        {
             dispose();
             new MenuCategoria(categoriaController);
         });
@@ -126,7 +134,8 @@ public class MenuProyecto extends JFrame {
         btnPedidos.setForeground(Color.WHITE);
         gbc.gridy = 7;
         add(btnPedidos, gbc);
-        btnPedidos.addActionListener(e -> {
+        btnPedidos.addActionListener(e -> 
+        {
             dispose();
             new MenuProvee(proveeController, productoController, proveedorController);
         });
@@ -144,8 +153,10 @@ public class MenuProyecto extends JFrame {
     }
 
     //Inicializa los controladores para cada menu
-    protected void inicializarControladores() {
-        try {
+    protected void inicializarControladores() 
+    {
+        try 
+        {
             this.connection = DatabaseConnection.getInstance();
             
             this.clienteController = new ClienteController();
@@ -156,7 +167,9 @@ public class MenuProyecto extends JFrame {
             this.categoriaController = new CategoriaController();
             this.proveeController = new ProveeController();
             
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) 
+        {
             System.err.println("Error al conectar con la base de datos: " + e.getMessage());
             e.printStackTrace();
         }

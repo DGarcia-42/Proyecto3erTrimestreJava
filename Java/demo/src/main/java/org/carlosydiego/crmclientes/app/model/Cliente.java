@@ -31,83 +31,103 @@ public class Cliente
     }
 
     //Getters y setters
-    public Long getID_Cliente() {
+    public Long getID_Cliente() 
+    {
         return ID_Cliente;
     }
 
-    public void setID_Cliente(Long iD_Cliente) {
+    public void setID_Cliente(Long iD_Cliente) 
+    {
         ID_Cliente = iD_Cliente;
     }
 
-    public String getCIF() {
+    public String getCIF() 
+    {
         return CIF;
     }
 
-    public void setCIF(String cIF) {
+    public void setCIF(String cIF) 
+    {
         CIF = cIF;
     }
 
-    public String getNombre_Empresa() {
+    public String getNombre_Empresa() 
+    {
         return Nombre_Empresa;
     }
 
-    public void setNombre_Empresa(String nombre_Empresa) {
+    public void setNombre_Empresa(String nombre_Empresa) 
+    {
         Nombre_Empresa = nombre_Empresa;
     }
 
-    public String getNombre_Responsable() {
+    public String getNombre_Responsable() 
+    {
         return Nombre_Responsable;
     }
 
-    public void setNombre_Responsable(String nombre_Responsable) {
+    public void setNombre_Responsable(String nombre_Responsable) 
+    {
         Nombre_Responsable = nombre_Responsable;
     }
 
-    public String getPais() {
+    public String getPais() 
+    {
         return Pais;
     }
 
-    public void setPais(String pais) {
+    public void setPais(String pais) 
+    {
         Pais = pais;
     }
 
-    public String getProvincia() {
+    public String getProvincia() 
+    {
         return Provincia;
     }
 
-    public void setProvincia(String provincia) {
+    public void setProvincia(String provincia) 
+    {
         Provincia = provincia;
     }
 
-    public String getDireccion() {
+    public String getDireccion() 
+    {
         return Direccion;
     }
 
-    public void setDireccion(String direccion) {
+    public void setDireccion(String direccion) 
+    {
         Direccion = direccion;
     }
 
-    public String getEmail() {
+    public String getEmail() 
+    {
         return Email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) 
+    {
         Email = email;
     }
 
-    public String getTelefono() {
+    public String getTelefono() 
+    {
         return Telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(String telefono) 
+    {
         Telefono = telefono;
     }
 
-    public String getCodigo_Postal() {
+    public String getCodigo_Postal() 
+    {
         return Codigo_Postal;
     }
 
-    public void setCodigo_Postal(String codigo_Postal) {
+    public void setCodigo_Postal(String codigo_Postal) 
+    {
         Codigo_Postal = codigo_Postal;
     }
 

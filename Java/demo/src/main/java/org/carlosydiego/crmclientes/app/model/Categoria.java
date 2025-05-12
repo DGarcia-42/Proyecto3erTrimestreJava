@@ -18,19 +18,23 @@ public class Categoria
 
     //Getters y setters
     
-    public Long getID_Categoria() {
+    public Long getID_Categoria() 
+    {
         return ID_Categoria;
     }
 
-    public void setID_Categoria(Long iD_Categoria) {
+    public void setID_Categoria(Long iD_Categoria) 
+    {
         ID_Categoria = iD_Categoria;
     }
 
-    public String getNombre() {
+    public String getNombre() 
+    {
         return Nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre) 
+    {
         Nombre = nombre;
     }
 

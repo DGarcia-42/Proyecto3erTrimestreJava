@@ -28,51 +28,63 @@ public class Provee
 
     //Getters y setters
 
-    public Long getID_Provee() {
+    public Long getID_Provee() 
+    {
         return ID_Provee;
     }
 
-    public void setID_Provee(Long iD_Provee) {
+    public void setID_Provee(Long iD_Provee) 
+    {
         ID_Provee = iD_Provee;
     }
 
-    public Proveedor getProveedor() {
+    public Proveedor getProveedor() 
+    {
         return proveedor;
     }
 
-    public void setProveedor(Proveedor proveedor) {
+    public void setProveedor(Proveedor proveedor) 
+    {
         this.proveedor = proveedor;
     }
 
-    public Producto getProducto() {
+    public Producto getProducto() 
+    {
         return producto;
     }
 
-    public void setProducto(Producto producto) {
+    public void setProducto(Producto producto) 
+    {
         this.producto = producto;
     }
 
-    public LocalDate getFecha_Provision() {
+    public LocalDate getFecha_Provision() 
+    {
         return Fecha_Provision;
     }
 
-    public void setFecha_Provision(LocalDate fecha_Provision) {
+    public void setFecha_Provision(LocalDate fecha_Provision) 
+    {
         Fecha_Provision = fecha_Provision;
     }
 
-    public Integer getCantidad() {
+    public Integer getCantidad() 
+    {
         return Cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(Integer cantidad) 
+    {
         Cantidad = cantidad;
     }
 
-    public Double getPrecio() {
+    public Double getPrecio() 
+    {
         return Precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(Double precio) 
+    {
         Precio = precio;
     }
 

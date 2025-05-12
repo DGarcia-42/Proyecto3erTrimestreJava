@@ -8,16 +8,19 @@ import java.util.List;
 import org.carlosydiego.crmclientes.app.controller.*;
 import org.carlosydiego.crmclientes.app.model.*;
 
-public class MenuCategoria extends JFrame {
+public class MenuCategoria extends JFrame 
+{
     private CategoriaController categoriaController;
 
     // Constructor de la clase MenuCategoria con su controlador
-    public MenuCategoria(CategoriaController categoriaController) {
+    public MenuCategoria(CategoriaController categoriaController) 
+    {
         this.categoriaController = categoriaController;
         initializeMenu();
     }
 
-    private void initializeMenu() {
+    private void initializeMenu() 
+    {
         setLayout(new GridBagLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -48,7 +51,8 @@ public class MenuCategoria extends JFrame {
         TodoCategoria.setForeground(Color.WHITE);
         gbc.gridy = 1;
         add(TodoCategoria, gbc);
-        TodoCategoria.addActionListener(e -> {
+        TodoCategoria.addActionListener(e -> 
+        {
             dispose();
             ListarCategorias();
         });
@@ -60,7 +64,8 @@ public class MenuCategoria extends JFrame {
         BuscarCategoria.setForeground(Color.WHITE);
         gbc.gridy = 2;
         add(BuscarCategoria, gbc);
-        BuscarCategoria.addActionListener(e -> {
+        BuscarCategoria.addActionListener(e -> 
+        {
             dispose();
             BuscarCategoria();
         });
@@ -72,7 +77,8 @@ public class MenuCategoria extends JFrame {
         AñadirCategoria.setForeground(Color.WHITE);
         gbc.gridy = 3;
         add(AñadirCategoria, gbc);
-        AñadirCategoria.addActionListener(e -> {
+        AñadirCategoria.addActionListener(e -> 
+        {
             dispose();
             AñadirCategoria();
         });
@@ -84,7 +90,8 @@ public class MenuCategoria extends JFrame {
         ModificarCategoria.setForeground(Color.WHITE);
         gbc.gridy = 4;
         add(ModificarCategoria, gbc);
-        ModificarCategoria.addActionListener(e -> {
+        ModificarCategoria.addActionListener(e -> 
+        {
             dispose();
             ActualizarCategoria();
         });
@@ -96,7 +103,8 @@ public class MenuCategoria extends JFrame {
         EliminarCategoria.setForeground(Color.WHITE);
         gbc.gridy = 5;
         add(EliminarCategoria, gbc);
-        EliminarCategoria.addActionListener(e -> {
+        EliminarCategoria.addActionListener(e -> 
+        {
             dispose();
             EliminarCategoria();
         });
@@ -108,7 +116,8 @@ public class MenuCategoria extends JFrame {
         VolverMenu.setForeground(Color.WHITE);
         gbc.gridy = 6;
         add(VolverMenu, gbc);
-        VolverMenu.addActionListener(e -> {
+        VolverMenu.addActionListener(e -> 
+        {
             dispose();
             new MenuProyecto();
         });
@@ -116,7 +125,8 @@ public class MenuCategoria extends JFrame {
         setVisible(true);
     }
 
-    private void ListarCategorias() {
+    private void ListarCategorias() 
+    {
         JFrame frame = new JFrame("Listar Categorías");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -145,13 +155,16 @@ public class MenuCategoria extends JFrame {
         frame.add(Title, gbc);
 
         //Comprobación de si hay conexión a la base de datos
-        if (categoriaController != null) {
-            try {
+        if (categoriaController != null) 
+        {
+            try 
+            {
                 //Se obtiene todas las categorías de la base de datos
                 List<Categoria> categorias = categoriaController.findAll();
                 
                 //Si no hay categorías registradas, se muestra un mensaje
-                if (categorias == null || categorias.isEmpty()) {
+                if (categorias == null || categorias.isEmpty()) 
+                {
                     JLabel noCategoriasLabel = new JLabel("No hay categorías registradas en el sistema");
                     noCategoriasLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
                     noCategoriasLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -166,11 +179,14 @@ public class MenuCategoria extends JFrame {
                     gbc.gridy = 2;
                     frame.add(volverButton, gbc);
                     
-                    volverButton.addActionListener(e -> {
+                    volverButton.addActionListener(e -> 
+                    {
                         frame.dispose();
                         new MenuCategoria(categoriaController);
                     });
-                } else {
+                } 
+                else 
+                {
                     //Si hay categorías registradas, se muestra el listado de categorías
                     JTextArea categoriasTextArea = new JTextArea();
                     categoriasTextArea.setEditable(false);
@@ -178,7 +194,8 @@ public class MenuCategoria extends JFrame {
 
                     //Se crea un StringBuilder para almacenar el listado de categorías
                     StringBuilder sb = new StringBuilder();
-                    for (Categoria categoria : categorias) {
+                    for (Categoria categoria : categorias) 
+                    {
                         sb.append("ID: ").append(categoria.getID_Categoria()).append("\n");
                         sb.append("Nombre: ").append(categoria.getNombre()).append("\n");
                         sb.append("------------------------------------------\n");
@@ -198,19 +215,25 @@ public class MenuCategoria extends JFrame {
                     gbc.gridy = 2;
                     frame.add(volverButton, gbc);
                     
-                    volverButton.addActionListener(e -> {
+                    volverButton.addActionListener(e -> 
+                    {
                         frame.dispose();
                         new MenuCategoria(categoriaController);
                     });
                 }
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 System.err.println("Error al obtener las categorías: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
-    private void BuscarCategoria() {
+    private void BuscarCategoria() 
+    {
         JFrame frame = new JFrame("Buscar Categoría");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -240,8 +263,10 @@ public class MenuCategoria extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
       
-        if (categoriaController != null) {
-            try {
+        if (categoriaController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID de la categoría
                 JLabel idLabel = new JLabel("ID de la categoría:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -298,10 +323,13 @@ public class MenuCategoria extends JFrame {
                 frame.add(volverButton, gbc);
 
                 //Acción para buscar la categoría
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el ID de la categoría introducido
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
@@ -313,31 +341,41 @@ public class MenuCategoria extends JFrame {
                             if (categoria != null) {
                                 categoriaInfo.setText(categoria.toString());
                                 statusLabel.setText("");
-                            } else {
+                            } 
+                            else 
+                            {
                                 //Si la categoría no existe, se muestra un mensaje de error
                                 categoriaInfo.setText("");
                                 statusLabel.setText("No se encontró una categoría con el ID: " + id);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) 
+                        {
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             categoriaInfo.setText("");
                         }
                     }
                 });
             
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuCategoria(categoriaController);
                 });
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 System.err.println("Error al buscar la categoría: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
  
-    private void AñadirCategoria() {
+    private void AñadirCategoria() 
+    {
         JFrame frame = new JFrame("Añadir Categoría");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -365,8 +403,10 @@ public class MenuCategoria extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if (categoriaController != null) {
-            try {
+        if (categoriaController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para cada campo de categoria
                 JLabel nombreLabel = new JLabel("Nombre:");
                 nombreLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -406,15 +446,19 @@ public class MenuCategoria extends JFrame {
                 frame.add(volverButton, gbc);
 
                 //Acción para guardar la categoría
-                guardarButton.addActionListener(new ActionListener() {
+                guardarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el nombre de la categoría y se comprueba si está vacío
                             String nombre = nombreTextField.getText();
 
                             //Si el nombre está vacío, se muestra un mensaje de error
-                            if (nombre.isEmpty()) {
+                            if (nombre.isEmpty()) 
+                            {
                                 statusLabel.setText("Error: El nombre es obligatorio");
                                 return;
                             }
@@ -429,26 +473,34 @@ public class MenuCategoria extends JFrame {
 
                             //Se limpia el campo de texto
                             nombreTextField.setText("");
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             statusLabel.setText("Error al guardar la categoría: " + ex.getMessage());
                         }
                     }
                 });
 
                 //Acción para volver al menu de categorías
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuCategoria(categoriaController);
                 });
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 System.err.println("Error al añadir la categoría: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
 
-    private void ActualizarCategoria() {
+    private void ActualizarCategoria() 
+    {
         JFrame frame = new JFrame("Actualizar Categoría");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -477,8 +529,10 @@ public class MenuCategoria extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if (categoriaController != null) {
-            try {
+        if (categoriaController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID de la categoría
                 JLabel idLabel = new JLabel("ID de la categoría:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -546,10 +600,13 @@ public class MenuCategoria extends JFrame {
                 final Long[] categoriaId = new Long[1];
 
                 //Acción para buscar la categoría
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
 
@@ -557,20 +614,25 @@ public class MenuCategoria extends JFrame {
                             Categoria categoria = categoriaController.findById(id);
 
                             //Si la categoría existe, se muestra la información de la categoría y se habilita el botón de actualizar
-                            if (categoria != null) {
+                            if (categoria != null) 
+                            {
                                 categoriaId[0] = categoria.getID_Categoria();
                                 nombreTextField.setText(categoria.getNombre());
                                 nombreTextField.setEnabled(true);
                                 actualizarButton.setEnabled(true);
                                 statusLabel.setText("Categoría encontrada. Puedes editar los campos y actualizar.");
-                            } else {
+                            } 
+                            else 
+                            {
                                 //Si la categoría no existe, se muestra un mensaje de error y se deshabilita el botón de actualizar
                                 nombreTextField.setText("");
                                 nombreTextField.setEnabled(false);
                                 actualizarButton.setEnabled(false);
                                 statusLabel.setText("No se encontró una categoría con el ID: " + id);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) 
+                        {
                             //Si el ID introducido no es válido, se muestra un mensaje de error y se deshabilita el botón de actualizar
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             nombreTextField.setEnabled(false);
@@ -580,14 +642,18 @@ public class MenuCategoria extends JFrame {
                 });
 
                 //Acción para actualizar la categoría
-                actualizarButton.addActionListener(new ActionListener() {
+                actualizarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String nombre = nombreTextField.getText();
 
                             //Si el nombre de la categoría está vacío, se muestra un mensaje de error y se deshabilita el botón de actualizar
-                            if(nombre.isEmpty()) {
+                            if(nombre.isEmpty()) 
+                            {
                                 statusLabel.setText("Error: El nombre es obligatorio");
                                 return;
                             }
@@ -599,25 +665,33 @@ public class MenuCategoria extends JFrame {
                             categoriaController.save(categoriaActualizada);
 
                             statusLabel.setText("Categoría actualizada correctamente.");
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             statusLabel.setText("Error al actualizar la categoría: " + ex.getMessage());
                         }
                     }
                 });
 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuCategoria(categoriaController);
                 });
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 System.err.println("Error al actualizar la categoría: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
  
-    private void EliminarCategoria() {
+    private void EliminarCategoria() 
+    {
         JFrame frame = new JFrame("Eliminar Categoría");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -647,8 +721,10 @@ public class MenuCategoria extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if (categoriaController != null) {
-            try {
+        if (categoriaController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabe y un JTextField para introducir el ID de la categoría
                 JLabel idLabel = new JLabel("ID de la categoría a eliminar:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -716,10 +792,13 @@ public class MenuCategoria extends JFrame {
                 final Long[] categoriaId = new Long[1];
 
                 //Acción para buscar la categoría
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
 
@@ -727,18 +806,23 @@ public class MenuCategoria extends JFrame {
                             Categoria categoria = categoriaController.findById(id);
 
                             //Si la categoría existe, se muestra la información de la categoría y se habilita el botón de eliminar
-                            if (categoria != null) {
+                            if (categoria != null) 
+                            {
                                 categoriaId[0] = categoria.getID_Categoria();
                                 categoriaInfo.setText(categoria.toString());
                                 eliminarButton.setEnabled(true);
                                 statusLabel.setText("Categoría encontrada. Pulse 'Eliminar Categoría' para confirmar.");
-                            } else {
+                            } 
+                            else 
+                            {
                                 //Si la categoría no existe, se muestra un mensaje de error y se deshabilita el botón de eliminar
                                 categoriaInfo.setText("");
                                 eliminarButton.setEnabled(false);
                                 statusLabel.setText("No se encontró una categoría con el ID: " + id);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) 
+                        {
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             categoriaInfo.setText("");
                             eliminarButton.setEnabled(false);
@@ -747,10 +831,13 @@ public class MenuCategoria extends JFrame {
                 });
 
                 //Acción para eliminar la categoría
-                eliminarButton.addActionListener(new ActionListener() {
+                eliminarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se muestra un mensaje de confirmación para eliminar la categoría
                             int confirmacion = JOptionPane.showConfirmDialog(frame,
                                 "¿Está seguro de que desea eliminar esta categoría?",
@@ -765,21 +852,28 @@ public class MenuCategoria extends JFrame {
                                 eliminarButton.setEnabled(false);
                                 statusLabel.setText("Categoría eliminada correctamente.");
                             }
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             //Si ocurre un error, se muestra un mensaje de error
                             statusLabel.setText("Error al eliminar la categoría: " + ex.getMessage());
                         }
                     }
                 });
 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuCategoria(categoriaController);
                 });
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 System.err.println("Error al eliminar la categoría: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }

@@ -10,7 +10,8 @@ import java.time.format.DateTimeParseException;
 import org.carlosydiego.crmclientes.app.controller.*;
 import org.carlosydiego.crmclientes.app.model.*;
 
-public class MenuProvee extends JFrame {
+public class MenuProvee extends JFrame 
+{
     private ProveeController proveeController;
     private ProductoController productoController;
     private ProveedorController proveedorController;
@@ -18,14 +19,16 @@ public class MenuProvee extends JFrame {
     //Constructor de la clase MenuProvee con su controlador y los necesarios para sus atributos
     public MenuProvee(ProveeController proveeController,
                      ProductoController productoController,
-                     ProveedorController proveedorController) {
+                     ProveedorController proveedorController) 
+    {
         this.proveeController = proveeController;
         this.productoController = productoController;
         this.proveedorController = proveedorController;
         initializeMenu();
     }
 
-    private void initializeMenu() {
+    private void initializeMenu() 
+    {
         setLayout(new GridBagLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -56,7 +59,8 @@ public class MenuProvee extends JFrame {
         ListarProveesBtn.setForeground(Color.WHITE);
         gbc.gridy = 1;
         add(ListarProveesBtn, gbc);
-        ListarProveesBtn.addActionListener(e -> {
+        ListarProveesBtn.addActionListener(e -> 
+        {
             dispose();
             ListarProvees();
         });
@@ -68,7 +72,8 @@ public class MenuProvee extends JFrame {
         BuscarProveeBtn.setForeground(Color.WHITE);
         gbc.gridy = 2;
         add(BuscarProveeBtn, gbc);
-        BuscarProveeBtn.addActionListener(e -> {
+        BuscarProveeBtn.addActionListener(e -> 
+        {
             dispose();
             BuscarProvee();
         });
@@ -80,7 +85,8 @@ public class MenuProvee extends JFrame {
         AñadirProveeBtn.setForeground(Color.WHITE);
         gbc.gridy = 3;
         add(AñadirProveeBtn, gbc);
-        AñadirProveeBtn.addActionListener(e -> {
+        AñadirProveeBtn.addActionListener(e -> 
+        {
             dispose();
             AñadirProvee();
         });
@@ -92,7 +98,8 @@ public class MenuProvee extends JFrame {
         ActualizarProveeBtn.setForeground(Color.WHITE);
         gbc.gridy = 4;
         add(ActualizarProveeBtn, gbc);
-        ActualizarProveeBtn.addActionListener(e -> {
+        ActualizarProveeBtn.addActionListener(e -> 
+        {
             dispose();
             ActualizarProvee();
         });
@@ -104,7 +111,8 @@ public class MenuProvee extends JFrame {
         EliminarProveeBtn.setForeground(Color.WHITE);
         gbc.gridy = 5;
         add(EliminarProveeBtn, gbc);
-        EliminarProveeBtn.addActionListener(e -> {
+        EliminarProveeBtn.addActionListener(e -> 
+        {
             dispose();
             EliminarProvee();
         });
@@ -116,7 +124,8 @@ public class MenuProvee extends JFrame {
         VolverBtn.setForeground(Color.WHITE);
         gbc.gridy = 6;
         add(VolverBtn, gbc);
-        VolverBtn.addActionListener(e -> {
+        VolverBtn.addActionListener(e -> 
+        {
             dispose();
             new MenuProyecto();
         });
@@ -124,7 +133,8 @@ public class MenuProvee extends JFrame {
         setVisible(true);
     }
 
-    private void ListarProvees() {
+    private void ListarProvees() 
+    {
         JFrame frame = new JFrame("Listar Pedidos");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -153,13 +163,16 @@ public class MenuProvee extends JFrame {
         frame.add(Title, gbc);
   
         //Comprobación de si hay conexión a la base de datos
-        if(proveeController != null) {
-            try {
+        if(proveeController != null) 
+        {
+            try 
+            {
                 //Se obtiene todos los pedidos de la base de datos
                 List<Provee> provees = proveeController.findAll();
 
                 //Si no hay pedidos registrados, se muestra un mensaje 
-                if(provees == null || provees.isEmpty()) {
+                if(provees == null || provees.isEmpty()) 
+                {
                     JLabel noProveesLabel = new JLabel("No hay pedidos registrados en el sistema");
                     noProveesLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
                     noProveesLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -174,19 +187,23 @@ public class MenuProvee extends JFrame {
                     gbc.gridy = 2;
                     frame.add(volverButton, gbc);
                     
-                    volverButton.addActionListener(e -> {
+                    volverButton.addActionListener(e -> 
+                    {
                         frame.dispose();
                         new MenuProvee(proveeController, productoController, proveedorController);
                     });
                 // Si hay pedidos registrados, se muestra el listado de pedidos
-                } else {
+                } 
+                else 
+                {
                     JTextArea proveesTextArea = new JTextArea();
                     proveesTextArea.setEditable(false);
                     proveesTextArea.setFont(new Font("Monospaced", Font.PLAIN, fontSize - 2));
 
                     //Se crea un StringBuilder para almacenar la información de los pedidos
                     StringBuilder sb = new StringBuilder();
-                    for (Provee provee : provees) {
+                    for (Provee provee : provees) 
+                    {
                         sb.append("ID Pedido: ").append(provee.getID_Provee()).append("\n");
                         sb.append("Proveedor: ").append(provee.getProveedor().getNombre()).append(" (ID: ")
                             .append(provee.getProveedor().getID_Proveedor()).append(")\n");
@@ -213,12 +230,15 @@ public class MenuProvee extends JFrame {
                     gbc.gridy = 2;
                     frame.add(volverButton, gbc);
                     
-                    volverButton.addActionListener(e -> {
+                    volverButton.addActionListener(e -> 
+                    {
                         frame.dispose();
                         new MenuProvee(proveeController, productoController, proveedorController);
                     });
                 }
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al obtener los pedidos: " + e.getMessage());
                 JLabel errorLabel = new JLabel("Error al obtener pedidos: " + e.getMessage());
                 errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
@@ -233,12 +253,15 @@ public class MenuProvee extends JFrame {
                 gbc.gridy = 2;
                 frame.add(volverButton, gbc);
                 
-                volverButton.addActionListener(e2 -> {
+                volverButton.addActionListener(e2 -> 
+                {
                     frame.dispose();
                     new MenuProvee(proveeController, productoController, proveedorController);
                 });
             } 
-        } else {
+        } 
+        else 
+        {
             JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
             errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
             gbc.gridy = 1;
@@ -252,14 +275,16 @@ public class MenuProvee extends JFrame {
             gbc.gridy = 2;
             frame.add(volverButton, gbc);
             
-            volverButton.addActionListener(e -> {
+            volverButton.addActionListener(e -> 
+            {
                 frame.dispose();
                 new MenuProvee(proveeController, productoController, proveedorController);
             });
         }
     }
   
-    private void BuscarProvee() {
+    private void BuscarProvee() 
+    {
         JFrame frame = new JFrame("Buscar Pedido");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -289,8 +314,10 @@ public class MenuProvee extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
       
-        if(proveeController != null) {
-            try {
+        if(proveeController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID del pedido
                 JLabel idLabel = new JLabel("ID del pedido:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -346,10 +373,13 @@ public class MenuProvee extends JFrame {
                 frame.add(volverButton, gbc);
                 
                 //Acción para buscar el pedido
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el ID del pedido introducido
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
@@ -374,22 +404,29 @@ public class MenuProvee extends JFrame {
                                 proveeInfo.setText(sb.toString());
                                 statusLabel.setText("");
                             //Si el pedido no existe, se muestra un mensaje de error
-                            } else {
+                            } 
+                            else 
+                            {
                                 proveeInfo.setText("");
                                 statusLabel.setText("No se encontró un pedido con el ID: " + id);
                             }
-                        } catch(NumberFormatException nfe) {
+                        } 
+                        catch(NumberFormatException nfe) 
+                        {
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             proveeInfo.setText("");
                         }
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuProvee(proveeController, productoController, proveedorController);
                 });
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al buscar el pedido: " + e.getMessage());
                 JLabel errorLabel = new JLabel("Error: " + e.getMessage());
                 errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
@@ -413,7 +450,9 @@ public class MenuProvee extends JFrame {
                     new MenuProvee(proveeController, productoController, proveedorController);
                 });
             }
-        } else {
+        } 
+        else 
+        {
             JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
             errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
             gbc.gridx = 0;
@@ -431,14 +470,16 @@ public class MenuProvee extends JFrame {
             gbc.gridwidth = 2;
             frame.add(volverButton, gbc);
             
-            volverButton.addActionListener(e -> {
+            volverButton.addActionListener(e ->
+            {
                 frame.dispose();
                 new MenuProvee(proveeController, productoController, proveedorController);
             });
         }
     }
   
-    private void AñadirProvee() {
+    private void AñadirProvee() 
+    {
         JFrame frame = new JFrame("Añadir Pedido");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -467,7 +508,8 @@ public class MenuProvee extends JFrame {
         frame.add(Title, gbc);
   
         if(proveeController != null && productoController != null && proveedorController != null) {
-            try {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID del proveedor
                 JLabel proveedorLabel = new JLabel("ID del Proveedor:");
                 proveedorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -581,19 +623,24 @@ public class MenuProvee extends JFrame {
                 frame.add(volverButton, gbc);
                 
                 //Acción para ver los proveedores
-                verProveedoresButton.addActionListener(new ActionListener() {
+                verProveedoresButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene todos los proveedores de la base de datos
                             List<Proveedor> proveedores = proveedorController.findAll();
 
                             //Si hay proveedores, se muestra el listado de proveedores
-                            if (proveedores != null && !proveedores.isEmpty()) {
+                            if (proveedores != null && !proveedores.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
 
                                 //Se crea un StringBuilder para almacenar la información de los proveedores
-                                for (Proveedor proveedor : proveedores) {
+                                for (Proveedor proveedor : proveedores) 
+                                {
                                     sb.append("ID: ").append(proveedor.getID_Proveedor())
                                       .append(" - Nombre: ").append(proveedor.getNombre())
                                       .append("\n");
@@ -602,11 +649,15 @@ public class MenuProvee extends JFrame {
                                 //Se muestra el listado de proveedores
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Proveedores", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            } 
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay proveedores disponibles", 
                                     "Listado de Proveedores", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al cargar proveedores: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -614,19 +665,24 @@ public class MenuProvee extends JFrame {
                 });
 
                 //Acción para ver los productos
-                verProductosButton.addActionListener(new ActionListener() {
+                verProductosButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene todos los productos de la base de datos
                             List<Producto> productos = productoController.findAll();
 
                             //Si hay productos, se muestra el listado de productos
-                            if (productos != null && !productos.isEmpty()) {
+                            if (productos != null && !productos.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
 
                                 //Se crea un StringBuilder para almacenar la información de los productos
-                                for (Producto producto : productos) {
+                                for (Producto producto : productos) 
+                                {
                                     sb.append("ID: ").append(producto.getID_Producto())
                                       .append(" - Nombre: ").append(producto.getNombre())
                                       .append("\n");
@@ -635,11 +691,15 @@ public class MenuProvee extends JFrame {
                                 //Se muestra el listado de productos
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Productos", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            }
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay productos disponibles", 
                                     "Listado de Productos", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al cargar productos: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -647,14 +707,18 @@ public class MenuProvee extends JFrame {
                 });
 
                 //Acción para guardar el pedido
-                guardarButton.addActionListener(new ActionListener() {
+                guardarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se comprueba si todos los campos están rellenos
                             if (proveedorTextField.getText().isEmpty() || productoTextField.getText().isEmpty() 
                                 || cantidadTextField.getText().isEmpty() || precioTextField.getText().isEmpty()
-                                || fechaTextField.getText().isEmpty()) {
+                                || fechaTextField.getText().isEmpty()) 
+                            {
                                 statusLabel.setText("Error: Todos los campos son obligatorios");
                                 return;
                             }
@@ -666,41 +730,55 @@ public class MenuProvee extends JFrame {
                             double precio;
 
                             //Se comprueba si el ID del proveedor es un número válido
-                            try {
+                            try 
+                            {
                                 proveedorId = Long.parseLong(proveedorTextField.getText());
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: El ID de proveedor debe ser un número");
                                 return;
                             }
 
                             //Se comprueba si el ID del producto es un número válido
-                            try {
+                            try 
+                            {
                                 productoId = Long.parseLong(productoTextField.getText());
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: El ID de producto debe ser un número");
                                 return;
                             }
 
                             //Se comprueba si la cantidad es un número válido
-                            try {
+                            try 
+                            {
                                 cantidad = Integer.parseInt(cantidadTextField.getText());
-                                if (cantidad <= 0) {
+                                if (cantidad <= 0) 
+                                {
                                     statusLabel.setText("Error: La cantidad debe ser mayor que cero");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: La cantidad debe ser un número entero");
                                 return;
                             }
 
                             //Se comprueba si el precio es un número válido
-                            try {
+                            try 
+                            {
                                 precio = Double.parseDouble(precioTextField.getText());
-                                if (precio <= 0) {
+                                if (precio <= 0) 
+                                {
                                     statusLabel.setText("Error: El precio debe ser mayor que cero");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: El precio debe ser un número decimal válido");
                                 return;
                             }
@@ -709,21 +787,26 @@ public class MenuProvee extends JFrame {
                             LocalDate fechaProvision;
 
                             //Se comprueba si la fecha de provisión es válida
-                            try {
+                            try 
+                            {
                                 fechaProvision = LocalDate.parse(fechaTextField.getText());
                                 LocalDate hoy = LocalDate.now();
-                                if (fechaProvision.isAfter(hoy)) {
+                                if (fechaProvision.isAfter(hoy)) 
+                                {
                                     int confirmacion = JOptionPane.showConfirmDialog(
                                         frame,
                                         "La fecha de provisión es futura. ¿Desea continuar?",
                                         "Confirmación de fecha",
                                         JOptionPane.YES_NO_OPTION
                                     );
-                                    if (confirmacion != JOptionPane.YES_OPTION) {
+                                    if (confirmacion != JOptionPane.YES_OPTION) 
+                                    {
                                         return;
                                     }
                                 }
-                            } catch (DateTimeParseException dtpe) {
+                            } 
+                            catch (DateTimeParseException dtpe) 
+                            {
                                 statusLabel.setText("Error: El formato de fecha debe ser YYYY-MM-DD");
                                 return;
                             }
@@ -732,13 +815,15 @@ public class MenuProvee extends JFrame {
                             Producto producto = productoController.findById(productoId);
 
                             //Se comprueba si el proveedor existe
-                            if (proveedor == null) {
+                            if (proveedor == null) 
+                            {
                                 statusLabel.setText("Error: El proveedor con ID " + proveedorId + " no existe");
                                 return;
                             }
 
                             //Se comprueba si el producto existe
-                            if (producto == null) {
+                            if (producto == null) 
+                            {
                                 statusLabel.setText("Error: El producto con ID " + productoId + " no existe");
                                 return;
                             }
@@ -763,17 +848,22 @@ public class MenuProvee extends JFrame {
                             precioTextField.setText("");
                             fechaTextField.setText("");
                             
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             statusLabel.setText("Error al guardar el pedido: " + ex.getMessage());
                         }
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuProvee(proveeController, productoController, proveedorController);
                 });
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error: " + e.getMessage());
                 JLabel errorLabel = new JLabel("Error: " + e.getMessage());
                 errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
@@ -792,12 +882,15 @@ public class MenuProvee extends JFrame {
                 gbc.gridwidth = 2;
                 frame.add(volverButton, gbc);
                 
-                volverButton.addActionListener(e2 -> {
+                volverButton.addActionListener(e2 -> 
+                {
                     frame.dispose();
                     new MenuProvee(proveeController, productoController, proveedorController);
                 });
             }
-        } else {
+        } 
+        else 
+        {
             JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
             errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
             gbc.gridx = 0;
@@ -815,14 +908,16 @@ public class MenuProvee extends JFrame {
             gbc.gridwidth = 2;
             frame.add(volverButton, gbc);
             
-            volverButton.addActionListener(e -> {
+            volverButton.addActionListener(e -> 
+            {
                 frame.dispose();
                 new MenuProvee(proveeController, productoController, proveedorController);
             });
         }
     }
   
-    private void ActualizarProvee() {
+    private void ActualizarProvee() 
+    {
         JFrame frame = new JFrame("Actualizar Pedido");
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
@@ -851,7 +946,8 @@ public class MenuProvee extends JFrame {
         frame.add(Title, gbc);
   
         if(proveeController != null && productoController != null && proveedorController != null) {
-            try {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID del pedido a actualizar
                 JLabel idLabel = new JLabel("ID del pedido a actualizar:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -998,19 +1094,24 @@ public class MenuProvee extends JFrame {
                 final Long[] proveeId = new Long[1];
                 
                 //Acción para ver los proveedores
-                verProveedoresButton.addActionListener(new ActionListener() {
+                verProveedoresButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene todos los proveedores de la base de datos
                             List<Proveedor> proveedores = proveedorController.findAll();
 
                             //Si hay proveedores, se muestra el listado de proveedores
-                            if (proveedores != null && !proveedores.isEmpty()) {
+                            if (proveedores != null && !proveedores.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
 
                                 //Se crea un StringBuilder para almacenar la información de los proveedores
-                                for(Proveedor proveedor : proveedores) {
+                                for(Proveedor proveedor : proveedores) 
+                                {
                                     sb.append("ID: ").append(proveedor.getID_Proveedor())
                                       .append(" - Nombre: ").append(proveedor.getNombre())
                                       .append("\n");
@@ -1019,11 +1120,15 @@ public class MenuProvee extends JFrame {
                                 //Se muestra el listado de proveedores
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Proveedores", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            }
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay proveedores registrados", 
                                     "Listado de Proveedores", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch(Exception ex) {
+                        } 
+                        catch(Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al obtener proveedores: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -1031,19 +1136,24 @@ public class MenuProvee extends JFrame {
                 });
 
                 //Acción para ver los productos
-                verProductosButton.addActionListener(new ActionListener() {
+                verProductosButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene todos los productos de la base de datos
                             List<Producto> productos = productoController.findAll();
 
                             //Si hay productos, se muestra el listado de productos
-                            if (productos != null && !productos.isEmpty()) {
+                            if (productos != null && !productos.isEmpty()) 
+                            {
                                 StringBuilder sb = new StringBuilder();
 
                                 //Se crea un StringBuilder para almacenar la información de los productos
-                                for(Producto producto : productos) {
+                                for(Producto producto : productos) 
+                                {
                                     sb.append("ID: ").append(producto.getID_Producto())
                                       .append(" - Nombre: ").append(producto.getNombre())
                                       .append("\n");
@@ -1052,11 +1162,15 @@ public class MenuProvee extends JFrame {
                                 //Se muestra el listado de productos
                                 JOptionPane.showMessageDialog(frame, new JScrollPane(new JTextArea(sb.toString())), 
                                     "Listado de Productos", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
+                            } 
+                            else 
+                            {
                                 JOptionPane.showMessageDialog(frame, "No hay productos registrados", 
                                     "Listado de Productos", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        } catch(Exception ex) {
+                        } 
+                        catch(Exception ex) 
+                        {
                             JOptionPane.showMessageDialog(frame, "Error al obtener productos: " + ex.getMessage(), 
                                 "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -1064,10 +1178,13 @@ public class MenuProvee extends JFrame {
                 });
 
                 //Acción para buscar el pedido
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
 
@@ -1077,7 +1194,8 @@ public class MenuProvee extends JFrame {
                             Provee provee = proveeController.findById(id);
 
                             //Si el pedido existe, se muestra la información del pedido
-                            if (provee != null) {
+                            if (provee != null) 
+                            {
                                 proveeId[0] = provee.getID_Provee();
 
                                 proveedorTextField.setText(String.valueOf(provee.getProveedor().getID_Proveedor()));
@@ -1101,7 +1219,9 @@ public class MenuProvee extends JFrame {
                                 guardarButton.setEnabled(true);
                                 
                                 statusLabel.setText("Pedido encontrado. Puedes editar los campos y actualizar.");
-                            } else {
+                            } 
+                            else 
+                            {
                                 //Si el pedido no existe, se limpia el formulario y se deshabilitan los campos
                                 statusLabel.setText("No se encontró un pedido con el ID: " + id);
                                 
@@ -1120,24 +1240,32 @@ public class MenuProvee extends JFrame {
                                 verProductosButton.setEnabled(false);
                                 guardarButton.setEnabled(false);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) 
+                        {
                             statusLabel.setText("ID inválido. Introduce un número válido.");
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             statusLabel.setText("Error al buscar el pedido: " + ex.getMessage());
                         }
                     }
                 });
 
                 //Acción para actualizar el pedido
-                guardarButton.addActionListener(new ActionListener() {
+                guardarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el pedido original
                             Provee proveeOriginal = proveeController.findById(proveeId[0]);
 
                             //Si el pedido no existe, se muestra un mensaje de error
-                            if (proveeOriginal == null) {
+                            if (proveeOriginal == null) 
+                            {
                                 statusLabel.setText("Error: No se pudo recuperar el pedido original.");
                                 return;
                             }
@@ -1145,7 +1273,8 @@ public class MenuProvee extends JFrame {
                             //Se comprueba si todos los campos están rellenos
                             if (proveedorTextField.getText().isEmpty() || productoTextField.getText().isEmpty() 
                                 || cantidadTextField.getText().isEmpty() || precioTextField.getText().isEmpty()
-                                || fechaTextField.getText().isEmpty()) {
+                                || fechaTextField.getText().isEmpty()) 
+                            {
                                 statusLabel.setText("Error: Todos los campos son obligatorios");
                                 return;
                             }
@@ -1158,49 +1287,66 @@ public class MenuProvee extends JFrame {
                             LocalDate fechaProvision;
                             
                             //Se comprueba si el ID del proveedor es un número válido
-                            try {
+                            try 
+                            {
                                 proveedorId = Long.parseLong(proveedorTextField.getText());
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: El ID de proveedor debe ser un número válido");
                                 return;
                             }
 
                             //Se comprueba si el ID del producto es un número válido
-                            try {
+                            try 
+                            {
                                 productoId = Long.parseLong(productoTextField.getText());
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: El ID de producto debe ser un número válido");
                                 return;
                             }
 
                             //Se comprueba si la cantidad es un número válido
-                            try {
+                            try 
+                            {
                                 cantidad = Integer.parseInt(cantidadTextField.getText());
-                                if (cantidad <= 0) {
+                                if (cantidad <= 0) 
+                                {
                                     statusLabel.setText("Error: La cantidad debe ser mayor que cero");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: La cantidad debe ser un número entero válido");
                                 return;
                             }
 
                             //Se comprueba si el precio es un número válido
-                            try {
+                            try 
+                            {
                                 precio = Double.parseDouble(precioTextField.getText());
-                                if (precio <= 0) {
+                                if (precio <= 0) 
+                                {
                                     statusLabel.setText("Error: El precio debe ser mayor que cero");
                                     return;
                                 }
-                            } catch (NumberFormatException nfe) {
+                            } 
+                            catch (NumberFormatException nfe) 
+                            {
                                 statusLabel.setText("Error: El precio debe ser un número decimal válido");
                                 return;
                             }
 
                             //Se comprueba si la fecha de provisión es válida
-                            try {
+                            try 
+                            {
                                 fechaProvision = LocalDate.parse(fechaTextField.getText());
-                            } catch (DateTimeParseException dtpe) {
+                            } 
+                            catch (DateTimeParseException dtpe) 
+                            {
                                 statusLabel.setText("Error: El formato de fecha debe ser YYYY-MM-DD");
                                 return;
                             }
@@ -1210,13 +1356,15 @@ public class MenuProvee extends JFrame {
                             Producto producto = productoController.findById(productoId);
 
                             //Si el proveedor no existe, se muestra un mensaje de error
-                            if (proveedor == null) {
+                            if (proveedor == null) 
+                            {
                                 statusLabel.setText("Error: El proveedor con ID " + proveedorId + " no existe");
                                 return;
                             }
 
                             //Si el producto no existe, se muestra un mensaje de error
-                            if (producto == null) {
+                            if (producto == null) 
+                            {
                                 statusLabel.setText("Error: El producto con ID " + productoId + " no existe");
                                 return;
                             }
@@ -1234,17 +1382,22 @@ public class MenuProvee extends JFrame {
                             proveeController.save(proveeActualizado);
 
                             statusLabel.setText("Pedido actualizado correctamente");
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             statusLabel.setText("Error al actualizar el pedido: " + ex.getMessage());
                         }
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuProvee(proveeController, productoController, proveedorController);
                 });
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error: " + e.getMessage());
                 JLabel errorLabel = new JLabel("Error: " + e.getMessage());
                 errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
@@ -1263,12 +1416,15 @@ public class MenuProvee extends JFrame {
                 gbc.gridwidth = 2;
                 frame.add(volverButton, gbc);
                 
-                volverButton.addActionListener(e2 -> {
+                volverButton.addActionListener(e2 -> 
+                {
                     frame.dispose();
                     new MenuProvee(proveeController, productoController, proveedorController);
                 });
             }
-        } else {
+        } 
+        else 
+        {
             JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
             errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
             gbc.gridx = 0;
@@ -1286,14 +1442,16 @@ public class MenuProvee extends JFrame {
             gbc.gridwidth = 2;
             frame.add(volverButton, gbc);
             
-            volverButton.addActionListener(e -> {
+            volverButton.addActionListener(e -> 
+            {
                 frame.dispose();
                 new MenuProvee(proveeController, productoController, proveedorController);
             });
         }
     }
   
-    private void EliminarProvee() {
+    private void EliminarProvee() 
+    {
         JFrame frame = new JFrame("Eliminar Pedido");
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setUndecorated(true);
@@ -1323,8 +1481,10 @@ public class MenuProvee extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
   
-        if(proveeController != null) {
-            try {
+        if(proveeController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID del pedido a eliminar
                 JLabel idLabel = new JLabel("ID del pedido a eliminar:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -1392,10 +1552,13 @@ public class MenuProvee extends JFrame {
                 final Long[] proveeId = new Long[1];
 
                 //Acción para buscar el pedido
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
 
@@ -1403,7 +1566,8 @@ public class MenuProvee extends JFrame {
                             Provee provee = proveeController.findById(id);
 
                             //Si el pedido existe, se muestra la información del pedido
-                            if (provee != null) {
+                            if (provee != null) 
+                            {
                                 proveeId[0] = provee.getID_Provee();
 
                                 StringBuilder sb = new StringBuilder();
@@ -1423,13 +1587,17 @@ public class MenuProvee extends JFrame {
 
                                 //Se muestra un mensaje de éxito
                                 statusLabel.setText("Pedido encontrado. Pulse 'Eliminar Pedido' para confirmar.");
-                            } else {
+                            } 
+                            else 
+                            {
                                 //Si el pedido no existe, se limpia el formulario y se deshabilita el botón para eliminar el pedido
                                 proveeInfo.setText("");
                                 eliminarButton.setEnabled(false);
                                 statusLabel.setText("No se encontró un pedido con el ID: " + id);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) 
+                        {
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             proveeInfo.setText("");
                             eliminarButton.setEnabled(false);
@@ -1438,10 +1606,13 @@ public class MenuProvee extends JFrame {
                 });
 
                 //Acción para eliminar el pedido
-                eliminarButton.addActionListener(new ActionListener() {
+                eliminarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se muestra un mensaje de confirmación
                             int confirmacion = JOptionPane.showConfirmDialog(frame, 
                                 "¿Está seguro de que desea eliminar este pedido?", 
@@ -1449,7 +1620,8 @@ public class MenuProvee extends JFrame {
                                 JOptionPane.YES_NO_OPTION);
 
                             //Si el usuario confirma la eliminación, se elimina el pedido
-                            if (confirmacion == JOptionPane.YES_OPTION) {
+                            if (confirmacion == JOptionPane.YES_OPTION) 
+                            {
                                 proveeController.delete(proveeId[0]);
 
                                 proveeInfo.setText("");
@@ -1457,18 +1629,23 @@ public class MenuProvee extends JFrame {
                                 eliminarButton.setEnabled(false);
                                 statusLabel.setText("Pedido eliminado correctamente.");
                             }
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             //Si ocurre un error, se muestra un mensaje de error
                             statusLabel.setText("Error al eliminar el pedido: " + ex.getMessage());
                         }
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuProvee(proveeController, productoController, proveedorController);
                 });
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al eliminar el pedido: " + e.getMessage());
                 JLabel errorLabel = new JLabel("Error: " + e.getMessage());
                 errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
@@ -1487,12 +1664,15 @@ public class MenuProvee extends JFrame {
                 gbc.gridwidth = 2;
                 frame.add(volverButton, gbc);
                 
-                volverButton.addActionListener(e2 -> {
+                volverButton.addActionListener(e2 -> 
+                {
                     frame.dispose();
                     new MenuProvee(proveeController, productoController, proveedorController);
                 });
             }
-        } else {
+        } 
+        else 
+        {
             JLabel errorLabel = new JLabel("Error: No hay conexión a la base de datos");
             errorLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize - 4));
             gbc.gridx = 0;
@@ -1510,7 +1690,8 @@ public class MenuProvee extends JFrame {
             gbc.gridwidth = 2;
             frame.add(volverButton, gbc);
             
-            volverButton.addActionListener(e -> {
+            volverButton.addActionListener(e -> 
+            {
                 frame.dispose();
                 new MenuProvee(proveeController, productoController, proveedorController);
             });

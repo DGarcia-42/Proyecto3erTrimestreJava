@@ -8,16 +8,19 @@ import java.util.List;
 import org.carlosydiego.crmclientes.app.controller.*;
 import org.carlosydiego.crmclientes.app.model.*;
 
-public class MenuProveedor extends JFrame {
+public class MenuProveedor extends JFrame 
+{
     private ProveedorController proveedorController;
 
     // Constructor de la clase MenuProveedor con su controlador
-    public MenuProveedor(ProveedorController proveedorController) {
+    public MenuProveedor(ProveedorController proveedorController) 
+    {
         this.proveedorController = proveedorController;
         initializeMenu();
     }
 
-    private void initializeMenu() {
+    private void initializeMenu() 
+    {
         setLayout(new GridBagLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -48,7 +51,8 @@ public class MenuProveedor extends JFrame {
         TodoProveedor.setForeground(Color.WHITE);
         gbc.gridy = 1;
         add(TodoProveedor, gbc);
-        TodoProveedor.addActionListener(e -> {
+        TodoProveedor.addActionListener(e -> 
+        {
             dispose();
             ListarProveedores();
         });
@@ -60,7 +64,8 @@ public class MenuProveedor extends JFrame {
         BuscarProveedor.setForeground(Color.WHITE);
         gbc.gridy = 2;
         add(BuscarProveedor, gbc);
-        BuscarProveedor.addActionListener(e -> {
+        BuscarProveedor.addActionListener(e -> 
+        {
             dispose();
             BuscarProveedor();
         });
@@ -72,7 +77,8 @@ public class MenuProveedor extends JFrame {
         AñadirProveedor.setForeground(Color.WHITE);
         gbc.gridy = 3;
         add(AñadirProveedor, gbc);
-        AñadirProveedor.addActionListener(e -> {
+        AñadirProveedor.addActionListener(e -> 
+        {
             dispose();
             AñadirProveedor();
         });
@@ -84,7 +90,8 @@ public class MenuProveedor extends JFrame {
         ModificarProveedor.setForeground(Color.WHITE);
         gbc.gridy = 4;
         add(ModificarProveedor, gbc);
-        ModificarProveedor.addActionListener(e -> {
+        ModificarProveedor.addActionListener(e -> 
+        {
             dispose();
             ActualizarProveedor();
         });
@@ -96,7 +103,8 @@ public class MenuProveedor extends JFrame {
         EliminarProveedor.setForeground(Color.WHITE);
         gbc.gridy = 5;
         add(EliminarProveedor, gbc);
-        EliminarProveedor.addActionListener(e -> {
+        EliminarProveedor.addActionListener(e -> 
+        {
             dispose();
             EliminarProveedor();
         });
@@ -108,7 +116,8 @@ public class MenuProveedor extends JFrame {
         VolverMenu.setForeground(Color.WHITE);
         gbc.gridy = 6;
         add(VolverMenu, gbc);
-        VolverMenu.addActionListener(e -> {
+        VolverMenu.addActionListener(e -> 
+        {
             dispose();
             new MenuProyecto();
         });
@@ -184,7 +193,8 @@ public class MenuProveedor extends JFrame {
 
                   //Se crea un StringBuilder para almacenar la información de los proveedores
                   StringBuilder sb = new StringBuilder();
-                  for (Proveedor proveedor : proveedores) {
+                  for (Proveedor proveedor : proveedores) 
+                  {
                       sb.append("ID: ").append(proveedor.getID_Proveedor()).append("\n");
                       sb.append("CIF: ").append(proveedor.getCIF()).append("\n");
                       sb.append("Empresa: ").append(proveedor.getNombre()).append("\n");
@@ -212,7 +222,8 @@ public class MenuProveedor extends JFrame {
                   gbc.gridy = 2;
                   frame.add(volverButton, gbc);
                   
-                  volverButton.addActionListener(e -> {
+                  volverButton.addActionListener(e -> 
+                  {
                       frame.dispose();
                       new MenuProveedor(proveedorController);
                   });
@@ -320,10 +331,13 @@ public class MenuProveedor extends JFrame {
             frame.add(volverButton, gbc);
 
             //Acción para buscar el proveedor
-            buscarButton.addActionListener(new ActionListener() {
+            buscarButton.addActionListener(new ActionListener() 
+            {
                 @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
+                public void actionPerformed(ActionEvent e) 
+                {
+                    try 
+                    {
                         //Se obtiene el ID del proveedor introducido
                         String input = idTextField.getText();
                         long id = Long.parseLong(input);
@@ -332,7 +346,8 @@ public class MenuProveedor extends JFrame {
                         Proveedor proveedor = proveedorController.findById(id);
 
                         //Si el proveedor existe, se muestra la información del proveedor
-                        if (proveedor != null) {
+                        if (proveedor != null) 
+                        {
                             //Se crea un StringBuilder para almacenar la información del proveedor
                             StringBuilder sb = new StringBuilder();
                             sb.append("ID: ").append(proveedor.getID_Proveedor()).append("\n");
@@ -349,12 +364,16 @@ public class MenuProveedor extends JFrame {
                             //Se muestra la información del proveedor
                             proveedorInfo.setText(sb.toString());
                             statusLabel.setText("");
-                        } else {
+                        } 
+                        else 
+                        {
                             //Si el proveedor no existe,se muestra un mensaje de error
                             proveedorInfo.setText("");
                             statusLabel.setText("No se encontró un proveedor con el ID: " + id);
                         }
-                    } catch (NumberFormatException nfe) {
+                    } 
+                    catch (NumberFormatException nfe) 
+                    {
                         //Si el ID introducido no es un número válido, se muestra un mensaje de error
                         statusLabel.setText("ID inválido. Introduce un número válido.");
                         proveedorInfo.setText("");
@@ -362,7 +381,8 @@ public class MenuProveedor extends JFrame {
                 }
             });
             
-            volverButton.addActionListener(e -> {
+            volverButton.addActionListener(e -> 
+            {
                 frame.dispose();
                 new MenuProveedor(proveedorController);
             });
@@ -546,10 +566,13 @@ public class MenuProveedor extends JFrame {
               frame.add(volverButton, gbc);
               
               //Acción para guardar el proveedor
-              guardarButton.addActionListener(new ActionListener() {
+              guardarButton.addActionListener(new ActionListener() 
+              {
                   @Override
-                  public void actionPerformed(ActionEvent e) {
-                      try {
+                  public void actionPerformed(ActionEvent e) 
+                  {
+                      try 
+                      {
                           //Se obtiene de cada campo del proveedor
                           String cif = cifTextField.getText();
                           String nombre = nombreTextField.getText();
@@ -562,33 +585,38 @@ public class MenuProveedor extends JFrame {
                           String cp = cpTextField.getText();
 
                           //Se comprueba si hay campos vacíos
-                          if(cif.isEmpty() || nombre.isEmpty() || responsable.isEmpty() || 
-                             pais.isEmpty() || provincia.isEmpty() || direccion.isEmpty() || 
-                             email.isEmpty() || telefono.isEmpty() || cp.isEmpty()) {
+                        if(cif.isEmpty() || nombre.isEmpty() || responsable.isEmpty() || 
+                            pais.isEmpty() || provincia.isEmpty() || direccion.isEmpty() || 
+                            email.isEmpty() || telefono.isEmpty() || cp.isEmpty()) 
+                        {
                               statusLabel.setText("Error: Todos los campos son obligatorios");
                               return;
-                          }
+                        }
 
                           //Se comprueba si el CIF tiene el formato correcto
-                          if(!cif.matches("[A-Za-z]\\d{8}")) {
+                          if(!cif.matches("[A-Za-z]\\d{8}")) 
+                          {
                               statusLabel.setText("Error: El CIF debe tener 1 letra seguida de 8 números");
                               return;
                           }
 
                           //Se comprueba si el email tiene el formato correcto
-                          if(!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                          if(!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) 
+                          {
                               statusLabel.setText("Error: El email debe tener un formato válido");
                               return;
                           }
 
                           //Se comprueba si el teléfono tiene el formato correcto
-                          if(!telefono.matches("\\d{9}")) {
+                          if(!telefono.matches("\\d{9}")) 
+                          {
                               statusLabel.setText("Error: El teléfono debe tener 9 dígitos");
                               return;
                           }
 
                           //Se comprueba si el código postal tiene el formato correcto
-                          if(!cp.matches("\\d{5}")) {
+                          if(!cp.matches("\\d{5}")) 
+                          {
                               statusLabel.setText("Error: El código postal debe tener 5 dígitos");
                               return;
                           }
@@ -621,13 +649,16 @@ public class MenuProveedor extends JFrame {
                           emailTextField.setText("");
                           telefonoTextField.setText("");
                           cpTextField.setText("");
-                      } catch (Exception ex) {
+                      } 
+                      catch (Exception ex) 
+                      {
                           statusLabel.setText("Error al guardar el proveedor: " + ex.getMessage());
                       }
                   }
               });
               
-              volverButton.addActionListener(e -> {
+              volverButton.addActionListener(e -> 
+              {
                   frame.dispose();
                   new MenuProveedor(proveedorController);
               });
@@ -845,10 +876,13 @@ public class MenuProveedor extends JFrame {
               final Long[] proveedorId = new Long[1];
 
               //Acción para buscar el proveedor
-              buscarButton.addActionListener(new ActionListener() {
+              buscarButton.addActionListener(new ActionListener() 
+              {
                   @Override
-                  public void actionPerformed(ActionEvent e) {
-                      try {
+                  public void actionPerformed(ActionEvent e) 
+                  {
+                      try 
+                      {
                           String input = idTextField.getText();
                           long id = Long.parseLong(input);
 
@@ -856,7 +890,8 @@ public class MenuProveedor extends JFrame {
                           Proveedor proveedor = proveedorController.findById(id);
 
                           //Si el proveedor existe, se muestra la información del proveedor
-                          if (proveedor != null) {
+                          if (proveedor != null) 
+                          {
                               proveedorId[0] = proveedor.getID_Proveedor();
                               cifTextField.setText(proveedor.getCIF());
                               nombreTextField.setText(proveedor.getNombre());
@@ -881,7 +916,9 @@ public class MenuProveedor extends JFrame {
                               actualizarButton.setEnabled(true);
                               
                               statusLabel.setText("Proveedor encontrado. Puedes editar los campos y actualizar.");
-                          } else {
+                          } 
+                          else 
+                          {
                               //Si el proveedor no existe, se limpia el formulario y se deshabilitan los campos
                               cifTextField.setText("");
                               nombreTextField.setText("");
@@ -906,7 +943,9 @@ public class MenuProveedor extends JFrame {
                               
                               statusLabel.setText("No se encontró un proveedor con el ID: " + id);
                           }
-                      } catch (NumberFormatException nfe) {
+                      } 
+                      catch (NumberFormatException nfe) 
+                      {
                           //Si el ID introducido no es un número válido,se deshabilitan los campos
                           statusLabel.setText("ID inválido. Introduce un número válido.");
                           cifTextField.setEnabled(false);
@@ -924,10 +963,13 @@ public class MenuProveedor extends JFrame {
               });
 
               //Acción para actualizar el proveedor
-              actualizarButton.addActionListener(new ActionListener() {
+              actualizarButton.addActionListener(new ActionListener() 
+              {
                   @Override
-                  public void actionPerformed(ActionEvent e) {
-                      try {
+                  public void actionPerformed(ActionEvent e) 
+                  {
+                      try 
+                      {
                           //Se obtiene de cada campo del proveedor
                           String cif = cifTextField.getText();
                           String nombre = nombreTextField.getText();
@@ -942,31 +984,36 @@ public class MenuProveedor extends JFrame {
                           //Se comprueba si hay campos vacíos
                           if(cif.isEmpty() || nombre.isEmpty() || responsable.isEmpty() || 
                              pais.isEmpty() || provincia.isEmpty() || direccion.isEmpty() || 
-                             email.isEmpty() || telefono.isEmpty() || cp.isEmpty()) {
+                             email.isEmpty() || telefono.isEmpty() || cp.isEmpty()) 
+                          {
                               statusLabel.setText("Error: Todos los campos son obligatorios");
                               return;
                           }
 
                           //Se comprueba si el CIF tiene el formato correcto
-                          if(!cif.matches("[A-Za-z]\\d{8}")) {
+                          if(!cif.matches("[A-Za-z]\\d{8}")) 
+                          {
                               statusLabel.setText("Error: El CIF debe tener 1 letra seguida de 8 números");
                               return;
                           }
 
                           //Se comprueba si el email tiene el formato correcto
-                          if(!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                          if(!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) 
+                          {
                               statusLabel.setText("Error: El email debe tener un formato válido");
                               return;
                           }
 
                           //Se comprueba si el teléfono tiene el formato correcto
-                          if(!telefono.matches("\\d{9}")) {
+                          if(!telefono.matches("\\d{9}")) 
+                          {
                               statusLabel.setText("Error: El teléfono debe tener 9 dígitos");
                               return;
                           }
 
                           //Se comprueba si el código postal tiene el formato correcto
-                          if(!cp.matches("\\d{5}")) {
+                          if(!cp.matches("\\d{5}")) 
+                          {
                               statusLabel.setText("Error: El código postal debe tener 5 dígitos");
                               return;
                           }
@@ -988,13 +1035,16 @@ public class MenuProveedor extends JFrame {
                           proveedorController.save(proveedorActualizado);
 
                           statusLabel.setText("Proveedor actualizado correctamente.");
-                      } catch (Exception ex) {
+                      } 
+                      catch (Exception ex) 
+                      {
                           statusLabel.setText("Error al actualizar el proveedor: " + ex.getMessage());
                       }
                   }
               });
 
-              volverButton.addActionListener(e -> {
+              volverButton.addActionListener(e -> 
+              {
                   frame.dispose();
                   new MenuProveedor(proveedorController);
               });
@@ -1113,16 +1163,20 @@ public class MenuProveedor extends JFrame {
               final Long[] proveedorId = new Long[1];
 
               //Acción para buscar el proveedor
-              buscarButton.addActionListener(new ActionListener() {
+              buscarButton.addActionListener(new ActionListener() 
+              {
                   @Override
-                  public void actionPerformed(ActionEvent e) {
-                      try {
+                  public void actionPerformed(ActionEvent e) 
+                  {
+                      try 
+                      {
                           String input = idTextField.getText();
                           long id = Long.parseLong(input);
 
                           //Se busca el proveedor con el ID introducido
                           Proveedor proveedor = proveedorController.findById(id);
-                          if (proveedor != null) {
+                          if (proveedor != null) 
+                          {
                               proveedorId[0] = proveedor.getID_Proveedor();
 
                               //Se crea un StringBuilder para almacenar la información del proveedor
@@ -1141,12 +1195,16 @@ public class MenuProveedor extends JFrame {
                               proveedorInfo.setText(sb.toString());
                               eliminarButton.setEnabled(true);
                               statusLabel.setText("Proveedor encontrado. Pulse 'Eliminar Proveedor' para confirmar.");
-                          } else {
+                          } 
+                          else 
+                          {
                               proveedorInfo.setText("");
                               eliminarButton.setEnabled(false);
                               statusLabel.setText("No se encontró un proveedor con el ID: " + id);
                           }
-                      } catch (NumberFormatException nfe) {
+                      } 
+                      catch (NumberFormatException nfe) 
+                      {
                           statusLabel.setText("ID inválido. Introduce un número válido.");
                           proveedorInfo.setText("");
                           eliminarButton.setEnabled(false);
@@ -1155,10 +1213,13 @@ public class MenuProveedor extends JFrame {
               });
 
               //Acción para eliminar el proveedor
-              eliminarButton.addActionListener(new ActionListener() {
+              eliminarButton.addActionListener(new ActionListener() 
+              {
                   @Override
-                  public void actionPerformed(ActionEvent e) {
-                      try {
+                  public void actionPerformed(ActionEvent e) 
+                  {
+                      try 
+                      {
                           //Se muestra un cuadro de diálogo para eliminar el proveedor
                           int confirmacion = JOptionPane.showConfirmDialog(frame,
                                   "¿Está seguro de que desea eliminar este proveedor?",
@@ -1166,21 +1227,25 @@ public class MenuProveedor extends JFrame {
                                   JOptionPane.YES_NO_OPTION);
 
                           //Si el usuario confirma la eliminación, se elimina el proveedor
-                          if (confirmacion == JOptionPane.YES_OPTION) {
+                          if (confirmacion == JOptionPane.YES_OPTION) 
+                          {
                               proveedorController.delete(proveedorId[0]);
                               proveedorInfo.setText("");
                               idTextField.setText("");
                               eliminarButton.setEnabled(false);
                               statusLabel.setText("Proveedor eliminado correctamente.");
                           }
-                      } catch (Exception ex) {
+                      } 
+                      catch (Exception ex) 
+                      {
                           //Si hay un error, se muestra un mensaje de error
                           statusLabel.setText("Error al eliminar el proveedor: " + ex.getMessage());
                       }
                   }
               });
 
-              volverButton.addActionListener(e -> {
+              volverButton.addActionListener(e -> 
+              {
                   frame.dispose();
                   new MenuProveedor(proveedorController);
               });

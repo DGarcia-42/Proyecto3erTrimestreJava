@@ -8,16 +8,19 @@ import java.util.List;
 import org.carlosydiego.crmclientes.app.controller.*;
 import org.carlosydiego.crmclientes.app.model.*;
 
-public class MenuEmpleado extends JFrame {
+public class MenuEmpleado extends JFrame 
+{
     private EmpleadoController empleadoController;
 
     // Constructor de la clase MenuEmpleado con su controlador
-    public MenuEmpleado(EmpleadoController empleadoController) {
+    public MenuEmpleado(EmpleadoController empleadoController) 
+    {
         this.empleadoController = empleadoController;
         initializeMenu();
     }
 
-    private void initializeMenu() {
+    private void initializeMenu() 
+    {
         setLayout(new GridBagLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -48,7 +51,8 @@ public class MenuEmpleado extends JFrame {
         TodoEmpleado.setForeground(Color.WHITE);
         gbc.gridy = 1;
         add(TodoEmpleado, gbc);
-        TodoEmpleado.addActionListener(e -> {
+        TodoEmpleado.addActionListener(e -> 
+        {
             dispose();
             ListarEmpleados();
         });
@@ -60,7 +64,8 @@ public class MenuEmpleado extends JFrame {
         BuscarEmpleado.setForeground(Color.WHITE);
         gbc.gridy = 2;
         add(BuscarEmpleado, gbc);
-        BuscarEmpleado.addActionListener(e -> {
+        BuscarEmpleado.addActionListener(e -> 
+        {
             dispose();
             BuscarEmpleado();
         });
@@ -72,7 +77,8 @@ public class MenuEmpleado extends JFrame {
         AñadirEmpleado.setForeground(Color.WHITE);
         gbc.gridy = 3;
         add(AñadirEmpleado, gbc);
-        AñadirEmpleado.addActionListener(e -> {
+        AñadirEmpleado.addActionListener(e -> 
+        {
             dispose();
             AñadirEmpleado();
         });
@@ -84,7 +90,8 @@ public class MenuEmpleado extends JFrame {
         ModificarEmpleado.setForeground(Color.WHITE);
         gbc.gridy = 4;
         add(ModificarEmpleado, gbc);
-        ModificarEmpleado.addActionListener(e -> {
+        ModificarEmpleado.addActionListener(e -> 
+        {
             dispose();
             ActualizarEmpleado();
         });
@@ -96,7 +103,8 @@ public class MenuEmpleado extends JFrame {
         EliminarEmpleado.setForeground(Color.WHITE);
         gbc.gridy = 5;
         add(EliminarEmpleado, gbc);
-        EliminarEmpleado.addActionListener(e -> {
+        EliminarEmpleado.addActionListener(e -> 
+        {
             dispose();
             EliminarEmpleado();
         });
@@ -108,7 +116,8 @@ public class MenuEmpleado extends JFrame {
         VolverMenu.setForeground(Color.WHITE);
         gbc.gridy = 6;
         add(VolverMenu, gbc);
-        VolverMenu.addActionListener(e -> {
+        VolverMenu.addActionListener(e -> 
+        {
             dispose();
             new MenuProyecto();
         });
@@ -116,7 +125,8 @@ public class MenuEmpleado extends JFrame {
         setVisible(true);
     }
 
-    private void ListarEmpleados() {
+    private void ListarEmpleados() 
+    {
         JFrame frame = new JFrame("Listar Empleados");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -145,13 +155,16 @@ public class MenuEmpleado extends JFrame {
         frame.add(Title, gbc);
 
         //Se comprueba si hay conexión a la base de datos
-        if (empleadoController != null) {
-            try {
+        if (empleadoController != null) 
+        {
+            try 
+            {
                 //Se obtiene todos los empleados de la base de datos
                 List<Empleado> empleados = empleadoController.findAll();
 
                 //Si no hay empleados, se muestra un mensaje
-                if (empleados == null || empleados.isEmpty()) {
+                if (empleados == null || empleados.isEmpty()) 
+                {
                     JLabel noEmpleadosLabel = new JLabel("No hay empleados registrados en el sistema");
                     noEmpleadosLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
                     noEmpleadosLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -166,19 +179,23 @@ public class MenuEmpleado extends JFrame {
                     gbc.gridy = 2;
                     frame.add(volverButton, gbc);
 
-                    volverButton.addActionListener(e -> {
+                    volverButton.addActionListener(e -> 
+                    {
                         frame.dispose();
                         new MenuEmpleado(empleadoController);
                     });
                 //Si hay empleados, se muestra el listado de empleados
-                } else {
+                } 
+                else 
+                {
                     JTextArea empleadosTextArea = new JTextArea();
                     empleadosTextArea.setEditable(false);
                     empleadosTextArea.setFont(new Font("Monospaced", Font.PLAIN, fontSize - 2));
 
                     //Se crea un StringBuilder para almacenar el listado de empleados
                     StringBuilder sb = new StringBuilder();
-                    for (Empleado empleado : empleados) {
+                    for (Empleado empleado : empleados) 
+                    {
                         sb.append("ID: ").append(empleado.getID_Empleado()).append("\n");
                         sb.append("Nombre: ").append(empleado.getNombre()).append("\n");
                         sb.append("Apellido: ").append(empleado.getApellido()).append("\n");
@@ -206,20 +223,26 @@ public class MenuEmpleado extends JFrame {
                     gbc.gridy = 2;
                     frame.add(volverButton, gbc);
                     
-                    volverButton.addActionListener(e -> {
+                    volverButton.addActionListener(e -> 
+                    {
                         frame.dispose();
                         new MenuEmpleado(empleadoController);
                     });
                 }
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 System.err.println("Error al obtener los empleados: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
 
-    private void BuscarEmpleado() {
+    private void BuscarEmpleado() 
+    {
         JFrame frame = new JFrame("Buscar Empleado");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -249,8 +272,10 @@ public class MenuEmpleado extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
       
-        if (empleadoController != null) {
-            try {
+        if (empleadoController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID del empleado
                 JLabel idLabel = new JLabel("ID del empleado:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -307,10 +332,13 @@ public class MenuEmpleado extends JFrame {
                 frame.add(volverButton, gbc);
 
                 //Acción para buscar el empleado
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el ID del empleado introducido
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
@@ -319,15 +347,20 @@ public class MenuEmpleado extends JFrame {
                             Empleado empleado = empleadoController.findById(id);
 
                             //Si el empleado existe, se muestra la información del empleado
-                            if (empleado != null) {
+                            if (empleado != null) 
+                            {
                                 empleadoInfo.setText(empleado.toString());
                                 statusLabel.setText("");
-                            } else {
+                            } 
+                            else 
+                            {
                                 //Si el empleado no existe, se muestra un mensaje de error
                                 empleadoInfo.setText("");
                                 statusLabel.setText("No se encontró un empleado con el ID: " + id);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) 
+                        {
                             //Si el ID introducido no es un número, se muestra un mensaje de error
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             empleadoInfo.setText("");
@@ -335,19 +368,25 @@ public class MenuEmpleado extends JFrame {
                     }
                 });
             
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuEmpleado(empleadoController);
                 });
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 System.err.println("Error al buscar el empleado: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
  
-    private void AñadirEmpleado() {
+    private void AñadirEmpleado() 
+    {
         JFrame frame = new JFrame("Añadir Empleado");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -375,8 +414,10 @@ public class MenuEmpleado extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if (empleadoController != null) {
-            try {
+        if (empleadoController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para cada campo del empleado
                 JLabel nombreLabel = new JLabel("Nombre:");
                 nombreLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -511,10 +552,13 @@ public class MenuEmpleado extends JFrame {
                 gbc.gridx = 1;
                 frame.add(volverButton, gbc);
                 
-                guardarButton.addActionListener(new ActionListener() {
+                guardarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String nombre = nombreTextField.getText();
                             String apellido = apellidoTextField.getText();
                             String nif = nifTextField.getText();
@@ -527,27 +571,32 @@ public class MenuEmpleado extends JFrame {
                             
                             if (nombre.isEmpty() || apellido.isEmpty() || nif.isEmpty() || 
                                 direccion.isEmpty() || codigoPostal.isEmpty() || provincia.isEmpty() || 
-                                pais.isEmpty() || telefono.isEmpty() || email.isEmpty()) {
+                                pais.isEmpty() || telefono.isEmpty() || email.isEmpty()) 
+                            {
                                 statusLabel.setText("Error: Todos los campos son obligatorios");
                                 return;
                             }
                             
-                            if (!nif.matches("\\d{8}[A-Za-z]")) {
+                            if (!nif.matches("\\d{8}[A-Za-z]")) 
+                            {
                                 statusLabel.setText("Error: El NIF debe tener 8 números seguidos de 1 letra");
                                 return;
                             }
                             
-                            if (!codigoPostal.matches("\\d{5}")) {
+                            if (!codigoPostal.matches("\\d{5}")) 
+                            {
                                 statusLabel.setText("Error: El código postal debe tener 5 dígitos");
                                 return;
                             }
                             
-                            if (!telefono.matches("\\d{9}")) {
+                            if (!telefono.matches("\\d{9}")) 
+                            {
                                 statusLabel.setText("Error: El teléfono debe tener 9 dígitos");
                                 return;
                             }
                             
-                            if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                            if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) 
+                            {
                                 statusLabel.setText("Error: El email debe tener un formato válido");
                                 return;
                             }
@@ -567,25 +616,33 @@ public class MenuEmpleado extends JFrame {
                             paisTextField.setText("");
                             telefonoTextField.setText("");
                             emailTextField.setText("");
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             statusLabel.setText("Error al guardar el empleado: " + ex.getMessage());
                         }
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuEmpleado(empleadoController);
                 });
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 System.err.println("Error al añadir el empleado: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
  
-    private void ActualizarEmpleado() {
+    private void ActualizarEmpleado() 
+    {
         JFrame frame = new JFrame("Actualizar Empleado");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -614,8 +671,10 @@ public class MenuEmpleado extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if (empleadoController != null) {
-            try {
+        if (empleadoController != null) 
+        {
+            try 
+            {
                 JLabel idLabel = new JLabel("ID del empleado:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
                 gbc.gridy = 1;
@@ -787,8 +846,10 @@ public class MenuEmpleado extends JFrame {
                 buscarButton.addActionListener(new ActionListener() 
                 {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
 
@@ -796,7 +857,8 @@ public class MenuEmpleado extends JFrame {
                             Empleado empleado = empleadoController.findById(id);
 
                             //Si el empleado existe, se muestra la información del empleado
-                            if (empleado != null) {
+                            if (empleado != null) 
+                            {
                                 empleadoId[0] = empleado.getID_Empleado();
                                 nombreTextField.setText(empleado.getNombre());
                                 apellidoTextField.setText(empleado.getApellido());
@@ -849,7 +911,9 @@ public class MenuEmpleado extends JFrame {
                                 emailTextField.setEnabled(false);
                                 actualizarButton.setEnabled(false);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) 
+                        {
                             //Si el ID introducido no es un número, se deshabilita el botón de actualizar
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             nombreTextField.setEnabled(false);
@@ -870,8 +934,10 @@ public class MenuEmpleado extends JFrame {
                 actualizarButton.addActionListener(new ActionListener() 
                 {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el valor de cada campo del formulario
                             String nombre = nombreTextField.getText();
                             String apellido = apellidoTextField.getText();
@@ -886,31 +952,36 @@ public class MenuEmpleado extends JFrame {
                             //Se comprueba si algún campo está vacío
                             if (nombre.isEmpty() || apellido.isEmpty() || nif.isEmpty() || 
                                 direccion.isEmpty() || codigoPostal.isEmpty() || provincia.isEmpty() || 
-                                pais.isEmpty() || telefono.isEmpty() || email.isEmpty()) {
+                                pais.isEmpty() || telefono.isEmpty() || email.isEmpty()) 
+                            {
                                 statusLabel.setText("Error: Todos los campos son obligatorios");
                                 return;
                             }
 
                             //Se comprueba si el NIF tiene el formato correcto
-                            if (!nif.matches("\\d{8}[A-Za-z]")) {
+                            if (!nif.matches("\\d{8}[A-Za-z]")) 
+                            {
                                 statusLabel.setText("Error: El NIF debe tener 8 números seguidos de 1 letra");
                                 return;
                             }
 
                             //Se comprueba si el código postal tiene el formato correcto
-                            if (!codigoPostal.matches("\\d{5}")) {
+                            if (!codigoPostal.matches("\\d{5}")) 
+                            {
                                 statusLabel.setText("Error: El código postal debe tener 5 dígitos");
                                 return;
                             }
 
                             //Se comprueba si el teléfono tiene el formato correcto
-                            if (!telefono.matches("\\d{9}")) {
+                            if (!telefono.matches("\\d{9}")) 
+                            {
                                 statusLabel.setText("Error: El teléfono debe tener 9 dígitos");
                                 return;
                             }
 
                             //Se comprueba si el email tiene el formato correcto
-                            if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                            if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) 
+                            {
                                 statusLabel.setText("Error: El email debe tener un formato válido");
                                 return;
                             }
@@ -922,13 +993,16 @@ public class MenuEmpleado extends JFrame {
                             empleadoController.save(empleadoActualizado);
 
                             statusLabel.setText("Empleado actualizado correctamente.");
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             statusLabel.setText("Error al actualizar el empleado: " + ex.getMessage());
                         }
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuEmpleado(empleadoController);
                 });
@@ -944,7 +1018,8 @@ public class MenuEmpleado extends JFrame {
         }
     }
  
-    private void EliminarEmpleado() {
+    private void EliminarEmpleado() 
+    {
         JFrame frame = new JFrame("Eliminar Empleado");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -974,8 +1049,10 @@ public class MenuEmpleado extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if (empleadoController != null) {
-            try {
+        if (empleadoController != null) 
+        {
+            try 
+            {
                 // Se crea un JLabel y un JTextField para introducir el ID del empleado
                 JLabel idLabel = new JLabel("ID del empleado a eliminar:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -1044,10 +1121,13 @@ public class MenuEmpleado extends JFrame {
                 final Long[] empleadoId = new Long[1];
                 
                 //Acción para buscar el empleado
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
 
@@ -1055,20 +1135,23 @@ public class MenuEmpleado extends JFrame {
                             Empleado empleado = empleadoController.findById(id);
 
                             //Si el empleado existe, se muestra la información del empleado
-                            if (empleado != null) {
+                            if (empleado != null) 
+                            {
                                 empleadoId[0] = empleado.getID_Empleado();
                                 empleadoInfo.setText(empleado.toString());
                                 eliminarButton.setEnabled(true);
                                 statusLabel.setText("Empleado encontrado. Pulse 'Eliminar Empleado' para confirmar.");
                             } 
-                            else {
+                            else 
+                            {
                                 //Si el empleado no existe, se limpia el formulario y se deshabilita el botón de eliminar
                                 empleadoInfo.setText("");
                                 eliminarButton.setEnabled(false);
                                 statusLabel.setText("No se encontró un empleado con el ID: " + id);
                             }
                         } 
-                        catch (NumberFormatException nfe) {
+                        catch (NumberFormatException nfe) 
+                        {
                             //Si el ID introducido no es un número, se deshabilita el botón de eliminar
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             empleadoInfo.setText("");
@@ -1078,10 +1161,13 @@ public class MenuEmpleado extends JFrame {
                 });
 
                 //Acción para eliminar el empleado
-                eliminarButton.addActionListener(new ActionListener() {
+                eliminarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se muestra un mensaje de confirmación para eliminar el empleado
                             int confirmacion = JOptionPane.showConfirmDialog(frame, 
                                 "¿Está seguro de que desea eliminar este empleado?", 
@@ -1089,7 +1175,8 @@ public class MenuEmpleado extends JFrame {
                                 JOptionPane.YES_NO_OPTION);
 
                             //Si el usuario confirma la eliminación, se elimina el empleado
-                            if (confirmacion == JOptionPane.YES_OPTION) {
+                            if (confirmacion == JOptionPane.YES_OPTION) 
+                            {
                                 empleadoController.delete(empleadoId[0]);
                                 
                             
@@ -1099,23 +1186,27 @@ public class MenuEmpleado extends JFrame {
                                 statusLabel.setText("Empleado eliminado correctamente.");
                             }
                         } 
-                        catch (Exception ex) {
+                        catch (Exception ex) 
+                        {
                             //Si ocurre un error, se muestra un mensaje de error
                             statusLabel.setText("Error al eliminar el empleado: " + ex.getMessage());
                         }
                     }
                 });
                 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuEmpleado(empleadoController);
                 });
             }
-            catch(Exception e) {
+            catch(Exception e) 
+            {
                 System.err.println("Error al eliminar el empleado: " + e.getMessage());
             }
         }
-        else {
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }

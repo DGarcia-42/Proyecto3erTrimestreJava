@@ -8,16 +8,19 @@ import java.util.List;
 import org.carlosydiego.crmclientes.app.controller.*;
 import org.carlosydiego.crmclientes.app.model.*;
 
-public class MenuCliente extends JFrame {
+public class MenuCliente extends JFrame 
+{
     private ClienteController clienteController;
 
     // Constructor de la clase MenuCliente con su controlador
-    public MenuCliente(ClienteController clienteController) {
+    public MenuCliente(ClienteController clienteController) 
+    {
         this.clienteController = clienteController;
         initializeMenu();
     }
 
-    private void initializeMenu() {
+    private void initializeMenu() 
+    {
         setLayout(new GridBagLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -48,7 +51,8 @@ public class MenuCliente extends JFrame {
         TodoCliente.setForeground(Color.WHITE);
         gbc.gridy = 1;
         add(TodoCliente, gbc);
-        TodoCliente.addActionListener(e -> {
+        TodoCliente.addActionListener(e -> 
+        {
             dispose();
             ListarClientes();
         });
@@ -60,7 +64,8 @@ public class MenuCliente extends JFrame {
         BuscarCliente.setForeground(Color.WHITE);
         gbc.gridy = 2;
         add(BuscarCliente, gbc);
-        BuscarCliente.addActionListener(e -> {
+        BuscarCliente.addActionListener(e -> 
+        {
             dispose();
             BuscarCliente();
         });
@@ -72,7 +77,8 @@ public class MenuCliente extends JFrame {
         AñadirCliente.setForeground(Color.WHITE);
         gbc.gridy = 3;
         add(AñadirCliente, gbc);
-        AñadirCliente.addActionListener(e -> {
+        AñadirCliente.addActionListener(e -> 
+        {
             dispose();
             AñadirCliente();
         });
@@ -84,7 +90,8 @@ public class MenuCliente extends JFrame {
         ModificarCliente.setForeground(Color.WHITE);
         gbc.gridy = 4;
         add(ModificarCliente, gbc);
-        ModificarCliente.addActionListener(e -> {
+        ModificarCliente.addActionListener(e -> 
+        {
             dispose();
             ActualizarCliente();
         });
@@ -96,7 +103,8 @@ public class MenuCliente extends JFrame {
         EliminarCliente.setForeground(Color.WHITE);
         gbc.gridy = 5;
         add(EliminarCliente, gbc);
-        EliminarCliente.addActionListener(e -> {
+        EliminarCliente.addActionListener(e -> 
+        {
             dispose();
             EliminarCliente();
         });
@@ -108,7 +116,8 @@ public class MenuCliente extends JFrame {
         VolverMenu.setForeground(Color.WHITE);
         gbc.gridy = 6;
         add(VolverMenu, gbc);
-        VolverMenu.addActionListener(e -> {
+        VolverMenu.addActionListener(e -> 
+        {
             dispose();
             new MenuProyecto();
         });
@@ -116,7 +125,8 @@ public class MenuCliente extends JFrame {
         setVisible(true);
     }
 
-    private void ListarClientes() {
+    private void ListarClientes() 
+    {
         JFrame frame = new JFrame("Listar Clientes");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -145,13 +155,16 @@ public class MenuCliente extends JFrame {
         frame.add(Title, gbc);
 
         //Comprobación de si hay conexión a la base de datos
-        if (clienteController != null) {
-            try {
+        if (clienteController != null) 
+        {
+            try 
+            {
                 //Se obtiene todos los clientes de la base de datos
                 List<Cliente> clientes = clienteController.findAll();
 
                 //Si no hay clientes registrados, se muestra un mensaje y un botón para volver al menu principal
-                if (clientes == null || clientes.isEmpty()) {
+                if (clientes == null || clientes.isEmpty()) 
+                {
                     JLabel noClientesLabel = new JLabel("No hay clientes registrados en el sistema");
                     noClientesLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
                     noClientesLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -166,19 +179,23 @@ public class MenuCliente extends JFrame {
                     gbc.gridy = 2;
                     frame.add(volverButton, gbc);
                     
-                    volverButton.addActionListener(e -> {
+                    volverButton.addActionListener(e -> 
+                    {
                         frame.dispose();
                         new MenuCliente(clienteController);
                     });
                 //Si hay clientes registrados, se muestra el listado de clientes
-                } else {
+                } 
+                else 
+                {
                     JTextArea clientesTextArea = new JTextArea();
                     clientesTextArea.setEditable(false);
                     clientesTextArea.setFont(new Font("Monospaced", Font.PLAIN, fontSize - 2));
                     
                     //Se crea un StringBuilder para almacenar el listado de clientes
                     StringBuilder sb = new StringBuilder();
-                    for (Cliente cliente : clientes) {
+                    for (Cliente cliente : clientes) 
+                    {
                         sb.append("ID: ").append(cliente.getID_Cliente()).append("\n");
                         sb.append("CIF: ").append(cliente.getCIF()).append("\n");
                         sb.append("Empresa: ").append(cliente.getNombre_Empresa()).append("\n");
@@ -206,15 +223,20 @@ public class MenuCliente extends JFrame {
                     gbc.gridy = 2;
                     frame.add(volverButton, gbc);
                     
-                    volverButton.addActionListener(e -> {
+                    volverButton.addActionListener(e -> 
+                    {
                         frame.dispose();
                         new MenuCliente(clienteController);
                     });
                 }
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 System.err.println("Error al listar clientes: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
@@ -310,10 +332,12 @@ public class MenuCliente extends JFrame {
             frame.add(volverButton, gbc);
 
             //Acción para buscar el cliente
-            buscarButton.addActionListener(new ActionListener() {
+            buscarButton.addActionListener(new ActionListener() 
+            {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    try {
+                    try 
+                    {
                         //Se obtiene el ID del cliente introducido
                         String input = idTextField.getText();
                         long id = Long.parseLong(input);
@@ -322,15 +346,20 @@ public class MenuCliente extends JFrame {
                         Cliente cliente = clienteController.findById(id);
 
                         //Si el cliente existe, se muestra la información del cliente
-                        if (cliente != null) {
+                        if (cliente != null) 
+                        {
                             clienteInfo.setText(cliente.toString());
                             statusLabel.setText("");
-                        } else {
+                        } 
+                        else 
+                        {
                             //Si el cliente no existe, se muestra un mensaje de error
                             clienteInfo.setText("");
                             statusLabel.setText("No se encontró un cliente con el ID: " + id);
                         }
-                    } catch (NumberFormatException nfe) {
+                    } 
+                    catch (NumberFormatException nfe) 
+                    {
                         //Si el ID introducido no es un número, se muestra un mensaje de error
                         statusLabel.setText("ID inválido. Introduce un número válido.");
                         clienteInfo.setText("");
@@ -338,7 +367,8 @@ public class MenuCliente extends JFrame {
                 }
             });
             
-            volverButton.addActionListener(e -> {
+            volverButton.addActionListener(e -> 
+            {
                 frame.dispose();
                 new MenuCliente(clienteController);
             });
@@ -354,7 +384,8 @@ public class MenuCliente extends JFrame {
       }
     } 
   
-    private void AñadirCliente() {
+    private void AñadirCliente() 
+    {
         JFrame frame = new JFrame("Añadir Cliente");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -382,8 +413,10 @@ public class MenuCliente extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if (clienteController != null) {
-            try {
+        if (clienteController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para cada campo del cliente
                 JLabel cifLabel = new JLabel("CIF (1 letra + 8 números):");
                 cifLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -519,10 +552,13 @@ public class MenuCliente extends JFrame {
                 frame.add(volverButton, gbc);
 
                 //Acción para guardar el cliente
-                guardarButton.addActionListener(new ActionListener() {
+                guardarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el valor de cada campo del cliente
                             String cif = cifTextField.getText();
                             String nombreEmpresa = nombreEmpresaTextField.getText();
@@ -537,13 +573,15 @@ public class MenuCliente extends JFrame {
                             //Se comprueba si algún campo está vacío
                             if(cif.isEmpty() || nombreEmpresa.isEmpty() || nombreResponsable.isEmpty() || 
                                pais.isEmpty() || provincia.isEmpty() || direccion.isEmpty() || 
-                               email.isEmpty() || telefono.isEmpty() || cp.isEmpty()) {
+                               email.isEmpty() || telefono.isEmpty() || cp.isEmpty()) 
+                            {
                                 statusLabel.setText("Error: Todos los campos son obligatorios");
                                 return;
                             }
 
                             //Se comprueba si el CIF tiene el formato correcto
-                            if(!cif.matches("[A-Za-z]\\d{8}")) {
+                            if(!cif.matches("[A-Za-z]\\d{8}")) 
+                            {
                                 statusLabel.setText("Error: El CIF debe tener 1 letra seguida de 8 números");
                                 return;
                             }
@@ -555,13 +593,15 @@ public class MenuCliente extends JFrame {
                             }
 
                             //Se comprueba si el teléfono tiene el formato correcto
-                            if(!telefono.matches("\\d{9}")) {
+                            if(!telefono.matches("\\d{9}")) 
+                            {
                                 statusLabel.setText("Error: El teléfono debe tener 9 dígitos");
                                 return;
                             }
 
                             //Se comprueba si el código postal tiene el formato correcto
-                            if(!cp.matches("\\d{5}")) {
+                            if(!cp.matches("\\d{5}")) 
+                            {
                                 statusLabel.setText("Error: El código postal debe tener 5 dígitos");
                                 return;
                             }
@@ -585,25 +625,33 @@ public class MenuCliente extends JFrame {
                             emailTextField.setText("");
                             telefonoTextField.setText("");
                             cpTextField.setText("");
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             statusLabel.setText("Error al guardar el cliente: " + ex.getMessage());
                         }
                     }
                 });
 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuCliente(clienteController);
                 });
-            } catch(Exception e) {
+            } 
+            catch(Exception e) 
+            {
                 System.err.println("Error al añadir el cliente: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
     
-    private void ActualizarCliente() {
+    private void ActualizarCliente() 
+    {
         JFrame frame = new JFrame("Actualizar Cliente");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -632,8 +680,10 @@ public class MenuCliente extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if (clienteController != null) {
-            try {
+        if (clienteController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID del cliente
                 JLabel idLabel = new JLabel("ID del cliente:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -803,10 +853,13 @@ public class MenuCliente extends JFrame {
                 final Long[] clienteId = new Long[1];
 
                 //Acción para buscar el cliente
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
 
@@ -814,7 +867,8 @@ public class MenuCliente extends JFrame {
                             Cliente cliente = clienteController.findById(id);
 
                             //Si el cliente existe, se muestra la información del cliente
-                            if (cliente != null) {
+                            if (cliente != null) 
+                            {
                                 clienteId[0] = cliente.getID_Cliente();
                                 cifTextField.setText(cliente.getCIF());
                                 nombreEmpresaTextField.setText(cliente.getNombre_Empresa());
@@ -839,7 +893,9 @@ public class MenuCliente extends JFrame {
                                 actualizarButton.setEnabled(true);
                                 
                                 statusLabel.setText("Cliente encontrado. Puedes editar los campos y actualizar.");
-                            } else {
+                            } 
+                            else 
+                            {
                                 //Si el cliente no existe, se limpia el formulario y se deshabilitan los campos
                                 cifTextField.setText("");
                                 nombreEmpresaTextField.setText("");
@@ -864,7 +920,9 @@ public class MenuCliente extends JFrame {
                                 
                                 statusLabel.setText("No se encontró un cliente con el ID: " + id);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) 
+                        {
                             //Si el ID introducido no es un número, se deshabilitan los campos
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             cifTextField.setEnabled(false);
@@ -882,10 +940,13 @@ public class MenuCliente extends JFrame {
                 });
 
                 //Acción para actualizar el cliente
-                actualizarButton.addActionListener(new ActionListener() {
+                actualizarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se obtiene el valor de cada campo del cliente
                             String cif = cifTextField.getText();
                             String nombreEmpresa = nombreEmpresaTextField.getText();
@@ -900,31 +961,36 @@ public class MenuCliente extends JFrame {
                             //Se comprueba si algún campo está vacío
                             if(cif.isEmpty() || nombreEmpresa.isEmpty() || nombreResponsable.isEmpty() || 
                                pais.isEmpty() || provincia.isEmpty() || direccion.isEmpty() || 
-                               email.isEmpty() || telefono.isEmpty() || cp.isEmpty()) {
+                               email.isEmpty() || telefono.isEmpty() || cp.isEmpty()) 
+                            {
                                 statusLabel.setText("Error: Todos los campos son obligatorios");
                                 return;
                             }
 
                             //Se comprueba si el CIF tiene el formato correcto
-                            if(!cif.matches("[A-Za-z]\\d{8}")) {
+                            if(!cif.matches("[A-Za-z]\\d{8}")) 
+                            {
                                 statusLabel.setText("Error: El CIF debe tener 1 letra seguida de 8 números");
                                 return;
                             }
 
                             //Se comprueba si el email tiene el formato correcto
-                            if(!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                            if(!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) 
+                            {
                                 statusLabel.setText("Error: El email debe tener un formato válido");
                                 return;
                             }
 
                             //Se comprueba si el teléfono tiene el formato correcto
-                            if(!telefono.matches("\\d{9}")) {
+                            if(!telefono.matches("\\d{9}")) 
+                            {
                                 statusLabel.setText("Error: El teléfono debe tener 9 dígitos");
                                 return;
                             }
 
                             //Se comprueba si el código postal tiene el formato correcto
-                            if(!cp.matches("\\d{5}")) {
+                            if(!cp.matches("\\d{5}")) 
+                            {
                                 statusLabel.setText("Error: El código postal debe tener 5 dígitos");
                                 return;
                             }
@@ -946,25 +1012,33 @@ public class MenuCliente extends JFrame {
                             clienteController.save(clienteActualizado);
 
                             statusLabel.setText("Cliente actualizado correctamente.");
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             statusLabel.setText("Error al actualizar el cliente: " + ex.getMessage());
                         }
                     }
                 });
 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuCliente(clienteController);
                 });
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 System.err.println("Error al actualizar el cliente: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     }
     
-    private void EliminarCliente() {
+    private void EliminarCliente() 
+    {
         JFrame frame = new JFrame("Eliminar Cliente");
         frame.setLayout(new GridBagLayout());
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -994,8 +1068,10 @@ public class MenuCliente extends JFrame {
         gbc.gridwidth = 2;
         frame.add(Title, gbc);
 
-        if (clienteController != null) {
-            try {
+        if (clienteController != null) 
+        {
+            try 
+            {
                 //Se crea un JLabel y un JTextField para introducir el ID del cliente
                 JLabel idLabel = new JLabel("ID del cliente a eliminar:");
                 idLabel.setFont(new Font("Roboto", Font.PLAIN, fontSize));
@@ -1064,10 +1140,13 @@ public class MenuCliente extends JFrame {
                 final Long[] clienteId = new Long[1];
 
                 //Acción para buscar el cliente
-                buscarButton.addActionListener(new ActionListener() {
+                buscarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             String input = idTextField.getText();
                             long id = Long.parseLong(input);
 
@@ -1075,18 +1154,22 @@ public class MenuCliente extends JFrame {
                             Cliente cliente = clienteController.findById(id);
 
                             //Si el cliente existe, se muestra la información del cliente
-                            if (cliente != null) {
+                            if (cliente != null) 
+                            {
                                 clienteId[0] = cliente.getID_Cliente();
                                 clienteInfo.setText(cliente.toString());
                                 eliminarButton.setEnabled(true);
                                 statusLabel.setText("Cliente encontrado. Pulse 'Eliminar Cliente' para confirmar.");
-                            } else {
+                            } 
+                            else 
+                            {
                                 // Si el cliente no existe, se limpia el formulario y se deshabilita el botón de eliminar
                                 clienteInfo.setText("");
                                 eliminarButton.setEnabled(false);
                                 statusLabel.setText("No se encontró un cliente con el ID: " + id);
                             }
-                        } catch (NumberFormatException nfe) {
+                        } 
+                        catch (NumberFormatException nfe) {
                             // Si el ID introducido no es un número, se deshabilita el botón de eliminar
                             statusLabel.setText("ID inválido. Introduce un número válido.");
                             clienteInfo.setText("");
@@ -1096,10 +1179,13 @@ public class MenuCliente extends JFrame {
                 });
 
                 //Acción para eliminar el cliente
-                eliminarButton.addActionListener(new ActionListener() {
+                eliminarButton.addActionListener(new ActionListener() 
+                {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        try 
+                        {
                             //Se muestra un mensaje de confirmación para eliminar el cliente
                             int confirmacion = JOptionPane.showConfirmDialog(frame,
                                     "¿Está seguro de que desea eliminar este cliente?",
@@ -1107,28 +1193,36 @@ public class MenuCliente extends JFrame {
                                     JOptionPane.YES_NO_OPTION);
 
                             //Si el usuario confirma la eliminación, se elimina el cliente
-                            if (confirmacion == JOptionPane.YES_OPTION) {
+                            if (confirmacion == JOptionPane.YES_OPTION) 
+                            {
                                 clienteController.delete(clienteId[0]);
                                 clienteInfo.setText("");
                                 idTextField.setText("");
                                 eliminarButton.setEnabled(false);
                                 statusLabel.setText("Cliente eliminado correctamente.");
                             }
-                        } catch (Exception ex) {
+                        } 
+                        catch (Exception ex) 
+                        {
                             //Si ocurre un error, se muestra un mensaje de error
                             statusLabel.setText("Error al eliminar el cliente: " + ex.getMessage());
                         }
                     }
                 });
 
-                volverButton.addActionListener(e -> {
+                volverButton.addActionListener(e -> 
+                {
                     frame.dispose();
                     new MenuCliente(clienteController);
                 });
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 System.err.println("Error al eliminar el cliente: " + e.getMessage());
             }
-        } else {
+        } 
+        else 
+        {
             System.out.println("Error: No hay conexion a la base de datos");
         }
     } 
