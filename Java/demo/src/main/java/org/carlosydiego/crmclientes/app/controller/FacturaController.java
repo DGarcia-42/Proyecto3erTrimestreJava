@@ -241,6 +241,7 @@ public class FacturaController implements FacturaRepository<Factura>
                                 return;
                             }
 
+                            // Obtenemos el ID de la factura generado con getGeneratedKeys para comprobar si se ha creado correctamente y actualizamos el stock del producto
                             try (ResultSet generatedKeys = ps.getGeneratedKeys())
                             {
                                 if (generatedKeys.next())
